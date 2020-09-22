@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="172" id="KGk-i7-Jjw" customClass="VoucherListTableCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="172"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="171"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="positions_VoucherEff" translatesAutoresizingMaskIntoConstraints="NO" id="Ymm-6X-cRv">
+                        <rect key="frame" x="10" y="10" width="300" height="88.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Ymm-6X-cRv" secondAttribute="height" multiplier="664:196" id="NIg-Mf-tUz"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYQ-zI-0jr">
+                        <rect key="frame" x="10" y="10" width="88.5" height="88.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="GYQ-zI-0jr" secondAttribute="height" multiplier="1:1" id="Aog-8a-oID"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="限8元/手的产品使用" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDv-mM-Uyf">
+                        <rect key="frame" x="108.5" y="38" width="201.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="有效期:2017-01-18 11:08:40" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CwC-a4-KvR">
+                        <rect key="frame" x="108.5" y="60" width="201.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.58431372549019611" green="0.58431372549019611" blue="0.58431372549019611" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="剩余4天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUJ-ky-Qkc">
+                        <rect key="frame" x="251.5" y="86" width="48.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.96752530336380005" green="0.18967875838279724" blue="0.024297088384628296" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="Ymm-6X-cRv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="3Ly-5I-NXj"/>
+                    <constraint firstAttribute="trailing" secondItem="bUJ-ky-Qkc" secondAttribute="trailing" constant="20" id="7Gm-WK-B1Y"/>
+                    <constraint firstItem="CDv-mM-Uyf" firstAttribute="centerY" secondItem="Ymm-6X-cRv" secondAttribute="centerY" constant="-8" id="7b4-UB-3yM"/>
+                    <constraint firstAttribute="trailing" secondItem="CDv-mM-Uyf" secondAttribute="trailing" constant="10" id="9pc-pN-Ij4"/>
+                    <constraint firstAttribute="trailing" secondItem="Ymm-6X-cRv" secondAttribute="trailing" constant="10" id="F6B-PL-8FF"/>
+                    <constraint firstItem="GYQ-zI-0jr" firstAttribute="height" secondItem="Ymm-6X-cRv" secondAttribute="height" id="PSt-Qo-7ld"/>
+                    <constraint firstAttribute="trailing" secondItem="CwC-a4-KvR" secondAttribute="trailing" constant="10" id="RXz-os-tsA"/>
+                    <constraint firstItem="CDv-mM-Uyf" firstAttribute="leading" secondItem="GYQ-zI-0jr" secondAttribute="trailing" constant="10" id="amE-oS-gpu"/>
+                    <constraint firstItem="GYQ-zI-0jr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="b70-hc-JYw"/>
+                    <constraint firstAttribute="bottom" secondItem="bUJ-ky-Qkc" secondAttribute="bottom" constant="15" id="cdC-cg-2BT"/>
+                    <constraint firstItem="CwC-a4-KvR" firstAttribute="leading" secondItem="GYQ-zI-0jr" secondAttribute="trailing" constant="10" id="ewy-Lz-T7m"/>
+                    <constraint firstItem="GYQ-zI-0jr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="iGJ-u7-Qj3"/>
+                    <constraint firstItem="CwC-a4-KvR" firstAttribute="top" secondItem="CDv-mM-Uyf" secondAttribute="bottom" constant="5" id="mR5-5z-Jyc"/>
+                    <constraint firstItem="bUJ-ky-Qkc" firstAttribute="top" secondItem="CwC-a4-KvR" secondAttribute="bottom" constant="10" id="t1J-vh-EFr"/>
+                    <constraint firstItem="Ymm-6X-cRv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="utP-ka-2L3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="backImageView" destination="Ymm-6X-cRv" id="Tgs-wF-2RT"/>
+                <outlet property="limitLable" destination="CDv-mM-Uyf" id="o5f-Pw-G5S"/>
+                <outlet property="priceLable" destination="GYQ-zI-0jr" id="628-tg-EE9"/>
+                <outlet property="timeLable" destination="bUJ-ky-Qkc" id="1QC-Se-1jA"/>
+                <outlet property="validityLable" destination="CwC-a4-KvR" id="HlG-At-zyz"/>
+            </connections>
+            <point key="canvasLocation" x="-32" y="118"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="positions_VoucherEff" width="332" height="98"/>
+    </resources>
+</document>

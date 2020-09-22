@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutOurIntroVC">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="盈投资是由上海绥元企业管理咨询有限公司独立开发的app，为用户提供投资咨询，教育指导用户如何在茫茫海量咨询中抓住时机，创造未来等各项服务咨询。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rt1-rB-Glq">
+                    <rect key="frame" x="10" y="10" width="355" height="50.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.58431372549019611" green="0.58431372549019611" blue="0.58431372549019611" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="企业官网：" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFY-v7-fPd">
+                    <rect key="frame" x="10" y="75.5" width="71.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.58431372550000005" green="0.58431372550000005" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://www.wintz.cn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arR-Dv-tZk">
+                    <rect key="frame" x="81.5" y="76" width="128" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.22352941176470587" green="0.36862745098039218" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQ3-Uv-qiw">
+                    <rect key="frame" x="80.5" y="64.5" width="130" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="130" id="DWN-Qu-e8R"/>
+                        <constraint firstAttribute="height" constant="40" id="Xxt-2F-HwT"/>
+                    </constraints>
+                    <connections>
+                        <action selector="urlLinkButtonClick:" destination="-1" eventType="touchUpInside" id="NxT-C5-UjS"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="rt1-rB-Glq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="3eu-wh-5at"/>
+                <constraint firstItem="arR-Dv-tZk" firstAttribute="centerY" secondItem="oFY-v7-fPd" secondAttribute="centerY" id="5FM-DH-IZn"/>
+                <constraint firstItem="rt1-rB-Glq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="8aK-YL-VUg"/>
+                <constraint firstAttribute="trailing" secondItem="rt1-rB-Glq" secondAttribute="trailing" constant="10" id="GvV-bd-ylP"/>
+                <constraint firstItem="oFY-v7-fPd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Lyh-wp-dHY"/>
+                <constraint firstItem="oFY-v7-fPd" firstAttribute="top" secondItem="rt1-rB-Glq" secondAttribute="bottom" constant="15" id="MvS-w8-m8c"/>
+                <constraint firstItem="GQ3-Uv-qiw" firstAttribute="centerX" secondItem="arR-Dv-tZk" secondAttribute="centerX" id="egY-Lu-Vb4"/>
+                <constraint firstItem="GQ3-Uv-qiw" firstAttribute="centerY" secondItem="arR-Dv-tZk" secondAttribute="centerY" id="mox-SS-ow0"/>
+                <constraint firstItem="arR-Dv-tZk" firstAttribute="leading" secondItem="oFY-v7-fPd" secondAttribute="trailing" id="tJI-Pd-NIo"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FeedbackProblemVC">
+            <connections>
+                <outlet property="_imageContentView" destination="QvX-7U-X8C" id="UbQ-NX-hqa"/>
+                <outlet property="_placeholderLable" destination="cHJ-lw-UHj" id="IrT-wP-LPm"/>
+                <outlet property="_suggestTextView" destination="9tV-yo-FuZ" id="Vox-0h-7vr"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9tV-yo-FuZ">
+                    <rect key="frame" x="15" y="10" width="345" height="150"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="bUz-3z-fb9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="vbA-cJ-nEW"/>
+                    </connections>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="问题截图:(最多只能三张图)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSd-5Z-h4h">
+                    <rect key="frame" x="15" y="175" width="171" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请描述您要反馈的问题或建议" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHJ-lw-UHj">
+                    <rect key="frame" x="19" y="16" width="186" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.73333333333333328" green="0.72941176470588232" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QvX-7U-X8C">
+                    <rect key="frame" x="15" y="207" width="345" height="115"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="QvX-7U-X8C" secondAttribute="height" multiplier="3:1" id="1UY-LS-1NY"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="QvX-7U-X8C" secondAttribute="trailing" constant="15" id="2Xe-fT-jtL"/>
+                <constraint firstItem="QvX-7U-X8C" firstAttribute="top" secondItem="SSd-5Z-h4h" secondAttribute="bottom" constant="15" id="5c8-Dn-9zP"/>
+                <constraint firstItem="SSd-5Z-h4h" firstAttribute="top" secondItem="9tV-yo-FuZ" secondAttribute="bottom" constant="15" id="9Zk-gh-p4E"/>
+                <constraint firstItem="SSd-5Z-h4h" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="OlH-Lw-kxr"/>
+                <constraint firstItem="cHJ-lw-UHj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="19" id="Olx-Ng-k8L"/>
+                <constraint firstItem="9tV-yo-FuZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="WJ9-pW-sNm"/>
+                <constraint firstItem="9tV-yo-FuZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="jkN-zi-nYP"/>
+                <constraint firstAttribute="trailing" secondItem="9tV-yo-FuZ" secondAttribute="trailing" constant="15" id="k3Y-Rp-IPu"/>
+                <constraint firstItem="cHJ-lw-UHj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="n44-Ym-bMj"/>
+                <constraint firstItem="QvX-7U-X8C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="uQA-hs-kFd"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
