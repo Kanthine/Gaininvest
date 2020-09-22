@@ -24,9 +24,7 @@
 @implementation UserInfoHttpManager
 
 - (void)dealloc
-{
-    NSLog(@"LoginHttpManager dealloc");
-    
+{    
     [_netClient.operationQueue cancelAllOperations];
     
     [self cancelAllRequest];

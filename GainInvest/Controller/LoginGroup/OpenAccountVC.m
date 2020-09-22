@@ -9,9 +9,8 @@
 #import "OpenAccountVC.h"
 
 #import "ValidateClass.h"
-
-#import "LoginHttpManager.h"
 #import "SetTransactionPasswordVC.h"
+
 @interface OpenAccountVC ()
 
 {
@@ -25,8 +24,6 @@
     __weak IBOutlet UITextField *_verCodeTf;
     
 }
-
-@property (nonatomic ,strong) LoginHttpManager *httpManager;
 @property (nonatomic ,strong) NSTimer *timer;
 
 
@@ -35,23 +32,9 @@
 @implementation OpenAccountVC
 
 - (void)dealloc
-{
-    _httpManager = nil;
-    
+{    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
-
-- (LoginHttpManager *)httpManager
-{
-    if (_httpManager == nil)
-    {
-        _httpManager = [[LoginHttpManager alloc]init];
-    }
-    
-    return _httpManager;
-}
-
-
 
 - (void)viewDidLoad
 {
@@ -132,48 +115,18 @@
     
     
     
-    if ([ValidateClass isMobile:_phoneTf.text])
-    {
+    if ([ValidateClass isMobile:_phoneTf.text]){
         if (sender.enabled)
         {
             // -- > 发送短信请求
             [self timer];
             [sender setTitleColor:RGBA(149, 149, 149, 1) forState:UIControlStateNormal];
-            
             //获取验证码
-            
-            
-            NSDictionary *parameterDict = @{@"mobile_phone":_phoneTf.text,@"ischeck":@"1"};
-            
-            [self.httpManager getVerificationCodeWithParameterDict:parameterDict CompletionBlock:^(NSString *verificationCodeString, NSError *error)
-             {
-                 
-                 if (error)
-                 {
-                     [self stopTimer];
-                     
-                     if ([error.domain isEqualToString:@"用户名已经存在"] || error.code == 1)
-                     {
-                         [ErrorTipView errorTip:@"此手机号已使用！请您换个手机号" SuperView:self.view];
-                     }
-                     else
-                     {
-                         [ErrorTipView errorTip:error.domain SuperView:self.view];
-                     }
-                     
-                 }
-                 else
-                 {
-                     _verificationCodeString = verificationCodeString;
-                 }
-             }];
-            
+            _verificationCodeString = @"123456";
             //不能连续点击
             sender.enabled = NO;
         }
-    }
-    else
-    {
+    }else{
         //手机号有问题，提示
         if (_phoneTf.text.length == 0)
         {
@@ -256,49 +209,15 @@
     return YES;
 }
 
-- (IBAction)confirmButtonClick:(UIButton *)sender
-{
-    if ([self isLeagle] == NO)
-    {
+- (IBAction)confirmButtonClick:(UIButton *)sender{
+    if ([self isLeagle] == NO){
         return;
     }
     
+    AccountInfo.standardAccountInfo.phone = _phoneTf.text;
+    [AccountInfo.standardAccountInfo storeAccountInfo];
     
-    ThirdLoginModel *model = [ThirdLoginModel readThirdAccountInfo];
-    
-    NSDictionary *dict = @{};
-    // 微信
-    if ([model.platfrom isEqualToString:@"1"])
-    {
-        dict = @{@"mobile_phone":_phoneTf.text,@"salt":_verCodeTf.text,@"weixin_openid":model.uid,@"nickname":model.nickname,@"head":model.iconurl,@"froms":@"iOS"};
-    }
-    else
-    {
-        //QQ
-        dict = @{@"mobile_phone":_phoneTf.text,@"salt":_verCodeTf.text,@"qq_openid":model.uid,@"nickname":model.nickname,@"head":model.iconurl,@"froms":@"iOS"};
-    }
-    
-   
-    [self.httpManager bindMobileWithParameterDict:dict CompletionBlock:^( AccountInfo *account,NSString *urlStr,NSError *error)
-     {
-         if (error)
-         {
-             [ErrorTipView errorTip:error.domain SuperView:self.view];
-         }
-         else
-         {
-             //第三方绑定手机号成功
-             
-             //本地存储用户数据
-            [account storeAccountInfo];
-            //登录成功后IM登录
-            [AuthorizationManager getIM_Authorization];
-             //本地登录成功后，第三方信息可以从本地移除
-            [ThirdLoginModel logoutThirdAccount];
-             
-            [self bindSuccessNextStepWithOpenAccountWithUrl:urlStr];
-         }
-    }];
+    [self bindSuccessNextStepWithOpenAccountWithUrl:@""];
 }
 
 - (void)bindSuccessNextStepWithOpenAccountWithUrl:(NSString *)urlString

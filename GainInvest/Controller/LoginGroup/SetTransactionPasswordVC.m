@@ -164,7 +164,6 @@
 //    [self.activityView removeFromSuperview];
 //    _activityView = nil;
     
-    
     NSLog(@"error ====== %@",error);
     
 }

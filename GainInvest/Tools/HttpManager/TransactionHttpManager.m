@@ -20,9 +20,7 @@
 @implementation TransactionHttpManager
 
 - (void)dealloc
-{
-    NSLog(@"LoginHttpManager dealloc");
-    
+{    
     [_netClient.operationQueue cancelAllOperations];
     
 }

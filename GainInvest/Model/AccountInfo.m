@@ -204,7 +204,6 @@ static dispatch_once_t rootOnceToken;
 {
     AccountInfo *model = [AccountInfo standardAccountInfo];
     [model parserDataWithDictionary:dict];
-    
     return [AccountInfo standardAccountInfo];
 }
 

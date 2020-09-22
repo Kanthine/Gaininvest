@@ -260,17 +260,13 @@
     }
 }
 
-/*
- * 若是没有开户，则去交易所
+/** 若是没有开户，则去交易所
  */
-+ (void)openAccountInStockExchangeWithViewController:(UIViewController *)viewController IsNeedCancelClick:(BOOL)isNeed
-{
-    if ([self isBindingMobile] == NO)
-    {
++ (void)openAccountInStockExchangeWithViewController:(UIViewController *)viewController IsNeedCancelClick:(BOOL)isNeed{
+    if ([self isBindingMobile] == NO){
         return ;
     }
     [self removeShowedActivateTradePwdView];
-    
     
     ActivateTradePwdView *tipView = [[ActivateTradePwdView alloc]initWithState:ActivateTradePwdStateOpenAccount];
     [tipView show];

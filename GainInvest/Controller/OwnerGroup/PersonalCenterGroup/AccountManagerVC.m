@@ -573,10 +573,8 @@
 }
 
 /* 修改交易密码 */
-- (void)resetTransactionPasswordVCClick
-{
+- (void)resetTransactionPasswordVCClick{
     AccountInfo *account = [AccountInfo standardAccountInfo];
-    
     
     NSDictionary *dict = @{@"user_name":account.username};
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

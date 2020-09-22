@@ -8,8 +8,6 @@
 
 #import "ResetLoginPasswordVC.h"
 
-#import "LoginHttpManager.h"
-
 @interface ResetLoginPasswordVC ()
 
 {
@@ -26,26 +24,9 @@
 
 @property (nonatomic ,strong) NSTimer *timer;
 
-@property (nonatomic ,strong) LoginHttpManager *httpManager;
-
 @end
 
 @implementation ResetLoginPasswordVC
-
-- (void)dealloc
-{
-    _httpManager = nil;
-}
-
-- (LoginHttpManager *)httpManager
-{
-    if (_httpManager == nil)
-    {
-        _httpManager = [[LoginHttpManager alloc]init];
-    }
-    
-    return _httpManager;
-}
 
 - (void)viewDidLoad
 {
@@ -99,35 +80,16 @@
     //点击获取验证码
     [self textFiledResignFirstResponder];
 
-    if (sender.enabled)
-    {
+    if (sender.enabled){
         // -- > 发送短信请求
         [self timer];
         [sender setTitleColor:RGBA(149, 149, 149, 1) forState:UIControlStateNormal];
         
         //获取验证码
-        
-        
-        NSDictionary *parameterDict = @{@"mobile_phone":_phoneTf.text};
-        
-        [self.httpManager getVerificationCodeWithParameterDict:parameterDict CompletionBlock:^(NSString *verificationCodeString, NSError *error)
-         {
-             
-             if (error)
-             {
-                 [ErrorTipView errorTip:@"获取验证码失败" SuperView:self.view];
-             }
-             else
-             {
-                 _verificationCodeString = verificationCodeString;
-             }
-         }];
-        
+        _verificationCodeString = @"123456";
         //不能连续点击
         sender.enabled = NO;
-    }
-
-    
+    }    
 }
 
 - (NSTimer *)timer
@@ -161,8 +123,7 @@
 }
 
 
-- (IBAction)confirmRegisterButtonClick:(UIButton *)sender
-{
+- (IBAction)confirmRegisterButtonClick:(UIButton *)sender{
     // 确认修改密码
     [self textFiledResignFirstResponder];
     
@@ -170,23 +131,12 @@
     {
         return;
     }
-    
-    NSDictionary *parameterDict = @{@"user_name":_phoneTf.text,@"salt":_codeTf.text,@"password":_passwordTf.text};
-    
-    
-    [self.httpManager resetPasswordWithParameters:parameterDict CompletionBlock:^(NSDictionary *resultDict,NSError *error)
-     {
-         if (error)
-         {
-             [ErrorTipView errorTip:error.domain SuperView:self.view];
-         }
-         else
-         {
-             [ErrorTipView errorTip:@"修改密码成功" SuperView:self.view];
-             [self.navigationController popViewControllerAnimated:YES];
-         }
-     }];
-    
+        
+    AccountInfo.standardAccountInfo.phone = _phoneTf.text;
+    AccountInfo.standardAccountInfo.password = _passwordTf.text;
+    [AccountInfo.standardAccountInfo storeAccountInfo];
+    [ErrorTipView errorTip:@"修改密码成功" SuperView:self.view];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (BOOL)isLeagle

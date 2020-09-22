@@ -10,7 +10,6 @@
 
 
 #import "ValidateClass.h"
-#import "LoginHttpManager.h"
 #import "RegisterViewController.h"
 #import "AppDelegate.h"
 
@@ -26,26 +25,9 @@
     
 }
 
-@property (nonatomic ,strong) LoginHttpManager *httpManager;
-
 @end
 
 @implementation LoginViewController
-
-- (void)dealloc
-{
-    _httpManager = nil;
-}
-
-- (LoginHttpManager *)httpManager
-{
-    if (_httpManager == nil)
-    {
-        _httpManager = [[LoginHttpManager alloc]init];
-    }
-    
-    return _httpManager;
-}
 
 - (void)viewDidLoad
 {
@@ -85,37 +67,16 @@
     }
 }
 
-- (IBAction)loginButtonClick:(UIButton *)sender
-{
+- (IBAction)loginButtonClick:(UIButton *)sender{
     [self textFiledResignFirstResponder];
-
-    if ([self isLeaglePasswordLoginMethod] == NO)
-    {
+    if ([self isLeaglePasswordLoginMethod] == NO){
         return;
     }
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    // Set the label text.
-    hud.label.text = @"登录...";
-    
-    [self.httpManager loginWithAccount:_phoneTf.text Password:_passwordTf.text CompletionBlock:^(AccountInfo *user, NSError *error)
-     {
-         [hud hideAnimated:YES];
-         
-         if (error)
-         {
-             [ErrorTipView errorTip:error.domain SuperView:self.view];
-         }
-         else
-         {
-             [user storeAccountInfo];//存储数据
-             [ErrorTipView errorTip:@"登录成功" SuperView:nil];
-
-             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-         }        
-     }];
-
+    AccountInfo.standardAccountInfo.phone = _phoneTf.text;
+    AccountInfo.standardAccountInfo.password = _passwordTf.text;
+    [AccountInfo.standardAccountInfo storeAccountInfo];
+    [ErrorTipView errorTip:@"登录成功" SuperView:nil];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)forgetButtonClick:(UIButton *)sender

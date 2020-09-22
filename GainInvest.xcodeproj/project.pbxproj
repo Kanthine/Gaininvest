@@ -153,7 +153,6 @@
 		22AC14901E5193A5006F69DF /* ConsultHeaderTitileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AC148F1E5193A5006F69DF /* ConsultHeaderTitileView.m */; };
 		22AC14931E51A8D5006F69DF /* ConsultCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AC14921E51A8D5006F69DF /* ConsultCollectionCell.m */; };
 		22AC14961E51AA09006F69DF /* ConsultCollectionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AC14951E51AA09006F69DF /* ConsultCollectionTableCell.m */; };
-		22AC14991E51B0E6006F69DF /* ConsultHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AC14981E51B0E6006F69DF /* ConsultHttpManager.m */; };
 		22AEF90D1E70F6280076813C /* FlashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF90C1E70F6280076813C /* FlashView.m */; };
 		22AEF9141E7103B80076813C /* ConsultHeaderButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF9131E7103B80076813C /* ConsultHeaderButtonView.m */; };
 		22AEF9171E712F0E0076813C /* PositionsHistoryTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF9161E712F0E0076813C /* PositionsHistoryTableHeaderView.m */; };
@@ -487,8 +486,6 @@
 		22AC14921E51A8D5006F69DF /* ConsultCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultCollectionCell.m; sourceTree = "<group>"; };
 		22AC14941E51AA09006F69DF /* ConsultCollectionTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultCollectionTableCell.h; sourceTree = "<group>"; };
 		22AC14951E51AA09006F69DF /* ConsultCollectionTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultCollectionTableCell.m; sourceTree = "<group>"; };
-		22AC14971E51B0E6006F69DF /* ConsultHttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultHttpManager.h; sourceTree = "<group>"; };
-		22AC14981E51B0E6006F69DF /* ConsultHttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultHttpManager.m; sourceTree = "<group>"; };
 		22AEF90B1E70F6280076813C /* FlashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashView.h; sourceTree = "<group>"; };
 		22AEF90C1E70F6280076813C /* FlashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashView.m; sourceTree = "<group>"; };
 		22AEF9121E7103B80076813C /* ConsultHeaderButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultHeaderButtonView.h; sourceTree = "<group>"; };
@@ -855,8 +852,6 @@
 				221562441E4C5A0300FB3375 /* LoginHttpManager.m */,
 				2221EEE21E4DC38E006DA937 /* UserInfoHttpManager.h */,
 				2221EEE31E4DC38E006DA937 /* UserInfoHttpManager.m */,
-				22AC14971E51B0E6006F69DF /* ConsultHttpManager.h */,
-				22AC14981E51B0E6006F69DF /* ConsultHttpManager.m */,
 				2216B9BB1E63DC6D006994C3 /* TransactionHttpManager.h */,
 				2216B9BC1E63DC6D006994C3 /* TransactionHttpManager.m */,
 				2215623A1E4C56D700FB3375 /* AFNetAPIClient.h */,
@@ -1679,7 +1674,6 @@
 				22FF6F801E49B1C300F81929 /* PositionsViewController.m in Sources */,
 				224063691E5D783A00F337BB /* TranscationCellSegmentView.m in Sources */,
 				220B008C1E668A4E00180C33 /* RechargeInfomationVC.m in Sources */,
-				22AC14991E51B0E6006F69DF /* ConsultHttpManager.m in Sources */,
 				22FD902E1E8B898C00F78CE0 /* WithdrawPerfectInfoView.m in Sources */,
 				2210BFC41E6E8C740097C6C4 /* YYStockViewMaskView.m in Sources */,
 				221BA4E21E6FB66200FB618D /* TimeLineStockChartView.m in Sources */,

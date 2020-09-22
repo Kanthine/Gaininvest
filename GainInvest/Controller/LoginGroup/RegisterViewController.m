@@ -9,7 +9,6 @@
 #import "RegisterViewController.h"
 #import "ValidateClass.h"
 
-#import "LoginHttpManager.h"
 #import "SetTransactionPasswordVC.h"
 #import "MyVoucherViewController.h"
 #import "MainTabBarController.h"
@@ -30,25 +29,9 @@
 
 @property (nonatomic ,strong) NSTimer *timer;
 
-@property (nonatomic ,strong) LoginHttpManager *httpManager;
-
 @end
 
 @implementation RegisterViewController
-
-- (void)dealloc
-{
-    _httpManager = nil;
-}
-
-- (LoginHttpManager *)httpManager
-{
-    if (_httpManager == nil)
-    {
-        _httpManager = [[LoginHttpManager alloc]init];
-    }
-    return _httpManager;
-}
 
 - (instancetype)initWithIsRegister:(BOOL)isRegister
 {
@@ -140,30 +123,7 @@
             // -- > 发送短信请求
             [self timer];
             [sender setTitleColor:RGBA(149, 149, 149, 1) forState:UIControlStateNormal];
-            
-            //获取验证码
-            
-            
-            NSDictionary *parameterDict = @{@"mobile_phone":_phoneTf.text};
-            if (_isRegister)
-            {
-                parameterDict = @{@"mobile_phone":_phoneTf.text,@"ischeck":@"2"};
-            }
-                        
-            [self.httpManager getVerificationCodeWithParameterDict:parameterDict CompletionBlock:^(NSString *verificationCodeString, NSError *error)
-            {
-                
-                if (error)
-                {
-                    [self stopTimer];
-                    [ErrorTipView errorTip:error.domain SuperView:self.view];
-                }
-                else
-                {
-                    _verificationCodeString = verificationCodeString;
-                }
-            }];
-            
+            _verificationCodeString = @"123456";
             //不能连续点击
             sender.enabled = NO;
         }
@@ -185,12 +145,32 @@
 
 - (IBAction)weChatLoginButtonClick:(UIButton *)sender
 {
-
+    AccountInfo.standardAccountInfo.head = @"";
+    AccountInfo.standardAccountInfo.nickname = @"微信登录";
+    [AccountInfo.standardAccountInfo storeAccountInfo];
+    
+    //提示 送代金券
+    [RegisterViewController registerSuccessSendCouponTip];
+    
+    //存储数据
+    [ErrorTipView errorTip:@"登录成功" SuperView:nil];
+    //登录成功，进入主界面
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)qqLoginButtonClick:(UIButton *)sender
 {
- 
+    AccountInfo.standardAccountInfo.head = @"";
+    AccountInfo.standardAccountInfo.nickname = @"QQ登录";
+    [AccountInfo.standardAccountInfo storeAccountInfo];
+    
+    //提示 送代金券
+    [RegisterViewController registerSuccessSendCouponTip];
+    
+    //存储数据
+    [ErrorTipView errorTip:@"登录成功" SuperView:nil];
+    //登录成功，进入主界面
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -230,78 +210,26 @@
     _timer = nil;
 }
 
-- (IBAction)confirmRegisterButtonClick:(UIButton *)sender
-{
-    // 点击注册
+- (IBAction)confirmRegisterButtonClick:(UIButton *)sender{
     [self textFiledResignFirstResponder];
     
-    if ([self isLeagle] == NO)
-    {
+    if ([self isLeagle] == NO){
         return;
     }
     
-    
-    if (_isRegister)
-    {
-        
-        //注册
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        // Set the label text.
-        hud.label.text = @"注册中...";
-        NSDictionary *parameterDict = @{@"mobile_phone":_phoneTf.text,@"salt":_codeTf.text,@"password":_passwordTf.text,@"froms":@"iOS"};
-        [self.httpManager regiserAccountWithParameter:parameterDict CompletionBlock:^(NSDictionary *resultDict,NSError *error)
-         {
-             [hud hideAnimated:YES];
-
-             if (error)
-             {
-                 [ErrorTipView errorTip:error.domain SuperView:self.view];
-             }
-             else
-             {
-                 
-                 // 注册成功 去登陆
-                 
-                 [self registerSuccessLoginWithPhone:parameterDict[@"mobile_phone"] Password:parameterDict[@"password"]];
-                 
-                 
-//                 [ErrorTipView errorTip:@"注册成功" SuperView:self.view];
-                 
-             }
-         }];
-
-    }
-    else
-    {
-        
-        NSDictionary *parameterDict = @{@"user_name":_phoneTf.text,@"salt":_codeTf.text,@"password":_passwordTf.text};
-        
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        // Set the label text.
-        hud.label.text = @"修改中...";
-        
+    if (_isRegister){//注册
+        AccountInfo.standardAccountInfo.phone = _phoneTf.text;
+        AccountInfo.standardAccountInfo.password = _passwordTf.text;
+        [AccountInfo.standardAccountInfo storeAccountInfo];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        [RegisterViewController registerSuccessSendCouponTip];
+    }else{
         //重置密码
-        [self.httpManager resetPasswordWithParameters:parameterDict CompletionBlock:^(NSDictionary *resultDict,NSError *error)
-         {
-             [hud hideAnimated:YES];
-
-             if (error)
-             {
-                 [ErrorTipView errorTip:error.domain SuperView:self.view];
-             }
-             else
-             {
-
-                [ErrorTipView errorTip:@"修改密码成功" SuperView:self.view];
-                [self leftNavBarButtonClick];
-             }
-         }];
-
+        AccountInfo.standardAccountInfo.phone = _phoneTf.text;
+        AccountInfo.standardAccountInfo.password = _passwordTf.text;
+        [AccountInfo.standardAccountInfo storeAccountInfo];
+        [self.navigationController popViewControllerAnimated:YES];
     }
-    
-    
-    
-    
 }
 
 - (BOOL)isLeagle
@@ -360,86 +288,6 @@
     [_phoneTf resignFirstResponder];
     [_passwordTf resignFirstResponder];
     [_codeTf resignFirstResponder];
-}
-
-- (void)thirdPartyLoginWithModel:(ThirdLoginModel *)thirdModel
-{
-    NSDictionary *parameterDict = @{@"openid":thirdModel.uid,@"type":thirdModel.platfrom,@"nickname":thirdModel.nickname,@"head":thirdModel.iconurl,@"token":@"4zpSrxbyMdSRM2fj",@"froms":@"iOS"};
-    
-    
-    [self.httpManager thirdPartyLoginWithParameterDict:parameterDict CompletionBlock:^(AccountInfo *user, NSError *error)
-     {
-         NSLog(@"code == %ld",(long)error.code);
-         
-         NSLog(@"errString == %@",error.domain);
-         if (error)
-         {
-             if (error.code == 1)
-             {
-                 AccountInfo *account = [AccountInfo modelObjectWithThirdModel:thirdModel];
-                 [account storeAccountInfo];
-                 
-                 
-                 //提示 送代金券
-                 [self dismissViewControllerAnimated:YES completion:nil];
-                 [RegisterViewController registerSuccessSendCouponTip];
-                 
-                 NSLog(@"存储数据成功");
-             }
-             else
-             {
-                 [ErrorTipView errorTip:error.domain SuperView:self.view];
-             }
-             
-         }
-         else
-         {
-             
-             
-             if ([user storeAccountInfo])
-             {
-                 //登录成功后IM登录
-                 [AuthorizationManager getIM_Authorization];
-                 //存储数据
-                 [ErrorTipView errorTip:@"登录成功" SuperView:nil];
-                 //登录成功，进入主界面
-                 [self dismissViewControllerAnimated:YES completion:nil];
-                 
-                 NSLog(@"存储数据成功");
-                 
-             }
-             else
-             {
-                 NSLog(@"存储数据失败");
-             }
-             
-         }
-         
-     }];
-    
-}
-
-#pragma mark - 注册成功去登陆
-
-- (void)registerSuccessLoginWithPhone:(NSString *)phone Password:(NSString *)password
-{
-    
-    [self.httpManager loginWithAccount:phone Password:password CompletionBlock:^(AccountInfo *user, NSError *error)
-     {
-         
-         if (error)
-         {
-             [ErrorTipView errorTip:error.domain SuperView:self.view];
-         }
-         else
-         {
-             [user storeAccountInfo];//存储数据
-             
-             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-             [RegisterViewController registerSuccessSendCouponTip];
-
-         }
-     }];
 }
 
 #pragma mark - 注册成功提示送代金券
