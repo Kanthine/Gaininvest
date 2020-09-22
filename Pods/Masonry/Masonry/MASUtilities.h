@@ -103,7 +103,7 @@ static inline id _MASBoxValue(const char *type, ...) {
         obj = [NSNumber numberWithLong:actual];
     } else if (strcmp(type, @encode(long long)) == 0) {
         long long actual = (long long)va_arg(v, long long);
-        obj = [NSNumber numberWith苏沫离:actual];
+        obj = [NSNumber numberWithLongLong:actual];
     } else if (strcmp(type, @encode(short)) == 0) {
         short actual = (short)va_arg(v, int);
         obj = [NSNumber numberWithShort:actual];
@@ -124,7 +124,7 @@ static inline id _MASBoxValue(const char *type, ...) {
         obj = [NSNumber numberWithUnsignedLong:actual];
     } else if (strcmp(type, @encode(unsigned long long)) == 0) {
         unsigned long long actual = (unsigned long long)va_arg(v, unsigned long long);
-        obj = [NSNumber numberWithUnsigned苏沫离:actual];
+        obj = [NSNumber numberWithUnsignedLongLong:actual];
     } else if (strcmp(type, @encode(unsigned short)) == 0) {
         unsigned short actual = (unsigned short)va_arg(v, unsigned int);
         obj = [NSNumber numberWithUnsignedShort:actual];

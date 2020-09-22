@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1AE45F3025199B9200E32236 /* DemoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE45F2F25199B9200E32236 /* DemoData.m */; };
+		1AE45F562519AA7C00E32236 /* ConsultKindTitles.json in Resources */ = {isa = PBXBuildFile; fileRef = 1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */; };
 		220052B91E52B119001EB8E0 /* ConsultKindTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 220052B81E52B119001EB8E0 /* ConsultKindTitleModel.m */; };
 		220052FE1E52F06E001EB8E0 /* ConsultKindTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220052FD1E52F06E001EB8E0 /* ConsultKindTitleView.m */; };
 		2200B4141E8E1FBE00C9C342 /* DrawSymbolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2200B4131E8E1FBE00C9C342 /* DrawSymbolView.m */; };
@@ -229,6 +230,7 @@
 /* Begin PBXFileReference section */
 		1AE45F2E25199B9200E32236 /* DemoData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoData.h; sourceTree = "<group>"; };
 		1AE45F2F25199B9200E32236 /* DemoData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoData.m; sourceTree = "<group>"; };
+		1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ConsultKindTitles.json; sourceTree = "<group>"; };
 		220052B71E52B119001EB8E0 /* ConsultKindTitleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultKindTitleModel.h; sourceTree = "<group>"; };
 		220052B81E52B119001EB8E0 /* ConsultKindTitleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultKindTitleModel.m; sourceTree = "<group>"; };
 		220052FC1E52F06E001EB8E0 /* ConsultKindTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultKindTitleView.h; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 		1AE45F4525199F5C00E32236 /* JsonDemoData */ = {
 			isa = PBXGroup;
 			children = (
+				1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */,
 			);
 			path = JsonDemoData;
 			sourceTree = "<group>";
@@ -1582,6 +1585,7 @@
 				220B00881E66825C00180C33 /* RechargeMethodTableCell.xib in Resources */,
 				22A9A1D51E557E66006A51D1 /* PositionsHistoryTableCell.xib in Resources */,
 				22A50EDC1E7927F3004578B3 /* WithdrawBankCardInfoView.xib in Resources */,
+				1AE45F562519AA7C00E32236 /* ConsultKindTitles.json in Resources */,
 				2221F92A1E7D1A9F004B41F9 /* AboutOurIntroVC.xib in Resources */,
 				2202C7F61E4B11E4000D14DE /* RegisterViewController.xib in Resources */,
 				2221EED31E4DA70C006DA937 /* ResetNickNameVC.xib in Resources */,

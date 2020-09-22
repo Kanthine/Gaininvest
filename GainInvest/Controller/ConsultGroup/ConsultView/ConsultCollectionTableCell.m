@@ -177,10 +177,6 @@
 - (void)updateCellWithModel:(ConsultListModel *)model
 {
     [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage: [UIImage imageNamed:@"placeholderImage"]];
-//    [self.detaileImageView sd_setImageWithURL:[NSURL URLWithString:model.analystImage] placeholderImage: [UIImage imageNamed:@"placeholderImage"]];
-
-
-    
     self.mainLable.text = model.articleTitle;
     self.authorLable.text = model.analystName;
     self.timeLable.text = model.articleDate;
@@ -190,21 +186,14 @@
 {
     NSString *typeName = @"";
     // 1 主题 2品种 3分析师*
-    if ([typeId isEqualToString:@"1"])
-    {
+    if ([typeId isEqualToString:@"1"]){
         typeName = @"主题";
-    }
-    else if ([typeId isEqualToString:@"2"])
-    {
+    }else if ([typeId isEqualToString:@"2"]){
         typeName = @"品种";
-    }
-    else if ([typeId isEqualToString:@"3"])
-    {
+    }else if ([typeId isEqualToString:@"3"]){
         typeName = @"分析师";
     }
-    
     return typeName;
-    
 }
 
 

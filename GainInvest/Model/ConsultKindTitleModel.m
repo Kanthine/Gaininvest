@@ -6,36 +6,75 @@
 //  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
-NSString *const ConsultKindTitleModelKindId = @"article_type_id";
-NSString *const ConsultKindTitleModelKindName = @"analyst_image";
-NSString *const ConsultKindTitleModelTypeId = @"label";
-NSString *const ConsultKindTitleModelTypeName = @"byname";
-
-
 #import "ConsultKindTitleModel.h"
 #import "FilePathManager.h"
 
+NSString *const kConsultKindTitleModelTypeID = @"typeID";
+NSString *const kConsultKindTitleModelTypeName = @"typeName";
+NSString *const kConsultKindTitleModelKindName = @"kindName";
+NSString *const kConsultKindTitleModelKindID = @"kindID";
+
+
+@interface ConsultKindTitleModel ()
+
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
+
+@end
+
 @implementation ConsultKindTitleModel
 
-- (void)setTypeName:(NSString *)typeName
+@synthesize typeID = _typeID;
+@synthesize typeName = _typeName;
+@synthesize kindName = _kindName;
+@synthesize kindID = _kindID;
+
+
++ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict
 {
-    _typeName = typeName;
+    return [[self alloc] initWithDictionary:dict];
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict
+{
+    self = [super init];
     
-    // 1 主题 2品种 3分析师*
-    if ([typeName isEqualToString:@"analysts"])
-    {
-        self.typeId = @"3";
+    // This check serves to make sure that a non-NSDictionary object
+    // passed into the model class doesn't break the parsing.
+    if(self && [dict isKindOfClass:[NSDictionary class]]) {
+            self.typeID = [self objectOrNilForKey:kConsultKindTitleModelTypeID fromDictionary:dict];
+            self.typeName = [self objectOrNilForKey:kConsultKindTitleModelTypeName fromDictionary:dict];
+            self.kindName = [self objectOrNilForKey:kConsultKindTitleModelKindName fromDictionary:dict];
+            self.kindID = [self objectOrNilForKey:kConsultKindTitleModelKindID fromDictionary:dict];
+
     }
-    else if ([typeName isEqualToString:@"themes"])
-    {
-        self.typeId = @"1";
-    }
-    else if ([typeName isEqualToString:@"types"])
-    {
-        self.typeId = @"2";
-    }
+    
+    return self;
     
 }
+
+- (NSDictionary *)dictionaryRepresentation
+{
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    [mutableDict setValue:self.typeID forKey:kConsultKindTitleModelTypeID];
+    [mutableDict setValue:self.typeName forKey:kConsultKindTitleModelTypeName];
+    [mutableDict setValue:self.kindName forKey:kConsultKindTitleModelKindName];
+    [mutableDict setValue:self.kindID forKey:kConsultKindTitleModelKindID];
+
+    return [NSDictionary dictionaryWithDictionary:mutableDict];
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@", [self dictionaryRepresentation]];
+}
+
+#pragma mark - Helper Method
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict
+{
+    id object = [dict objectForKey:aKey];
+    return [object isEqual:[NSNull null]] ? nil : object;
+}
+
 
 #pragma mark - NSCoding Methods
 
@@ -43,40 +82,38 @@ NSString *const ConsultKindTitleModelTypeName = @"byname";
 {
     self = [super init];
 
-    self.kindId = [aDecoder decodeObjectForKey:ConsultKindTitleModelKindId];
-    self.kindName = [aDecoder decodeObjectForKey:ConsultKindTitleModelKindName];
-    self.typeId = [aDecoder decodeObjectForKey:ConsultKindTitleModelTypeId];
-    self.typeName = [aDecoder decodeObjectForKey:ConsultKindTitleModelTypeName];
+    self.typeID = [aDecoder decodeObjectForKey:kConsultKindTitleModelTypeID];
+    self.typeName = [aDecoder decodeObjectForKey:kConsultKindTitleModelTypeName];
+    self.kindName = [aDecoder decodeObjectForKey:kConsultKindTitleModelKindName];
+    self.kindID = [aDecoder decodeObjectForKey:kConsultKindTitleModelKindID];
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:_kindId forKey:ConsultKindTitleModelKindId];
-    [aCoder encodeObject:_kindName forKey:ConsultKindTitleModelKindName];
-    [aCoder encodeObject:_typeId forKey:ConsultKindTitleModelTypeId];
-    [aCoder encodeObject:_typeName forKey:ConsultKindTitleModelTypeName];
-}
 
+    [aCoder encodeObject:_typeID forKey:kConsultKindTitleModelTypeID];
+    [aCoder encodeObject:_typeName forKey:kConsultKindTitleModelTypeName];
+    [aCoder encodeObject:_kindName forKey:kConsultKindTitleModelKindName];
+    [aCoder encodeObject:_kindID forKey:kConsultKindTitleModelKindID];
+}
 
 - (id)copyWithZone:(NSZone *)zone
 {
     ConsultKindTitleModel *copy = [[ConsultKindTitleModel alloc] init];
     
-    if (copy)
-    {
-        copy.kindId = [self.kindId copyWithZone:zone];
-        copy.kindName = [self.kindName copyWithZone:zone];
-        copy.typeId = [self.typeId copyWithZone:zone];
+    if (copy) {
+
+        copy.typeID = [self.typeID copyWithZone:zone];
         copy.typeName = [self.typeName copyWithZone:zone];
+        copy.kindName = [self.kindName copyWithZone:zone];
+        copy.kindID = [self.kindID copyWithZone:zone];
     }
     
     return copy;
 }
 
-
-+ (void)writeConsultKindTitleModelWithArray:(NSMutableArray<ConsultKindTitleModel *> *)muArray
-{
++ (void)writeConsultKindTitleModelWithArray:(NSMutableArray<ConsultKindTitleModel *> *)muArray{
     NSString *defaultKindPath = [FilePathManager getConsultDefaultKindFilePath];
     
     NSMutableData *data = [[NSMutableData alloc] init];
@@ -85,44 +122,6 @@ NSString *const ConsultKindTitleModelTypeName = @"byname";
     [archive finishEncoding];
     [data writeToFile:defaultKindPath atomically:YES];
 }
-
-+ (NSMutableArray<ConsultKindTitleModel *> *)setDefaultConsultKindTitleList{
-    NSMutableArray<ConsultKindTitleModel *> *muArray = [NSMutableArray array];
-    
-    NSArray *kindNameArray = @[@"白银",@"黄金",@"美元指数",
-                               @"直盘外汇",@"非农数据",@"热门策略",
-                               @"布林格",@"巴克莱银行",@"学交易",@"原油"];
-    
-    NSArray *kindIdArray = @[@"3",@"1",@"16",
-                             @"44",@"40",@"50",
-                             @"1",@"3",@"55",@"17"];
-    
-    NSArray *typeNameArray = @[@"types",@"types",@"types",
-                               @"themes",@"themes",@"themes",
-                               @"analysts",@"analysts",@"analysts",@"types"];
-    
-    
-    [kindNameArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
-         ConsultKindTitleModel *kindModel = [[ConsultKindTitleModel alloc]init];
-         kindModel.kindName = obj;
-         kindModel.kindId = kindIdArray[idx];
-         kindModel.typeName = typeNameArray[idx];
-         [muArray addObject:kindModel];
-    }];
-        
-    
-    NSString *defaultKindPath = [FilePathManager getConsultDefaultKindFilePath];
-    
-    NSMutableData *data = [[NSMutableData alloc] init];
-    NSKeyedArchiver *archive = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    [archive encodeObject:muArray];
-    [archive finishEncoding];
-    [data writeToFile:defaultKindPath atomically:YES];
-    
-    
-    return muArray;
-}
-
 
 + (NSMutableArray<ConsultKindTitleModel *> *)getLocalConsultKindModelData{
     NSMutableArray *muArray = [NSMutableArray array];
@@ -143,4 +142,7 @@ NSString *const ConsultKindTitleModelTypeName = @"byname";
     return muArray;
 }
 
+
 @end
+
+

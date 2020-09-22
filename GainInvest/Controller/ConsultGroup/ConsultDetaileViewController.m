@@ -22,33 +22,21 @@
 
 @implementation ConsultDetaileViewController
 
-- (instancetype)initWithID:(NSString *)idString
-{
+- (instancetype)initWithURL:(NSString *)url{
     self = [super init];
-    
-    if (self)
-    {
-        NSString *urlStr = [NSString stringWithFormat:@"http://m.tubiaojia.cn/106/article_detail?article_id=%@",idString];
-        
-        urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
+    if (self){
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]];
     }
-    
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self customNavBar];
     
-    [self.view addSubview:self.webView];
-    
-
-    
+    [self.view addSubview:self.webView];    
 }
 
 - (void)didReceiveMemoryWarning

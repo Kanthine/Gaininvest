@@ -7,11 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "ConsultKindTitleModel.h"
+#import "ConsultListModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DemoData : NSObject
 
++ (NSMutableArray<ConsultKindTitleModel *> *)consultKindTitleArray;
++ (NSMutableArray<ConsultListModel *> *)ConsultListArrayWithKindTitle:(ConsultKindTitleModel *)titleModel;
+
 @end
+
+
 
 NS_ASSUME_NONNULL_END

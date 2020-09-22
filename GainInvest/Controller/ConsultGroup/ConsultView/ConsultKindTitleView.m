@@ -25,12 +25,10 @@
 
 @implementation ConsultKindTitleCollectionHeader
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     
-    if (self)
-    {
+    if (self){
         self.backgroundColor = RGBA(238, 241, 245, .95);
         
         [self addSubview:self.titleLable];
@@ -358,54 +356,40 @@
 
 #pragma mark - UICollectionViewDataSource
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return self.kindArray.count;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     NSDictionary *dict = self.kindArray[section];
     NSArray *array = [dict.allValues firstObject];
     return array.count;
 }
 
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     return CGSizeMake(ScreenWidth, ItemHeight);
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     ConsultKindTitleCollectionHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HeaderIdentifer forIndexPath:indexPath];
     NSDictionary *dict = self.kindArray[indexPath.section];
     headerView.titleLable.text = [self switchTypeName:dict.allKeys.firstObject];
     return headerView;
 }
 
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ConsultKindTitleCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ItemIdentifer forIndexPath:indexPath];
-    
     
     NSDictionary *dict = self.kindArray[indexPath.section];
     NSArray *array = [dict.allValues firstObject];
     ConsultKindTitleModel *model = array[indexPath.row];
     
-    
     cell.titleLable.text = model.kindName;
-    
-    
-    if (indexPath.section == 0)
-    {
+    if (indexPath.section == 0){
         cell.isEditing = self.isEditing;
-    }
-    else
-    {
+    }else{
         cell.isEditing = NO;
     }
-    
     return cell;
 }
 

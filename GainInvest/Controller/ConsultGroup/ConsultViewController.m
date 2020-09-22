@@ -44,8 +44,6 @@
 @property (nonatomic ,strong) UICollectionView *collectionView;
 
 @property (nonatomic ,strong) NSMutableArray<ConsultKindTitleModel *> *titleArray;
-@property (nonatomic ,strong) ConsultHttpManager *httpManager;
-
 @property (nonatomic,strong) UIView *registerTipView;
 
 @end
@@ -56,7 +54,6 @@
 
 - (void)dealloc{
     _flashView = nil;
-    _httpManager = nil;
 }
 
 - (instancetype)init{
@@ -221,8 +218,7 @@
     
     NSUInteger currentIndex = (int)value;
     NSUInteger rightIndex = currentIndex + 1;
-    if (rightIndex >= self.titleArray.count)
-    {
+    if (rightIndex >= self.titleArray.count){
         // 防止滑到最右，再滑，数组越界，从而崩溃
         rightIndex = self.titleArray.count - 1;
     }
@@ -237,13 +233,10 @@
     CGPoint panPoint = [panGesture translationInView:tableView];
     
     CGPoint point = _scrollView.contentOffset ;
-    if (panPoint.y >= 0)
-    {
+    if (panPoint.y >= 0){
         NSLog(@"下滑");
         point.y = point.y - tableView.contentOffset.y;
-    }
-    else
-    {
+    }else{
         NSLog(@"上滑");
         point.y = point.y + tableView.contentOffset.y;
     }
@@ -251,23 +244,24 @@
 }
 
 - (void)requestGetConsultKindData{
-    [self.httpManager getConsultKindCompletionBlock:^(NSMutableArray<NSDictionary *> *listArray, NSError *error){
-        if (listArray && listArray.count > 0){
-            NSDictionary *dict = listArray.firstObject;
-            self.headerTitleView.kindArray = listArray;
-            
-            NSString *defaultKindPath = [FilePathManager getConsultDefaultKindFilePath];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:defaultKindPath]){
-                self.titleArray = [ConsultKindTitleModel getLocalConsultKindModelData];
-            }else{
-                self.titleArray = dict.allValues.firstObject;
-            }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSMutableArray *array = [NSMutableArray arrayWithObject:@{@"当前关注":DemoData.consultKindTitleArray}];
+        NSDictionary *dict = array.firstObject;
+        NSString *defaultKindPath = [FilePathManager getConsultDefaultKindFilePath];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:defaultKindPath]){
+            self.titleArray = [ConsultKindTitleModel getLocalConsultKindModelData];
+        }else{
+            self.titleArray = dict.allValues.firstObject;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.headerTitleView.kindArray = array;
             [self.headerTitleView updateTitle:self.titleArray];
             [self.collectionView reloadData];
-        }
-    }];
+        });
+    });
 }
-
 
 #pragma mark - setter and getters
 
@@ -276,13 +270,6 @@
         _titleArray = [NSMutableArray array];
     }
     return _titleArray;
-}
-
-- (ConsultHttpManager *)httpManager{
-    if (_httpManager == nil){
-        _httpManager = [[ConsultHttpManager alloc]init];
-    }
-    return _httpManager;
 }
 
 - (UIView *)registerTipView{
@@ -331,7 +318,6 @@
                 ConsultKindTitleModel *titleModel = weakSelf.titleArray[_currentIndexPath.row];
                 [cell.contentVC updateTableListViewWith:titleModel];
             }
-            
             [weakSelf performSelector:@selector(stopMjHeaderRefresh) withObject:nil afterDelay:1.5f];
         }];
 

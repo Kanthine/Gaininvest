@@ -10,19 +10,17 @@
 
 @interface ConsultKindTitleModel : NSObject<NSCoding, NSCopying>
 
-@property (nonatomic, strong) NSString *kindId;
-@property (nonatomic, strong) NSString *kindName;
-
-@property (nonatomic, strong) NSString *typeId;
+// 1 主题 themes 2品种 types 3分析师 analysts
+@property (nonatomic, strong) NSString *typeID;
 @property (nonatomic, strong) NSString *typeName;
+@property (nonatomic, strong) NSString *kindName;
+@property (nonatomic, strong) NSString *kindID;
+
++ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
+- (instancetype)initWithDictionary:(NSDictionary *)dict;
+- (NSDictionary *)dictionaryRepresentation;
 
 
 + (void)writeConsultKindTitleModelWithArray:(NSMutableArray<ConsultKindTitleModel *> *)muArray;
-
-/* 第一次启动APP时默认的初始化数据 */
-+ (NSMutableArray<ConsultKindTitleModel *> *)setDefaultConsultKindTitleList;
-
-
 + (NSMutableArray<ConsultKindTitleModel *> *)getLocalConsultKindModelData;
-
 @end

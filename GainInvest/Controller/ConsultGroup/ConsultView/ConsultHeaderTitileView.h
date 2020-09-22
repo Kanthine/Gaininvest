@@ -18,7 +18,6 @@
 
 @interface ConsultHeaderTitileView : UIView
 
-
 @property (nonatomic ,weak) id <ConsultHeaderTitileViewDelegate>delegate;
 @property (nonatomic ,strong) UIScrollView *scrollView;
 @property (nonatomic ,strong) UIView *currentLineView;

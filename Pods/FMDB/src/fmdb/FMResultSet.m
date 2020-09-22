@@ -244,20 +244,20 @@
     return (long)sqlite3_column_int64([_statement statement], columnIdx);
 }
 
-- (long long int)苏沫离IntForColumn:(NSString*)columnName {
-    return [self 苏沫离IntForColumnIndex:[self columnIndexForName:columnName]];
+- (long long int)longLongIntForColumn:(NSString*)columnName {
+    return [self longLongIntForColumnIndex:[self columnIndexForName:columnName]];
 }
 
-- (long long int)苏沫离IntForColumnIndex:(int)columnIdx {
+- (long long int)longLongIntForColumnIndex:(int)columnIdx {
     return sqlite3_column_int64([_statement statement], columnIdx);
 }
 
-- (unsigned long long int)unsigned苏沫离IntForColumn:(NSString*)columnName {
-    return [self unsigned苏沫离IntForColumnIndex:[self columnIndexForName:columnName]];
+- (unsigned long long int)unsignedLongLongIntForColumn:(NSString*)columnName {
+    return [self unsignedLongLongIntForColumnIndex:[self columnIndexForName:columnName]];
 }
 
-- (unsigned long long int)unsigned苏沫离IntForColumnIndex:(int)columnIdx {
-    return (unsigned long long int)[self 苏沫离IntForColumnIndex:columnIdx];
+- (unsigned long long int)unsignedLongLongIntForColumnIndex:(int)columnIdx {
+    return (unsigned long long int)[self longLongIntForColumnIndex:columnIdx];
 }
 
 - (BOOL)boolForColumn:(NSString*)columnName {
@@ -377,7 +377,7 @@
     id returnValue = nil;
     
     if (columnType == SQLITE_INTEGER) {
-        returnValue = [NSNumber numberWith苏沫离:[self 苏沫离IntForColumnIndex:columnIdx]];
+        returnValue = [NSNumber numberWithLongLong:[self longLongIntForColumnIndex:columnIdx]];
     }
     else if (columnType == SQLITE_FLOAT) {
         returnValue = [NSNumber numberWithDouble:[self doubleForColumnIndex:columnIdx]];

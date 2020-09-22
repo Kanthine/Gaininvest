@@ -119,10 +119,8 @@
     return _currentLineView;
 }
 
-- (ConsultKindTitleView *)kindTitleView
-{
-    if (_kindTitleView == nil)
-    {
+- (ConsultKindTitleView *)kindTitleView{
+    if (_kindTitleView == nil){
         _kindTitleView = [[ConsultKindTitleView alloc]initWithFrame:CGRectMake(0, - ContentConsultViewHeight, ScreenWidth, ContentConsultViewHeight)];
         _kindTitleView.isEditing = NO;
     }
@@ -196,49 +194,38 @@
 }
 
 
-- (void)chooseTitleButtonClick:(UIButton *)sender
-{
+- (void)chooseTitleButtonClick:(UIButton *)sender{
     __weak __typeof__(self) weakSelf = self;
     [self.superview.superview addSubview:self.kindTitleView];
     [self.kindTitleView updateKindTitle:self.kindArray];
     [self.kindTitleView show];
-    self.kindTitleView.consultKindTitleViewConfirmClick = ^()
-    {
+    self.kindTitleView.consultKindTitleViewConfirmClick = ^(){
         [weakSelf isNeedUpdateTitleBar];
     };
-    
 }
 
-- (void)isNeedUpdateTitleBar
-{
+- (void)isNeedUpdateTitleBar{
     NSDictionary *defaultDict = self.kindArray.firstObject;
     NSMutableArray *newTitleArray = defaultDict.allValues.firstObject;
     NSMutableArray *oldTitleArray = [ConsultKindTitleModel getLocalConsultKindModelData];
     
     //判断数组是否改变
-    if ([newTitleArray isEqualToArray:oldTitleArray] == NO)
-    {
+    if ([newTitleArray isEqualToArray:oldTitleArray] == NO){
         //本地化
         [ConsultKindTitleModel writeConsultKindTitleModelWithArray:newTitleArray];
         //更新标题栏
         [self updateTitle:newTitleArray];
-        
-        
-        if (self.delegate && [self.delegate respondsToSelector:@selector(didUpdateTitleBarWithTitleArray:)])
-        {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didUpdateTitleBarWithTitleArray:)]){
             [self.delegate didUpdateTitleBarWithTitleArray:newTitleArray];
         }
     }
 }
 
-- (void)updateTitle:(NSMutableArray<ConsultKindTitleModel *> *)titleArray
-{
+- (void)updateTitle:(NSMutableArray<ConsultKindTitleModel *> *)titleArray{
     _titleArray = titleArray;
     
-    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-     {
-         if (obj.tag > 19)
-         {
+    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
+         if (obj.tag > 19){
              [obj removeFromSuperview];
          }
      }];
@@ -246,8 +233,7 @@
     
     __block CGFloat xCoordinate = 0.0;
     
-    [titleArray enumerateObjectsUsingBlock:^(ConsultKindTitleModel * _Nonnull titleModel, NSUInteger idx, BOOL * _Nonnull stop)
-    {
+    [titleArray enumerateObjectsUsingBlock:^(ConsultKindTitleModel * _Nonnull titleModel, NSUInteger idx, BOOL * _Nonnull stop){
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = idx + 20;
@@ -258,46 +244,34 @@
         [button setTitle:titleModel.kindName forState:UIControlStateNormal];
         [button setTitleColor:UIColorFromRGB(0x222222, 1) forState:UIControlStateNormal];
 
-        if (idx == 0)
-        {
+        if (idx == 0){
             button.titleLabel.font = [UIFont systemFontOfSize:15];
             [button setTitleColor:UIColorFromRGB(0xD43C33, 1) forState:UIControlStateNormal];
         }
         
-        
         CGFloat textWidth = [titleModel.kindName boundingRectWithSize:CGSizeMake(300, 44) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName :button.titleLabel.font} context:nil].size.width;
         textWidth = textWidth + 20.0;
-        
         
         button.frame = CGRectMake(xCoordinate, 0, textWidth, 44);
         [_scrollView addSubview:button];
         
-        if (idx == 0)
-        {
+        if (idx == 0){
             self.currentLineView.frame = CGRectMake(button.center.x - 10, 36, 20, 2);
         }
-        
         xCoordinate = CGRectGetMaxX(button.frame);
     }];
-
     
     _scrollView.contentSize = CGSizeMake(xCoordinate + 70, 44);
-    
 }
 
-- (void)didSelectButtonAtIndex:(UIButton *)sender
-{
+- (void)didSelectButtonAtIndex:(UIButton *)sender{
     NSInteger index = sender.tag - 20;
-    
     [self titleBarScrollToIndex:index];
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemScollToIndex:Model:)])
-    {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemScollToIndex:Model:)]){
         ConsultKindTitleModel *model = _titleArray[index];
         NSString *string = [NSString stringWithFormat:@"咨询分类==%@",model.kindName];
         [self.delegate didSelectItemScollToIndex:index Model:model];
     }
-    
 }
 
 - (void)titleBarScrollToIndex:(NSInteger)index
@@ -319,11 +293,9 @@
     
     
     //设置选中按钮与正常按钮字体样式
-    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-     {
+    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
          
-         if (obj.tag > 19 && [obj isKindOfClass:[UIButton class]])
-         {
+         if (obj.tag > 19 && [obj isKindOfClass:[UIButton class]]){
              UIButton *button = (UIButton *)obj;
              button.titleLabel.font = [UIFont systemFontOfSize:15];
              [button setTitleColor:UIColorFromRGB(0x222222, 1) forState:UIControlStateNormal];
@@ -332,10 +304,8 @@
     currentButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [currentButton setTitleColor:UIColorFromRGB(0xD43C33, 1) forState:UIControlStateNormal];
     
-
     //下划线滚动
-    [UIView animateWithDuration:0.3 animations:^
-     {
+    [UIView animateWithDuration:0.3 animations:^{
          _currentLineView.frame = CGRectMake(currentButton.center.x - CGRectGetWidth(_currentLineView.frame) / 2.0, _currentLineView.frame.origin.y, CGRectGetWidth(_currentLineView.frame), CGRectGetHeight(_currentLineView.frame));
      }];
 }

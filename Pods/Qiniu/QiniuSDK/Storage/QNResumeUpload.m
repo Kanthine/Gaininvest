@@ -114,7 +114,7 @@ typedef void (^task)(void);
     }
     NSNumber *n_size = @(self.size);
     NSNumber *n_offset = @(offset);
-    NSNumber *n_time = [NSNumber numberWith苏沫离:_modifyTime];
+    NSNumber *n_time = [NSNumber numberWithLongLong:_modifyTime];
     NSMutableDictionary *rec = [NSMutableDictionary dictionaryWithObjectsAndKeys:n_size, @"size", n_offset, @"offset", n_time, @"modify_time", _contexts, @"contexts", nil];
 
     NSError *error;
@@ -167,7 +167,7 @@ typedef void (^task)(void);
     if (offset > size || size != self.size) {
         return 0;
     }
-    UInt64 t = [time unsigned苏沫离Value];
+    UInt64 t = [time unsignedLongLongValue];
     if (t != _modifyTime) {
         NSLog(@"modify time changed %llu, %llu", t, _modifyTime);
         return 0;

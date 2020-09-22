@@ -10,7 +10,7 @@
 
 @interface ConsultDetaileViewController : UIViewController
 
-- (instancetype)initWithID:(NSString *)idString;
+- (instancetype)initWithURL:(NSString *)url;
 
 
 @end
