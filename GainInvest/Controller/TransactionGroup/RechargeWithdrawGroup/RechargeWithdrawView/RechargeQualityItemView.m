@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/3/21.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #import "RechargeQualityItemView.h"
@@ -97,9 +97,7 @@
 {
     NSInteger index = self.tag - 10;
     NSArray *imageArray = @[@"Recharge_leaglePlatAlert",@"Recharge_leagleMemberAlert",@"Recharge_leagleQualityAlert"];
-    
-    [MobClick event:@"PositionsClick" label:_titieString];
-    
+        
     [[[QualityCertificationView alloc]initWithImageName:imageArray[index]] show];
     
     

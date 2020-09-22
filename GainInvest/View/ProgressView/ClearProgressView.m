@@ -3,7 +3,7 @@
 //  SURE
 //
 //  Created by 苏沫离 on 16/11/15.
-//  Copyright © 2016年 longlong. All rights reserved.
+//  Copyright © 2016年 苏沫离. All rights reserved.
 //
 
 #define LOAD_WIDTH self.frame.size.width

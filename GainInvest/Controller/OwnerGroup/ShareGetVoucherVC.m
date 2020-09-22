@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/9.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #define BUFFER_SIZE 1024 * 100

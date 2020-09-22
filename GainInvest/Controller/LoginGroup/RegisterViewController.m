@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/8.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #import "RegisterViewController.h"
@@ -244,8 +244,6 @@
     if (_isRegister)
     {
         
-        [MobClick event:@"LoginRegisterClick" label:@"注册用户"];
-
         //注册
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         // Set the label text.
@@ -282,8 +280,6 @@
         // Set the label text.
         hud.label.text = @"修改中...";
         
-        [MobClick event:@"LoginRegisterClick" label:@"修改密码"];
-
         //重置密码
         [self.httpManager resetPasswordWithParameters:parameterDict CompletionBlock:^(NSDictionary *resultDict,NSError *error)
          {

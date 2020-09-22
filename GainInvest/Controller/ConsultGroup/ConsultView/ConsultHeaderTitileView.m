@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/13.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #define CellIdentifer @"ConsultHeaderTitileCell"
@@ -198,8 +198,6 @@
 
 - (void)chooseTitleButtonClick:(UIButton *)sender
 {
-    [MobClick event:@"ConsultVCClick" label:@"咨询类别"];
-
     __weak __typeof__(self) weakSelf = self;
     [self.superview.superview addSubview:self.kindTitleView];
     [self.kindTitleView updateKindTitle:self.kindArray];
@@ -297,8 +295,6 @@
     {
         ConsultKindTitleModel *model = _titleArray[index];
         NSString *string = [NSString stringWithFormat:@"咨询分类==%@",model.kindName];
-        [MobClick event:@"ConsultVCClick" label:string];
-
         [self.delegate didSelectItemScollToIndex:index Model:model];
     }
     

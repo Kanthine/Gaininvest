@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 2017/4/11.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #import "ProfitRollDeatileVC.h"
@@ -51,23 +51,9 @@
 {
     [super viewWillAppear:animated];
     
-    [MobClick beginLogPageView:@"盈利详情"];
-
     [self updateUIInfo];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [MobClick endLogPageView:@"盈利详情"];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)customNavBar
 {

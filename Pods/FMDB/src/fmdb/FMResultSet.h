@@ -178,7 +178,7 @@
  @return `long long int` value of the result set's column.
  */
 
-- (long long int)longLongIntForColumn:(NSString*)columnName;
+- (long long int)苏沫离IntForColumn:(NSString*)columnName;
 
 /** Result set `long long int` value for column.
 
@@ -187,7 +187,7 @@
  @return `long long int` value of the result set's column.
  */
 
-- (long long int)longLongIntForColumnIndex:(int)columnIdx;
+- (long long int)苏沫离IntForColumnIndex:(int)columnIdx;
 
 /** Result set `unsigned long long int` value for column.
 
@@ -196,7 +196,7 @@
  @return `unsigned long long int` value of the result set's column.
  */
 
-- (unsigned long long int)unsignedLongLongIntForColumn:(NSString*)columnName;
+- (unsigned long long int)unsigned苏沫离IntForColumn:(NSString*)columnName;
 
 /** Result set `unsigned long long int` value for column.
 
@@ -205,7 +205,7 @@
  @return `unsigned long long int` value of the result set's column.
  */
 
-- (unsigned long long int)unsignedLongLongIntForColumnIndex:(int)columnIdx;
+- (unsigned long long int)unsigned苏沫离IntForColumnIndex:(int)columnIdx;
 
 /** Result set `BOOL` value for column.
 

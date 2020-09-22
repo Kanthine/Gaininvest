@@ -133,7 +133,7 @@ return ret;
     FMResultSet *rs = [self executeQuery:@"pragma application_id"];
     
     if ([rs next]) {
-        r = (uint32_t)[rs longLongIntForColumnIndex:0];
+        r = (uint32_t)[rs 苏沫离IntForColumnIndex:0];
     }
     
     [rs close];
@@ -199,7 +199,7 @@ return ret;
     FMResultSet *rs = [self executeQuery:@"pragma user_version"];
     
     if ([rs next]) {
-        r = (uint32_t)[rs longLongIntForColumnIndex:0];
+        r = (uint32_t)[rs 苏沫离IntForColumnIndex:0];
     }
     
     [rs close];

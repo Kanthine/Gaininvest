@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/3/30.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #define AnimationDuration 0.2
@@ -141,8 +141,6 @@
 // 消失
 - (void)dismissPickerView
 {
-    [MobClick event:@"ConsultVCClick" label:@"弹出取消"];
-
     [UIView animateWithDuration:AnimationDuration animations:^
      {
          self.contentView.transform = CGAffineTransformMakeTranslation(0, - CGRectGetHeight(self.contentView.frame));
@@ -157,12 +155,7 @@
 
 - (void)registerButtonClick
 {
-    [self dismissPickerView];
-    
-//    [AuthorizationManager getAuthorizationWithViewController:self.viewController];
-    
-    [MobClick event:@"ConsultVCClick" label:@"弹出注册"];
-
+    [self dismissPickerView];    
     [AuthorizationManager getRegisterWithViewController:self.viewController];
 }
 

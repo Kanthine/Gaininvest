@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/7.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 
@@ -72,10 +72,6 @@
     
     
     NSLog(@"-------------     我的     -----------------");
-    
-    
-    [MobClick beginLogPageView:@"我的"];
-    
     [MessageTableDAO getUnReadMessageCountCompletionBlock:^(NSUInteger count)
     {
         _count = count;
@@ -98,9 +94,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [MobClick endLogPageView:@"我的"];
-
     self.navigationController.delegate = self;
 }
 

@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/7.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #import "PositionsViewController.h"
@@ -59,10 +59,6 @@
         [self addChildViewController:self.pageViewController];
         [self.view addSubview:self.pageViewController.view];
     }
-    
-    
-    
-    [MobClick beginLogPageView:@"持仓"];
 
     if ([AuthorizationManager isLoginState] == NO)
     {
@@ -90,13 +86,6 @@
     }
     
     [AuthorizationManager isHaveFourLevelWithViewController:self IsNeedCancelClick:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [MobClick endLogPageView:@"持仓"];
 }
 
 - (void)didReceiveMemoryWarning

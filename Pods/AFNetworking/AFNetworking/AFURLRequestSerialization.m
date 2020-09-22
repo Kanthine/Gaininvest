@@ -721,7 +721,7 @@ NSTimeInterval const kAFUploadStream3GSuggestedDelay = 0.2;
     bodyPart.headers = mutableHeaders;
     bodyPart.boundary = self.boundary;
     bodyPart.body = fileURL;
-    bodyPart.bodyContentLength = [fileAttributes[NSFileSize] unsignedLongLongValue];
+    bodyPart.bodyContentLength = [fileAttributes[NSFileSize] unsigned苏沫离Value];
     [self.bodyStream appendHTTPBodyPart:bodyPart];
 
     return YES;

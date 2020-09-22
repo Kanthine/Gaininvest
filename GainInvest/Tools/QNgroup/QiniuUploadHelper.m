@@ -3,7 +3,7 @@
 //  SURE
 //
 //  Created by 苏沫离 on 16/12/14.
-//  Copyright © 2016年 longlong. All rights reserved.
+//  Copyright © 2016年 苏沫离. All rights reserved.
 //
 
 #import "QiniuUploadHelper.h"

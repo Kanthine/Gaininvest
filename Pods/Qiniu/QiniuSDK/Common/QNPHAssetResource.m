@@ -100,7 +100,7 @@ enum {
                 AVURLAsset *urlAsset = [AVURLAsset URLAssetWithURL:localpath options:nil];
                 NSNumber *fileSize = nil;
                 [urlAsset.URL getResourceValue:&fileSize forKey:NSURLFileSizeKey error:nil];
-                _fileSize = [fileSize unsignedLongLongValue];
+                _fileSize = [fileSize unsigned苏沫离Value];
                 _assetURL = urlAsset.URL;
                 self.assetData = [NSData dataWithData:[NSData dataWithContentsOfURL:urlAsset.URL]];
             } else {

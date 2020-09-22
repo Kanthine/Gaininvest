@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/23.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #define AnimationDuration 0.2
@@ -1102,8 +1102,6 @@
 {
     [self dismissPickerView];
     
-    [MobClick event:@"TransactionClick" label:@"充值"];
-
     
     //充值界面
     RechargeViewController *rechargeVC = [[RechargeViewController alloc]init];
@@ -1152,8 +1150,6 @@
     
     if (index == 20)
     {
-        [MobClick event:@"TransactionClick" label:@"买涨"];
-
         //买涨
         UIButton *button = [_contentView viewWithTag:30];
         button.selected = NO;
@@ -1162,7 +1158,6 @@
     else if (index == 30)
     {
         //买跌
-        [MobClick event:@"TransactionClick" label:@"买跌"];
 
         UIButton *button = [_contentView viewWithTag:20];
         button.selected = NO;
@@ -1282,7 +1277,6 @@
 /* 下单 */
 - (void)placeAnOrderButtonClick:(UIButton *)sender
 {
-    [MobClick event:@"TransactionClick" label:@"下单"];
 
     UISlider *slide = [self.slideCountView viewWithTag:4];
     if (slide.value < 1)

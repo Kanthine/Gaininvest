@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/7.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 
@@ -88,7 +88,6 @@
 {
     [super viewWillAppear:animated];
     
-    [MobClick beginLogPageView:@"交易"];
 
     if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive)
     {
@@ -108,8 +107,6 @@
 {
     [super viewWillDisappear:animated];
     
-    [MobClick endLogPageView:@"交易"];
-
     [self.timer invalidate];
     _timer = nil;
 }
@@ -263,8 +260,6 @@
 
 - (void)footerViewLeftButtonClick
 {
-    [MobClick event:@"TransactionClick" label:@"买涨"];
-
     
     if (_isClosed)
     {
@@ -295,7 +290,6 @@
 
 - (void)footerViewRightButtonClick
 {
-    [MobClick event:@"TransactionClick" label:@"买跌"];
 
     if (_isClosed)
     {
@@ -373,10 +367,7 @@
         {
             _type = type;
 
-            NSString *string = [NSString stringWithFormat:@"查看k线图类型=%@",type];
-            [MobClick event:@"TransactionClick" label:string];
-
-            
+            NSString *string = [NSString stringWithFormat:@"查看k线图类型=%@",type];            
             [weakSelf accessK_TimeLineChart];
         };
     }

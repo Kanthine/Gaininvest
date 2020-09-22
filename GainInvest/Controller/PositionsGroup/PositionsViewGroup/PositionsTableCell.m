@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/24.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #import "PositionsTableCell.h"
@@ -88,8 +88,6 @@
 /* 更改止盈止损点 */
 - (IBAction)updateGainOrLossTipButtonClick:(UIButton *)sender
 {
-    [MobClick event:@"PositionsClick" label:@"更改止盈止损点"];
-
     UpdateGainOrLossTipView *updateView = [[UpdateGainOrLossTipView alloc]initWithTopLimit:_model.topLimit BottomLimit:_model.bottomLimit];
     [updateView show];
     
@@ -130,9 +128,6 @@
 /* 平仓 */
 - (IBAction)closePositionButtonClick:(UIButton *)sender
 {
-    [MobClick event:@"PositionsClick" label:@"平仓"];
-
-    
     ConfirmClosePositionView *closePosition = [[ConfirmClosePositionView alloc]init];
     [closePosition show];
     closePosition.confirmClosePosition = ^()

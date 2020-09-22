@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/14.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 NSString *const ConsultKindTitleModelKindId = @"article_type_id";
@@ -86,8 +86,7 @@ NSString *const ConsultKindTitleModelTypeName = @"byname";
     [data writeToFile:defaultKindPath atomically:YES];
 }
 
-+ (NSMutableArray<ConsultKindTitleModel *> *)setDefaultConsultKindTitleList
-{
++ (NSMutableArray<ConsultKindTitleModel *> *)setDefaultConsultKindTitleList{
     NSMutableArray<ConsultKindTitleModel *> *muArray = [NSMutableArray array];
     
     NSArray *kindNameArray = @[@"白银",@"黄金",@"美元指数",
@@ -103,17 +102,14 @@ NSString *const ConsultKindTitleModelTypeName = @"byname";
                                @"analysts",@"analysts",@"analysts",@"types"];
     
     
-    [kindNameArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-     {
+    [kindNameArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
          ConsultKindTitleModel *kindModel = [[ConsultKindTitleModel alloc]init];
          kindModel.kindName = obj;
          kindModel.kindId = kindIdArray[idx];
          kindModel.typeName = typeNameArray[idx];
          [muArray addObject:kindModel];
     }];
-    
-    
-    
+        
     
     NSString *defaultKindPath = [FilePathManager getConsultDefaultKindFilePath];
     
@@ -128,8 +124,7 @@ NSString *const ConsultKindTitleModelTypeName = @"byname";
 }
 
 
-+ (NSMutableArray<ConsultKindTitleModel *> *)getLocalConsultKindModelData
-{
++ (NSMutableArray<ConsultKindTitleModel *> *)getLocalConsultKindModelData{
     NSMutableArray *muArray = [NSMutableArray array];
     
     NSString *defaultKindPath = [FilePathManager getConsultDefaultKindFilePath];

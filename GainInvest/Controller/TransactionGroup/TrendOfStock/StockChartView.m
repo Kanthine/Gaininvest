@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/3/6.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #import "StockChartView.h"
@@ -310,24 +310,6 @@
     [self.kLineMainView drawMainView];
     
     
-    
-    switch (sender.tag)
-    {
-        case 100:
-            [MobClick event:@"TransactionClick" label:@"k线图类型--MACD"];
-            break;
-        case 101:
-            [MobClick event:@"TransactionClick" label:@"k线图类型--KDJ"];
-            break;
-        case 103:
-            [MobClick event:@"TransactionClick" label:@"k线图类型--MA"];
-            break;
-        case 104:
-            [MobClick event:@"TransactionClick" label:@"k线图类型--SMA"];
-            break;
-        default:
-            break;
-    }
     
     
 }

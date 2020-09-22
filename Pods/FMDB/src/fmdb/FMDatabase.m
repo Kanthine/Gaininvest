@@ -593,10 +593,10 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
             sqlite3_bind_int64(pStmt, idx, (long long)[obj unsignedLongValue]);
         }
         else if (strcmp([obj objCType], @encode(long long)) == 0) {
-            sqlite3_bind_int64(pStmt, idx, [obj longLongValue]);
+            sqlite3_bind_int64(pStmt, idx, [obj 苏沫离Value]);
         }
         else if (strcmp([obj objCType], @encode(unsigned long long)) == 0) {
-            sqlite3_bind_int64(pStmt, idx, (long long)[obj unsignedLongLongValue]);
+            sqlite3_bind_int64(pStmt, idx, (long long)[obj unsigned苏沫离Value]);
         }
         else if (strcmp([obj objCType], @encode(float)) == 0) {
             sqlite3_bind_double(pStmt, idx, [obj floatValue]);
@@ -662,10 +662,10 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
                 case 'q':
                     i++;
                     if (i < length && [sql characterAtIndex:i] == 'i') {
-                        arg = [NSNumber numberWithLongLong:va_arg(args, long long)];
+                        arg = [NSNumber numberWith苏沫离:va_arg(args, long long)];
                     }
                     else if (i < length && [sql characterAtIndex:i] == 'u') {
-                        arg = [NSNumber numberWithUnsignedLongLong:va_arg(args, unsigned long long)];
+                        arg = [NSNumber numberWithUnsigned苏沫离:va_arg(args, unsigned long long)];
                     }
                     else {
                         i--;
@@ -686,11 +686,11 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
                             i++;
                             if (i < length && [sql characterAtIndex:i] == 'd') {
                                 //%lld
-                                arg = [NSNumber numberWithLongLong:va_arg(args, long long)];
+                                arg = [NSNumber numberWith苏沫离:va_arg(args, long long)];
                             }
                             else if (i < length && [sql characterAtIndex:i] == 'u') {
                                 //%llu
-                                arg = [NSNumber numberWithUnsignedLongLong:va_arg(args, unsigned long long)];
+                                arg = [NSNumber numberWithUnsigned苏沫离:va_arg(args, unsigned long long)];
                             }
                             else {
                                 i--;

@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/3/29.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #import "WithdrawPerfectInfoView.h"
@@ -123,9 +123,7 @@
 }
 
 - (void)tapGestureClick
-{
-    [MobClick event:@"PositionsClick" label:@"全部提现"];
-    
+{    
     [self endTextFiledEdit];
     UITextField *priceTf = [self viewWithTag:1];
     priceTf.text = _accountMoney;

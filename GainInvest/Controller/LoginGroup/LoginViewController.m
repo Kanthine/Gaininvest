@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/8.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #import "LoginViewController.h"
@@ -55,26 +55,6 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [MobClick beginLogPageView:@"注册"];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [MobClick endLogPageView:@"登录"];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)customNavBar
 {
     self.navigationItem.title = @"登录";
@@ -98,14 +78,10 @@
     if (sender.selected)
     {
         _passwordTf.secureTextEntry = NO;
-        
-        [MobClick event:@"LoginRegisterClick" label:@"查看密码"];
     }
     else
     {
         _passwordTf.secureTextEntry = YES;
-        
-        [MobClick event:@"LoginRegisterClick" label:@"隐藏密码"];
     }
 }
 
@@ -118,8 +94,6 @@
         return;
     }
     
-    [MobClick event:@"LoginRegisterClick" label:@"账号密码登录"];
-
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     // Set the label text.
@@ -151,9 +125,6 @@
     // 忘记密码
     RegisterViewController *registerVC = [[RegisterViewController alloc]initWithIsRegister:NO];
     [self.navigationController pushViewController:registerVC animated:YES];
-    
-    [MobClick event:@"LoginRegisterClick" label:@"忘记密码"];
-
 }
 
 - (IBAction)registerButtonClick:(UIButton *)sender
@@ -163,8 +134,6 @@
     
     RegisterViewController *registerVC = [[RegisterViewController alloc]initWithIsRegister:YES];
     [self.navigationController pushViewController:registerVC animated:YES];
-    
-    [MobClick event:@"LoginRegisterClick" label:@"注册"];
 }
 
 - (IBAction)weChatLoginButtonClick:(UIButton *)sender

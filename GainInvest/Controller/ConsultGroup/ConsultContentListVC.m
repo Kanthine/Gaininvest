@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/13.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 
@@ -145,10 +145,6 @@
     ConsultListModel *model = self.consultListArray[indexPath.row];
 
     NSString *string = [NSString stringWithFormat:@"新闻id=%@",model.articleId];
-    
-    [MobClick event:@"ConsultVCClick" label:string];
-    
-
     ConsultDetaileViewController *detaileVC = [[ConsultDetaileViewController alloc]initWithID:model.articleId];
     detaileVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:detaileVC animated:YES];

@@ -631,6 +631,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AE45F4525199F5C00E32236 /* JsonDemoData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = JsonDemoData;
+			sourceTree = "<group>";
+		};
 		2202C7D61E4AC694000D14DE /* OwnerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1227,6 +1234,7 @@
 		22FF6F3F1E49ACDA00F81929 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				1AE45F4525199F5C00E32236 /* JsonDemoData */,
 				22FF6F531E49ACDA00F81929 /* Info.plist */,
 				221562221E4C230000FB3375 /* newTeach.bundle */,
 				22FF6F401E49ACDA00F81929 /* main.m */,

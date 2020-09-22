@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/16.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #define ViewHeight (ScreenHeight - 64 - 49 - 44)
@@ -264,19 +264,10 @@
         UIButton *button = [sender.superview viewWithTag:3];
         button.selected = NO;
         _isTradeList = YES;
-
-        [MobClick event:@"PositionsClick" label:@"交易记录"];
-
-        
-    }
-    else if (sender.tag == 3)
-    {
+    }else if (sender.tag == 3){
         UIButton *button = [sender.superview viewWithTag:2];
         button.selected = NO;
         _isTradeList = NO;
-        
-        [MobClick event:@"PositionsClick" label:@"收支明细"];
-
     }
     [self pullDownRefreshData];    
 }
@@ -294,8 +285,6 @@
 
 - (void)withdrawButtonClick
 {
-    [MobClick event:@"PositionsClick" label:@"提现"];
-
     if ([AuthorizationManager isLoginState])
     {
         if ([AuthorizationManager isEffectiveToken])
@@ -321,9 +310,6 @@
 
 - (void)rechargeButtonClick
 {
-    [MobClick event:@"PositionsClick" label:@"充值"];
-
-    
     if ([AuthorizationManager isLoginState])
     {
         
@@ -351,8 +337,6 @@
 
 - (void)lookVoucherButtonClick
 {
-    [MobClick event:@"PositionsClick" label:@"查看代金券"];
-
     if ([AuthorizationManager isLoginState])
     {
         

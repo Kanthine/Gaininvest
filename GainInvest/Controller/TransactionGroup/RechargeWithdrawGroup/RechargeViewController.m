@@ -3,7 +3,7 @@
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/24.
-//  Copyright © 2017年 longlong. All rights reserved.
+//  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
 #define CellIdentifer @"RechargeMethodTableCell"
@@ -430,19 +430,7 @@
 
 - (void)footerViewRechargeButtonClick
 {
-    NSString *string = [NSString stringWithFormat:@"充值金额=%ld元",_currentMoney];
-    [MobClick event:@"PositionsClick" label:string];
 
-    if (_selectedIndex == 0)
-    {
-        //微信支付
-        [self weChatMethodPay];
-    }
-    else if (_selectedIndex == 1)
-    {
-        //京东支付
-        [self jdMethodPay];
-    }
 }
 
 #pragma mark - Pay
