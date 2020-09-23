@@ -7,205 +7,83 @@
 //
 
 
-#define Success @"?utoken=ying"
-
 #import "SetTransactionPasswordVC.h"
-
-#import "UserInfoHttpManager.h"
-#import <WebKit/WebKit.h>
-
+#import "YLPasswordInputView.h"
 #import "MainTabBarController.h"
 #import "MyVoucherViewController.h"
 
 @interface SetTransactionPasswordVC ()
-<WKNavigationDelegate>
+<YLPasswordInputViewDelegate>
 
 {
-    NSString *_urlString;
-    
     TransactionPasswordKind _passwordKind;
 }
 
 
-@property (nonatomic ,strong) WKWebView *webView;
-
-@property (nonatomic ,strong) UIActivityIndicatorView *activityView;
+@property (nonatomic, strong) YLPasswordInputView *passwordView;
 
 @end
 
 @implementation SetTransactionPasswordVC
 
-- (instancetype)initWithURL:(NSString *)urlString Type:(TransactionPasswordKind)passwordKind
-{
+- (instancetype)initWithType:(TransactionPasswordKind)passwordKind{
     self = [super init];
-    
-    if (self)
-    {
-        
-        if (urlString)
-        {
-            _urlString = urlString;
-            _passwordKind = passwordKind;
-
-           urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            
-            [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
-            
-        }
+    if (self){
+        _passwordKind = passwordKind;
     }
-    
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self customNavBar];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.view.backgroundColor = UIColor.whiteColor;
     
-    [self.view addSubview:self.webView];
+    self.navigationItem.leftBarButtonItem = [[LeftBackItem alloc] initWithTarget:self Selector:@selector(leftNavBarButtonClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonItemClick)];
     
+    [self.view addSubview:self.passwordView];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - response click
 
-- (void)customNavBar
-{
-    LeftBackItem *leftBarItem = [[LeftBackItem alloc] initWithTarget:self Selector:@selector(leftNavBarButtonClick)];
-    self.navigationItem.leftBarButtonItem=leftBarItem;
-}
-
-- (void)leftNavBarButtonClick
-{
-    if (self.isPushVC)
-    {
+- (void)leftNavBarButtonClick{
+    if (self.isPushVC){
         __block BOOL isHave = NO;
-        [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-         {
-             if ([obj isKindOfClass:NSClassFromString(@"AccountManagerVC")])
-             {
+        [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
+             if ([obj isKindOfClass:NSClassFromString(@"AccountManagerVC")]){
                  [self.navigationController popToViewController:obj animated:YES];
                  isHave = YES;
                  * stop = YES;
              }
         }];
         
-        if (isHave == NO)
-        {
+        if (isHave == NO){
             [self.navigationController popViewControllerAnimated:YES];
         }        
-    }
-    else
-    {
+    }else{
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
-- (WKWebView *)webView
-{
-    if (_webView == nil)
-    {
-        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)];
-        _webView.navigationDelegate = self;
-    }
+- (void)rightBarButtonItemClick{
     
-    return _webView;
-}
-
-- (UIActivityIndicatorView *)activityView
-{
-    if (_activityView == nil)
-    {
-        _activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    if (_passwordKind == TransactionPasswordKindOpenAccount){
+        // 开户成功
+        AccountInfo *account = [AccountInfo standardAccountInfo];
+        account.isOpenAccount = @"1";
+        [account storeAccountInfo];
+        [self leftNavBarButtonClick];
         
-        _activityView.frame = CGRectMake(0, 0, 50, 50);
-        _activityView.center = CGPointMake(ScreenWidth / 2.0, ScreenHeight / 2.0 - 45);
+        [SetTransactionPasswordVC registerSuccessSendCouponTip];
     }
-    
-    return _activityView;
 }
 
-#pragma mark - WKNavigationDelegate
-
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation
-{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.tag = 100;
-
-//    [self.view addSubview:self.activityView];
-//    [self.view bringSubviewToFront:self.activityView];
-//    [self.activityView startAnimating];
-}
-
-- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation
-{
-    MBProgressHUD *hud = [self.view viewWithTag:100];
-    [hud hideAnimated:YES];
-    
-    
-//    [self.activityView stopAnimating];
-//    [self.activityView removeFromSuperview];
-//    _activityView = nil;
-}
-
-- (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
-{
-    
-    MBProgressHUD *hud = [self.view viewWithTag:100];
-    [hud hideAnimated:YES];
-    
-    
-//    [self.activityView stopAnimating];
-//    [self.activityView removeFromSuperview];
-//    _activityView = nil;
-    
-    NSLog(@"error ====== %@",error);
-    
-}
-
-//在收到响应之前，决定是否跳转
-- (void)webView:(WKWebView* )webView decidePolicyForNavigationAction:(WKNavigationAction* )navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
-{
-    NSString *urlString = navigationAction.request.URL.absoluteString;
-    NSLog(@"urlString =====%@",urlString);
-  
-
-    if (_passwordKind == TransactionPasswordKindOpenAccount)
-    {
-          urlString = [urlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSLog(@"urlString2 =====%@",urlString);
-
-        if ([_urlString isEqualToString:urlString])
-        {
-            decisionHandler(WKNavigationActionPolicyAllow);
-        }
-        else if ([urlString containsString:Success])
-        {
-            // 开户成功
-            AccountInfo *account = [AccountInfo standardAccountInfo];
-            account.isOpenAccount = @"1";
-            [account storeAccountInfo];
-            [self leftNavBarButtonClick];
-            
-            [SetTransactionPasswordVC registerSuccessSendCouponTip];
-            
-            decisionHandler(WKNavigationActionPolicyCancel);
-        }
-        else
-        {
-            decisionHandler(WKNavigationActionPolicyAllow);
-        }
-    }
-    else
-    {
-        decisionHandler(WKNavigationActionPolicyAllow);
-    }
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    [self.view endEditing:YES];
 }
 
 #pragma mark - 开户成功提示送代金券
@@ -216,8 +94,7 @@
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"忽略" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}];
     
-    UIAlertAction *loginAction = [UIAlertAction actionWithTitle:@"去查看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
-                                  {
+    UIAlertAction *loginAction = [UIAlertAction actionWithTitle:@"去查看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
                                       [self lookMyCouponList];
                                   }];
     
@@ -229,22 +106,55 @@
     [nav.viewControllers.lastObject presentViewController:actionSheet animated:YES completion:nil];
 }
 
-+ (void)lookMyCouponList
-{
++ (void)lookMyCouponList{
     UINavigationController *nav = [MainTabBarController shareMainController].selectedViewController;
     
-    if ([AuthorizationManager isLoginState] == NO)
-    {
+    if ([AuthorizationManager isLoginState] == NO){
         [AuthorizationManager getAuthorizationWithViewController:nav.viewControllers.lastObject];
-    }
-    else if ([AuthorizationManager isHaveFourLevelWithViewController:nav.viewControllers.lastObject IsNeedCancelClick:NO])
-    {
+    }else if ([AuthorizationManager isHaveFourLevelWithViewController:nav.viewControllers.lastObject IsNeedCancelClick:NO]){
         MyVoucherViewController *voucherVC = [[MyVoucherViewController alloc]init];
         voucherVC.hidesBottomBarWhenPushed = YES;
         [nav pushViewController:voucherVC animated:YES];
     }
 }
 
+#pragma mark - YLPasswordInputViewDelegate
+
+/**输入改变*/
+- (void)passwordInputViewDidChange:(YLPasswordInputView *)passwordInputView{
+    
+}
+
+/**点击删除*/
+- (void)passwordInputViewDidDeleteBackward:(YLPasswordInputView *)passwordInputView{
+    
+}
+
+/**输入完成*/
+- (void)passwordInputViewCompleteInput:(YLPasswordInputView *)passwordInputView{
+    
+}
+
+/**开始输入*/
+- (void)passwordInputViewBeginInput:(YLPasswordInputView *)passwordInputView{
+    
+}
+
+/**结束输入*/
+- (void)passwordInputViewEndInput:(YLPasswordInputView *)passwordInputView{
+    
+}
+
+
+#pragma mark - setter and getters
+
+- (YLPasswordInputView *)passwordView{
+    if (_passwordView == nil) {
+        _passwordView = [[YLPasswordInputView alloc] initWithFrame:CGRectMake((CGRectGetWidth(UIScreen.mainScreen.bounds) - 42 * 6) / 2.0, 120, 42 * 6.0, 42)];
+        _passwordView.delegate = self;
+    }
+    return _passwordView;
+}
 
 @end
 

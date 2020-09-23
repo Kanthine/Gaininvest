@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A8C6F4E251ADC530003FB39 /* YLPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C6F4D251ADC530003FB39 /* YLPasswordInputView.m */; };
 		1AE45F3025199B9200E32236 /* DemoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE45F2F25199B9200E32236 /* DemoData.m */; };
 		1AE45F562519AA7C00E32236 /* ConsultKindTitles.json in Resources */ = {isa = PBXBuildFile; fileRef = 1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */; };
 		220052B91E52B119001EB8E0 /* ConsultKindTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 220052B81E52B119001EB8E0 /* ConsultKindTitleModel.m */; };
@@ -62,7 +63,6 @@
 		2215623C1E4C56D700FB3375 /* AFNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2215623B1E4C56D700FB3375 /* AFNetAPIClient.m */; };
 		2215623F1E4C570E00FB3375 /* AFNetDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2215623E1E4C570E00FB3375 /* AFNetDiskCache.m */; };
 		221562421E4C574700FB3375 /* FilePathManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 221562411E4C574700FB3375 /* FilePathManager.m */; };
-		221562451E4C5A0300FB3375 /* LoginHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 221562441E4C5A0300FB3375 /* LoginHttpManager.m */; };
 		2215624C1E4C62F200FB3375 /* ErrorTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2215624B1E4C62F200FB3375 /* ErrorTipView.m */; };
 		2216B9BA1E63DAD7006994C3 /* ChooseProvinceCityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2216B9B91E63DAD7006994C3 /* ChooseProvinceCityVC.m */; };
 		2216B9BD1E63DC6D006994C3 /* TransactionHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2216B9BC1E63DC6D006994C3 /* TransactionHttpManager.m */; };
@@ -111,7 +111,6 @@
 		2221EED81E4DA96C006DA937 /* ResetLoginPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2221EED61E4DA96C006DA937 /* ResetLoginPasswordVC.xib */; };
 		2221EEDC1E4DA989006DA937 /* ResetTradePasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2221EEDA1E4DA989006DA937 /* ResetTradePasswordVC.m */; };
 		2221EEDD1E4DA989006DA937 /* ResetTradePasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2221EEDB1E4DA989006DA937 /* ResetTradePasswordVC.xib */; };
-		2221EEE41E4DC38E006DA937 /* UserInfoHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2221EEE31E4DC38E006DA937 /* UserInfoHttpManager.m */; };
 		2221F9291E7D1A9F004B41F9 /* AboutOurIntroVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2221F9271E7D1A9F004B41F9 /* AboutOurIntroVC.m */; };
 		2221F92A1E7D1A9F004B41F9 /* AboutOurIntroVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2221F9281E7D1A9F004B41F9 /* AboutOurIntroVC.xib */; };
 		2221F92E1E7D1ADB004B41F9 /* AboutOurRisksVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2221F92C1E7D1ADB004B41F9 /* AboutOurRisksVC.m */; };
@@ -227,6 +226,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A8C6F4C251ADC530003FB39 /* YLPasswordInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLPasswordInputView.h; sourceTree = "<group>"; };
+		1A8C6F4D251ADC530003FB39 /* YLPasswordInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLPasswordInputView.m; sourceTree = "<group>"; };
 		1AE45F2E25199B9200E32236 /* DemoData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoData.h; sourceTree = "<group>"; };
 		1AE45F2F25199B9200E32236 /* DemoData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoData.m; sourceTree = "<group>"; };
 		1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ConsultKindTitles.json; sourceTree = "<group>"; };
@@ -323,8 +324,6 @@
 		2215623E1E4C570E00FB3375 /* AFNetDiskCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetDiskCache.m; sourceTree = "<group>"; };
 		221562401E4C574700FB3375 /* FilePathManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePathManager.h; sourceTree = "<group>"; };
 		221562411E4C574700FB3375 /* FilePathManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePathManager.m; sourceTree = "<group>"; };
-		221562431E4C5A0300FB3375 /* LoginHttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHttpManager.h; sourceTree = "<group>"; };
-		221562441E4C5A0300FB3375 /* LoginHttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginHttpManager.m; sourceTree = "<group>"; };
 		221562491E4C5A7400FB3375 /* DataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		2215624A1E4C62F200FB3375 /* ErrorTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorTipView.h; sourceTree = "<group>"; };
 		2215624B1E4C62F200FB3375 /* ErrorTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorTipView.m; sourceTree = "<group>"; };
@@ -416,8 +415,6 @@
 		2221EED91E4DA989006DA937 /* ResetTradePasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetTradePasswordVC.h; sourceTree = "<group>"; };
 		2221EEDA1E4DA989006DA937 /* ResetTradePasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetTradePasswordVC.m; sourceTree = "<group>"; };
 		2221EEDB1E4DA989006DA937 /* ResetTradePasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetTradePasswordVC.xib; sourceTree = "<group>"; };
-		2221EEE21E4DC38E006DA937 /* UserInfoHttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoHttpManager.h; sourceTree = "<group>"; };
-		2221EEE31E4DC38E006DA937 /* UserInfoHttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoHttpManager.m; sourceTree = "<group>"; };
 		2221F9261E7D1A9F004B41F9 /* AboutOurIntroVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutOurIntroVC.h; sourceTree = "<group>"; };
 		2221F9271E7D1A9F004B41F9 /* AboutOurIntroVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutOurIntroVC.m; sourceTree = "<group>"; };
 		2221F9281E7D1A9F004B41F9 /* AboutOurIntroVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutOurIntroVC.xib; sourceTree = "<group>"; };
@@ -630,6 +627,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A8C6F4B251ADC530003FB39 /* YLPasswordInputView */ = {
+			isa = PBXGroup;
+			children = (
+				1A8C6F4C251ADC530003FB39 /* YLPasswordInputView.h */,
+				1A8C6F4D251ADC530003FB39 /* YLPasswordInputView.m */,
+			);
+			path = YLPasswordInputView;
+			sourceTree = "<group>";
+		};
 		1AE45F4525199F5C00E32236 /* JsonDemoData */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,6 +662,7 @@
 		2202C7DA1E4AD01A000D14DE /* LoginGroup */ = {
 			isa = PBXGroup;
 			children = (
+				1A8C6F4B251ADC530003FB39 /* YLPasswordInputView */,
 				2202C7E51E4AE43E000D14DE /* LoginView */,
 				2202C7DB1E4AD0BA000D14DE /* LoginViewController.h */,
 				2202C7DC1E4AD0BA000D14DE /* LoginViewController.m */,
@@ -848,10 +855,6 @@
 			isa = PBXGroup;
 			children = (
 				221562391E4C53A200FB3375 /* RequestURL.h */,
-				221562431E4C5A0300FB3375 /* LoginHttpManager.h */,
-				221562441E4C5A0300FB3375 /* LoginHttpManager.m */,
-				2221EEE21E4DC38E006DA937 /* UserInfoHttpManager.h */,
-				2221EEE31E4DC38E006DA937 /* UserInfoHttpManager.m */,
 				2216B9BB1E63DC6D006994C3 /* TransactionHttpManager.h */,
 				2216B9BC1E63DC6D006994C3 /* TransactionHttpManager.m */,
 				2215623A1E4C56D700FB3375 /* AFNetAPIClient.h */,
@@ -1705,6 +1708,7 @@
 				22D177F91E7C2E9700E99911 /* MessageModel.m in Sources */,
 				22A9A1C71E555D8C006A51D1 /* ConsultDetaileViewController.m in Sources */,
 				22A9A1D41E557E66006A51D1 /* PositionsHistoryTableCell.m in Sources */,
+				1A8C6F4E251ADC530003FB39 /* YLPasswordInputView.m in Sources */,
 				2221F92E1E7D1ADB004B41F9 /* AboutOurRisksVC.m in Sources */,
 				22EC6A131E7A712E004B9473 /* ClosePositionDetaileVC.m in Sources */,
 				220B00751E66706300180C33 /* WaveProgressView.m in Sources */,
@@ -1716,7 +1720,6 @@
 				22B083D71E51BCB500843DBD /* ConsultContentListVC.m in Sources */,
 				1AE45F3025199B9200E32236 /* DemoData.m in Sources */,
 				2202C7FF1E4B272C000D14DE /* NewHandTeachViewController.m in Sources */,
-				2221EEE41E4DC38E006DA937 /* UserInfoHttpManager.m in Sources */,
 				22FF416D1E768A84000FB634 /* ActivateTradePwdView.m in Sources */,
 				2216B9C31E63F2D4006994C3 /* AreaModel.m in Sources */,
 				2221EEC91E4D9554006DA937 /* AccountManagerVC.m in Sources */,
@@ -1731,7 +1734,6 @@
 				220B007E1E6677DB00180C33 /* QualityCertificationView.m in Sources */,
 				221BA52C1E6FB96D00FB618D /* Y_KLinePositionModel.m in Sources */,
 				2223F2D61E60122A006E8B8E /* PositionsTableCell.m in Sources */,
-				221562451E4C5A0300FB3375 /* LoginHttpManager.m in Sources */,
 				221BA5331E6FB96D00FB618D /* Y_KLineVolumeView.m in Sources */,
 				22FF6F8A1E49B24900F81929 /* MainTabBarController.m in Sources */,
 				22D177FC1E7C361300E99911 /* MessageTableDAO.m in Sources */,

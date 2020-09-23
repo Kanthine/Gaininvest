@@ -16,7 +16,6 @@
 
 
 #import "ActivateTradePwdView.h"
-#import "LoginHttpManager.h"
 #import "OpenAccountVC.h"
 #import "SetTransactionPasswordVC.h"
 #import "MyVoucherViewController.h"
@@ -271,42 +270,18 @@
     ActivateTradePwdView *tipView = [[ActivateTradePwdView alloc]initWithState:ActivateTradePwdStateOpenAccount];
     [tipView show];
     
-    tipView.activateTradePwdViewCancelButtonClick = ^()
-    {
-        if (isNeed)
-        {
+    tipView.activateTradePwdViewCancelButtonClick = ^(){
+        if (isNeed){
             [MainTabBarController setSelectedIndex:1];
         }
     };
     
-    tipView.activateTradePwdViewConfirmButtonClick = ^()
-    {
-        AccountInfo *account = [AccountInfo standardAccountInfo];
-        
-        
-        NSDictionary *dict = @{@"mobile_phone":account.username};
-        
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:viewController.view animated:YES];
-
-        [[[LoginHttpManager alloc]init] setTransactionPasswordWithParameters:dict CompletionBlock:^(NSDictionary *resultDict, NSError *error)
-         {
-             [hud hideAnimated:YES];
-
-             if (error)
-             {
-                 
-             }
-             else
-             {
-                 SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithURL:[resultDict objectForKey:@"result"] Type:TransactionPasswordKindOpenAccount];
-                 setVc.isPushVC = NO;
-                 setVc.navigationItem.title = @"设置交易密码";
-                 UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:setVc];
-                 [viewController presentViewController:nav animated:YES completion:nil];
-             }
-             
-         }];
-        
+    tipView.activateTradePwdViewConfirmButtonClick = ^(){
+        SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithType:TransactionPasswordKindOpenAccount];
+        setVc.isPushVC = NO;
+        setVc.navigationItem.title = @"设置交易密码";
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:setVc];
+        [viewController presentViewController:nav animated:YES completion:nil];
     };
 }
 

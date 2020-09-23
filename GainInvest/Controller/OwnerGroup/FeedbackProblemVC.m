@@ -7,7 +7,6 @@
 //
 
 #import "FeedbackProblemVC.h"
-#import "UserInfoHttpManager.h"
 #import "UploadImageTool.h"
 #import "FeedbackProblemItemView.h"
 
@@ -282,46 +281,9 @@
 }
 
 
-- (void)submitProblemWithImageArray:(NSArray<NSString *> *)imagePathArray
-{
-     __block NSString *imagePath = @"";
-    if (imagePathArray && imagePathArray.count)
-    {
-        [imagePathArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-        {
-            if ([imagePath isEqualToString:@""])
-            {
-                imagePath = obj;
-            }
-            else
-            {
-                imagePath = [NSString stringWithFormat:@"%@,%@",imagePath,obj];
-            }
-        }];
-    }
-    
-    NSLog(@"%@",imagePath);
-    
-    AccountInfo *account = [AccountInfo standardAccountInfo];
-    NSDictionary *dict = @{@"uid":account.internalBaseClassIdentifier,
-                           @"content":_suggestTextView.text,
-                           @"images":imagePath};
-    
-    [[[UserInfoHttpManager alloc]init] feedbackProblemWithParameterDict:dict CompletionBlock:^(NSError *error)
-     {
-         if (error.code == 1)
-         {
-             [ErrorTipView errorTip:@"感谢您的问题反馈，我们会努力改进" SuperView:self.view];
-             [self performSelector:@selector(leftNavBarButtonClick) withObject:nil afterDelay:1];
-         }
-         else
-         {
-             [ErrorTipView errorTip:@"提交失败" SuperView:self.view];
-         }
-         
-     }];
-
-    
+- (void)submitProblemWithImageArray:(NSArray<NSString *> *)imagePathArray{    
+    [ErrorTipView errorTip:@"感谢您的问题反馈，我们会努力改进" SuperView:self.view];
+    [self performSelector:@selector(leftNavBarButtonClick) withObject:nil afterDelay:1];
 }
 
 @end

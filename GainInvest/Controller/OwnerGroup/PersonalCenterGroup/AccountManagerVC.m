@@ -18,9 +18,6 @@
 
 #import "SetTransactionPasswordVC.h"
 #import "OpenAccountVC.h"
-#import "LoginHttpManager.h"
-#import "UserInfoHttpManager.h"
-
 #import "WaveProgressView.h"
 #import "QNManager.h"
 
@@ -36,26 +33,10 @@
 @property (nonatomic ,strong) UITableView *tableview;
 
 @property (nonatomic ,strong) NSArray *dataArray;
-@property (nonatomic ,strong) UserInfoHttpManager *httpManager;
 
 @end
 
 @implementation AccountManagerVC
-
-- (void)dealloc
-{
-    _httpManager = nil;
-}
-
-- (UserInfoHttpManager *)httpManager
-{
-    if (_httpManager == nil)
-    {
-        _httpManager = [[UserInfoHttpManager alloc]init];
-    }
-    
-    return _httpManager;
-}
 
 - (void)viewDidLoad
 {
@@ -490,19 +471,16 @@
     __block WaveProgressView *waveProgress  = [[WaveProgressView alloc] initWithFrame:CGRectMake(ScreenWidth / 2.0 - 40, 200, 80, 80)];
     waveProgress.isShowWave = YES;
     [self.view addSubview:waveProgress];
-    [QNManager updateLoadImage:image ProgressBlock:^(float progress)
-     {
+    [QNManager updateLoadImage:image ProgressBlock:^(float progress){
          waveProgress.percent = progress;
          waveProgress.centerLabel.text = [NSString stringWithFormat:@"%.02f%%",progress];
          
-         if (progress >= 1)
-         {
+         if (progress >= 1){
              [waveProgress removeFromSuperview];
              
          }
          
-     } CompletionBlock:^(NSString *urlString, BOOL isSucceed)
-     {
+     } CompletionBlock:^(NSString *urlString, BOOL isSucceed){
          if (isSucceed)
          {
              [self updatePersonalHeader:urlString];
@@ -512,105 +490,36 @@
 
 }
 
-- (void)updatePersonalHeader:(NSString *)urlString
-{
-    AccountInfo *account = [AccountInfo standardAccountInfo];
-    
-    NSDictionary *dict = @{@"user_id":account.internalBaseClassIdentifier,@"birthday":account.birthday,@"nickname":account.nickname,@"sex":account.sex,@"minename":account.realname,@"headimg":urlString,@"qq_openid":account.qqUid,@"weixin_openid":account.weChatUid};
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.label.text = @"设置中...";
-    
-    
-    [self.httpManager updatePersonalInfoParameterDict:dict CompletionBlock:^(NSError *error)
-     {
-         [hud hideAnimated:YES];
-         
-         if (error)
-         {
-             [ErrorTipView errorTip:error.domain SuperView:self.view];
-         }
-         else
-         {
-             account.head = urlString;
-             [account storeAccountInfo];
-             
-             [_tableview reloadData];
-         }
-         
-     }];
+- (void)updatePersonalHeader:(NSString *)urlString{
+    AccountInfo.standardAccountInfo.head = @"";
+    [AccountInfo.standardAccountInfo storeAccountInfo];
+    [_tableview reloadData];
 }
 
-
-
 /* 设置交易密码 */
-- (void)setSetTransactionPasswordVCClick
-{
-    AccountInfo *account = [AccountInfo standardAccountInfo];
-
-    NSDictionary *dict = @{@"mobile_phone":account.username};
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    [[[LoginHttpManager alloc]init] setTransactionPasswordWithParameters:dict CompletionBlock:^(NSDictionary *resultDict, NSError *error)
-     {
-         [hud hideAnimated:YES];
-
-         if (error)
-         {
-             
-         }
-         else
-         {
-             SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithURL:[resultDict objectForKey:@"result"] Type:TransactionPasswordKindOpenAccount];
-             setVc.isPushVC = YES;
-             setVc.navigationItem.title = @"设置交易密码";
-             [self.navigationController pushViewController:setVc animated:YES];
-         }
-        
-    }];
-    
-
+- (void)setSetTransactionPasswordVCClick{
+    SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithType:TransactionPasswordKindOpenAccount];
+    setVc.isPushVC = YES;
+    setVc.navigationItem.title = @"设置交易密码";
+    [self.navigationController pushViewController:setVc animated:YES];
 }
 
 /* 修改交易密码 */
 - (void)resetTransactionPasswordVCClick{
-    AccountInfo *account = [AccountInfo standardAccountInfo];
-    
-    NSDictionary *dict = @{@"user_name":account.username};
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-
-    [[[LoginHttpManager alloc]init] resetTransactionPasswordWithParameters:dict CompletionBlock:^(NSDictionary *resultDict, NSError *error)
-    {
-        [hud hideAnimated:YES];
-
-        if (error)
-        {
-            
-        }
-        else
-        {
-            SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithURL:[resultDict objectForKey:@"result"] Type:TransactionPasswordKindUpdate];
-            setVc.isPushVC = YES;
-            setVc.navigationItem.title = @"修改交易密码";
-            [self.navigationController pushViewController:setVc animated:YES];
-            
-        }
-    }];
+    SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithType:TransactionPasswordKindUpdate];
+    setVc.isPushVC = YES;
+    setVc.navigationItem.title = @"修改交易密码";
+    [self.navigationController pushViewController:setVc animated:YES];
 }
 
 /* 退出登录 */
-- (void)logOutButtonClick
-{
+- (void)logOutButtonClick{
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您确认要离开嘛？" preferredStyle:UIAlertControllerStyleAlert];
     __weak __typeof__(self) weakSelf = self;
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
-                                   {
-                                       
-                                   }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}];
     
-    UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
-                                    {
+    UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
                                         [weakSelf confirmLogOutButtonClick];
                                     }];
     

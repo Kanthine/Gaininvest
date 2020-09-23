@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger,TransactionPasswordKind)
-{
+typedef NS_ENUM(NSInteger,TransactionPasswordKind){
     TransactionPasswordKindOpenAccount = 0,//开户
     TransactionPasswordKindUpdate,//修改交易密码
     TransactionPasswordKindActivate,//激活交易token
@@ -19,7 +18,7 @@ typedef NS_ENUM(NSInteger,TransactionPasswordKind)
 
 @property (nonatomic ,assign) BOOL isPushVC;
 
-- (instancetype)initWithURL:(NSString *)urlString Type:(TransactionPasswordKind)passwordKind;
+- (instancetype)initWithType:(TransactionPasswordKind)passwordKind;
 
 
 @end

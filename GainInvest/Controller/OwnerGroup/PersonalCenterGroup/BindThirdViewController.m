@@ -10,7 +10,6 @@
 
 
 #import "BindThirdViewController.h"
-#import "UserInfoHttpManager.h"
 
 @interface BindThirdViewController ()
 <UITableViewDataSource,UITableViewDelegate>
@@ -19,26 +18,9 @@
 @property (nonatomic ,strong) UIView *footerView;
 @property (nonatomic ,strong) UITableView *tableview;
 
-@property (nonatomic ,strong) UserInfoHttpManager *httpManager;
-
 @end
 
 @implementation BindThirdViewController
-
-- (void)dealloc
-{
-    _httpManager = nil;
-}
-
-- (UserInfoHttpManager *)httpManager
-{
-    if (_httpManager == nil)
-    {
-        _httpManager = [[UserInfoHttpManager alloc]init];
-    }
-    
-    return _httpManager;
-}
 
 
 - (void)viewDidLoad

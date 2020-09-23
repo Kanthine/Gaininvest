@@ -179,7 +179,7 @@
         decisionHandler(WKNavigationActionPolicyCancel);
         
         //忘记密码
-        SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithURL:urlString Type:TransactionPasswordKindUpdate];
+        SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithType:TransactionPasswordKindUpdate];
         setVc.isPushVC = YES;
         setVc.navigationItem.title = @"修改交易密码";
         [self.navigationController pushViewController:setVc animated:YES];

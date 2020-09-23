@@ -19,7 +19,6 @@
 #import "RechargeViewController.h"
 #import <MJRefresh.h>
 #import "MyVoucherViewController.h"
-#import "UserInfoHttpManager.h"
 #import "ProfitRollViewController.h"
 #import "AppDelegate.h"
 #import "ShareManager.h"
@@ -40,23 +39,6 @@
 @end
 
 @implementation GetVoucherViewController
-
-- (void)dealloc
-{
-    _httpManager = nil;
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    
-    if (self)
-    {
-        
-    }
-    
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -279,41 +261,13 @@
     }
 }
 
-- (void)shareButtonClick
-{    
+- (void)shareButtonClick{    
     [ShareManager weChatShareDetaileString:@"首单免费，安全正规的小额投资平台，8元起投，操作简单，盈利可立即提现" ViewController:self];
 }
 
-- (void)handleWeChatShareResult:(NSError *)err
-{
-    //微信分享失败
-    if (err.code != 0)
-    {
-        [self showShareResult:@"您分享失败了" Succees:NO];
-        return;
-    }
-
-    NSString *phone = [AccountInfo standardAccountInfo].username;
-
-    [[[UserInfoHttpManager alloc]init] shareGetVoucherVCWithParameterDict:@{@"mobile_phone":phone} CompletionBlock:^(NSError *error)
-     {
-         if (error)
-         {
-             if (error.code == 303)
-             {
-                 [self showShareResult:error.domain Succees:YES];
-             }
-             else
-             {
-                 [self showShareResult:error.domain Succees:NO];
-             }
-         }
-         else
-         {
-             [_rightItem setImage:[UIImage imageNamed:@"navBar_CouponNews"] forState:UIControlStateSelected];
-             [self showShareResult:@"您已成功分享，我们将发送代金券到您个人账户，请注意查收" Succees:YES];
-         }
-     }];
+- (void)handleWeChatShareResult:(NSError *)err{
+    [_rightItem setImage:[UIImage imageNamed:@"navBar_CouponNews"] forState:UIControlStateSelected];
+    [self showShareResult:@"您已成功分享，我们将发送代金券到您个人账户，请注意查收" Succees:YES];
 }
 
 - (void)showShareResult:(NSString *)string Succees:(BOOL)isSucceed

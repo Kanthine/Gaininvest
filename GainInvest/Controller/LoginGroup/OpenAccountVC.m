@@ -220,16 +220,14 @@
     [self bindSuccessNextStepWithOpenAccountWithUrl:@""];
 }
 
-- (void)bindSuccessNextStepWithOpenAccountWithUrl:(NSString *)urlString
-{
-    SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithURL:urlString Type:TransactionPasswordKindOpenAccount];
+- (void)bindSuccessNextStepWithOpenAccountWithUrl:(NSString *)urlString{
+    SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithType:TransactionPasswordKindOpenAccount];
     setVc.isPushVC = self.isPush;
     setVc.navigationItem.title = @"设置交易密码";
     [self.navigationController pushViewController:setVc animated:YES];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [_phoneTf resignFirstResponder];
     [_verCodeTf resignFirstResponder];
 }

@@ -8,34 +8,15 @@
 
 #import "ResetNickNameVC.h"
 
-#import "UserInfoHttpManager.h"
 @interface ResetNickNameVC ()
 
 {
     __weak IBOutlet UITextField *_textFiled;
 }
 
-@property (nonatomic ,strong) UserInfoHttpManager *httpManager;
-
 @end
 
 @implementation ResetNickNameVC
-
-- (void)dealloc
-{
-    _httpManager = nil;
-}
-
-- (UserInfoHttpManager *)httpManager
-{
-    if (_httpManager == nil)
-    {
-        _httpManager = [[UserInfoHttpManager alloc]init];
-    }
-    
-    return _httpManager;
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,43 +58,15 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)rightNavBarButtonClcik
-{
+- (void)rightNavBarButtonClcik{
     [_textFiled resignFirstResponder];
-    if (_textFiled.text.length == 0)
-    {
+    if (_textFiled.text.length == 0){
         [ErrorTipView errorTip:@"请输入昵称" SuperView:self.view];
         return;
     }
-    
-    AccountInfo *account = [AccountInfo standardAccountInfo];
-    
-    NSDictionary *dict = @{@"user_id":account.internalBaseClassIdentifier,@"birthday":account.birthday,@"nickname":_textFiled.text,@"sex":account.sex,@"minename":account.realname,@"headimg":account.head,@"qq_openid":account.qqUid,@"weixin_openid":account.weChatUid};
-    
-    
-    NSLog(@"dict ====== %@",dict);
-
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    hud.label.text = @"修改中";
-    
-    
-    [self.httpManager updatePersonalInfoParameterDict:dict CompletionBlock:^(NSError *error)
-    {
-        [hud hideAnimated:YES];
-
-        if (error)
-        {
-            [ErrorTipView errorTip:error.domain SuperView:self.view];
-        }
-        else
-        {
-            account.nickname = _textFiled.text;
-            [account storeAccountInfo];
-            
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }];
+    AccountInfo.standardAccountInfo.nickname = _textFiled.text;
+    [AccountInfo.standardAccountInfo storeAccountInfo];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
