@@ -13,53 +13,29 @@
 #import "Y_MALine.h"
 #import "Y_KLinePositionModel.h"
 #import "Y_StockChartGlobalVariable.h"
-#import "Masonry.h"
+
 @interface Y_KLineMainView()
 
-/**
- *  需要绘制的model数组
- */
+///需要绘制的model数组
 @property (nonatomic, strong) NSMutableArray <Y_KLineModel *> *needDrawKLineModels;
-
-
-
-
-/**
- *  Index开始X的值
- */
+///Index开始X的值
 @property (nonatomic, assign) NSInteger startXPosition;
-
-/**
- *  旧的contentoffset值
- */
+///旧的contentoffset值
 @property (nonatomic, assign) CGFloat oldContentOffsetX;
-
-/**
- *  旧的缩放值
- */
+///旧的缩放值
 @property (nonatomic, assign) CGFloat oldScale;
-
-/**
- *  MA7位置数组
- */
+///MA7位置数组
 @property (nonatomic, strong) NSMutableArray *MA7Positions;
-
-
-/**
- *  MA30位置数组
- */
+///MA30位置数组
 @property (nonatomic, strong) NSMutableArray *MA30Positions;
 
 @end
 
 @implementation Y_KLineMainView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
-    if (self)
-    {
-        
+    if (self){
         self.needDrawKLineModels = @[].mutableCopy;
         self.needDrawKLinePositionModels = @[].mutableCopy;
         self.MA7Positions = @[].mutableCopy;
@@ -73,15 +49,12 @@
 
 #pragma mark - 绘图相关方法
 
-#pragma mark drawRect方法
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     
     //如果数组为空，则不进行绘制，直接设置本view为背景
     CGContextRef context = UIGraphicsGetCurrentContext();
-    if(!self.kLineModels)
-    {
+    if(!self.kLineModels){
         CGContextClearRect(context, rect);
         CGContextSetFillColorWithColor(context, [UIColor backgroundColor].CGColor);
         CGContextFillRect(context, rect);
@@ -98,14 +71,9 @@
     CGContextSetFillColorWithColor(context, [UIColor backgroundColor].CGColor);
     CGContextFillRect(context, CGRectMake(0, Y_StockChartKLineMainViewMaxY, self.frame.size.width, self.frame.size.height - Y_StockChartKLineMainViewMaxY));
     
-    
-
-    
-    
     Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
     
-    if(self.MainViewType == Y_StockChartcenterViewTypeKline)
-    {
+    if(self.MainViewType == Y_StockChartcenterViewTypeKline){
         Y_KLine *kLine = [[Y_KLine alloc]initWithContext:context];
         kLine.maxY = Y_StockChartKLineMainViewMaxY;
 
@@ -115,12 +83,9 @@
             UIColor *kLineColor = [kLine draw];
             [kLineColors addObject:kLineColor];
         }];
-    }
-    else
-    {
+    }else{
         __block NSMutableArray *positions = @[].mutableCopy;
-        [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop)
-         {
+        [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop){
             UIColor *strokeColor = positionModel.OpenPoint.y < positionModel.ClosePoint.y ? [UIColor increaseColor] : [UIColor decreaseColor];
             [kLineColors addObject:strokeColor];
             [positions addObject:[NSValue valueWithCGPoint:positionModel.ClosePoint]];
@@ -130,24 +95,21 @@
         [MALine draw];
 
         __block CGPoint lastDrawDatePoint = CGPointZero;//fix
-        [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop)
-        {
+        [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop){
             
             CGPoint point = [positions[idx] CGPointValue];
             
             //日期
             NSString *dateStr = self.needDrawKLineModels[idx].Date;
             CGPoint drawDatePoint = CGPointMake(point.x + 1, Y_StockChartKLineMainViewMaxY + 1.5);
-            if(CGPointEqualToPoint(lastDrawDatePoint, CGPointZero) || point.x - lastDrawDatePoint.x > 60 )
-            {
+            if(CGPointEqualToPoint(lastDrawDatePoint, CGPointZero) || point.x - lastDrawDatePoint.x > 60 ){
                 [dateStr drawAtPoint:drawDatePoint withAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:11],NSForegroundColorAttributeName : [UIColor assistTextColor]}];
                 lastDrawDatePoint = drawDatePoint;
             }
         }];
     }
     
-    if(self.targetLineStatus != Y_StockChartTargetLineStatusCloseMA)
-    {
+    if(self.targetLineStatus != Y_StockChartTargetLineStatusCloseMA){
         //画MA7线
         MALine.MAType = Y_MA7Type;
         MALine.MAPositions = self.MA7Positions;
@@ -158,62 +120,45 @@
         MALine.MAPositions = self.MA30Positions;
         [MALine draw];
     }
-
     
-    if(self.delegate && kLineColors.count > 0)
-    {
-        if([self.delegate respondsToSelector:@selector(kLineMainViewCurrentNeedDrawKLineColors:)])
-        {
+    if(self.delegate && kLineColors.count > 0){
+        if([self.delegate respondsToSelector:@selector(kLineMainViewCurrentNeedDrawKLineColors:)]){
             [self.delegate kLineMainViewCurrentNeedDrawKLineColors:kLineColors];
         }
     }
 }
 
-#pragma mark - 公有方法
+#pragma mark - public method
 
-#pragma mark 重新设置相关数据，然后重绘
-- (void)drawMainView
-{
+/// 重新设置相关数据，然后重绘
+- (void)drawMainView{
     NSAssert(self.kLineModels, @"kLineModels不能为空");
-    
     //提取需要的kLineModel
     [self private_extractNeedDrawModels];
     //转换model为坐标model
     [self private_convertToKLinePositionModelWithKLineModels];
-    
     //间接调用drawRect方法
     [self setNeedsDisplay];
 }
 
-/**
- *  更新MainView的宽度
- */
-- (void)updateMainViewWidth
-{
+///更新MainView的宽度
+- (void)updateMainViewWidth{
     //根据stockModels的个数和间隔和K线的宽度计算出self的宽度，并设置contentsize
     CGFloat kLineViewWidth = self.kLineModels.count * [Y_StockChartGlobalVariable kLineWidth] + (self.kLineModels.count + 1) * [Y_StockChartGlobalVariable kLineGap] + 10;
-    
-    if(kLineViewWidth < self.parentScrollView.bounds.size.width)
-    {
-        kLineViewWidth = self.parentScrollView.bounds.size.width;
-    }
-    
-    [self mas_updateConstraints:^(MASConstraintMaker *make)
-     {
-        make.width.equalTo(@(kLineViewWidth));
-    }];
+    kLineViewWidth = MAX(kLineViewWidth, self.parentScrollView.bounds.size.width);
 
+    
+    CGRect frame = self.frame;
+    frame.size.width = kLineViewWidth;
+    self.frame = frame;
     [self layoutIfNeeded];
     
     //更新scrollview的contentsize
     self.parentScrollView.contentSize = CGSizeMake(kLineViewWidth, self.parentScrollView.contentSize.height);
 }
 
-/**
- *  长按的时候根据原始的x位置获得精确的x的位置
- */
-- (CGFloat)getExactXPositionWithOriginXPosition:(CGFloat)originXPosition
-{
+///长按的时候根据原始的x位置获得精确的x的位置
+- (CGFloat)getExactXPositionWithOriginXPosition:(CGFloat)originXPosition{
     CGFloat xPositoinInMainView = originXPosition;
     NSInteger startIndex = (NSInteger)((xPositoinInMainView - self.startXPosition) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]));
     NSInteger arrCount = self.needDrawKLinePositionModels.count;
@@ -223,23 +168,20 @@
         CGFloat minX = kLinePositionModel.HighPoint.x - ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2);
         CGFloat maxX = kLinePositionModel.HighPoint.x + ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2);
         
-        if(xPositoinInMainView > minX && xPositoinInMainView < maxX)
-        {
-            if(self.delegate && [self.delegate respondsToSelector:@selector(kLineMainViewLongPressKLinePositionModel:kLineModel:)])
-            {
+        if(xPositoinInMainView > minX && xPositoinInMainView < maxX){
+            if(self.delegate && [self.delegate respondsToSelector:@selector(kLineMainViewLongPressKLinePositionModel:kLineModel:)]){
                 [self.delegate kLineMainViewLongPressKLinePositionModel:self.needDrawKLinePositionModels[index] kLineModel:self.needDrawKLineModels[index]];
             }
             return kLinePositionModel.HighPoint.x;
         }
-
     }
     return 0.f;
 }
 
-#pragma mark 私有方法
+#pragma mark - private method
+
 //提取需要绘制的数组
-- (NSArray *)private_extractNeedDrawModels
-{
+- (NSArray *)private_extractNeedDrawModels{
     CGFloat lineGap = [Y_StockChartGlobalVariable kLineGap];
     CGFloat lineWidth = [Y_StockChartGlobalVariable kLineWidth];
     
@@ -250,14 +192,11 @@
     //起始位置
     NSInteger needDrawKLineStartIndex ;
     
-    if(self.pinchStartIndex > 0)
-    {
+    if(self.pinchStartIndex > 0){
         needDrawKLineStartIndex = self.pinchStartIndex;
         _needDrawStartIndex = self.pinchStartIndex;
         self.pinchStartIndex = -1;
-    }
-    else
-    {
+    }else{
        needDrawKLineStartIndex = self.needDrawStartIndex;
     }
     
@@ -266,28 +205,23 @@
     [self.needDrawKLineModels removeAllObjects];
     
     //赋值数组
-    if(needDrawKLineStartIndex < self.kLineModels.count)
-    {
-        if(needDrawKLineStartIndex + needDrawKLineCount < self.kLineModels.count)
-        {
+    if(needDrawKLineStartIndex < self.kLineModels.count){
+        if(needDrawKLineStartIndex + needDrawKLineCount < self.kLineModels.count){
             [self.needDrawKLineModels addObjectsFromArray:[self.kLineModels subarrayWithRange:NSMakeRange(needDrawKLineStartIndex, needDrawKLineCount)]];
         } else{
             [self.needDrawKLineModels addObjectsFromArray:[self.kLineModels subarrayWithRange:NSMakeRange(needDrawKLineStartIndex, self.kLineModels.count - needDrawKLineStartIndex)]];
         }
     }
     //响应代理
-    if(self.delegate && [self.delegate respondsToSelector:@selector(kLineMainViewCurrentNeedDrawKLineModels:)])
-    {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(kLineMainViewCurrentNeedDrawKLineModels:)]){
         [self.delegate kLineMainViewCurrentNeedDrawKLineModels:self.needDrawKLineModels];
     }
     return self.needDrawKLineModels;
 }
 
 #pragma mark 将model转化为Position模型
-- (NSArray *)private_convertToKLinePositionModelWithKLineModels
-{
-    if(!self.needDrawKLineModels)
-    {
+- (NSArray *)private_convertToKLinePositionModelWithKLineModels{
+    if(!self.needDrawKLineModels){
         return nil;
     }
     
@@ -297,90 +231,60 @@
     Y_KLineModel *firstModel = kLineModels.firstObject;
     __block CGFloat minAssert = firstModel.Low.floatValue;
     __block CGFloat maxAssert = firstModel.High.floatValue;
-
     
-    [kLineModels enumerateObjectsUsingBlock:^(Y_KLineModel * _Nonnull kLineModel, NSUInteger idx, BOOL * _Nonnull stop)
-    {
-        if(kLineModel.High.floatValue > maxAssert)
-        {
+    [kLineModels enumerateObjectsUsingBlock:^(Y_KLineModel * _Nonnull kLineModel, NSUInteger idx, BOOL * _Nonnull stop){
+        if(kLineModel.High.floatValue > maxAssert){
             maxAssert = kLineModel.High.floatValue;
         }
-        if(kLineModel.Low.floatValue < minAssert)
-        {
+        if(kLineModel.Low.floatValue < minAssert){
             minAssert = kLineModel.Low.floatValue;
         }
-        if(kLineModel.MA7)
-        {
-            if (minAssert > kLineModel.MA7.floatValue)
-            {
+        if(kLineModel.MA7){
+            if (minAssert > kLineModel.MA7.floatValue){
                 minAssert = kLineModel.MA7.floatValue;
             }
-            if (maxAssert < kLineModel.MA7.floatValue)
-            {
+            if (maxAssert < kLineModel.MA7.floatValue){
                 maxAssert = kLineModel.MA7.floatValue;
             }
         }
-        if(kLineModel.MA30)
-        {
-            if (minAssert > kLineModel.MA30.floatValue)
-            {
+        if(kLineModel.MA30){
+            if (minAssert > kLineModel.MA30.floatValue){
                 minAssert = kLineModel.MA30.floatValue;
             }
-            if (maxAssert < kLineModel.MA30.floatValue)
-            {
+            if (maxAssert < kLineModel.MA30.floatValue){
                 maxAssert = kLineModel.MA30.floatValue;
             }
         }
-
     }];
-    
-    
-    
+        
     maxAssert *= 1.0001;
     minAssert *= 0.9991;
     
-    
     CGFloat minY = Y_StockChartKLineMainViewMinY;
     CGFloat maxY = self.parentScrollView.frame.size.height * [Y_StockChartGlobalVariable kLineMainViewRadio] - 15;
-    
     CGFloat unitValue = (maxAssert - minAssert)/(maxY - minY);
-//    CGFloat ma7UnitValue = (maxMA7 - minMA7) / (maxY - minY);
-//    CGFloat ma30UnitValue = (maxMA30 - minMA30) / (maxY - minY);
-    
-    
+        
     [self.needDrawKLinePositionModels removeAllObjects];
     [self.MA7Positions removeAllObjects];
     [self.MA30Positions removeAllObjects];
     
     NSInteger kLineModelsCount = kLineModels.count;
-    for (NSInteger idx = 0 ; idx < kLineModelsCount; ++idx)
-    {
+    for (NSInteger idx = 0 ; idx < kLineModelsCount; ++idx){
         //K线坐标转换
         Y_KLineModel *kLineModel = kLineModels[idx];
         
         CGFloat xPosition = self.startXPosition + idx * ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]);
-        
-        
-//        NSLog(@"xPosition ======= %f",xPosition);
-//
-//        NSLog(@"[Y_StockChartGlobalVariable kLineGap] ======= %f",[Y_StockChartGlobalVariable kLineGap]);
-        
         CGPoint openPoint = CGPointMake(xPosition, ABS(maxY - (kLineModel.Open.floatValue - minAssert)/unitValue));
         CGFloat closePointY = ABS(maxY - (kLineModel.Close.floatValue - minAssert)/unitValue);
-        if(ABS(closePointY - openPoint.y) < Y_StockChartKLineMinWidth)
-        {
-            if(openPoint.y > closePointY)
-            {
+        if(ABS(closePointY - openPoint.y) < Y_StockChartKLineMinWidth){
+            if(openPoint.y > closePointY){
                 openPoint.y = closePointY + Y_StockChartKLineMinWidth;
-            } else if(openPoint.y < closePointY)
-            {
+            } else if(openPoint.y < closePointY){
                 closePointY = openPoint.y + Y_StockChartKLineMinWidth;
             } else {
-                if(idx > 0)
-                {
+                if(idx > 0){
                     Y_KLineModel *preKLineModel = kLineModels[idx-1];
-                    if(kLineModel.Open.floatValue > preKLineModel.Close.floatValue)
-                    {
+                    if(kLineModel.Open.floatValue > preKLineModel.Close.floatValue){
                         openPoint.y = closePointY + Y_StockChartKLineMinWidth;
                     } else {
                         closePointY = openPoint.y + Y_StockChartKLineMinWidth;
@@ -389,8 +293,7 @@
                     
                     //idx==0即第一个时
                     Y_KLineModel *subKLineModel = kLineModels[idx+1];
-                    if(kLineModel.Close.floatValue < subKLineModel.Open.floatValue)
-                    {
+                    if(kLineModel.Close.floatValue < subKLineModel.Open.floatValue){
                         openPoint.y = closePointY + Y_StockChartKLineMinWidth;
                     } else {
                         closePointY = openPoint.y + Y_StockChartKLineMinWidth;
@@ -406,22 +309,16 @@
         Y_KLinePositionModel *kLinePositionModel = [Y_KLinePositionModel modelWithOpen:openPoint close:closePoint high:highPoint low:lowPoint];
         [self.needDrawKLinePositionModels addObject:kLinePositionModel];
          
-        
         //MA坐标转换
         CGFloat ma7Y = maxY;
         CGFloat ma30Y = maxY;
-        if(unitValue > 0.0000001)
-        {
-            if(kLineModel.MA7)
-            {
+        if(unitValue > 0.0000001){
+            if(kLineModel.MA7){
                 ma7Y = maxY - (kLineModel.MA7.floatValue - minAssert)/unitValue;
             }
-
         }
-        if(unitValue > 0.0000001)
-        {
-            if(kLineModel.MA30)
-            {
+        if(unitValue > 0.0000001){
+            if(kLineModel.MA30){
                 ma30Y = maxY - (kLineModel.MA30.floatValue - minAssert)/unitValue;
             }
         }
@@ -431,25 +328,20 @@
         CGPoint ma7Point = CGPointMake(xPosition, ma7Y);
         CGPoint ma30Point = CGPointMake(xPosition, ma30Y);
         
-        if(kLineModel.MA7)
-        {
+        if(kLineModel.MA7){
             [self.MA7Positions addObject: [NSValue valueWithCGPoint: ma7Point]];
         }
-        if(kLineModel.MA30)
-        {
+        if(kLineModel.MA30){
             [self.MA30Positions addObject: [NSValue valueWithCGPoint: ma30Point]];
         }
     }
     
     //响应代理方法
-    if(self.delegate)
-    {
-        if([self.delegate respondsToSelector:@selector(kLineMainViewCurrentMaxPrice:minPrice:)])
-        {
+    if(self.delegate){
+        if([self.delegate respondsToSelector:@selector(kLineMainViewCurrentMaxPrice:minPrice:)]){
             [self.delegate kLineMainViewCurrentMaxPrice:maxAssert minPrice:minAssert];
         }
-        if([self.delegate respondsToSelector:@selector(kLineMainViewCurrentNeedDrawKLinePositionModels:)])
-        {
+        if([self.delegate respondsToSelector:@selector(kLineMainViewCurrentNeedDrawKLinePositionModels:)]){
             [self.delegate kLineMainViewCurrentNeedDrawKLinePositionModels:self.needDrawKLinePositionModels];
         }
     }
@@ -510,14 +402,14 @@ static char *observerContext = NULL;
 }
 
 #pragma mark - dealloc
-- (void)dealloc
-{
+- (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark 移除所有监听
-- (void)removeAllObserver
-{
+- (void)removeAllObserver{
     [_parentScrollView removeObserver:self forKeyPath:Y_StockChartContentOffsetKey context:observerContext];
 }
+
 @end
+

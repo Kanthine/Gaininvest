@@ -10,10 +10,6 @@
 
 @interface TimeLineStockChartView : UIView
 
-
-- (instancetype)initWithHeight:(CGFloat)height;
-
-
 - (void)updateStockChartViewWithDataArray:(NSArray *)dataArray DateArray:(NSArray *)dateArray ;
 
 

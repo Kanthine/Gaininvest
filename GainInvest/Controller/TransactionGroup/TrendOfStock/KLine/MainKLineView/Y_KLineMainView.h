@@ -10,6 +10,7 @@
 #import "Y_KLinePositionModel.h"
 #import "Y_KLineModel.h"
 #import "Y_StockChartConstant.h"
+
 @protocol Y_KLineMainViewDelegate <NSObject>
 
 @optional
@@ -44,64 +45,32 @@
 
 @interface Y_KLineMainView : UIView
 
-/**
- *  需要绘制的model位置数组
- */
+///需要绘制的model位置数组
 @property (nonatomic, strong) NSMutableArray *needDrawKLinePositionModels;
-/**
- *  模型数组
- */
+///模型数组
 @property (nonatomic, strong) NSArray *kLineModels;
-
-
-/**
- *  父ScrollView
- */
+///父ScrollView
 @property (nonatomic, weak, readonly) UIScrollView *parentScrollView;
-
-/**
- *  代理
- */
+///代理
 @property (nonatomic, weak) id<Y_KLineMainViewDelegate> delegate;
-
-/**
- *  是否为图表类型
- */
+///是否为图表类型
 @property (nonatomic, assign) Y_StockChartCenterViewType MainViewType;
-
-/**
- *  Accessory指标种类
- */
+///Accessory指标种类
 @property (nonatomic, assign) Y_StockChartTargetLineStatus targetLineStatus;
-
-/**
- *  需要绘制Index开始值
- */
+///需要绘制Index开始值
 @property (nonatomic, assign) NSInteger needDrawStartIndex;
-
-/**
- *  捏合点
- */
+///捏合点
 @property (nonatomic, assign) NSInteger pinchStartIndex;
-#pragma event
 
-/**
- *  画MainView的所有线
- */
+///画MainView的所有线
 - (void)drawMainView;
 
-/**
- *  更新MainView的宽度
- */
+///更新MainView的宽度
 - (void)updateMainViewWidth;
 
-/**
- *  长按的时候根据原始的x位置获得精确的x的位置
- */
+///长按的时候根据原始的x位置获得精确的x的位置
 - (CGFloat)getExactXPositionWithOriginXPosition:(CGFloat)originXPosition;
 
-/**
- *  移除所有的监听事件
- */
+/// 移除所有的监听事件
 - (void)removeAllObserver;
 @end

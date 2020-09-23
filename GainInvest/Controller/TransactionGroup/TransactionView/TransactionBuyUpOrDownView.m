@@ -860,38 +860,22 @@
 }
 
 
-- (void)updateBuyUpOrDownProductInfoDict:(NSDictionary *)productInfoDict
-{
-    if ( !(productInfoDict && [productInfoDict isKindOfClass:[NSDictionary class]]) )
-    {
-        return;
-    }
-    else if ([productInfoDict[@"rc"] intValue] != 200)
-    {
-        return;
-    }
-    
-    
-    
-    NSArray *array = productInfoDict[@"data"];
+- (void)updateBuyUpOrDownProductInfo:(NSArray<NSDictionary *> *)array{
     array = array.firstObject;
-    if ( ! (array && [array isKindOfClass:[NSArray class]] && array.count >= 2 ) )
-    {
+    if ( ! (array && [array isKindOfClass:[NSArray class]] && array.count >= 2 ) ){
         return;
     }
     
     //从小到大排序
-    array = [array sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2)
-    {
-        if ([obj1[@"price"] floatValue] >= [obj2[@"price"] floatValue])
-        {
+    array = [array sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2){
+        if ([obj1[@"price"] floatValue] >= [obj2[@"price"] floatValue]){
             return NSOrderedDescending;
-        }
-        else
-        {
+        }else{
             return NSOrderedAscending;
         }
     }];
+    
+    
     
     _productListArray = array;
     
@@ -1254,21 +1238,14 @@
     NSString *string = [topLable.text componentsSeparatedByString:@"："].firstObject;
     int value = ceil(slide.value);
     
-    if (slide.superview.tag == 101)
-    {
+    if (slide.superview.tag == 101){
         topLable.text = [NSString stringWithFormat:@"%@：%d手",string,value];
-        
         [self updateBottomViewInfo];
-    }
-    else
-    {
+    }else{
         value = value * 10;
-        if (value == 0)
-        {
+        if (value == 0){
             topLable.text = [NSString stringWithFormat:@"%@：不限",string];
-        }
-        else
-        {
+        }else{
             topLable.text = [NSString stringWithFormat:@"%@：%d点",string,value];
         }
     }
@@ -1337,10 +1314,13 @@
                            @"is_juan":isUseCoupon,
                            @"top_limit":topStr,
                            @"bottom_limit":bottomStr};
-    [self.currentViewController.httpManager openPositionWithParameterDict:dict CompletionBlock:^(NSDictionary *resultDict, NSError *error)
-     {
-         [self dismissPickerViewWithNeedTip:YES Error:error];
-    }];
+//    建仓
+    
+//    [self dismissPickerViewWithNeedTip:YES Error:error];
+
+//    [self.currentViewController.httpManager openPositionWithParameterDict:dict CompletionBlock:^(NSDictionary *resultDict, NSError *error)
+//     {
+//    }];
 }
 
 - (void)updateBottomViewInfo

@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TransactionHttpManager.h"
 
 @interface TransactionViewController : UIViewController
-
-@property (nonatomic ,strong) TransactionHttpManager *httpManager;
-
 
 @end

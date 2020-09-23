@@ -16,8 +16,6 @@
  */
 @property(nonatomic, copy) NSArray<Y_KLineModel *> *kLineModels;
 
-- (instancetype)initWithHeight:(CGFloat)height;
-
 - (void)updateStockChartViewWithType:(NSString *)type;
 
 - (void)stockChartViewAppear;

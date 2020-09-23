@@ -78,6 +78,7 @@ static Y_StockChartTargetLineStatus Y_StockChartKLineIsEMALine = Y_StockChartTar
 {
     return Y_StockChartKLineMainViewRadio;
 }
+
 + (void)setkLineMainViewRadio:(CGFloat)radio
 {
     Y_StockChartKLineMainViewRadio = radio;

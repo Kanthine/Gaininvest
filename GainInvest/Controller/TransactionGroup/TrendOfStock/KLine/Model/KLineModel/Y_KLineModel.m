@@ -308,38 +308,28 @@
     }
     return _ParentGroupModel;
 }
+
 //对Model数组进行排序，初始化每个Model的最新9Clock的最低价和最高价
-- (void)rangeLastNinePriceByArray:(NSArray<Y_KLineModel *> *)models condition:(NSComparisonResult)cond
-{
+- (void)rangeLastNinePriceByArray:(NSArray<Y_KLineModel *> *)models condition:(NSComparisonResult)cond{
     switch (cond) {
             //最高价
-        case NSOrderedAscending:
-        {
-//            第一个循环结束后，ClockFirstValue为最小值
-            for (NSInteger j = 7; j >= 1; j--)
-            {
+        case NSOrderedAscending:{
+            //第一个循环结束后，ClockFirstValue为最小值
+            for (NSInteger j = 7; j >= 1; j--){
                 NSNumber *emMaxValue = @0;
-                
                 NSInteger em = j;
-                
-                while ( em >= 0 )
-                {
-                    if([emMaxValue compare:models[em].High] == cond)
-                    {
+                while ( em >= 0 ){
+                    if([emMaxValue compare:models[em].High] == cond){
                         emMaxValue = models[em].High;
                     }
                     em--;
                 }
-                NSLog(@"%f",emMaxValue.floatValue);
                 models[j].NineClocksMaxPrice = emMaxValue;
             }
             //第一个循环结束后，ClockFirstValue为最小值
-            for (NSInteger i = 0, j = 8; j < models.count; i++,j++)
-            {
+            for (NSInteger i = 0, j = 8; j < models.count; i++,j++){
                 NSNumber *emMaxValue = @0;
-                
                 NSInteger em = j;
-                
                 while ( em >= i )
                 {
                     if([emMaxValue compare:models[em].High] == cond)
@@ -348,8 +338,6 @@
                     }
                     em--;
                 }
-                NSLog(@"%f",emMaxValue.floatValue);
-
                 models[j].NineClocksMaxPrice = emMaxValue;
             }
         }

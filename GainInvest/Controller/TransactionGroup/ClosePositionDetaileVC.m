@@ -164,21 +164,7 @@
         [self showShareResult:@"您分享失败了" Succees:NO];
         return;
     }
-    
-    NSString *orderId = [NSString stringWithFormat:@"%.0f",_model.orderId];
-
-    NSDictionary *dict = @{@"orderId":orderId};
-    [self.httpManager inorderToShareWeChat:dict CompletionBlock:^(NSError *error)
-    {
-        if (error)
-        {
-            [self showShareResult:error.domain Succees:NO];
-        }
-        else
-        {
-            [self showShareResult:@"您已成功晒单" Succees:YES];
-        }
-    }];
+    [self showShareResult:@"您已成功晒单" Succees:YES];
 }
 
 - (void)showShareResult:(NSString *)string Succees:(BOOL)isSucceed

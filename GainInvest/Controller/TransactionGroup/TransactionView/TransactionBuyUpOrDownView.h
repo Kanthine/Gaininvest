@@ -16,7 +16,7 @@
 @property (nonatomic ,copy) void (^transactionResultTip)(NSError *error);
 @property (nonatomic ,weak) TransactionViewController *currentViewController;
 
-- (void)updateBuyUpOrDownProductInfoDict:(NSDictionary *)productInfoDict;
+- (void)updateBuyUpOrDownProductInfo:(NSArray<NSDictionary *> *)array;
 
 - (void)show;
 

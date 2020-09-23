@@ -59,14 +59,9 @@
 
 @implementation TimeLineStockChartView
 
-
-- (instancetype)initWithHeight:(CGFloat)height
-{
+- (instancetype)init{
     self = [super init];
-    
-    if (self)
-    {
-        _chartRect = CGRectMake(0, 10, ScreenWidth, height - 10 - 25);
+    if (self){
         self.backgroundColor = NavBarBackColor;
         
         _firstPoint = CGPointZero;
@@ -80,14 +75,16 @@
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGestureClick:)];
         [self addGestureRecognizer:tapGesture];
-        
     }
-    
     return self;
 }
 
-- (void)drawRect:(CGRect)rect
-{
+- (void)setFrame:(CGRect)frame{
+    [super setFrame:frame];
+    _chartRect = CGRectMake(0, 10, CGRectGetWidth(frame), CGRectGetHeight(frame) - 10 - 25);
+}
+
+- (void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     
     //画日期
@@ -184,15 +181,11 @@
 
 - (void)updateStockChartViewWithDataArray:(NSArray *)dataArray DateArray:(NSArray *)dateArray
 {
-    if (dataArray && dataArray.count)
-    {
-        if ([dataArray.firstObject isKindOfClass:[NSString class]] == NO)
-        {
+    if (dataArray && dataArray.count){
+        if ([dataArray.firstObject isKindOfClass:[NSString class]] == NO){
             return;
         }
-    }
-    else
-    {
+    }else{
         return;
     }
     
@@ -205,12 +198,10 @@
     _yCoordinateArray = @[@(_maxValue),@(avgValue),@(_minValue),
                           @(_minValue - (_maxValue - avgValue)),
                           @(_minValue - (_maxValue - _minValue)),];
-
     
     _dataArray = nil;
     _dataArray = [NSMutableArray array];
-    [dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-    {
+    [dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
         TimeLineModel *model = [[TimeLineModel alloc]init];
         model.modelIndex = idx;
         model.timeString = [NSString stringWithFormat:@"%@",dateArray[idx]];
@@ -218,15 +209,12 @@
         CGFloat pointX = ScreenWidth / 30.0 * idx;
         CGFloat pointY = CGRectGetMinY(_chartRect) + (_maxValue - [obj floatValue] ) / (_maxValue - [_yCoordinateArray.lastObject floatValue]) * CGRectGetHeight(_chartRect);
         
-        
         model.modelPoint = CGPointMake(pointX, pointY);
-        if (idx == 0)
-        {
+        if (idx == 0){
             _firstPoint = model.modelPoint;
         }
         
         [_dataArray addObject:model];
-        
     }];
     
     [self setNeedsDisplay];

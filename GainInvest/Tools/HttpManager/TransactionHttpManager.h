@@ -21,20 +21,17 @@
 - (void)tradeLoginWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSString *urlString,NSError *error))block;
 
 
-/*
- * 获取用户余额
+/** 获取用户余额
  * mobile_phone : 手机号
  */
 - (void)accessBalanceOfAccountWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSString *urlString,NSError *error))block;
 
 
-/*
- * 获取银行列表
+/** 获取银行列表
  */
 - (void)getBankListCompletionBlock:(void (^) (NSMutableArray<NSDictionary *> *listArray,NSError *error))block;
 
-/*
- * 获取地域列表
+/** 获取地域列表
  * cur_page 页数
  * cur_size 数量
  * parent_id 父级id
@@ -43,8 +40,7 @@
 
 
 
-/*
- * 更新服务器缓存的 银行卡信息
+/** 更新服务器缓存的 银行卡信息
  * mobile_phone 手机号
  * card_name 账户名
  * province 开户省份
@@ -57,8 +53,7 @@
 - (void)updateServerBankCardInfoParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSError *error))block;
 
 
-/*
- * 提现接口
+/** 提现接口
  * mobile_phone 手机号
  * tx_money 提现金额
  * province 开户省份
@@ -79,15 +74,13 @@
  */
 - (void)withdrawParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSError *error))block;
 
-/*
- * 用户提现卡信息
+/** 用户提现卡信息
  * mobile_phone 手机号
  */
 - (void)withdrawBankCardInfoParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSDictionary *parameterDict,NSError *error))block;
 
 
-/*
- * 获取验证码
+/** 获取验证码
  * parameterDict 登录时需要参数：
  * mobile_phone ： 手机号
  */
@@ -200,8 +193,7 @@
  */
 - (void)updatePositionGainOrLossWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^)(NSMutableArray<PositionsModel *> *listArray, NSError *error))block;
 
-/*
- * 平仓
+/** 平仓
  *
  * mobile_phone：手机号
  * order_id ：订单号
@@ -247,15 +239,4 @@
  */
 - (void)accessCouponListWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^)(NSMutableArray<CouponModel *> *listArray, NSError *error))block;
 
-
-/*
- * 晒单
- * orderId : 订单号
- */
-- (void)inorderToShareWeChat:(NSDictionary *)parameterDict CompletionBlock:(void (^)(NSError *error))block;
-
-/*
- * 晒单列表
- */
-- (void)inorderListCompletionBlock:(void (^)(NSMutableArray<InorderModel *> *listArray,NSError *error))block;
 @end

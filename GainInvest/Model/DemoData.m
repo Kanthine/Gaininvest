@@ -169,4 +169,35 @@
 }
 
 
++ (NSMutableArray<InorderModel *> *)inorderModelArray{
+    NSMutableArray<InorderModel *> *resultArray = [NSMutableArray array];
+    
+    
+    return resultArray;
+}
+
+
+///时分图假数据
++ (NSMutableArray<NSString *> *)timeLineChartDatasWithType:(NSString *)type{
+    NSMutableArray<NSString *> *resultArray = [NSMutableArray array];
+    float baseData = 512.56;
+    for (int i = 0; i < 1000; i++) {
+        float value = baseData + (arc4random() % 20000) / 99.9;
+        [resultArray addObject:[NSString stringWithFormat:@"%f",value]];
+    }
+    return resultArray;
+}
+
+///时分图假数据
++ (NSMutableArray<NSString *> *)timeDatesWithType:(NSString *)type{
+    NSMutableArray<NSString *> *resultArray = [NSMutableArray array];
+    int baseData = arc4random()  % 10;
+    for (int i = 0; i < 1000; i++) {
+        int value = baseData + i;
+        [resultArray addObject:[NSString stringWithFormat:@"%d",value]];
+    }
+    return resultArray;
+}
+
+
 @end

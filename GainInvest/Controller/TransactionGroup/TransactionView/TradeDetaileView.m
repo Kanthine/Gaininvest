@@ -303,34 +303,23 @@
              make.right.mas_equalTo(@0);
          }];
         
-
-        
-        
-        
         _rightContentView = rightContentView;
     }
     
     return _rightContentView;
 }
 
-- (void)updateTradeDetaileView:(NSDictionary *)marketQuotationDict
-{
-    marketQuotationDict = marketQuotationDict[@"HGAG"];
-    if (marketQuotationDict && [marketQuotationDict isKindOfClass:[NSDictionary class]])
-    {
+/// 行情报价
+- (void)updateTradeDetaileView:(NSDictionary *)marketQuotationDict{
+    if (marketQuotationDict && [marketQuotationDict isKindOfClass:[NSDictionary class]]){
 
         UILabel *topLableLeft = [self.leftContentView viewWithTag:1];
         UILabel *middleLeftLable = [self.leftContentView viewWithTag:2];
         UILabel *middleRightLable = [self.leftContentView viewWithTag:3];
         UILabel *bottomLableLeft = [self.leftContentView viewWithTag:4];
         
-        
-        
         bottomLableLeft.text = marketQuotationDict[@"createDate"];
-        
-        
-        
-        
+                
         UILabel *middleLeftContentLable = [self.rightContentView viewWithTag:4];
         UILabel *middleRightContentLable = [self.rightContentView viewWithTag:5];
         UILabel *bottomLeftContentLable = [self.rightContentView viewWithTag:6];
@@ -341,27 +330,22 @@
         float uprate = addedValue / [marketQuotationDict[@"preClose"] floatValue] * 100.0;
         NSString *addedValueString = @"";
         NSString *uprateString = @"";
-        if (addedValue > 0)
-        {
+        if (addedValue > 0){
             addedValueString = [NSString stringWithFormat:@"+%d",addedValue];
             uprateString = [NSString stringWithFormat:@"+%.2f",uprate];
-            
             
             topLableLeft.textColor = [UIColor decreaseColor];
             middleLeftLable.textColor = [UIColor decreaseColor];
             middleRightLable.textColor = [UIColor decreaseColor];
             
             NSLog(@"涨的颜色啊");
-        }
-        else
-        {
+        }else{
             addedValueString = [NSString stringWithFormat:@"%d",addedValue];
             uprateString = [NSString stringWithFormat:@"%.2f",uprate];
             
             topLableLeft.textColor = [UIColor increaseColor];
             middleLeftLable.textColor = [UIColor increaseColor];
             middleRightLable.textColor = [UIColor increaseColor];
-
             
             NSLog(@"跌的颜色啊");
         }
@@ -375,28 +359,21 @@
         bottomLeftContentLable.text = marketQuotationDict[@"preClose"];
         bottomRightContentLable.text = marketQuotationDict[@"low"];
     }
-
-    
 }
 
-- (void)updateFalseTradeDetaileView:(NSArray *)array LastPrice:(NSString *)lastPrice
-{
-    if (array && [array isKindOfClass:[NSArray class]] && array.count > 3)
-    {
+- (void)updateFalseTradeDetaileView:(NSArray *)array LastPrice:(NSString *)lastPrice{
+    if (array && [array isKindOfClass:[NSArray class]] && array.count > 3){
         UILabel *middleLeftContentLable = [self.rightContentView viewWithTag:4];
         UILabel *middleRightContentLable = [self.rightContentView viewWithTag:5];
         UILabel *bottomLeftContentLable = [self.rightContentView viewWithTag:6];
         UILabel *bottomRightContentLable = [self.rightContentView viewWithTag:7];
-
         middleLeftContentLable.text = [NSString stringWithFormat:@"%.0f",[array[0] floatValue]];
         middleRightContentLable.text =  [NSString stringWithFormat:@"%.0f",[array[3] floatValue]];
         bottomLeftContentLable.text = [NSString stringWithFormat:@"%.0f",[array[1] floatValue]];
         bottomRightContentLable.text = [NSString stringWithFormat:@"%.0f",[array[2] floatValue]];
     }
     
-    
-    if (lastPrice && lastPrice.length > 0)
-    {
+    if (lastPrice && lastPrice.length > 0){
         UILabel *topLableLeft = [self.leftContentView viewWithTag:1];
         topLableLeft.textColor = [UIColor decreaseColor];
         topLableLeft.text = lastPrice;
