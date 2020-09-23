@@ -10,8 +10,7 @@
 
 @interface TransactionHttpManager : NSObject
 
-/*
- * 获取用户是否开户
+/** 获取用户是否开户
  */
 + (void)isJudgeOpenAccountCompletionBlock:(void (^) (BOOL isOpen))block;
 

@@ -7,7 +7,6 @@
 //
 
 #import "FeedbackProblemVC.h"
-#import "UploadImageTool.h"
 #import "FeedbackProblemItemView.h"
 
 @interface FeedbackProblemVC ()
@@ -238,50 +237,15 @@
 
 #pragma mark - Submit Problem
 
-- (void)submitProblemItemClick
-{
+- (void)submitProblemItemClick{
     //提交问题
     [_suggestTextView resignFirstResponder];
     
-    if (_suggestTextView.text.length < 1)
-    {
+    if (_suggestTextView.text.length < 1){
         [ErrorTipView errorTip:@"请描述您要反馈的问题或建议" SuperView:self.view];
         return;
     }
     
-    
-    if (self.imageArray.count == 0)
-    {
-        [self submitProblemWithImageArray:nil];
-        
-        return;
-    }
-    
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.label.text = @"上传资料...";
-    [UploadImageTool upLoadImages:self.imageArray ProgressBlock:^(float progress)
-     {
-         NSLog(@"progress ===== %f",progress);
-     } CompletionBlock:^(NSArray *urlArray, NSError *error)
-     {
-         [hud hideAnimated:YES];
-
-         if (error)
-         {
-             [ErrorTipView errorTip:@"上传资料失败" SuperView:self.view];
-         }
-         else
-         {
-             //得到图片地址 数组
-             NSLog(@"progress ===== %@",urlArray);
-             [self submitProblemWithImageArray:urlArray];
-         }
-     }];
-}
-
-
-- (void)submitProblemWithImageArray:(NSArray<NSString *> *)imagePathArray{    
     [ErrorTipView errorTip:@"感谢您的问题反馈，我们会努力改进" SuperView:self.view];
     [self performSelector:@selector(leftNavBarButtonClick) withObject:nil afterDelay:1];
 }

@@ -19,7 +19,6 @@
 #import "SetTransactionPasswordVC.h"
 #import "OpenAccountVC.h"
 #import "WaveProgressView.h"
-#import "QNManager.h"
 
 #import <Masonry.h>
 
@@ -471,30 +470,25 @@
     __block WaveProgressView *waveProgress  = [[WaveProgressView alloc] initWithFrame:CGRectMake(ScreenWidth / 2.0 - 40, 200, 80, 80)];
     waveProgress.isShowWave = YES;
     [self.view addSubview:waveProgress];
-    [QNManager updateLoadImage:image ProgressBlock:^(float progress){
-         waveProgress.percent = progress;
-         waveProgress.centerLabel.text = [NSString stringWithFormat:@"%.02f%%",progress];
-         
-         if (progress >= 1){
-             [waveProgress removeFromSuperview];
-             
-         }
-         
-     } CompletionBlock:^(NSString *urlString, BOOL isSucceed){
-         if (isSucceed)
-         {
-             [self updatePersonalHeader:urlString];
-         }
-         
-     }];
 
-}
+    
+    CGFloat progress = 0;
+    while (progress >= 1) {
+        [NSThread sleepForTimeInterval:0.1];
+        progress += 0.05;
+        waveProgress.percent = progress;
+        waveProgress.centerLabel.text = [NSString stringWithFormat:@"%.02f%%",progress];
+    }
+        
+    if (progress >= 1){
+        [waveProgress removeFromSuperview];
+    }
 
-- (void)updatePersonalHeader:(NSString *)urlString{
     AccountInfo.standardAccountInfo.head = @"";
     [AccountInfo.standardAccountInfo storeAccountInfo];
     [_tableview reloadData];
 }
+
 
 /* 设置交易密码 */
 - (void)setSetTransactionPasswordVCClick{

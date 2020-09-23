@@ -31,7 +31,6 @@
 		2206510C1E814E05004FA34F /* AppDelegate+LaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2206510B1E814E05004FA34F /* AppDelegate+LaunchImage.m */; };
 		220B00741E66706300180C33 /* ClearProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B00711E66706300180C33 /* ClearProgressView.m */; };
 		220B00751E66706300180C33 /* WaveProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B00731E66706300180C33 /* WaveProgressView.m */; };
-		220B00781E6670D000180C33 /* QNManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B00771E6670D000180C33 /* QNManager.m */; };
 		220B007B1E66719E00180C33 /* TimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B007A1E66719E00180C33 /* TimeStamp.m */; };
 		220B007E1E6677DB00180C33 /* QualityCertificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B007D1E6677DB00180C33 /* QualityCertificationView.m */; };
 		220B00831E667CA300180C33 /* RechargeMethodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B00821E667CA300180C33 /* RechargeMethodVC.m */; };
@@ -176,8 +175,6 @@
 		22EC6A131E7A712E004B9473 /* ClosePositionDetaileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EC6A111E7A712E004B9473 /* ClosePositionDetaileVC.m */; };
 		22EC6A141E7A712E004B9473 /* ClosePositionDetaileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EC6A121E7A712E004B9473 /* ClosePositionDetaileVC.xib */; };
 		22F57B541E84C1F500017CE8 /* ShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F57B531E84C1F500017CE8 /* ShareManager.m */; };
-		22F5E2351E725912002412A8 /* UploadImageTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E2321E725912002412A8 /* UploadImageTool.m */; };
-		22F5E2361E725912002412A8 /* QiniuUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E2341E725912002412A8 /* QiniuUploadHelper.m */; };
 		22FAC33C1E5D3BB5005F7969 /* TranscationTableSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FAC33B1E5D3BB5005F7969 /* TranscationTableSectionHeaderView.m */; };
 		22FAC33F1E5D3BDB005F7969 /* TranscationTableSectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FAC33E1E5D3BDB005F7969 /* TranscationTableSectionFooterView.m */; };
 		22FD902E1E8B898C00F78CE0 /* WithdrawPerfectInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD902D1E8B898C00F78CE0 /* WithdrawPerfectInfoView.m */; };
@@ -270,8 +267,6 @@
 		220B00711E66706300180C33 /* ClearProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearProgressView.m; sourceTree = "<group>"; };
 		220B00721E66706300180C33 /* WaveProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveProgressView.h; sourceTree = "<group>"; };
 		220B00731E66706300180C33 /* WaveProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveProgressView.m; sourceTree = "<group>"; };
-		220B00761E6670D000180C33 /* QNManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNManager.h; sourceTree = "<group>"; };
-		220B00771E6670D000180C33 /* QNManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNManager.m; sourceTree = "<group>"; };
 		220B00791E66719E00180C33 /* TimeStamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeStamp.h; sourceTree = "<group>"; };
 		220B007A1E66719E00180C33 /* TimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeStamp.m; sourceTree = "<group>"; };
 		220B007C1E6677DB00180C33 /* QualityCertificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QualityCertificationView.h; sourceTree = "<group>"; };
@@ -527,10 +522,6 @@
 		22EC6A121E7A712E004B9473 /* ClosePositionDetaileVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClosePositionDetaileVC.xib; sourceTree = "<group>"; };
 		22F57B521E84C1F500017CE8 /* ShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareManager.h; sourceTree = "<group>"; };
 		22F57B531E84C1F500017CE8 /* ShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareManager.m; sourceTree = "<group>"; };
-		22F5E2311E725912002412A8 /* UploadImageTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadImageTool.h; sourceTree = "<group>"; };
-		22F5E2321E725912002412A8 /* UploadImageTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImageTool.m; sourceTree = "<group>"; };
-		22F5E2331E725912002412A8 /* QiniuUploadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUploadHelper.h; sourceTree = "<group>"; };
-		22F5E2341E725912002412A8 /* QiniuUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUploadHelper.m; sourceTree = "<group>"; };
 		22FAC33A1E5D3BB5005F7969 /* TranscationTableSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranscationTableSectionHeaderView.h; sourceTree = "<group>"; };
 		22FAC33B1E5D3BB5005F7969 /* TranscationTableSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranscationTableSectionHeaderView.m; sourceTree = "<group>"; };
 		22FAC33D1E5D3BDB005F7969 /* TranscationTableSectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranscationTableSectionFooterView.h; sourceTree = "<group>"; };
@@ -738,19 +729,6 @@
 				2202C7EA1E4AE479000D14DE /* LoginPasswordView.m */,
 			);
 			path = LoginView;
-			sourceTree = "<group>";
-		};
-		220B006E1E666F8000180C33 /* QNgroup */ = {
-			isa = PBXGroup;
-			children = (
-				220B00761E6670D000180C33 /* QNManager.h */,
-				220B00771E6670D000180C33 /* QNManager.m */,
-				22F5E2311E725912002412A8 /* UploadImageTool.h */,
-				22F5E2321E725912002412A8 /* UploadImageTool.m */,
-				22F5E2331E725912002412A8 /* QiniuUploadHelper.h */,
-				22F5E2341E725912002412A8 /* QiniuUploadHelper.m */,
-			);
-			path = QNgroup;
 			sourceTree = "<group>";
 		};
 		220B006F1E66703500180C33 /* ProgressView */ = {
@@ -1377,7 +1355,6 @@
 		22FF6F8E1E49C6F500F81929 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				220B006E1E666F8000180C33 /* QNgroup */,
 				221562381E4C52CD00FB3375 /* HttpManager */,
 				22FF6F8F1E49C70800F81929 /* ClassCategory */,
 				2202C7EC1E4AFF67000D14DE /* ValidateClass.h */,
@@ -1665,7 +1642,6 @@
 				221A7D411E6D3533000D12DB /* StockChartView.m in Sources */,
 				224063631E5D652F00F337BB /* TranscationTableCell.m in Sources */,
 				2202C8031E4B2800000D14DE /* NewHandTeachTableCell.m in Sources */,
-				220B00781E6670D000180C33 /* QNManager.m in Sources */,
 				22AC14961E51AA09006F69DF /* ConsultCollectionTableCell.m in Sources */,
 				22EC6A0A1E7A62F0004B9473 /* GainListViewController.m in Sources */,
 				2221EEC21E4D8DF3006DA937 /* AccountInfo.m in Sources */,
@@ -1690,7 +1666,6 @@
 				220B009B1E66B84E00180C33 /* RechargeResultVC.m in Sources */,
 				22A9A1CB1E5577D8006A51D1 /* PositionsContentVC.m in Sources */,
 				22FF6F411E49ACDA00F81929 /* main.m in Sources */,
-				22F5E2351E725912002412A8 /* UploadImageTool.m in Sources */,
 				22AEF90D1E70F6280076813C /* FlashView.m in Sources */,
 				22FF41671E766F51000FB634 /* ConfirmClosePositionView.m in Sources */,
 				221A31C21E8FAD3D00104DD3 /* FirstLaunchPage.m in Sources */,
@@ -1698,7 +1673,6 @@
 				22AEF9141E7103B80076813C /* ConsultHeaderButtonView.m in Sources */,
 				220651091E81401D004FA34F /* InorderModel.m in Sources */,
 				2274355E1E821E75003907EE /* LaunchProgressView.m in Sources */,
-				22F5E2361E725912002412A8 /* QiniuUploadHelper.m in Sources */,
 				2202C7E41E4ADE10000D14DE /* LeftBackItem.m in Sources */,
 				221BA5311E6FB96D00FB618D /* Y_VolumeMAView.m in Sources */,
 				22FF6F861E49B1ED00F81929 /* OwnerViewController.m in Sources */,
