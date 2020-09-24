@@ -25,38 +25,24 @@
 /*
  * 判断是否有四级权限，若没有，是否去获取
  */
-+ (BOOL)isHaveFourLevelWithViewController:(UIViewController *)viewController IsNeedCancelClick:(BOOL)isNeed
-{
-    
-    if ([AuthorizationManager isLoginState] == NO)
-    {
-        if (isNeed)
-        {
++ (BOOL)isHaveFourLevelWithViewController:(UIViewController *)viewController IsNeedCancelClick:(BOOL)isNeed{
+    if ([AuthorizationManager isLoginState] == NO){
+        if (isNeed){
             [AuthorizationManager getAuthorizationWithViewController:viewController];
         }
         return NO;
-    }
-    else if ([AuthorizationManager isBindingMobile] == NO)
-    {
+    }else if ([AuthorizationManager isBindingMobile] == NO){
         [AuthorizationManager getBindingMobileWithViewController:viewController IsNeedCancelClick:isNeed];
         return NO;
-    }
-    else if ([AuthorizationManager isRemoteLoginWithViewController:viewController])
-    {
+    }else if ([AuthorizationManager isRemoteLoginWithViewController:viewController]){
         return NO;
-    }
-    else if ([AuthorizationManager isOpenAccountInStockExchange] == NO)
-    {
+    }else if ([AuthorizationManager isOpenAccountInStockExchange] == NO){
         [AuthorizationManager openAccountInStockExchangeWithViewController:viewController IsNeedCancelClick:isNeed];
         return NO;
-    }
-    else if ([AuthorizationManager isEffectiveToken] == NO)
-    {
+    }else if ([AuthorizationManager isEffectiveToken] == NO){
         [AuthorizationManager getEffectiveTokenWithViewController:viewController IsNeedCancelClick:isNeed];
         return NO;
-    }
-    else
-    {
+    }else{
         return YES;
     }
 }
@@ -69,7 +55,6 @@
     if ([ThirdLoginModel isExitThirdAccountInfo]){
         return YES;//第三方登录
     }
-    
     
     AccountInfo *user = [AccountInfo standardAccountInfo];
     
@@ -86,26 +71,21 @@
     return YES;
 }
 
-/*
- * 若是没有授权，则跳转至授权登录界面
+/** 若是没有授权，则跳转至授权登录界面
  */
-+ (void)getAuthorizationWithViewController:(UIViewController *)viewController
-{
++ (void)getAuthorizationWithViewController:(UIViewController *)viewController{
     LoginViewController *loginVC = [[LoginViewController alloc]initWithNibName:@"LoginViewController" bundle:nil];
     UINavigationController *loginNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
     loginNav.navigationBar.tintColor = [UIColor whiteColor];
     loginNav.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     UIImage *blackImage = [AuthorizationManager loadTabBarAndNavBarBackgroundImage];
     [loginNav.navigationBar setBackgroundImage:blackImage forBarMetrics:UIBarMetricsDefault];
-        
     [viewController presentViewController:loginNav animated:YES completion:nil];
 }
 
-/*
- * 提示注册，则跳转至注册界面
+/** 提示注册，则跳转至注册界面
  */
-+ (void)getRegisterWithViewController:(UIViewController *)viewController
-{
++ (void)getRegisterWithViewController:(UIViewController *)viewController{
     LoginViewController *loginVC = [[LoginViewController alloc]initWithNibName:@"LoginViewController" bundle:nil];
     UINavigationController *loginNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
     loginNav.navigationBar.tintColor = [UIColor whiteColor];
@@ -119,36 +99,24 @@
     [viewController presentViewController:loginNav animated:YES completion:nil];
 }
 
-/*
- * 盈投资 判断是否绑定手机号
+/** 盈投资 判断是否绑定手机号
  */
-+ (BOOL)isBindingMobile
-{
-    if ([AuthorizationManager isLoginState] == NO)
-    {
++ (BOOL)isBindingMobile{
+    if ([AuthorizationManager isLoginState] == NO){
         return NO;
     }
-    
     AccountInfo *user = [AccountInfo standardAccountInfo];
-
-    NSString *mobile = user.username;
-
-    if (mobile == nil || [mobile isEqualToString:@""])
-    {
+    NSString *mobile = user.phone;
+    if (mobile == nil || [mobile isEqualToString:@""]){
         return NO;
     }
-    
     return YES;
-    
 }
     
-/*
- * 若是没有绑定，则去绑定
+/** 若是没有绑定，则去绑定
  */
-+ (void)getBindingMobileWithViewController:(UIViewController *)viewController IsNeedCancelClick:(BOOL)isNeed
-{
-    if ([self isLoginState] == NO)
-    {
++ (void)getBindingMobileWithViewController:(UIViewController *)viewController IsNeedCancelClick:(BOOL)isNeed{
+    if ([self isLoginState] == NO){
         [self getAuthorizationWithViewController:viewController];
         return;
     }
@@ -157,31 +125,25 @@
     ActivateTradePwdView *tipView = [[ActivateTradePwdView alloc]initWithState:ActivateTradePwdStateBindMobile];
     [tipView show];
     
-    tipView.activateTradePwdViewCancelButtonClick = ^()
-    {
-        if (isNeed)
-        {
+    tipView.activateTradePwdViewCancelButtonClick = ^(){
+        if (isNeed){
             [MainTabBarController setSelectedIndex:1];
         }
     };
     
-    tipView.activateTradePwdViewConfirmButtonClick = ^()
-    {
-        
+    tipView.activateTradePwdViewConfirmButtonClick = ^(){
+        ///开户
         OpenAccountVC *setVc = [[OpenAccountVC alloc]initWithNibName:@"OpenAccountVC" bundle:nil];
         setVc.isPush = NO;
         setVc.navigationItem.title = @"恒大交易所";
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:setVc];
         [viewController presentViewController:nav animated:YES completion:nil];
-        
     };
 }
 
-/*
- * 盈投资 判断是否异地登录，异地登录，必出弹出框提示
+/** 盈投资 判断是否异地登录，异地登录，必出弹出框提示
  */
-+ (BOOL)isRemoteLoginWithViewController:(UIViewController *)viewController
-{
++ (BOOL)isRemoteLoginWithViewController:(UIViewController *)viewController{
     BOOL isRemoteLogin = [UserLocalData isRemoteLogin];
     
     if (isRemoteLogin)
@@ -228,28 +190,13 @@
 
 
 
-/*
- * 盈投资 判断是否在交易所开户
+/** 盈投资 判断是否在交易所开户
  */
-+ (BOOL)isOpenAccountInStockExchange
-{
-    if ([self isBindingMobile] == NO)
-    {
++ (BOOL)isOpenAccountInStockExchange{
+    if ([self isBindingMobile] == NO){
         return NO;
     }
-
-    AccountInfo *user = [AccountInfo standardAccountInfo];
-    
-    NSString *isOpenAccount = user.isOpenAccount;
-
-    if ([isOpenAccount isEqualToString:@"1"])
-    {
-        return YES;
-    }
-    else
-    {
-         return NO;
-    }
+    return AccountInfo.standardAccountInfo.isOpenAccount;
 }
 
 /** 若是没有开户，则去交易所
@@ -300,8 +247,7 @@
     ActivateTradePwdView *tipView = [[ActivateTradePwdView alloc]initWithState:ActivateTradePwdStateActivateTrade];
     [tipView show];
     
-    tipView.activateTradePwdViewCancelButtonClick = ^()
-    {
+    tipView.activateTradePwdViewCancelButtonClick = ^(){
         if (isNeed)
         {
             [MainTabBarController setSelectedIndex:1];
@@ -319,10 +265,8 @@
 }
 
 //判断界面是否显示次提示框，防止重复显示
-+ (void)removeShowedActivateTradePwdView
-{
-    [[UIApplication sharedApplication].keyWindow.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-     {
++ (void)removeShowedActivateTradePwdView{
+    [[UIApplication sharedApplication].keyWindow.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
          if ([obj isKindOfClass:[ActivateTradePwdView class]])
          {
              [obj removeFromSuperview];
@@ -332,8 +276,7 @@
 }
 
 
-+ (UIImage *)loadTabBarAndNavBarBackgroundImage
-{    
++ (UIImage *)loadTabBarAndNavBarBackgroundImage{
     CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -343,40 +286,5 @@
     UIGraphicsEndImageContext();
     return theImage;
 }
-
-/*
- * IM 是否登录
- */
-+ (BOOL)isIM_Authorization
-{
-    if([AuthorizationManager isLoginState] == NO)
-    {
-        return NO;
-    }
-    
-    return [UserLocalData isIM_Authorization];
-}
-
-/*
- * IM 若是没有登录，则登录
- */
-+ (void)getIM_Authorization
-{
-    if ([self isLoginState] == NO)
-    {
-        return;
-    }
-    
-    AccountInfo *account = [AccountInfo standardAccountInfo];    
-}
-
-/*
- * IM 若是登录，则退出
- */
-+ (void)cancelIM_Authorization
-{
-
-}
-
 
 @end

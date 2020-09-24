@@ -76,10 +76,10 @@
     AccountInfo *account = [AccountInfo standardAccountInfo];
     if (_passwordKind == TransactionPasswordKindOpenAccount){
         // 开户成功
-        account.isOpenAccount = @"1";
-        account.tradeValidityDate = NSDate.date;
+        account.isOpenAccount = YES;
         account.tradePWD = self.passwordView.text;
         [account storeAccountInfo];
+        [UserLocalData setTradeToken:account.tradePWD];
         [self leftNavBarButtonClick];
         
         [SetTransactionPasswordVC registerSuccessSendCouponTip];
@@ -89,7 +89,7 @@
     }else if (_passwordKind == TransactionPasswordKindActivate){
         ///激活交易密码
         if ([self.passwordView.text isEqualToString:account.tradePWD]) {
-            account.tradeValidityDate = NSDate.date;
+            [UserLocalData setTradeToken:account.tradePWD];
             [account storeAccountInfo];
             [self leftNavBarButtonClick];
         }else{

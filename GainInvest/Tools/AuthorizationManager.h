@@ -80,20 +80,5 @@
 + (void)getEffectiveTokenWithViewController:(UIViewController *)viewController IsNeedCancelClick:(BOOL)isNeed;
 
 
-/*
- * IM 是否登录
- */
-+ (BOOL)isIM_Authorization;
-
-/*
- * IM 若是没有登录，则登录
- */
-+ (void)getIM_Authorization;
-
-/*
- * IM 若是登录，则退出
- */
-+ (void)cancelIM_Authorization;
-
 
 @end

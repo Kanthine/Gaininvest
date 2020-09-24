@@ -216,7 +216,6 @@
     
     AccountInfo.standardAccountInfo.phone = _phoneTf.text;
     [AccountInfo.standardAccountInfo storeAccountInfo];
-    
     [self bindSuccessNextStepWithOpenAccountWithUrl:@""];
 }
 

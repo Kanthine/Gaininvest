@@ -53,23 +53,19 @@
 }
 
 /* 判断用户交易token是否有效 */
-+ (BOOL)isTradeEffectiveToken
-{
++ (BOOL)isTradeEffectiveToken{
     NSString *tokenString = [UserDefaults objectForKey:TradeToken];
-    if (tokenString == nil || tokenString.length < 1)
-    {
+    if (tokenString == nil || tokenString.length < 1){
         return NO;
     }
     
     NSDate *startDate = [UserDefaults objectForKey:TradeTokenStartTime];
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeBetween = [currentDate timeIntervalSinceDate:startDate];
-    if (timeBetween > 90 * 60)
-    {
+    if (timeBetween > 90 * 60){
         //超过有效期
         return NO;
     }
-    
     return YES;
 }
 

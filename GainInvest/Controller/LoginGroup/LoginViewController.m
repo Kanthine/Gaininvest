@@ -30,16 +30,8 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self customNavBar];
-}
-
-- (void)customNavBar
-{
     self.navigationItem.title = @"登录";
-    
-    LeftBackItem *leftBarItem = [[LeftBackItem alloc] initWithTarget:self Selector:@selector(leftNavBarButtonClick)];
-    self.navigationItem.leftBarButtonItem=leftBarItem;
-
+    self.navigationItem.leftBarButtonItem = [[LeftBackItem alloc] initWithTarget:self Selector:@selector(leftNavBarButtonClick)];;
 }
 
 - (void)leftNavBarButtonClick

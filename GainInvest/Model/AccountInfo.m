@@ -50,6 +50,7 @@ NSString *const kAccountInfoIsHaveJdInfo = @"is_have_card";
 NSString *const kAccountInfoWeChat = @"weixin_openid";
 NSString *const kAccountInfoQQ = @"qq_openid";
 NSString *const kAccountInfoIsOpenAccount = @"is_trad_rg";
+NSString *const kAccountInfoTradePWD = @"tradePWD";
 
 
 @interface AccountInfo ()
@@ -105,6 +106,7 @@ NSString *const kAccountInfoIsOpenAccount = @"is_trad_rg";
 @synthesize weChatUid = _weChatUid;
 @synthesize qqUid = _qqUid;
 @synthesize isOpenAccount = _isOpenAccount;
+@synthesize tradePWD = _tradePWD;
 
 - (instancetype)init{
     self = [super init];
@@ -254,8 +256,9 @@ static dispatch_once_t rootOnceToken;
 
         self.weChatUid = [self objectOrNilForKey:kAccountInfoWeChat fromDictionary:dict];
         self.qqUid = [self objectOrNilForKey:kAccountInfoQQ fromDictionary:dict];
-        self.isOpenAccount = [self objectOrNilForKey:kAccountInfoIsOpenAccount fromDictionary:dict];
-        
+        self.isOpenAccount = [[self objectOrNilForKey:kAccountInfoIsOpenAccount fromDictionary:dict] boolValue];
+        self.tradePWD = [self objectOrNilForKey:kAccountInfoTradePWD fromDictionary:dict];
+
         
         
         if (self.head == nil || self.head.length < 2)
@@ -267,65 +270,15 @@ static dispatch_once_t rootOnceToken;
 
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dict
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dict{
     self = [super init];
-    
-    // This check serves to make sure that a non-NSDictionary object
-    // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
-            self.head = [self objectOrNilForKey:kAccountInfoHead fromDictionary:dict];
-            self.deviceToken = [self objectOrNilForKey:kAccountInfoDeviceToken fromDictionary:dict];
-            self.userID = [self objectOrNilForKey:kAccountInfoId fromDictionary:dict];
-            self.level = [self objectOrNilForKey:kAccountInfoLevel fromDictionary:dict];
-            self.workstatus = [self objectOrNilForKey:kAccountInfoWorkstatus fromDictionary:dict];
-            self.refToken = [self objectOrNilForKey:kAccountInfoRefToken fromDictionary:dict];
-            self.phoneStatus = [self objectOrNilForKey:kAccountInfoPhoneStatus fromDictionary:dict];
-            self.verify = [self objectOrNilForKey:kAccountInfoVerify fromDictionary:dict];
-            self.address = [self objectOrNilForKey:kAccountInfoAddress fromDictionary:dict];
-            self.regIp = [self objectOrNilForKey:kAccountInfoRegIp fromDictionary:dict];
-            self.nickname = [self objectOrNilForKey:kAccountInfoNickname fromDictionary:dict];
-            self.lastloginIp = [self objectOrNilForKey:kAccountInfoLastloginIp fromDictionary:dict];
-            self.realname = [self objectOrNilForKey:kAccountInfoRealname fromDictionary:dict];
-            self.regTime = [self objectOrNilForKey:kAccountInfoRegTime fromDictionary:dict];
-            self.isleader = [self objectOrNilForKey:kAccountInfoIsleader fromDictionary:dict];
-            self.tuijiancode = [self objectOrNilForKey:kAccountInfoTuijiancode fromDictionary:dict];
-            self.sex = [self objectOrNilForKey:kAccountInfoSex fromDictionary:dict];
-            self.idcard = [self objectOrNilForKey:kAccountInfoIdcard fromDictionary:dict];
-            self.salt = [self objectOrNilForKey:kAccountInfoSalt fromDictionary:dict];
-            self.email = [self objectOrNilForKey:kAccountInfoEmail fromDictionary:dict];
-            self.area = [self objectOrNilForKey:kAccountInfoArea fromDictionary:dict];
-            self.birthday = [self objectOrNilForKey:kAccountInfoBirthday fromDictionary:dict];
-            self.groupidId = [self objectOrNilForKey:kAccountInfoGroupidId fromDictionary:dict];
-            self.lastloginTime = [self objectOrNilForKey:kAccountInfoLastloginTime fromDictionary:dict];
-            self.realnameStatus = [self objectOrNilForKey:kAccountInfoRealnameStatus fromDictionary:dict];
-            self.username = [self objectOrNilForKey:kAccountInfoUsername fromDictionary:dict];
-            self.status = [self objectOrNilForKey:kAccountInfoStatus fromDictionary:dict];
-            self.ecSalt = [self objectOrNilForKey:kAccountInfoEcSalt fromDictionary:dict];
-            self.leader = [self objectOrNilForKey:kAccountInfoLeader fromDictionary:dict];
-            self.preference = [self objectOrNilForKey:kAccountInfoPreference fromDictionary:dict];
-            self.emailStatus = [self objectOrNilForKey:kAccountInfoEmailStatus fromDictionary:dict];
-            self.groupId = [self objectOrNilForKey:kAccountInfoGroupId fromDictionary:dict];
-            self.loginNum = [self objectOrNilForKey:kAccountInfoLoginNum fromDictionary:dict];
-            self.uToken = [self objectOrNilForKey:kAccountInfoUToken fromDictionary:dict];
-            self.companyid = [self objectOrNilForKey:kAccountInfoCompanyid fromDictionary:dict];
-            self.password = [self objectOrNilForKey:kAccountInfoPassword fromDictionary:dict];
-            self.phone = [self objectOrNilForKey:kAccountInfoPhone fromDictionary:dict];
-        self.isRecharge = [self objectOrNilForKey:kAccountInfoIsRecharge fromDictionary:dict];
-        self.isHaveJdInfo = [self objectOrNilForKey:kAccountInfoIsHaveJdInfo fromDictionary:dict];
-        self.weChatUid = [self objectOrNilForKey:kAccountInfoWeChat fromDictionary:dict];
-        self.qqUid = [self objectOrNilForKey:kAccountInfoQQ fromDictionary:dict];
-        self.isOpenAccount = [self objectOrNilForKey:kAccountInfoIsOpenAccount fromDictionary:dict];
-        self.defaultHead = [self objectOrNilForKey:kAccountInfoDefaultHead fromDictionary:dict];
-
+        [self parserDataWithDictionary:dict];
     }
-    
     return self;
-    
 }
 
-- (NSDictionary *)dictionaryRepresentation
-{
+- (NSDictionary *)dictionaryRepresentation{
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     [mutableDict setValue:self.head forKey:kAccountInfoHead];
     [mutableDict setValue:self.deviceToken forKey:kAccountInfoDeviceToken];
@@ -368,42 +321,32 @@ static dispatch_once_t rootOnceToken;
     [mutableDict setValue:self.isHaveJdInfo forKey:kAccountInfoIsHaveJdInfo];
     [mutableDict setValue:self.weChatUid forKey:kAccountInfoWeChat];
     [mutableDict setValue:self.qqUid forKey:kAccountInfoQQ];
-    [mutableDict setValue:self.isOpenAccount forKey:kAccountInfoIsOpenAccount];
+    [mutableDict setValue:@(self.isOpenAccount) forKey:kAccountInfoIsOpenAccount];
     [mutableDict setValue:self.defaultHead forKey:kAccountInfoDefaultHead];
+    [mutableDict setValue:self.tradePWD forKey:kAccountInfoTradePWD];
 
     return [NSDictionary dictionaryWithDictionary:mutableDict];
 }
 
-- (NSString *)description 
-{
+- (NSString *)description {
     return [NSString stringWithFormat:@"%@", [self dictionaryRepresentation]];
 }
 
 #pragma mark - Helper Method
-- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict
-{
-    
-    if ([dict.allKeys containsObject:aKey])
-    {
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict{
+    if ([dict.allKeys containsObject:aKey]){
         id object = [dict objectForKey:aKey];
         return [object isEqual:[NSNull null]] ? @"" : object;
-    }
-    else
-    {
+    }else{
         return @"";
     }
-    
-    
-
 }
 
 
 #pragma mark - NSCoding Methods
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
+- (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
-
     self.head = [aDecoder decodeObjectForKey:kAccountInfoHead];
     self.deviceToken = [aDecoder decodeObjectForKey:kAccountInfoDeviceToken];
     self.userID = [aDecoder decodeObjectForKey:kAccountInfoId];
@@ -445,8 +388,9 @@ static dispatch_once_t rootOnceToken;
     self.isHaveJdInfo = [aDecoder decodeObjectForKey:kAccountInfoIsHaveJdInfo];
     self.weChatUid = [aDecoder decodeObjectForKey:kAccountInfoWeChat];
     self.qqUid = [aDecoder decodeObjectForKey:kAccountInfoQQ];
-    self.isOpenAccount = [aDecoder decodeObjectForKey:kAccountInfoIsOpenAccount];
+    self.isOpenAccount = [aDecoder decodeBoolForKey:kAccountInfoIsOpenAccount];
     self.defaultHead = [aDecoder decodeObjectForKey:kAccountInfoDefaultHead];
+    self.tradePWD = [aDecoder decodeObjectForKey:kAccountInfoTradePWD];
 
     return self;
 }
@@ -495,8 +439,9 @@ static dispatch_once_t rootOnceToken;
     [aCoder encodeObject:_isHaveJdInfo forKey:kAccountInfoIsHaveJdInfo];
     [aCoder encodeObject:_weChatUid forKey:kAccountInfoWeChat];
     [aCoder encodeObject:_qqUid forKey:kAccountInfoQQ];
-    [aCoder encodeObject:_isOpenAccount forKey:kAccountInfoIsOpenAccount];
+    [aCoder encodeBool:_isOpenAccount forKey:kAccountInfoIsOpenAccount];
     [aCoder encodeObject:_defaultHead forKey:kAccountInfoDefaultHead];
+    [aCoder encodeObject:_tradePWD forKey:kAccountInfoTradePWD];
 
 }
 
@@ -547,8 +492,9 @@ static dispatch_once_t rootOnceToken;
         copy.isHaveJdInfo = [self.isHaveJdInfo copyWithZone:zone];
         copy.weChatUid = [self.weChatUid copyWithZone:zone];
         copy.qqUid = [self.qqUid copyWithZone:zone];
-        copy.isOpenAccount = [self.isOpenAccount copyWithZone:zone];
+        copy.isOpenAccount = self.isOpenAccount;
         copy.defaultHead = [self.defaultHead copyWithZone:zone];
+        copy.tradePWD = [self.tradePWD copyWithZone:zone];
 
     }
     return copy;

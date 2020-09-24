@@ -9,7 +9,6 @@
 #import "RegisterViewController.h"
 #import "ValidateClass.h"
 
-#import "SetTransactionPasswordVC.h"
 #import "MyVoucherViewController.h"
 #import "MainTabBarController.h"
 

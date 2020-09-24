@@ -209,28 +209,18 @@
     
     
     AccountInfo *account = [AccountInfo standardAccountInfo];
-    if ([account.isRecharge isEqualToString:@"1"])
-    {
+    if ([account.isRecharge isEqualToString:@"1"]){
         //充值过
-    }
-    else
-    {
-        
-        
-        if ([AuthorizationManager isEffectiveToken])
-        {
+    }else{
+        if ([AuthorizationManager isEffectiveToken]){
             //未充值 -- > 充值
             RechargeViewController *rechargeVC = [[RechargeViewController alloc]init];
             rechargeVC.hidesBottomBarWhenPushed = YES;
             rechargeVC.isBuyUp = -1;
             [self.navigationController pushViewController:rechargeVC animated:YES];
-        }
-        else
-        {
+        }else{
             [AuthorizationManager getEffectiveTokenWithViewController:self IsNeedCancelClick:NO];
-        }
-        
-        
+        }        
     }
 }
 

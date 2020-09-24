@@ -7,8 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-
-
 @interface AccountInfo : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic, strong) NSString *balance;//余额
@@ -28,9 +26,8 @@
 //第一次京东充值或者提现之后，服务器缓存用户银行卡信息
 @property (nonatomic, strong) NSString *isHaveJdInfo;
 
-@property (nonatomic, strong) NSDate *tradeValidityDate;//交易密码最后日期
 @property (nonatomic, strong) NSString *tradePWD;//交易密码
-@property (nonatomic, strong) NSString *isOpenAccount;//恒大交易所是否开户
+@property (nonatomic, assign) BOOL isOpenAccount;//恒大交易所是否开户
 
 
 @property (nonatomic, strong) NSString *deviceToken;
