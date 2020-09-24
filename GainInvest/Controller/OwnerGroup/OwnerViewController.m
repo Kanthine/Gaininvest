@@ -34,9 +34,7 @@
     NSInteger _count;
 }
 
-@property (nonatomic ,strong) UIButton *rightItemButton;
 @property (nonatomic ,strong) UIView *tableHeaderView;
-
 @property (nonatomic ,strong) NSArray *dataArray;
 
 
@@ -56,7 +54,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.view addSubview:self.tableview];
-    [self.view addSubview:self.rightItemButton];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnReadMessageCount:) name:@"updateUnReadMessageCountNotification" object:nil];
     
@@ -114,27 +111,6 @@
     return UIStatusBarStyleLightContent;
 }
 
-- (UIButton *)rightItemButton
-{
-    if (_rightItemButton == nil)
-    {
-        UIButton *rightNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        rightNavBarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        rightNavBarButton.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-        rightNavBarButton.titleEdgeInsets = UIEdgeInsetsMake(34 , 0, 0, 15);
-        [rightNavBarButton addTarget:self action:@selector(rightNavBarButtonClcik) forControlEvents:UIControlEventTouchUpInside];
-        [rightNavBarButton setTitle:@"客服" forState:UIControlStateNormal];
-        rightNavBarButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        rightNavBarButton.frame = CGRectMake(ScreenWidth - 150, 0 , 150, 64);
-        _rightItemButton = rightNavBarButton;
-    }
-    
-    return _rightItemButton;
-}
-
-- (void)rightNavBarButtonClcik
-{
-}
 
 - (NSArray *)dataArray
 {
@@ -422,7 +398,6 @@
                 case 0:
                 {
                     //在线客服
-                    [self rightNavBarButtonClcik];
                 }
                     break;
                 case 1:
@@ -444,13 +419,11 @@
     }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat yOffset  = scrollView.contentOffset.y;
     CGFloat xOffset = (yOffset + TableHeaderHeight ) / 2;
     
-    if (yOffset < - TableHeaderHeight)
-    {
+    if (yOffset < - TableHeaderHeight){
         CGRect rect = _tableHeaderView.frame;
         rect.origin.y = yOffset;
         rect.size.height =  -yOffset ;
@@ -460,7 +433,5 @@
     }
     
 }
-
-
 
 @end

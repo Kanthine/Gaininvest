@@ -12,5 +12,4 @@
 
 - (instancetype)initWithURL:(NSString *)url;
 
-
 @end

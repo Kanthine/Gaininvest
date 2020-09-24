@@ -26,8 +26,6 @@
 
 #import "HomeRegisterTipView.h"
 
-#import <MJRefresh.h>
-
 @interface ConsultViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate,ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
 
@@ -121,10 +119,6 @@
 
 - (void)registerTipButtonClick{
     [AuthorizationManager getRegisterWithViewController:self];
-}
-
-- (void)stopMjHeaderRefresh{
-    [_scrollView.mj_header endRefreshing];
 }
 
 #pragma mark - response click
@@ -310,17 +304,6 @@
         [scrollView addSubview:self.collectionView];
         
         scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetMaxY(self.collectionView.frame));
-
-        __weak __typeof(self) weakSelf = self;
-        scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            ConsultCollectionCell *cell = (ConsultCollectionCell *)[weakSelf.collectionView cellForItemAtIndexPath:_currentIndexPath];
-            if (weakSelf.titleArray && weakSelf.titleArray.count > _currentIndexPath.row){
-                ConsultKindTitleModel *titleModel = weakSelf.titleArray[_currentIndexPath.row];
-                [cell.contentVC updateTableListViewWith:titleModel];
-            }
-            [weakSelf performSelector:@selector(stopMjHeaderRefresh) withObject:nil afterDelay:1.5f];
-        }];
-
         _scrollView = scrollView;
     }
     return _scrollView;

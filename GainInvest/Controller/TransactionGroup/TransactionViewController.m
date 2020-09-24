@@ -55,7 +55,6 @@
     if (self){
         _isClosed = NO;
         _type = @"1";
-        [self realTimeUpdate];
     }
     return self;
 }
@@ -83,7 +82,8 @@
     }
     
     [self timer];
-    
+    [self realTimeUpdate];
+
     if ([AuthorizationManager isEffectiveToken]){
         [self accessBalanceOfAccount];
         [self accessCouponNumber];

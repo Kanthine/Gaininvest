@@ -18,53 +18,35 @@
 <UITabBarControllerDelegate>
 @property (nonatomic ,strong) NSMutableArray *tabBarArray;
 
-
 @end
 
 @implementation MainTabBarController
 
 static MainTabBarController *tabBarController = nil;
-+ (MainTabBarController *)shareMainController
-{
++ (MainTabBarController *)shareMainController{
     static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^
-                  {
-                      
-                      
-                      tabBarController = [[MainTabBarController alloc]init];
-                      
-                      
-                      tabBarController.delegate =  tabBarController;
-                  });
-    
+    dispatch_once(&onceToken, ^{
+        tabBarController = [[MainTabBarController alloc]init];
+        tabBarController.delegate =  tabBarController;
+    });
     return tabBarController;
 }
 
-+ (void)setSelectedIndex:(NSInteger)index
-{
++ (void)setSelectedIndex:(NSInteger)index{
     tabBarController.selectedIndex = index;
 }
 
-
-- (instancetype)init
-{
+- (instancetype)init{
     self = [super init];
-    
-    if (self)
-    {
+    if (self){
         self.viewControllers = self.tabBarArray;
-        
-        
     }
-    
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     
     NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
     textAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:10];
@@ -85,22 +67,10 @@ static MainTabBarController *tabBarController = nil;
     self.tabBar.backgroundImage = blackImage;//背景色
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)loadNetworkData
-{
-    
-}
-
 #pragma mark -
 
 static UINavigationController *transactionNavigationController = nil;
-+ (UINavigationController *)shareTransactionNavigationController
-{
++ (UINavigationController *)shareTransactionNavigationController{
     static dispatch_once_t rootOnceToken;
     dispatch_once(&rootOnceToken, ^
                   {
@@ -222,9 +192,7 @@ static UINavigationController *ownerNavigationController = nil;
 }
 
 
-+ (UIImage *)loadTabBarAndNavBarBackgroundImage
-{
-        
++ (UIImage *)loadTabBarAndNavBarBackgroundImage{
     CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
