@@ -126,7 +126,6 @@
 		224063661E5D693F00F337BB /* TradeDetaileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 224063651E5D693F00F337BB /* TradeDetaileView.m */; };
 		224063691E5D783A00F337BB /* TranscationCellSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 224063681E5D783A00F337BB /* TranscationCellSegmentView.m */; };
 		225346F11E641D080058F8C5 /* GetVoucherTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 225346F01E641D080058F8C5 /* GetVoucherTableCell.m */; };
-		225346F41E6422640058F8C5 /* IncomeDetaileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 225346F31E6422640058F8C5 /* IncomeDetaileViewController.m */; };
 		225346F81E6424F90058F8C5 /* IncomeDetaileTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 225346F61E6424F90058F8C5 /* IncomeDetaileTableCell.m */; };
 		225346F91E6424F90058F8C5 /* IncomeDetaileTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 225346F71E6424F90058F8C5 /* IncomeDetaileTableCell.xib */; };
 		22638E771E6574C000AC571E /* libz.1.2.8.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 22638E761E6574C000AC571E /* libz.1.2.8.tbd */; };
@@ -136,7 +135,6 @@
 		22638E7F1E65750F00AC571E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22638E7E1E65750F00AC571E /* CFNetwork.framework */; };
 		2274355E1E821E75003907EE /* LaunchProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2274355D1E821E75003907EE /* LaunchProgressView.m */; };
 		227435611E825E8F003907EE /* UserLocalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 227435601E825E8F003907EE /* UserLocalData.m */; };
-		229EEF221E73D28A00B078A4 /* TradeLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229EEF211E73D28A00B078A4 /* TradeLoginViewController.m */; };
 		229EEF251E73E64200B078A4 /* CouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 229EEF241E73E64200B078A4 /* CouponModel.m */; };
 		22A4EAEA1E83C17F0033802D /* OpenAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A4EAE81E83C17F0033802D /* OpenAccountVC.m */; };
 		22A4EAEB1E83C17F0033802D /* OpenAccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A4EAE91E83C17F0033802D /* OpenAccountVC.xib */; };
@@ -174,7 +172,6 @@
 		22EC6A0F1E7A6675004B9473 /* GainListTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EC6A0D1E7A6675004B9473 /* GainListTableCell.xib */; };
 		22EC6A131E7A712E004B9473 /* ClosePositionDetaileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EC6A111E7A712E004B9473 /* ClosePositionDetaileVC.m */; };
 		22EC6A141E7A712E004B9473 /* ClosePositionDetaileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EC6A121E7A712E004B9473 /* ClosePositionDetaileVC.xib */; };
-		22F57B541E84C1F500017CE8 /* ShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F57B531E84C1F500017CE8 /* ShareManager.m */; };
 		22FAC33C1E5D3BB5005F7969 /* TranscationTableSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FAC33B1E5D3BB5005F7969 /* TranscationTableSectionHeaderView.m */; };
 		22FAC33F1E5D3BDB005F7969 /* TranscationTableSectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FAC33E1E5D3BDB005F7969 /* TranscationTableSectionFooterView.m */; };
 		22FD902E1E8B898C00F78CE0 /* WithdrawPerfectInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD902D1E8B898C00F78CE0 /* WithdrawPerfectInfoView.m */; };
@@ -438,8 +435,6 @@
 		224063681E5D783A00F337BB /* TranscationCellSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranscationCellSegmentView.m; sourceTree = "<group>"; };
 		225346EF1E641D080058F8C5 /* GetVoucherTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetVoucherTableCell.h; sourceTree = "<group>"; };
 		225346F01E641D080058F8C5 /* GetVoucherTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetVoucherTableCell.m; sourceTree = "<group>"; };
-		225346F21E6422640058F8C5 /* IncomeDetaileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomeDetaileViewController.h; sourceTree = "<group>"; };
-		225346F31E6422640058F8C5 /* IncomeDetaileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomeDetaileViewController.m; sourceTree = "<group>"; };
 		225346F51E6424F90058F8C5 /* IncomeDetaileTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomeDetaileTableCell.h; sourceTree = "<group>"; };
 		225346F61E6424F90058F8C5 /* IncomeDetaileTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomeDetaileTableCell.m; sourceTree = "<group>"; };
 		225346F71E6424F90058F8C5 /* IncomeDetaileTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomeDetaileTableCell.xib; sourceTree = "<group>"; };
@@ -452,8 +447,6 @@
 		2274355D1E821E75003907EE /* LaunchProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchProgressView.m; sourceTree = "<group>"; };
 		2274355F1E825E8F003907EE /* UserLocalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLocalData.h; sourceTree = "<group>"; };
 		227435601E825E8F003907EE /* UserLocalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLocalData.m; sourceTree = "<group>"; };
-		229EEF201E73D28A00B078A4 /* TradeLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeLoginViewController.h; sourceTree = "<group>"; };
-		229EEF211E73D28A00B078A4 /* TradeLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeLoginViewController.m; sourceTree = "<group>"; };
 		229EEF231E73E64200B078A4 /* CouponModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponModel.h; sourceTree = "<group>"; };
 		229EEF241E73E64200B078A4 /* CouponModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponModel.m; sourceTree = "<group>"; };
 		22A4EAE71E83C17F0033802D /* OpenAccountVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenAccountVC.h; sourceTree = "<group>"; };
@@ -520,8 +513,6 @@
 		22EC6A101E7A712E004B9473 /* ClosePositionDetaileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClosePositionDetaileVC.h; sourceTree = "<group>"; };
 		22EC6A111E7A712E004B9473 /* ClosePositionDetaileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClosePositionDetaileVC.m; sourceTree = "<group>"; };
 		22EC6A121E7A712E004B9473 /* ClosePositionDetaileVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClosePositionDetaileVC.xib; sourceTree = "<group>"; };
-		22F57B521E84C1F500017CE8 /* ShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareManager.h; sourceTree = "<group>"; };
-		22F57B531E84C1F500017CE8 /* ShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareManager.m; sourceTree = "<group>"; };
 		22FAC33A1E5D3BB5005F7969 /* TranscationTableSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranscationTableSectionHeaderView.h; sourceTree = "<group>"; };
 		22FAC33B1E5D3BB5005F7969 /* TranscationTableSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranscationTableSectionHeaderView.m; sourceTree = "<group>"; };
 		22FAC33D1E5D3BDB005F7969 /* TranscationTableSectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranscationTableSectionFooterView.h; sourceTree = "<group>"; };
@@ -663,8 +654,6 @@
 				2202C7F41E4B11E4000D14DE /* RegisterViewController.xib */,
 				22B7B3261E5E8AD700FF5EB6 /* SetTransactionPasswordVC.h */,
 				22B7B3271E5E8AD700FF5EB6 /* SetTransactionPasswordVC.m */,
-				229EEF201E73D28A00B078A4 /* TradeLoginViewController.h */,
-				229EEF211E73D28A00B078A4 /* TradeLoginViewController.m */,
 				22A4EAE71E83C17F0033802D /* OpenAccountVC.h */,
 				22A4EAE81E83C17F0033802D /* OpenAccountVC.m */,
 				22A4EAE91E83C17F0033802D /* OpenAccountVC.xib */,
@@ -1311,8 +1300,6 @@
 				2216B9C51E640919006994C3 /* MyVoucherViewController.m */,
 				2216B9C71E641019006994C3 /* GetVoucherViewController.h */,
 				2216B9C81E641019006994C3 /* GetVoucherViewController.m */,
-				225346F21E6422640058F8C5 /* IncomeDetaileViewController.h */,
-				225346F31E6422640058F8C5 /* IncomeDetaileViewController.m */,
 			);
 			path = PositionsGroup;
 			sourceTree = "<group>";
@@ -1359,8 +1346,6 @@
 				22FF6F8F1E49C70800F81929 /* ClassCategory */,
 				2202C7EC1E4AFF67000D14DE /* ValidateClass.h */,
 				2202C7ED1E4AFF67000D14DE /* ValidateClass.m */,
-				22F57B521E84C1F500017CE8 /* ShareManager.h */,
-				22F57B531E84C1F500017CE8 /* ShareManager.m */,
 				221A31C01E8FAD3D00104DD3 /* FirstLaunchPage.h */,
 				221A31C11E8FAD3D00104DD3 /* FirstLaunchPage.m */,
 				2274355F1E825E8F003907EE /* UserLocalData.h */,
@@ -1649,7 +1634,6 @@
 				22FAC33F1E5D3BDB005F7969 /* TranscationTableSectionFooterView.m in Sources */,
 				22FF6F441E49ACDA00F81929 /* AppDelegate.m in Sources */,
 				2202C7F51E4B11E4000D14DE /* RegisterViewController.m in Sources */,
-				22F57B541E84C1F500017CE8 /* ShareManager.m in Sources */,
 				22FF6F801E49B1C300F81929 /* PositionsViewController.m in Sources */,
 				224063691E5D783A00F337BB /* TranscationCellSegmentView.m in Sources */,
 				220B008C1E668A4E00180C33 /* RechargeInfomationVC.m in Sources */,
@@ -1746,14 +1730,12 @@
 				2221EEBF1E4D8D30006DA937 /* ConsoleOutPutChinese.m in Sources */,
 				2218E8B31E7F6F0D0018C520 /* TransactionClosedTipView.m in Sources */,
 				2216B9C01E63DDC5006994C3 /* ChooseBankKindVC.m in Sources */,
-				229EEF221E73D28A00B078A4 /* TradeLoginViewController.m in Sources */,
 				221BA5371E6FEEAF00FB618D /* ConsultCollectionViewFlowLayout.m in Sources */,
 				227435611E825E8F003907EE /* UserLocalData.m in Sources */,
 				224063661E5D693F00F337BB /* TradeDetaileView.m in Sources */,
 				221BA52D1E6FB96D00FB618D /* Y_KLineVolumePositionModel.m in Sources */,
 				2221F9291E7D1A9F004B41F9 /* AboutOurIntroVC.m in Sources */,
 				221BA5241E6FB96D00FB618D /* Y_KLineMAView.m in Sources */,
-				225346F41E6422640058F8C5 /* IncomeDetaileViewController.m in Sources */,
 				22B7B32E1E5E98B100FF5EB6 /* ProfitRollTableHeaderView.m in Sources */,
 				22FF6F7D1E49B1A800F81929 /* TransactionViewController.m in Sources */,
 				2212FEA31E8CB096009B1220 /* HomeRegisterTipView.m in Sources */,

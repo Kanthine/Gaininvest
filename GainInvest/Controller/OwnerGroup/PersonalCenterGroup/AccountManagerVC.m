@@ -302,27 +302,19 @@
         AccountInfo *account = [AccountInfo standardAccountInfo];
         
         
-        if (indexPath.row == 0)
-        {
-            cell.detailTextLabel.text = account.nickname;
-            if ([AuthorizationManager isBindingMobile])
-            {
+        if (indexPath.row == 0){
+            cell.detailTextLabel.text = account.username;
+            if ([AuthorizationManager isBindingMobile]){
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            }
-            else
-            {
+            }else{
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
         }
-        else if (indexPath.row == 1)
-        {
-            if ([AuthorizationManager isBindingMobile])
-            {
+        else if (indexPath.row == 1){
+            if ([AuthorizationManager isBindingMobile]){
                 cell.accessoryType = UITableViewCellAccessoryNone;
-                cell.detailTextLabel.text = account.username;
-            }
-            else
-            {
+                cell.detailTextLabel.text = account.phone;
+            }else{
                 cell.detailTextLabel.text = @"去绑定手机号";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }

@@ -238,7 +238,7 @@
     
     NSString *money = [NSString stringWithFormat:@"%ld",self.currentMoney * 100];
     NSString *orderId = [NSString stringWithFormat:@"%@",_orderDict[@"data.trade.id"]];
-    NSDictionary *parameterDict = @{@"mobile_phone":account.username,
+    NSDictionary *parameterDict = @{@"mobile_phone":account.phone,
                                     @"trade_amount":money,
                                     @"ordernum":orderId,
                                     @"trade_code":_verCodeTf.text};
@@ -370,7 +370,7 @@
     
     AccountInfo *account = [AccountInfo standardAccountInfo];
     
-    NSDictionary *parameterDict = @{@"mobile_phone":account.username,
+    NSDictionary *parameterDict = @{@"mobile_phone":account.phone,
                                     @"card_bank":_bankDict[@"card_bank"],
                                     @"card_no":cardNum,//银行卡号
                                     @"card_name":_bankNameTf.text,

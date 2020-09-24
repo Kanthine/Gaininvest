@@ -34,15 +34,13 @@
 }
 
 /* 设置用户的代金券数量 */
-+ (void)setCouponCount:(NSUInteger)count
-{
++ (void)setCouponCount:(NSUInteger)count{
     [UserDefaults setObject:@(count) forKey:CouponCount];
     [UserDefaults synchronize];
 }
 
 /* 获取用户的代金券数量 */
-+ (NSUInteger)getCouponCount
-{
++ (NSUInteger)getCouponCount{
     return [[UserDefaults objectForKey:CouponCount] integerValue];
 }
 

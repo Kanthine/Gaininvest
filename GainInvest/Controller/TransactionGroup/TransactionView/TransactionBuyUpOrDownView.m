@@ -1252,9 +1252,7 @@
 }
 
 /* 下单 */
-- (void)placeAnOrderButtonClick:(UIButton *)sender
-{
-
+- (void)placeAnOrderButtonClick:(UIButton *)sender{
     UISlider *slide = [self.slideCountView viewWithTag:4];
     if (slide.value < 1)
     {
@@ -1306,7 +1304,7 @@
     }
     
     
-    NSDictionary *dict = @{@"mobile_phone":account.username,
+    NSDictionary *dict = @{@"mobile_phone":account.phone,
                            @"product_id":couponId,
                            @"contract":contract,
                            @"type":buyUpStr,

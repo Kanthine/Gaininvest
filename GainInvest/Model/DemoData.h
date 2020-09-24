@@ -7,17 +7,38 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "ConsultKindTitleModel.h"
 #import "ConsultListModel.h"
 #import "InorderModel.h"
+#import "CouponModel.h"
+#import "PositionsModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DemoData : NSObject
 
+///昵称
+#define k_DemoData_nickName_count DemoData.nickNameArray.count
++ (NSArray<NSString *> *)nickNameArray;
+
+///头像
+#define k_DemoData_HeadPath_count DemoData.headPathArray.count
++ (NSArray<NSString *> *)headPathArray;
+
+@end
+
+
+
+
+
+
+
+/// 业务假数据
+@interface DemoData (Service)
+
 + (NSMutableArray<ConsultKindTitleModel *> *)consultKindTitleArray;
 + (NSMutableArray<ConsultListModel *> *)ConsultListArrayWithKindTitle:(ConsultKindTitleModel *)titleModel;
-
-
 
 + (NSMutableArray<InorderModel *> *)inorderModelArray;
 
@@ -33,8 +54,22 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray<NSString *> *)timeDatesWithType:(NSString *)type;
 
 
-@end
 
+
+/** 查询用户可用的赢家券信息数量
+ */
++ (NSInteger)queryCouponCount;
+
+/** 查询用户所有的赢家券信息
+ * coupon_type : 券类型 1：未使用 2：已使用 3：已过期
+ */
++ (NSMutableArray<CouponModel *> *)couponArrayWithType:(NSString *)type;
+
+/** 获取用户的持仓信息列表
+ */
++ (NSMutableArray<PositionsModel *> *)accessOpenPosition;
+
+@end
 
 
 NS_ASSUME_NONNULL_END

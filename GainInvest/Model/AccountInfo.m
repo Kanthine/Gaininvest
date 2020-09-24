@@ -54,6 +54,8 @@ NSString *const kAccountInfoIsOpenAccount = @"is_trad_rg";
 
 @interface AccountInfo ()
 
+@property (nonatomic, strong) NSString *nickname;
+
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
 @end
@@ -63,7 +65,7 @@ NSString *const kAccountInfoIsOpenAccount = @"is_trad_rg";
 @synthesize head = _head;
 @synthesize defaultHead = _defaultHead;
 @synthesize deviceToken = _deviceToken;
-@synthesize internalBaseClassIdentifier = _internalBaseClassIdentifier;
+@synthesize userID = _userID;
 @synthesize level = _level;
 @synthesize workstatus = _workstatus;
 @synthesize refToken = _refToken;
@@ -104,44 +106,43 @@ NSString *const kAccountInfoIsOpenAccount = @"is_trad_rg";
 @synthesize qqUid = _qqUid;
 @synthesize isOpenAccount = _isOpenAccount;
 
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        self.username = DemoData.nickNameArray[arc4random() % k_DemoData_nickName_count];
+        self.head = DemoData.headPathArray[arc4random() % k_DemoData_HeadPath_count];
+    }
+    return self;
+}
+
 static  AccountInfo*user = nil;
 static dispatch_once_t rootOnceToken;
-+ (AccountInfo *)standardAccountInfo
-{
-    dispatch_once(&rootOnceToken, ^
-                  {
-                      user = [AccountInfo readAccountInfo];
-                      if (user == nil)
-                      {
-                          user = [[AccountInfo alloc]init];
-                      }
-                  });
-
++ (AccountInfo *)standardAccountInfo{
+    dispatch_once(&rootOnceToken, ^{
+        user = [AccountInfo readAccountInfo];
+        if (user == nil){
+            user = [[AccountInfo alloc]init];
+        }
+    });
     return user;
 }
 
-+ (AccountInfo *)readAccountInfo
-{
++ (AccountInfo *)readAccountInfo{
     NSData *data = [[NSData alloc] initWithContentsOfFile:[AccountInfo getFilePath]];
-
     // 2,创建一个反序列化器,把要读的数据 传给它,让它读数据
     NSKeyedUnarchiver *unrachiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    
     // 3,从反序列化器中解码出数组
     AccountInfo *account = (AccountInfo *) [unrachiver decodeObject];
     // 4 结束解码
     [unrachiver finishDecoding];
-    
     return account;
 }
 
-+ (NSString *)getFilePath
-{
++ (NSString *)getFilePath{
     return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/accountInfo.plist"];//Appending 添加 Component 成分 Directory目录;
 }
 
-- (BOOL)storeAccountInfo
-{
+- (BOOL)storeAccountInfo{
     //    把原本不能够直接写入到文件中的对象(_array)--->>编码成NSData--->writeToFile
     
     // 1,创建一个空的data(类似于一个袋子),用来让序列化器把 编码之后的data存放起来
@@ -160,8 +161,7 @@ static dispatch_once_t rootOnceToken;
     
     // 5,把data写入文件
     BOOL isSuccees = [data writeToFile:[AccountInfo getFilePath] atomically:YES];
-    
-    
+    NSLog(@"用户信息存储 ------ %d",isSuccees);
     return isSuccees;
 }
 
@@ -214,7 +214,7 @@ static dispatch_once_t rootOnceToken;
         self.head = [self objectOrNilForKey:kAccountInfoHead fromDictionary:dict];
         self.defaultHead = [self objectOrNilForKey:kAccountInfoDefaultHead fromDictionary:dict];
         self.deviceToken = [self objectOrNilForKey:kAccountInfoDeviceToken fromDictionary:dict];
-        self.internalBaseClassIdentifier = [self objectOrNilForKey:kAccountInfoId fromDictionary:dict];
+        self.userID = [self objectOrNilForKey:kAccountInfoId fromDictionary:dict];
         self.level = [self objectOrNilForKey:kAccountInfoLevel fromDictionary:dict];
         self.workstatus = [self objectOrNilForKey:kAccountInfoWorkstatus fromDictionary:dict];
         self.refToken = [self objectOrNilForKey:kAccountInfoRefToken fromDictionary:dict];
@@ -276,7 +276,7 @@ static dispatch_once_t rootOnceToken;
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
             self.head = [self objectOrNilForKey:kAccountInfoHead fromDictionary:dict];
             self.deviceToken = [self objectOrNilForKey:kAccountInfoDeviceToken fromDictionary:dict];
-            self.internalBaseClassIdentifier = [self objectOrNilForKey:kAccountInfoId fromDictionary:dict];
+            self.userID = [self objectOrNilForKey:kAccountInfoId fromDictionary:dict];
             self.level = [self objectOrNilForKey:kAccountInfoLevel fromDictionary:dict];
             self.workstatus = [self objectOrNilForKey:kAccountInfoWorkstatus fromDictionary:dict];
             self.refToken = [self objectOrNilForKey:kAccountInfoRefToken fromDictionary:dict];
@@ -329,7 +329,7 @@ static dispatch_once_t rootOnceToken;
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     [mutableDict setValue:self.head forKey:kAccountInfoHead];
     [mutableDict setValue:self.deviceToken forKey:kAccountInfoDeviceToken];
-    [mutableDict setValue:self.internalBaseClassIdentifier forKey:kAccountInfoId];
+    [mutableDict setValue:self.userID forKey:kAccountInfoId];
     [mutableDict setValue:self.level forKey:kAccountInfoLevel];
     [mutableDict setValue:self.workstatus forKey:kAccountInfoWorkstatus];
     [mutableDict setValue:self.refToken forKey:kAccountInfoRefToken];
@@ -406,7 +406,7 @@ static dispatch_once_t rootOnceToken;
 
     self.head = [aDecoder decodeObjectForKey:kAccountInfoHead];
     self.deviceToken = [aDecoder decodeObjectForKey:kAccountInfoDeviceToken];
-    self.internalBaseClassIdentifier = [aDecoder decodeObjectForKey:kAccountInfoId];
+    self.userID = [aDecoder decodeObjectForKey:kAccountInfoId];
     self.level = [aDecoder decodeObjectForKey:kAccountInfoLevel];
     self.workstatus = [aDecoder decodeObjectForKey:kAccountInfoWorkstatus];
     self.refToken = [aDecoder decodeObjectForKey:kAccountInfoRefToken];
@@ -456,7 +456,7 @@ static dispatch_once_t rootOnceToken;
 
     [aCoder encodeObject:_head forKey:kAccountInfoHead];
     [aCoder encodeObject:_deviceToken forKey:kAccountInfoDeviceToken];
-    [aCoder encodeObject:_internalBaseClassIdentifier forKey:kAccountInfoId];
+    [aCoder encodeObject:_userID forKey:kAccountInfoId];
     [aCoder encodeObject:_level forKey:kAccountInfoLevel];
     [aCoder encodeObject:_workstatus forKey:kAccountInfoWorkstatus];
     [aCoder encodeObject:_refToken forKey:kAccountInfoRefToken];
@@ -508,7 +508,7 @@ static dispatch_once_t rootOnceToken;
 
         copy.head = [self.head copyWithZone:zone];
         copy.deviceToken = [self.deviceToken copyWithZone:zone];
-        copy.internalBaseClassIdentifier = [self.internalBaseClassIdentifier copyWithZone:zone];
+        copy.userID = [self.userID copyWithZone:zone];
         copy.level = [self.level copyWithZone:zone];
         copy.workstatus = [self.workstatus copyWithZone:zone];
         copy.refToken = [self.refToken copyWithZone:zone];
@@ -557,26 +557,7 @@ static dispatch_once_t rootOnceToken;
 
 #pragma mark - 
 
-// 将一些空参数置为空字串，防止字典值为空闪退
-- (NSString *)username
-{
-    if (_username == nil)
-    {
-        _username = @"";
-    }
-    
-    return _username;
-}
 
-- (NSString *)internalBaseClassIdentifier
-{
-    if (_internalBaseClassIdentifier == nil)
-    {
-        _internalBaseClassIdentifier = @"";
-    }
-    
-    return _internalBaseClassIdentifier;
-}
 
 - (NSString *)uToken
 {

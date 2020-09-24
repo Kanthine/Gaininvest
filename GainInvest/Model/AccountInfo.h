@@ -11,10 +11,29 @@
 
 @interface AccountInfo : NSObject <NSCoding, NSCopying>
 
+@property (nonatomic, strong) NSString *balance;//余额
 @property (nonatomic, strong) NSString *head;//用户头像
 @property (nonatomic, strong) NSString *defaultHead;//用户头像为空时取默认头像
+@property (nonatomic, strong) NSString *userID;//用户ID
+@property (nonatomic, strong) NSString *username;//用户昵称
+@property (nonatomic, strong) NSString *password;///密码
+@property (nonatomic, strong) NSString *phone;///手机号
+@property (nonatomic, strong) NSString *uToken;//登录成功后的 token
+
+@property (nonatomic, strong) NSString *weChatUid;//微信登录
+@property (nonatomic, strong) NSString *qqUid;//QQ登录
+
+
+@property (nonatomic, strong) NSString *isRecharge;//是否为第一次充值
+//第一次京东充值或者提现之后，服务器缓存用户银行卡信息
+@property (nonatomic, strong) NSString *isHaveJdInfo;
+
+@property (nonatomic, strong) NSDate *tradeValidityDate;//交易密码最后日期
+@property (nonatomic, strong) NSString *tradePWD;//交易密码
+@property (nonatomic, strong) NSString *isOpenAccount;//恒大交易所是否开户
+
+
 @property (nonatomic, strong) NSString *deviceToken;
-@property (nonatomic, strong) NSString *internalBaseClassIdentifier;//用户ID
 @property (nonatomic, strong) NSString *level;
 @property (nonatomic, strong) NSString *workstatus;
 @property (nonatomic, strong) NSString *refToken;
@@ -22,7 +41,6 @@
 @property (nonatomic, strong) NSString *verify;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *regIp;
-@property (nonatomic, strong) NSString *nickname;//用户昵称
 @property (nonatomic, strong) NSString *lastloginIp;
 @property (nonatomic, strong) NSString *realname;
 @property (nonatomic, strong) NSString *regTime;
@@ -37,7 +55,6 @@
 @property (nonatomic, strong) NSString *groupidId;
 @property (nonatomic, strong) NSString *lastloginTime;
 @property (nonatomic, strong) NSString *realnameStatus;
-@property (nonatomic, strong) NSString *username;//用户手机号
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSString *ecSalt;
 @property (nonatomic, strong) NSString *leader;
@@ -45,15 +62,8 @@
 @property (nonatomic, strong) NSString *emailStatus;
 @property (nonatomic, strong) NSString *groupId;
 @property (nonatomic, strong) NSString *loginNum;
-@property (nonatomic, strong) NSString *uToken;
 @property (nonatomic, strong) NSString *companyid;
-@property (nonatomic, strong) NSString *password;
-@property (nonatomic, strong) NSString *phone;
-@property (nonatomic, strong) NSString *isRecharge;//是否为第一次充值
-@property (nonatomic, strong) NSString *isHaveJdInfo;//第一次京东充值或者提现之后，服务器缓存用户银行卡信息
-@property (nonatomic, strong) NSString *weChatUid;//微信登录
-@property (nonatomic, strong) NSString *qqUid;//QQ登录
-@property (nonatomic, strong) NSString *isOpenAccount;//恒大交易所是否开户
+
 
 
 + (AccountInfo *)standardAccountInfo;

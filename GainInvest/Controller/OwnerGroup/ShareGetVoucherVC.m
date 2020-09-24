@@ -12,7 +12,6 @@
 #import "ShareGetVoucherVC.h"
 #import "AppDelegate.h"
 #import "MyVoucherViewController.h"
-#import "ShareManager.h"
 
 @interface ShareGetVoucherVC ()
 
@@ -122,7 +121,6 @@
 
 - (void)shareButtonClick
 {
-    [ShareManager weChatShareDetaileString:@"首单免费，安全正规的小额投资平台，8元起投，操作简单，盈利可立即提现" ViewController:self];
 }
 
 - (void)handleWeChatShareResult:(NSError *)err{

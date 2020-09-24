@@ -8,7 +8,6 @@
 
 #import "LoginViewController.h"
 
-
 #import "ValidateClass.h"
 #import "RegisterViewController.h"
 #import "AppDelegate.h"
@@ -19,7 +18,6 @@
 @interface LoginViewController ()
 
 {
-    
     __weak IBOutlet UITextField *_phoneTf;
     __weak IBOutlet UITextField *_passwordTf;
     
@@ -29,12 +27,10 @@
 
 @implementation LoginViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self customNavBar];
-    
 }
 
 - (void)customNavBar
@@ -74,6 +70,10 @@
     }
     AccountInfo.standardAccountInfo.phone = _phoneTf.text;
     AccountInfo.standardAccountInfo.password = _passwordTf.text;
+    
+    AccountInfo.standardAccountInfo.userID = @"356781";
+    AccountInfo.standardAccountInfo.uToken = @"asd3r2tk3byk21jvtj42jt42j";
+
     [AccountInfo.standardAccountInfo storeAccountInfo];
     [ErrorTipView errorTip:@"登录成功" SuperView:nil];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -99,12 +99,21 @@
 
 - (IBAction)weChatLoginButtonClick:(UIButton *)sender
 {
-
+    AccountInfo.standardAccountInfo.head = @"";
+    AccountInfo.standardAccountInfo.username = @"微信登录";
+    [AccountInfo.standardAccountInfo storeAccountInfo];
+    
+    //登录成功，进入主界面
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)qqLoginButtonClick:(UIButton *)sender
 {
-
+    AccountInfo.standardAccountInfo.head = @"";
+    AccountInfo.standardAccountInfo.username = @"QQ登录";
+    [AccountInfo.standardAccountInfo storeAccountInfo];
+    //登录成功，进入主界面
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)isLeaglePasswordLoginMethod

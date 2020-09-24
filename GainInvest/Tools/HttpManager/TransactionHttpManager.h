@@ -10,21 +10,11 @@
 
 @interface TransactionHttpManager : NSObject
 
-/** 获取用户是否开户
- */
-+ (void)isJudgeOpenAccountCompletionBlock:(void (^) (BOOL isOpen))block;
-
 
 /*
  * 交易登录（令牌失效）
  */
 - (void)tradeLoginWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSString *urlString,NSError *error))block;
-
-
-/** 获取用户余额
- * mobile_phone : 手机号
- */
-- (void)accessBalanceOfAccountWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSString *urlString,NSError *error))block;
 
 
 /** 获取银行列表
@@ -38,14 +28,11 @@
  */
 - (void)getAreaListWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSMutableArray<AreaModel *> *listArray,NSError *error))block;
 
-
-
 /** 更新服务器缓存的 银行卡信息
  * mobile_phone 手机号
  * card_name 账户名
  * province 开户省份
  * city 开户城市
- 
  * bank_name 银行名称
  * card_num 银行卡号
  * sub_branch 开户支行
@@ -131,34 +118,8 @@
  */
 - (void)UnionPayRechargeWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^)(NSString *tokenString, NSError *error))block;
 
-/*
- * 获取行情报价
- */
-- (void)accessToMarketQuotationCompletionBlock:(void (^)(NSDictionary *resultDict, NSError *error))block;
-
-/*
- * 获取K-线图
- * contract :商品符号  HGAG
- * type : K线数据类型
- *      1：1分时图
- *      2：5分钟K线图;
- *      3：15分钟K线图;
- *      4：30分钟K线图;
- *      5：1小时K线图"
- *
- */
-- (void)accessK_TimeLineChartWithParameterDict:(NSDictionary *)parameterDict  CompletionBlock:(void (^)(NSDictionary *resultDict, NSError *error))block;
 
 
-/*
- * 获取产品列表
- */
-- (void)accessProductListCompletionBlock:(void (^)(NSDictionary *resultDict, NSError *error))block;
-
-/*
- * 获取买涨买跌比例
- */
-- (void)accessBuyUpOrDownCompletionBlock:(void (^)(NSDictionary *resultDict, NSError *error))block;
 
 /*
  * 建仓
@@ -224,19 +185,5 @@
  */
 - (void)accessIncomeDetaileListWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^)(NSMutableArray<TradeModel *> *listArray, NSError *error))block;
 
-/*
- * 查询用户可用的赢家券信息数量
- * mobile_phone：手机号
- */
-- (void)queryCouponCountCompletionBlock:(void (^)(NSUInteger count))block;
-
-/*
- * 查询用户所有的赢家券信息
- * cur_page : 开始条数(默认0)*
- * cur_size : 结束条数(默认20)
- * coupon_type : 券类型 1：未使用 2：已使用 3：已过期
- * mobile_phone：手机号
- */
-- (void)accessCouponListWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^)(NSMutableArray<CouponModel *> *listArray, NSError *error))block;
 
 @end

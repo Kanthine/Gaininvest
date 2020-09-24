@@ -223,9 +223,8 @@
         
         if ([dict.allKeys containsObject:@"user_id"] == NO)
         {
-            [dict setObject:account.internalBaseClassIdentifier forKey:@"user_id"];
+            [dict setObject:account.userID forKey:@"user_id"];
         }
-        
         parameters = dict;
         
         NSLog(@"私有接口 ------------ %@",parameters);

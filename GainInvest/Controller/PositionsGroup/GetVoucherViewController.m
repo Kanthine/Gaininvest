@@ -21,7 +21,6 @@
 #import "MyVoucherViewController.h"
 #import "ProfitRollViewController.h"
 #import "AppDelegate.h"
-#import "ShareManager.h"
 
 @interface GetVoucherViewController ()
 <UITableViewDelegate,UITableViewDataSource>
@@ -262,7 +261,7 @@
 }
 
 - (void)shareButtonClick{    
-    [ShareManager weChatShareDetaileString:@"首单免费，安全正规的小额投资平台，8元起投，操作简单，盈利可立即提现" ViewController:self];
+
 }
 
 - (void)handleWeChatShareResult:(NSError *)err{
@@ -321,40 +320,27 @@
     return _httpManager;
 }
 
-- (void)updateTableList
-{
+- (void)updateTableList{
     [self.imagePathArray removeAllObjects];
     
     NSString *image1Str = nil;
-    if ([AuthorizationManager isOpenAccountInStockExchange])
-    {
+    if ([AuthorizationManager isOpenAccountInStockExchange]){
         image1Str = [NewTeachBundle pathForResource:@"getcoupon_regist" ofType:@"png"];//已注册
-    }
-    else
-    {
+    }else{
         image1Str = [NewTeachBundle pathForResource:@"getcoupon_registNo" ofType:@"png"];//未注册
     }
 
     NSString *image2Str = nil;
-    if ([AuthorizationManager isLoginState])
-    {
-        
+    if ([AuthorizationManager isLoginState]){
         AccountInfo *account = [AccountInfo standardAccountInfo];
-        if ([account.isRecharge isEqualToString:@"1"])
-        {
+        if ([account.isRecharge isEqualToString:@"1"]){
             image2Str = [NewTeachBundle pathForResource:@"getcoupon_firstrecharge_gray" ofType:@"png"];//已充值
-        }
-        else
-        {
+        }else{
             image2Str = [NewTeachBundle pathForResource:@"getcoupon_firstrecharge" ofType:@"png"];//未充值
         }
-    }
-    else
-    {
+    }else{
         image2Str = [NewTeachBundle pathForResource:@"getcoupon_firstrecharge" ofType:@"png"];//未充值
     }
-    
-    
     
     NSString *image3Str = [NewTeachBundle pathForResource:@"getcoupon_share" ofType:@"png"];//去分享
     NSString *image4Str = [NewTeachBundle pathForResource:@"getcoupon_rank" ofType:@"png"];//去晒单
@@ -367,29 +353,22 @@
     [_imagePathArray addObject:image5Str];
 
     [self.tableView reloadData];
-    
 }
 
-- (void)lookMyCouponClick
-{
-    if ([AuthorizationManager isLoginState] == NO)
-    {
+- (void)lookMyCouponClick{
+    if ([AuthorizationManager isLoginState] == NO){
         [AuthorizationManager getAuthorizationWithViewController:self];
         return;
     }
     
-    
-    if ([AuthorizationManager isHaveFourLevelWithViewController:self IsNeedCancelClick:NO])
-    {
+    if ([AuthorizationManager isHaveFourLevelWithViewController:self IsNeedCancelClick:NO]){
         MyVoucherViewController *voucherVC = [[MyVoucherViewController alloc]init];
         voucherVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:voucherVC animated:YES];
     }
 }
 
-
-- (void)requestGetCouponCount
-{
+- (void)requestGetCouponCount{
     if ([AuthorizationManager isLoginState] == NO)
     {
         [_rightItem setImage:[UIImage imageNamed:@"navBar_Coupon"] forState:UIControlStateNormal];
@@ -403,19 +382,14 @@
         return;
     }
     
-    [self.httpManager queryCouponCountCompletionBlock:^(NSUInteger count)
-     {
-         NSUInteger oldCount = [UserLocalData getCouponCount];
-         
-         if (count == oldCount)
-         {
-             [_rightItem setImage:[UIImage imageNamed:@"navBar_Coupon"] forState:UIControlStateNormal];
-         }
-         else
-         {
-             [_rightItem setImage:[UIImage imageNamed:@"navBar_CouponNews"] forState:UIControlStateNormal];
-         }
-     }];
+    NSUInteger count = DemoData.queryCouponCount;
+    NSUInteger oldCount = [UserLocalData getCouponCount];
+    if (count == oldCount){
+        [_rightItem setImage:[UIImage imageNamed:@"navBar_Coupon"] forState:UIControlStateNormal];
+    }else{
+        [UserLocalData setCouponCount:count];
+        [_rightItem setImage:[UIImage imageNamed:@"navBar_CouponNews"] forState:UIControlStateNormal];
+    }
 }
 
 @end

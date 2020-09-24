@@ -44,13 +44,13 @@
 
 @implementation OwnerViewController
 
-- (void)dealloc
-{
+#pragma mark - life cycle
+
+- (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
@@ -58,47 +58,33 @@
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.rightItemButton];
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnReadMessageCount:) name:@"updateUnReadMessageCountNotification" object:nil];
     
     _count = 0;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     self.navigationController.delegate = self;
-    
-    
-    NSLog(@"-------------     我的     -----------------");
-    [MessageTableDAO getUnReadMessageCountCompletionBlock:^(NSUInteger count)
-    {
+    [MessageTableDAO getUnReadMessageCountCompletionBlock:^(NSUInteger count){
         _count = count;
         [self.tableview reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
     }];
     
-    
-    if ([AuthorizationManager isLoginState])
-    {
+    if ([AuthorizationManager isLoginState]){
         //登录过
         [self setLoginStateTableHeaderView];
-    }
-    else
-    {
+    }else{
         [self setNoLoginStateTableHeaderView];
     }
 }
 
-
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.navigationController.delegate = self;
 }
 
-- (void)updateUnReadMessageCount:(NSNotification *)notification
-{
+- (void)updateUnReadMessageCount:(NSNotification *)notification{
     _count = [notification.userInfo[@"newMessageCount"] intValue];
     [self.tableview reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -110,8 +96,7 @@
 }
 
 // 将要显示控制器
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
     // 判断要显示的控制器是否是自己
     BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
     
@@ -119,8 +104,7 @@
     {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }
-    else
-    {
+    else{
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
 }
@@ -243,11 +227,11 @@
     
     headerImageButton.imageEdgeInsets = UIEdgeInsetsZero;
 
-    [headerImageButton sd_setImageWithURL:[NSURL URLWithString:account.head] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:account.head]];
+    [headerImageButton setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+//    [UIImage imageNamed:@"placeholderImage"]
     
-    [loginButton setTitle:account.nickname forState:UIControlStateNormal];
-    
-    
+    [loginButton setTitle:account.username forState:UIControlStateNormal];
 }
 
 - (void)loginButtonClick

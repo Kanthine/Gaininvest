@@ -1264,9 +1264,7 @@
     AccountInfo *account = [AccountInfo standardAccountInfo];
     NSDictionary *parameterDict = @{@"mobile_phone":account.username};
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",PrivateInterface,CouponNumber];
-    
-    
-    
+        
     [self.netClient requestForPostUrl:urlString parameters:parameterDict CacheType:AFNetDiskCacheTypeIgnoringCache NetworkActivity:YES completion:^(BOOL isCacheData,id responseObject,NSError *error)
      {
          NSLog(@"获取不同(可用)券的数量== %@",[ConsoleOutPutChinese outPutJsonWithObj:responseObject]);

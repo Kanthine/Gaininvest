@@ -373,7 +373,7 @@
     
     AccountInfo *account = [AccountInfo standardAccountInfo];
     
-    NSDictionary *parameterDict = @{@"mobile_phone":account.username,
+    NSDictionary *parameterDict = @{@"mobile_phone":account.phone,
                                     @"tx_money":moneyString,
                                     @"province":provinceName,
                                     

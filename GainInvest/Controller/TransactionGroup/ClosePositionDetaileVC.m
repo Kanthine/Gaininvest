@@ -109,28 +109,16 @@
     
     self.openPositionTimeLable.text = [NSString stringWithFormat:@"%@",model.addTime];
     self.closePositionTimeLable.text = [NSString stringWithFormat:@"%@",model.sellTime];
-    self.orderNumLable.text = [NSString stringWithFormat:@"%.0f",model.orderId];
-    
-    
+    self.orderNumLable.text = [NSString stringWithFormat:@"%.0f",model.orderId];    
     self.feeLable.text = [NSString stringWithFormat:@"%.1f",model.fee];
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-
-
-- (void)customNavBar
-{
+- (void)customNavBar{
     self.navigationItem.title = [NSString stringWithFormat:@"%@详情",_model.remark];
-    
     LeftBackItem *leftBarItem = [[LeftBackItem alloc] initWithTarget:self Selector:@selector(leftNavBarButtonClick)];
     self.navigationItem.leftBarButtonItem=leftBarItem;
-    
 }
 
 
@@ -159,8 +147,7 @@
 - (void)handleWeChatShareResult:(NSError *)err
 {
     //微信分享失败
-    if (err.code != 0)
-    {
+    if (err.code != 0){
         [self showShareResult:@"您分享失败了" Succees:NO];
         return;
     }

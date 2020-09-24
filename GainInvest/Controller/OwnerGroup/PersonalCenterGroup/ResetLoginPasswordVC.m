@@ -35,7 +35,7 @@
     [self customNavBar];
 
     AccountInfo *account = [AccountInfo standardAccountInfo];
-    _phoneTf.text = account.username;
+    _phoneTf.text = account.phone;
     
     _confirmButton.layer.cornerRadius = 5;
     _confirmButton.clipsToBounds = YES;

@@ -30,10 +30,8 @@ NSString *const kInorderModelPlatfrom = @"platfrom";
 @synthesize expiration = _expiration;
 @synthesize platfrom = _platfrom;
 
-+  (BOOL)isExitThirdAccountInfo//本地是否存在三方信息
-{
++  (BOOL)isExitThirdAccountInfo{//本地是否存在三方信息
     NSString *path = [ThirdLoginModel getFilePath];
-    
     return [[NSFileManager defaultManager] fileExistsAtPath:path];
 }
 

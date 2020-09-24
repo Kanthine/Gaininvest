@@ -14,13 +14,11 @@
 #define k_DemoData_timeStamps_count DemoData.timeStamps.count
 + (NSArray<NSString *> *)timeStamps;
 
-///昵称
-#define k_DemoData_nickName_count DemoData.nickNameArray.count
-+ (NSArray<NSString *> *)nickNameArray;
 
-///头像
-#define k_DemoData_HeadPath_count DemoData.headPathArray.count
-+ (NSArray<NSString *> *)headPathArray;
+
+///手机号
+#define k_DemoData_Phones_count DemoData.phonesArray.count
++ (NSArray<NSString *> *)phonesArray;
 
 #define k_DemoData_BannerPath_count DemoData.booksBannersArray.count
 + (NSArray<NSString *> *)booksBannersArray;
@@ -49,6 +47,13 @@
     return @[@"幸福来敲门",@"张三",@"李四",@"王五",@"闲云清烟",@"拟墨画扇",
              @"自在枯荣",@"等风来",@"细雪长风",@"共枕一梦",@"杯中影",@"草草大梦",@"沉梦听雨",@"浮世清欢",
              @"三千痴妄"];
+}
+
+///手机号
++ (NSArray<NSString *> *)phonesArray{
+    return @[@"13623786798",@"18629874501",@"13838298727",
+             @"17698236751",@"18823889503",@"18523876723",
+             @"13536786723",@"13666788766",@"13888997752"];
 }
 
 ///头像
@@ -168,6 +173,17 @@
     return resultArray;
 }
 
+@end
+
+
+
+
+
+
+
+
+@implementation DemoData (Service)
+
 
 + (NSMutableArray<InorderModel *> *)inorderModelArray{
     NSMutableArray<InorderModel *> *resultArray = [NSMutableArray array];
@@ -199,5 +215,53 @@
     return resultArray;
 }
 
+
++ (NSInteger)queryCouponCount{
+    if ([AuthorizationManager isBindingMobile] == NO){
+        return [UserLocalData getCouponCount];
+    }
+    return 30 + arc4random() % 50;
+}
+
+/** 查询用户所有的赢家券信息
+ * coupon_type : 券类型 1：未使用 2：已使用 3：已过期
+ */
++ (NSMutableArray<CouponModel *> *)couponArrayWithType:(NSString *)type{
+    NSMutableArray<CouponModel *> *resultArray = [NSMutableArray array];
+    NSArray<NSString *> *channels = @[@"1",@"4",@"12",@"34",@"40"];
+    for (int i = 0; i < [UserLocalData getCouponCount]; i++) {
+        CouponModel *model = [[CouponModel alloc] init];
+        model.mobile = AccountInfo.standardAccountInfo.phone.integerValue;
+        model.channel = channels[arc4random() % 5].integerValue;
+        model.rechargeMoney = 53.21 + ( arc4random() % 1000) / 99.0;
+        model.internalBaseClassIdentifier = arc4random() % 50 + i;
+        model.startTime = @"2017-06-01 08:06:01";
+        model.endTime = @"2017-09-01 22:20:31";
+        model.couponName = @"折扣券";
+        model.wid = @"123456";
+        model.flag = arc4random() % 2;
+        model.isUse = arc4random() % 2;
+        model.couponId = arc4random() % 50 + i;
+        [resultArray addObject:model];
+    }
+    return resultArray;
+}
+
+
+/** 获取用户的持仓信息列表
+ */
++ (NSMutableArray<PositionsModel *> *)accessOpenPosition{
+    NSMutableArray<PositionsModel *> *resultArray = [NSMutableArray array];
+    for (int i = 0; i < 20; i++) {
+        PositionsModel *model = [[PositionsModel alloc] init];
+        model.buyDirection = arc4random() % 2;
+        model.couponFlag = arc4random() % 2;
+        model.topLimit = 721.3;
+        model.bottomLimit = 535.7;
+        model.orderId = arc4random() % 50 + i;
+        [resultArray addObject:model];
+    }
+    return resultArray;
+}
 
 @end

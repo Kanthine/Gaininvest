@@ -108,14 +108,15 @@
         return;
     }
     
-    [[[TransactionHttpManager alloc]init] queryCouponCountCompletionBlock:^(NSUInteger count){
-         NSUInteger oldCount = [UserLocalData getCouponCount];
-         if (count == oldCount){
-             buttonView.imageView.image = [UIImage imageNamed:@"Consult_Coupon"];
-         }else{
-             buttonView.imageView.image = [UIImage imageNamed:@"Consult_CouponNews"];
-         }
-    }];
+    NSUInteger count = DemoData.queryCouponCount;
+    NSUInteger oldCount = [UserLocalData getCouponCount];
+    if (count == oldCount){
+        buttonView.imageView.image = [UIImage imageNamed:@"Consult_Coupon"];
+    }else{
+        [UserLocalData setCouponCount:count];
+        buttonView.imageView.image = [UIImage imageNamed:@"Consult_CouponNews"];
+    }
+
 }
 
 - (void)registerTipButtonClick{

@@ -11,8 +11,6 @@
 
 
 #import "ActivateTradePwdView.h"
-#import <Masonry.h>
-
 
 @interface ActivateTradePwdView()
 
@@ -29,18 +27,14 @@
 
 @implementation ActivateTradePwdView
 
-- (instancetype)initWithState:(ActivateTradePwdState)viewState
-{
+- (instancetype)initWithState:(ActivateTradePwdState)viewState{
     self = [super init];
     
-    if (self)
-    {
+    if (self){
         _viewState = viewState;
         
         _contentWeight = ScreenWidth - 60;
-        
-        self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
-        
+        self.frame = UIScreen.mainScreen.bounds;
         [self addSubview:self.coverButton];
         [self addSubview:self.contentView];
     }
@@ -48,24 +42,7 @@
     return self;
 }
 
-- (UIButton *)coverButton
-{
-    if (_coverButton == nil)
-    {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = [UIColor blackColor];
-        button.alpha = 0.0;
-//        [button addTarget:self action:@selector(dismissPickerView) forControlEvents:UIControlEventTouchUpInside];
-        button.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
-        
-        _coverButton = button;
-    }
-    
-    return _coverButton;
-}
-
-- (NSMutableAttributedString *)setAttributeText
-{
+- (NSMutableAttributedString *)setAttributeText{
     NSMutableAttributedString *string1 = [[NSMutableAttributedString alloc] initWithString:@"还没有设置交易密码？现在去"];
     [string1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, string1.length)];
     [string1 addAttribute:NSForegroundColorAttributeName value:TextColorGray range:NSMakeRange(0, string1.length)];
@@ -78,10 +55,57 @@
     return string1;
 }
 
-- (UIView *)contentView
-{
-    if (_contentView == nil)
-    {
+// 出现
+- (void)show{
+    [[UIApplication sharedApplication].keyWindow addSubview:self];
+    
+    [UIView animateWithDuration:AnimationDuration animations:^{
+         self.contentView.transform = CGAffineTransformMakeScale(1, 1);
+         self.contentView.alpha = 1.0;
+         self.coverButton.alpha = 0.3;
+     }];
+}
+
+// 消失
+- (void)dismissPickerView{
+    [UIView animateWithDuration:AnimationDuration animations:^{
+         self.contentView.transform = CGAffineTransformMakeScale(OriginalScale, OriginalScale);
+         self.contentView.alpha = 0.0;
+         self.coverButton.alpha = 0.0;
+     } completion:^(BOOL finished){
+         [self.contentView removeFromSuperview];
+         [self.coverButton removeFromSuperview];
+         [self removeFromSuperview];
+     }];
+}
+
+#pragma mark - response click
+
+- (void)confirmButtonClick{
+    self.activateTradePwdViewConfirmButtonClick();
+    [self dismissPickerView];
+}
+
+- (void)cancelButtonClick{
+    self.activateTradePwdViewCancelButtonClick();
+    [self dismissPickerView];
+}
+
+#pragma mark - setter and getters
+
+- (UIButton *)coverButton{
+    if (_coverButton == nil){
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.backgroundColor = [UIColor blackColor];
+        button.alpha = 0.0;
+        button.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        _coverButton = button;
+    }
+    return _coverButton;
+}
+
+- (UIView *)contentView{
+    if (_contentView == nil){
         UIView *view = [[UIView alloc]initWithFrame:CGRectZero];
         view.backgroundColor = [UIColor whiteColor];
         view.layer.cornerRadius = 5;
@@ -99,7 +123,6 @@
         cancelButton.frame = CGRectMake( 0,y, _contentWeight / 2.0 - 0.5, 45);
         [view addSubview:cancelButton];
         
-        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button addTarget:self action:@selector(confirmButtonClick) forControlEvents:UIControlEventTouchUpInside];
         button.backgroundColor = TableGrayColor;
@@ -109,9 +132,7 @@
         button.frame = CGRectMake(_contentWeight / 2.0 + 0.5,y , _contentWeight / 2.0, 45);
         [view addSubview:button];
         
-        
-        if (_viewState == ActivateTradePwdStateActivateTrade)
-        {
+        if (_viewState == ActivateTradePwdStateActivateTrade){
             
             UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 15, _contentWeight, 20)];
             lable.textAlignment = NSTextAlignmentCenter;
@@ -119,7 +140,6 @@
             lable.font = [UIFont systemFontOfSize:17];
             lable.text = @"请输入交易密码";
             [view addSubview:lable];
-            
             
             UILabel *lable1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 35 + (height - 45 - 35 - 40) / 2.0, _contentWeight, 40)];
             lable1.text = @"为了保障您的资金安全\n交易大厅2小时自动注销";
@@ -129,12 +149,9 @@
             lable1.font = [UIFont systemFontOfSize:14];
             [view addSubview:lable1];
             
-            
             [button setTitle:@"重新输入" forState:UIControlStateNormal];
             
-        }
-        else if (_viewState == ActivateTradePwdStateRemoteLogin)
-        {
+        }else if (_viewState == ActivateTradePwdStateRemoteLogin){
             UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 15, _contentWeight, 20)];
             lable.textAlignment = NSTextAlignmentCenter;
             lable.textColor = [UIColor blackColor];
@@ -153,9 +170,7 @@
             
             [cancelButton setTitle:@"退出" forState:UIControlStateNormal];
             [button setTitle:@"重新登录" forState:UIControlStateNormal];
-        }
-        else
-        {
+        }else{
             
             UILabel *lable1 = [[UILabel alloc]initWithFrame:CGRectMake(0,(height - 45 - 40) / 2.0, _contentWeight, 40)];
             lable1.text = @"您暂时没有开通该交易品的交\n易权限，开户后即可进行交易";
@@ -168,58 +183,13 @@
             [button setTitle:@"去开户" forState:UIControlStateNormal];
         }
         
-
-
-        
         view.frame = CGRectMake(30, 0, ScreenWidth - 60 ,  height);
         view.center = self.center;
         view.alpha = 0;
         view.transform = CGAffineTransformMakeScale( OriginalScale,  OriginalScale);
         _contentView = view;
     }
-    
     return _contentView;
-}
-
-// 出现
-- (void)show
-{
-    [[UIApplication sharedApplication].keyWindow addSubview:self];
-    
-    [UIView animateWithDuration:AnimationDuration animations:^
-     {
-         self.contentView.transform = CGAffineTransformMakeScale(1, 1);
-         self.contentView.alpha = 1.0;
-         self.coverButton.alpha = 0.3;
-     }];
-}
-
-// 消失
-- (void)dismissPickerView
-{
-    [UIView animateWithDuration:AnimationDuration animations:^
-     {
-         self.contentView.transform = CGAffineTransformMakeScale(OriginalScale, OriginalScale);
-         self.contentView.alpha = 0.0;
-         self.coverButton.alpha = 0.0;
-     } completion:^(BOOL finished)
-     {
-         [self.contentView removeFromSuperview];
-         [self.coverButton removeFromSuperview];
-         [self removeFromSuperview];
-     }];
-}
-
-- (void)confirmButtonClick
-{
-    self.activateTradePwdViewConfirmButtonClick();
-    [self dismissPickerView];
-}
-
-- (void)cancelButtonClick
-{
-    self.activateTradePwdViewCancelButtonClick();
-    [self dismissPickerView];
 }
 
 

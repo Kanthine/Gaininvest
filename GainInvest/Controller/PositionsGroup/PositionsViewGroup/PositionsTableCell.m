@@ -25,53 +25,28 @@
 
 @implementation PositionsTableCell
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
-}
-
-- (void)updatePositionsTableCellWithModel:(PositionsModel *)model
-{
+- (void)updatePositionsTableCellWithModel:(PositionsModel *)model{
     _model = model;
-    if (model.buyDirection == 1)
-    {
+    if (model.buyDirection){
         self.buyUpOrDownLable.text = @"买跌";
-    }
-    else
-    {
+    }else{
         self.buyUpOrDownLable.text = @"买涨";
     }
     
-    if (model.couponFlag == 1)//是否使用优惠券
-    {
+    if (model.couponFlag){//是否使用优惠券
         self.couponImageView.hidden = NO;
-    }
-    else
-    {
+    }else{
         self.couponImageView.hidden = YES;
     }
     
-    
     CGFloat money = ( model.sellPrice - model.buyPrice ) * model.plRatio;
-    
-    if (model.buyDirection == 1)
-    {
+    if (model.buyDirection){
         money = - money;
     }
     
-    if (money > 0)
-    {
+    if (money > 0){
         self.plAmountLable.text = [NSString stringWithFormat:@"+%.1f",money];
-    }
-    else
-    {
+    }else{
         self.plAmountLable.text = [NSString stringWithFormat:@"%.1f",money];
     }
     
@@ -79,15 +54,14 @@
     self.openPositionLable.text = [NSString stringWithFormat:@"%.0f",model.buyPrice];
     self.latestPriceLable.text = [NSString stringWithFormat:@"%.0f",model.sellPrice];
     self.feeLable.text = [NSString stringWithFormat:@"0"];
-
+    
     self.lossesLable.text = [NSString stringWithFormat:@"%.0f",model.bottomLimit * 100];
     self.gainTipLable.text = [NSString stringWithFormat:@"%.0f",model.topLimit * 100];
     self.feeLable.text = [NSString stringWithFormat:@"%.1f元",model.fee];
 }
 
 /* 更改止盈止损点 */
-- (IBAction)updateGainOrLossTipButtonClick:(UIButton *)sender
-{
+- (IBAction)updateGainOrLossTipButtonClick:(UIButton *)sender{
     UpdateGainOrLossTipView *updateView = [[UpdateGainOrLossTipView alloc]initWithTopLimit:_model.topLimit BottomLimit:_model.bottomLimit];
     [updateView show];
     

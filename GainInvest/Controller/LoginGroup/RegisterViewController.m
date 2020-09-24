@@ -146,7 +146,7 @@
 - (IBAction)weChatLoginButtonClick:(UIButton *)sender
 {
     AccountInfo.standardAccountInfo.head = @"";
-    AccountInfo.standardAccountInfo.nickname = @"微信登录";
+    AccountInfo.standardAccountInfo.username = @"微信登录";
     [AccountInfo.standardAccountInfo storeAccountInfo];
     
     //提示 送代金券
@@ -161,7 +161,7 @@
 - (IBAction)qqLoginButtonClick:(UIButton *)sender
 {
     AccountInfo.standardAccountInfo.head = @"";
-    AccountInfo.standardAccountInfo.nickname = @"QQ登录";
+    AccountInfo.standardAccountInfo.username = @"QQ登录";
     [AccountInfo.standardAccountInfo storeAccountInfo];
     
     //提示 送代金券
@@ -220,6 +220,8 @@
     if (_isRegister){//注册
         AccountInfo.standardAccountInfo.phone = _phoneTf.text;
         AccountInfo.standardAccountInfo.password = _passwordTf.text;
+        AccountInfo.standardAccountInfo.userID = @"356781";
+        AccountInfo.standardAccountInfo.uToken = @"asd3r2tk3byk21jvtj42jt42j";
         [AccountInfo.standardAccountInfo storeAccountInfo];
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         [RegisterViewController registerSuccessSendCouponTip];
@@ -227,25 +229,20 @@
         //重置密码
         AccountInfo.standardAccountInfo.phone = _phoneTf.text;
         AccountInfo.standardAccountInfo.password = _passwordTf.text;
+        AccountInfo.standardAccountInfo.userID = @"356781";
+        AccountInfo.standardAccountInfo.uToken = @"asd3r2tk3byk21jvtj42jt42j";
         [AccountInfo.standardAccountInfo storeAccountInfo];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
-- (BOOL)isLeagle
-{
-    if ([ValidateClass isMobile:_phoneTf.text] == NO)
-    {
-        if (_phoneTf.text.length == 0)
-        {
+- (BOOL)isLeagle{
+    if ([ValidateClass isMobile:_phoneTf.text] == NO){
+        if (_phoneTf.text.length == 0){
             [ErrorTipView errorTip:@"请您输入手机号" SuperView:self.view];
-        }
-        else
-        {
+        }else{
             [ErrorTipView errorTip:@"手机号格式有误" SuperView:self.view];
         }
-
-        
         return NO;
     }
     

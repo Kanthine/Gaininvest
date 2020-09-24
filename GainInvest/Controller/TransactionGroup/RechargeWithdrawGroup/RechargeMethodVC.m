@@ -306,7 +306,7 @@
     NSString *moneyStr = [NSString stringWithFormat:@"%ld",_currentMoney * 100];
     
     AccountInfo *account = [AccountInfo standardAccountInfo];
-    NSDictionary *dict = @{@"mobile_phone":account.username,
+    NSDictionary *dict = @{@"mobile_phone":account.phone,
                            @"card_no":@"",
                            @"money":moneyStr,
                            @"channel":@"12"};
@@ -350,7 +350,7 @@
     
     AccountInfo *account = [AccountInfo standardAccountInfo];
     NSString *string = [NSString stringWithFormat:@"%ld",_currentMoney * 100];
-    NSDictionary *parameterDict = @{@"mobile_phone":account.username,
+    NSDictionary *parameterDict = @{@"mobile_phone":account.phone,
                                     @"trade_amount":string};
     __weak __typeof__(self) weakSelf = self;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -409,7 +409,7 @@
     AccountInfo *account = [AccountInfo standardAccountInfo];
     
     NSString *money = [NSString stringWithFormat:@"%ld",_currentMoney * 100];
-    NSDictionary *parameterDict = @{@"mobile_phone":account.username,
+    NSDictionary *parameterDict = @{@"mobile_phone":account.phone,
                                     @"trade_amount":money,
                                     @"ordernum":oderId,
                                     @"trade_code":verCode};

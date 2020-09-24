@@ -69,15 +69,32 @@
 }
 
 - (void)rightBarButtonItemClick{
+    if (self.passwordView.text.length < 6) {
+        return;
+    }
     
+    AccountInfo *account = [AccountInfo standardAccountInfo];
     if (_passwordKind == TransactionPasswordKindOpenAccount){
         // 开户成功
-        AccountInfo *account = [AccountInfo standardAccountInfo];
         account.isOpenAccount = @"1";
+        account.tradeValidityDate = NSDate.date;
+        account.tradePWD = self.passwordView.text;
         [account storeAccountInfo];
         [self leftNavBarButtonClick];
         
         [SetTransactionPasswordVC registerSuccessSendCouponTip];
+    }else if (_passwordKind == TransactionPasswordKindUpdate){
+        ///修改交易密码
+        
+    }else if (_passwordKind == TransactionPasswordKindActivate){
+        ///激活交易密码
+        if ([self.passwordView.text isEqualToString:account.tradePWD]) {
+            account.tradeValidityDate = NSDate.date;
+            [account storeAccountInfo];
+            [self leftNavBarButtonClick];
+        }else{
+            
+        }
     }
 }
 
@@ -88,15 +105,14 @@
 
 #pragma mark - 开户成功提示送代金券
 
-+ (void)registerSuccessSendCouponTip
-{
++ (void)registerSuccessSendCouponTip{
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"惊喜到来" message:@"您已经成功在交易所开户，我们又赠送您一张8元代金券作为奖励，请您注意查收" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"忽略" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}];
     
     UIAlertAction *loginAction = [UIAlertAction actionWithTitle:@"去查看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
-                                      [self lookMyCouponList];
-                                  }];
+        [self lookMyCouponList];
+    }];
     
     [actionSheet addAction:cancelAction];
     [actionSheet addAction:loginAction];

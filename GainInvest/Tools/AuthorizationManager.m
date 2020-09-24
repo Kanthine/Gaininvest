@@ -10,8 +10,6 @@
 
 #import "LoginViewController.h"
 
-#import "TransactionHttpManager.h"
-#import "TradeLoginViewController.h"
 #import "RegisterViewController.h"
 
 
@@ -63,15 +61,12 @@
     }
 }
 
-/*
- * 判断是否授权
+/** 判断是否授权
  */
-+ (BOOL)isLoginState
-{
++ (BOOL)isLoginState{
     // 第三方登录为假登录，等级较弱，优先判断是否为第三方登录
     
-    if ([ThirdLoginModel isExitThirdAccountInfo])
-    {
+    if ([ThirdLoginModel isExitThirdAccountInfo]){
         return YES;//第三方登录
     }
     
@@ -79,14 +74,12 @@
     AccountInfo *user = [AccountInfo standardAccountInfo];
     
     NSString *token = user.uToken;
-    NSString *userID = user.internalBaseClassIdentifier;
+    NSString *userID = user.userID;
     
-    if (token == nil || [token isEqualToString:@""])
-    {
+    if (token == nil || [token isEqualToString:@""]){
         return NO;
     }
-    if (userID == nil || [userID isEqualToString:@""])
-    {
+    if (userID == nil || [userID isEqualToString:@""]){
         return NO;
     }
     
@@ -285,27 +278,20 @@
     };
 }
 
-/*
- * 盈投资 判断令牌是否有效
+/** 盈投资 判断令牌是否有效
  */
-+ (BOOL)isEffectiveToken
-{
-    if ([self isOpenAccountInStockExchange] == NO)
-    {
++ (BOOL)isEffectiveToken{
+    if ([self isOpenAccountInStockExchange] == NO){
         return NO;
     }
-
     return [UserLocalData isTradeEffectiveToken];
 }
 
 
-/*
- * 若是令牌无效，则重新生效
+/** 若是令牌无效，则重新生效
  */
-+ (void)getEffectiveTokenWithViewController:(UIViewController *)viewController IsNeedCancelClick:(BOOL)isNeed
-{
-    if ([self isOpenAccountInStockExchange] == NO)
-    {
++ (void)getEffectiveTokenWithViewController:(UIViewController *)viewController IsNeedCancelClick:(BOOL)isNeed{
+    if ([self isOpenAccountInStockExchange] == NO){
         [self getBindingMobileWithViewController:viewController IsNeedCancelClick:isNeed];
         return;
     }
@@ -322,33 +308,14 @@
         }
     };
     
-    tipView.activateTradePwdViewConfirmButtonClick = ^()
-    {
-        
-        AccountInfo *account = [AccountInfo standardAccountInfo];
-        NSDictionary *dict = @{@"user_name":account.username};
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:viewController.view animated:YES];
-
-        [[[TransactionHttpManager alloc]init] tradeLoginWithParameterDict:dict CompletionBlock:^(NSString *urlString, NSError *error)
-         {
-             [hud hideAnimated:YES];
-
-             if (error)
-             {
-                 
-             }
-             else
-             {
-                 
-                 
-                 TradeLoginViewController *setVc = [[TradeLoginViewController alloc]initWithURL:urlString];
-                 setVc.navigationItem.title = @"设置交易密码";
-                 UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:setVc];
-                 [viewController presentViewController:nav animated:YES completion:nil];
-             }
-         }];
+    tipView.activateTradePwdViewConfirmButtonClick = ^(){
+        //交易登录（令牌失效） 令牌生效时间
+        SetTransactionPasswordVC *setVc = [[SetTransactionPasswordVC alloc]initWithType:TransactionPasswordKindActivate];
+        setVc.isPushVC = NO;
+        setVc.navigationItem.title = @"激活交易密码";
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:setVc];
+        [viewController presentViewController:nav animated:YES completion:nil];
     };
-
 }
 
 //判断界面是否显示次提示框，防止重复显示

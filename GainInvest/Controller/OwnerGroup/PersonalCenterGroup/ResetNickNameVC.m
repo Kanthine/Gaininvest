@@ -26,7 +26,7 @@
     
     
     AccountInfo *account = [AccountInfo standardAccountInfo];
-    _textFiled.text = account.nickname;
+    _textFiled.text = account.username;
     
 }
 
@@ -64,7 +64,7 @@
         [ErrorTipView errorTip:@"请输入昵称" SuperView:self.view];
         return;
     }
-    AccountInfo.standardAccountInfo.nickname = _textFiled.text;
+    AccountInfo.standardAccountInfo.username = _textFiled.text;
     [AccountInfo.standardAccountInfo storeAccountInfo];
     [self.navigationController popViewControllerAnimated:YES];
 }

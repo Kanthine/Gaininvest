@@ -11,7 +11,6 @@
 #import "Y_KLineMainView.h"//上方主图
 #import "Y_KLineAccessoryView.h"//下方MACD+KDJ图
 
-
 #import "Y_StockChartGlobalVariable.h"
 #import "Y_StockChartRightYView.h" // 主视图左侧view
 #import "Y_AccessoryMAView.h"//MACD 提示图
@@ -430,5 +429,3 @@
 }
 
 @end
-
-

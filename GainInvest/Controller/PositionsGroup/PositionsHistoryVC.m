@@ -17,8 +17,6 @@
 #import "PositionsIncomeDetaileTableCell.h"
 #import "PositionsHistoryTableHeaderView.h"
 #import "PositionsHistoryTableSectionHeaderView.h"
-
-#import "IncomeDetaileViewController.h"
 #import "RechargeViewController.h"
 #import "WithdrawViewController.h"
 #import "MyVoucherViewController.h"
@@ -272,40 +270,23 @@
     [self pullDownRefreshData];    
 }
 
-- (void)incomeDetaileButtonClick
-{
-    //收支明细
-    IncomeDetaileViewController *incomeVC = [[IncomeDetaileViewController alloc]init];
-    incomeVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:incomeVC animated:YES];
-}
-
-
 #pragma mark - Table Header Button Click
 
-- (void)withdrawButtonClick
-{
-    if ([AuthorizationManager isLoginState])
-    {
-        if ([AuthorizationManager isEffectiveToken])
-        {
+- (void)withdrawButtonClick{
+    if ([AuthorizationManager isLoginState]){
+        if ([AuthorizationManager isEffectiveToken]){
             //提现
             WithdrawViewController *withdrawVC = [[WithdrawViewController alloc]init];
             withdrawVC.accountMoney = self.tableHeaderView.balanceLable.text;
             withdrawVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:withdrawVC animated:YES];
-        }
-        else
-        {
+        }else{
             [AuthorizationManager getEffectiveTokenWithViewController:self IsNeedCancelClick:YES];
         }
 
-    }
-    else
-    {
+    }else{
         [AuthorizationManager getAuthorizationWithViewController:self];
     }
-    
 }
 
 - (void)rechargeButtonClick
@@ -474,8 +455,7 @@
 }
 
 /* 收支明细 ---- > 查询平仓流水 */
-- (void)requestNetworkGetIncomeDetaileListData
-{
+- (void)requestNetworkGetIncomeDetaileListData{
     NSString *pageString = [NSString stringWithFormat:@"%ld",_currentPage * 20];
     NSString *endPageString = [NSString stringWithFormat:@"%ld",_currentPage * 20 + 20];
 
@@ -517,32 +497,15 @@
          {
              [self stopRefreshWithMoreData:NO];
          }
-         
-         
      }];
     
     
 }
 
 /* 账户余额 */
-- (void)requestNetworkGetBalanceOfAccount
-{
-    __weak __typeof__(self) weakSelf = self;
-
-    AccountInfo *account = [AccountInfo standardAccountInfo];
-    NSDictionary *dict = @{@"mobile_phone":account.username};
-    [self.httpManager accessBalanceOfAccountWithParameterDict:dict CompletionBlock:^(NSString *urlString, NSError *error)
-    {
-        if (error)
-        {
-            
-        }
-        else
-        {
-            weakSelf.tableHeaderView.balanceLable.text = urlString;
-        }
-        
-    }];
+- (void)requestNetworkGetBalanceOfAccount{
+    AccountInfo.standardAccountInfo.balance = @"￥3212.9";
+    self.tableHeaderView.balanceLable.text = AccountInfo.standardAccountInfo.balance;
 }
 
 - (void)stopRefreshWithMoreData:(BOOL)isMoreData
@@ -591,8 +554,7 @@
 }
 
 
-- (NSString *)getCurrentTime
-{
+- (NSString *)getCurrentTime{
     NSString *timeString = @"";
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -606,8 +568,7 @@
     return timeString;
 }
 
-- (NSString *)getStartTime
-{
+- (NSString *)getStartTime{
     NSString *timeString = nil;
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -624,8 +585,7 @@
     return timeString;
 }
 
-- (void)sortArrayWithDate
-{
+- (void)sortArrayWithDate{
     //从小到大排序
     __weak __typeof__(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
@@ -666,8 +626,7 @@
     });
 }
 
-- (NSDate *)getDateWithString:(NSString *)timeString
-{
+- (NSDate *)getDateWithString:(NSString *)timeString{
     NSDateFormatter *formatter =[[NSDateFormatter alloc] init] ;
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];

@@ -190,7 +190,7 @@
     
     AccountInfo *account = [AccountInfo standardAccountInfo];
     
-    NSDictionary *dict = @{@"mobile_phone":account.username};
+    NSDictionary *dict = @{@"mobile_phone":account.phone};
     [self.httpManager withdrawBankCardInfoParameterDict:dict CompletionBlock:^(NSDictionary *parameterDict, NSError *error)
     {
         if (error)
