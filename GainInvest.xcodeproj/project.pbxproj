@@ -60,8 +60,6 @@
 		221562301E4C45CA00FB3375 /* ShareGetVoucherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2215622F1E4C45CA00FB3375 /* ShareGetVoucherVC.m */; };
 		221562341E4C4A1F00FB3375 /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221562331E4C4A1F00FB3375 /* MessageListViewController.m */; };
 		221562371E4C4B5700FB3375 /* MessageListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 221562361E4C4B5700FB3375 /* MessageListTableCell.m */; };
-		2215623C1E4C56D700FB3375 /* AFNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2215623B1E4C56D700FB3375 /* AFNetAPIClient.m */; };
-		2215623F1E4C570E00FB3375 /* AFNetDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2215623E1E4C570E00FB3375 /* AFNetDiskCache.m */; };
 		221562421E4C574700FB3375 /* FilePathManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 221562411E4C574700FB3375 /* FilePathManager.m */; };
 		2215624C1E4C62F200FB3375 /* ErrorTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2215624B1E4C62F200FB3375 /* ErrorTipView.m */; };
 		2216B9BA1E63DAD7006994C3 /* ChooseProvinceCityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2216B9B91E63DAD7006994C3 /* ChooseProvinceCityVC.m */; };
@@ -312,11 +310,6 @@
 		221562331E4C4A1F00FB3375 /* MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListViewController.m; sourceTree = "<group>"; };
 		221562351E4C4B5700FB3375 /* MessageListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListTableCell.h; sourceTree = "<group>"; };
 		221562361E4C4B5700FB3375 /* MessageListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListTableCell.m; sourceTree = "<group>"; };
-		221562391E4C53A200FB3375 /* RequestURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestURL.h; sourceTree = "<group>"; };
-		2215623A1E4C56D700FB3375 /* AFNetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetAPIClient.h; sourceTree = "<group>"; };
-		2215623B1E4C56D700FB3375 /* AFNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetAPIClient.m; sourceTree = "<group>"; };
-		2215623D1E4C570E00FB3375 /* AFNetDiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetDiskCache.h; sourceTree = "<group>"; };
-		2215623E1E4C570E00FB3375 /* AFNetDiskCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetDiskCache.m; sourceTree = "<group>"; };
 		221562401E4C574700FB3375 /* FilePathManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePathManager.h; sourceTree = "<group>"; };
 		221562411E4C574700FB3375 /* FilePathManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePathManager.m; sourceTree = "<group>"; };
 		221562491E4C5A7400FB3375 /* DataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
@@ -824,13 +817,8 @@
 		221562381E4C52CD00FB3375 /* HttpManager */ = {
 			isa = PBXGroup;
 			children = (
-				221562391E4C53A200FB3375 /* RequestURL.h */,
 				2216B9BB1E63DC6D006994C3 /* TransactionHttpManager.h */,
 				2216B9BC1E63DC6D006994C3 /* TransactionHttpManager.m */,
-				2215623A1E4C56D700FB3375 /* AFNetAPIClient.h */,
-				2215623B1E4C56D700FB3375 /* AFNetAPIClient.m */,
-				2215623D1E4C570E00FB3375 /* AFNetDiskCache.h */,
-				2215623E1E4C570E00FB3375 /* AFNetDiskCache.m */,
 			);
 			path = HttpManager;
 			sourceTree = "<group>";
@@ -1419,8 +1407,6 @@
 				22FF6F381E49ACDA00F81929 /* Sources */,
 				22FF6F391E49ACDA00F81929 /* Frameworks */,
 				22FF6F3A1E49ACDA00F81929 /* Resources */,
-				888CA71476A6EB55D0430D07 /* [CP] Embed Pods Frameworks */,
-				CA4ACE63F3B81D0179AA205A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1577,49 +1563,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		888CA71476A6EB55D0430D07 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GainInvest/Pods-GainInvest-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CA4ACE63F3B81D0179AA205A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GainInvest/Pods-GainInvest-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		EB60EB09D0EA761C1FBCAA65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GainInvest-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1705,7 +1664,6 @@
 				220B007B1E66719E00180C33 /* TimeStamp.m in Sources */,
 				22BEB9931E88D3A200235533 /* ThirdLoginModel.m in Sources */,
 				221BA5291E6FB96D00FB618D /* MA-EMA-MACD介绍.md in Sources */,
-				2215623F1E4C570E00FB3375 /* AFNetDiskCache.m in Sources */,
 				1A5B801D251DCCE8008D1595 /* YLGlobalTools.m in Sources */,
 				223FA0DC1E94B871007F23D9 /* RechargeTipView.m in Sources */,
 				221562371E4C4B5700FB3375 /* MessageListTableCell.m in Sources */,
@@ -1770,7 +1728,6 @@
 				221BA5211E6FB96D00FB618D /* Y_AccessoryMAView.m in Sources */,
 				221562301E4C45CA00FB3375 /* ShareGetVoucherVC.m in Sources */,
 				22B7B3791E5EBAEA00FF5EB6 /* TransactionBuyUpOrDownView.m in Sources */,
-				2215623C1E4C56D700FB3375 /* AFNetAPIClient.m in Sources */,
 				2221EEDC1E4DA989006DA937 /* ResetTradePasswordVC.m in Sources */,
 				2212FEA61E8CF0FB009B1220 /* OpenPositionResultTipView.m in Sources */,
 				2202C7E81E4AE467000D14DE /* LoginPhoneView.m in Sources */,
@@ -1932,19 +1889,11 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"AFNetworking\"",
 					"-l\"FMDB\"",
-					"-l\"HPGrowingTextView\"",
-					"-l\"HappyDNS\"",
 					"-l\"MBProgressHUD\"",
-					"-l\"MJRefresh\"",
 					"-l\"Masonry\"",
-					"-l\"Qiniu\"",
-					"-l\"Reachability\"",
 					"-l\"SDWebImage\"",
 					"-l\"UITableView+FDTemplateLayoutCell\"",
-					"-l\"XMLReader-Arc\"",
-					"-l\"hpple\"",
 					"-l\"resolv\"",
 					"-l\"sqlite3\"",
 					"-l\"xml2\"",
@@ -1992,19 +1941,11 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"AFNetworking\"",
 					"-l\"FMDB\"",
-					"-l\"HPGrowingTextView\"",
-					"-l\"HappyDNS\"",
 					"-l\"MBProgressHUD\"",
-					"-l\"MJRefresh\"",
 					"-l\"Masonry\"",
-					"-l\"Qiniu\"",
-					"-l\"Reachability\"",
 					"-l\"SDWebImage\"",
 					"-l\"UITableView+FDTemplateLayoutCell\"",
-					"-l\"XMLReader-Arc\"",
-					"-l\"hpple\"",
 					"-l\"resolv\"",
 					"-l\"sqlite3\"",
 					"-l\"xml2\"",
