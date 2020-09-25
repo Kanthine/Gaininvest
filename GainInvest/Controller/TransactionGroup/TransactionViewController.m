@@ -210,7 +210,7 @@
     if([AuthorizationManager isBindingMobile] == NO){
         return;
     }
-    self.buyProductView.balanceOfAccountString = @"2865";
+    self.buyProductView.balanceOfAccountString = AccountInfo.standardAccountInfo.balance;
 }
 
 /* 获取代金券数量 */

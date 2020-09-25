@@ -17,7 +17,6 @@
 #import "RechargeResultVC.h"
 
 @interface RechargePerfectInfomation()
-
 <UITextFieldDelegate,ChooseBankKindVCDelegate,ChooseProvinceCityVCDelegate>
 
 {
@@ -25,13 +24,10 @@
     __weak IBOutlet UITextField *_bankCardTf;
     __weak IBOutlet UITextField *_bankNameTf;
     __weak IBOutlet UITextField *_idCardTf;
-    
-    
-    
+        
     __weak IBOutlet UIButton *_chooseBankButton;
     __weak IBOutlet UIButton *_chooseAreaButton;
     __weak IBOutlet UITextField *_subBankTf;
-    
     
     __weak IBOutlet UITextField *_bankPhoneTf;
     __weak IBOutlet UITextField *_verCodeTf;
@@ -53,54 +49,34 @@
 
 @implementation RechargePerfectInfomation
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
-
-}
-
-- (void)awakeFromNib
-{
+- (void)awakeFromNib{
     [super awakeFromNib];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
-
     _bankCardTf.delegate = self;
 }
 
-- (void)keyBoardChange:(NSNotification *)notification
-{
-    NSDictionary *userInfoDict = notification.userInfo;
+- (void)setDemoData{
+    _bankDict = @{@"card_bank":@"ICBC",@"bankName":@"工商银行"};
     
-    NSValue *endValue = [userInfoDict objectForKey:@"UIKeyboardFrameEndUserInfoKey"] ;
-    CGRect endRect = [endValue CGRectValue];
-    CGFloat yCoordinate = endRect.origin.y;
+    [_chooseBankButton setTitle:_bankDict[@"bankName"] forState:UIControlStateNormal];
+    [_chooseBankButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
-//    
-//    UIScrollView *scrollView = (UIScrollView *)self.superview;
-//    if (yCoordinate > ScreenHeight - 64)
-//    {
-//        // 键盘弹出
-//        scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetHeight(self.frame) + 200);
-//        
-//        NSLog(@"键盘弹出");
-//        
-//    }
-//    else
-//    {
-//        //键盘消失
-//        scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetHeight(self.frame));
-//        
-//        NSLog(@"键盘消失");
-//    }
-
+    _areaModelArray = @[[AreaModel modelObjectWithDictionary:@{@"name":@"上海市"}],
+                        [AreaModel modelObjectWithDictionary:@{@"name":@"普陀区"}]];
+    [_chooseAreaButton setTitle:@"上海市 普陀区" forState:UIControlStateNormal];
+    [_chooseAreaButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    _bankCardTf.text = @"6212 2641 0001 1335 373";
+    _subBankTf.text = @"普陀区中江路工行支行";
+    _idCardTf.text = @"410182198003011234";
+    _bankPhoneTf.text = AccountInfo.standardAccountInfo.phone;
+    _bankNameTf.text = AccountInfo.standardAccountInfo.username;
 }
 
 
 #pragma mark - Button Click
 
 /* 选择银行 */
-- (IBAction)chooseRankKindButtonClick:(UIButton *)sender
-{
+- (IBAction)chooseRankKindButtonClick:(UIButton *)sender{
     [self endTextFiledEdit];
     
     ChooseBankKindVC *rankKindVC = [[ChooseBankKindVC alloc]init];
@@ -111,16 +87,13 @@
 }
 
 /* 选择地区 */
-- (IBAction)chooseProvinceCityButtonClick:(UIButton *)sender
-{
+- (IBAction)chooseProvinceCityButtonClick:(UIButton *)sender{
     [self endTextFiledEdit];
     
     AreaModel *areaModel = nil;
-    if (_areaModelArray && _areaModelArray.count > 0 )
-    {
+    if (_areaModelArray && _areaModelArray.count > 0 ){
         areaModel = _areaModelArray.firstObject;
     }
-    
     
     ChooseProvinceCityVC *provinceCityVC = [[ChooseProvinceCityVC alloc]initWithSuperModel:areaModel AreaRank:1];
     provinceCityVC.delegate = self;
@@ -128,23 +101,18 @@
     [self.currentViewController.navigationController pushViewController:provinceCityVC animated:YES];
 }
 
-/*
- 填写完毕信息 ，通过京东签约接口，获取验证码
- 填写验证码   ，调用京东支付接口
+/** 填写完毕信息 ，通过京东签约接口，获取验证码
+ *  填写验证码，调用京东支付接口
  */
-- (IBAction)getCodeButtonClick:(UIButton *)sender
-{
+- (IBAction)getCodeButtonClick:(UIButton *)sender{
     //点击获取验证码
     [self endTextFiledEdit];
     
-    if ([self checkingInformationIsCorrect] == NO)
-    {
+    if ([self checkingInformationIsCorrect] == NO){
         return;
     }
     
-    
-    if (sender.enabled)
-    {
+    if (sender.enabled){
         // -- > 发送短信请求
         [self timer];
         [sender setTitleColor:RGBA(149, 149, 149, 1) forState:UIControlStateNormal];
@@ -154,33 +122,16 @@
         
             
         NSLog(@"parameterDict ======= %@",parameterDict);
-        
-        
-        [self.currentViewController.httpManager jingDongSignatoryOnlineWithParameterDict:parameterDict CompletionBlock:^(NSDictionary *resultDict,NSError *error)
-         {
-             if (error)
-             {
-                 [ErrorTipView errorTip:error.domain SuperView:self.currentViewController.view];
-                 [self stopVerCodeTimer];
 
-             }
-             else if (resultDict)
-             {
-                 _orderDict = resultDict;
-                 
-                 [self updateServerBankCardInfoWithInfo:parameterDict];
-             }
-         }];
+        AccountInfo.standardAccountInfo.JdInfo = [JdInfoModel modelObjectWithDictionary:parameterDict];
         
         //不能连续点击
         sender.enabled = NO;
     }
 }
 
-- (NSTimer *)timer
-{
-    if (!_timer)
-    {
+- (NSTimer *)timer{
+    if (!_timer){
         _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(sendMessage) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
         _interval = 60;
@@ -188,8 +139,7 @@
     return _timer;
 }
 
-- (void)sendMessage
-{
+- (void)sendMessage{
     UIButton *codeButton = [self viewWithTag:9];
     
     _interval --;
@@ -197,14 +147,12 @@
     codeButton.titleLabel.text = title;
     [codeButton setTitle:title forState:UIControlStateDisabled];
     
-    if (_interval == 0)
-    {
+    if (_interval == 0){
         [self stopVerCodeTimer];
     }
 }
 
-- (void)stopVerCodeTimer
-{
+- (void)stopVerCodeTimer{
     UIButton *codeButton = [self viewWithTag:9];
     
     [codeButton setTitleColor:RGBA(72, 119, 230, 1) forState:UIControlStateNormal];
@@ -214,25 +162,20 @@
     codeButton.enabled = YES;
     [self.timer invalidate];
     self.timer = nil;
-    
 }
 
 /* 提交 */
-- (IBAction)submitApplyButtonClick:(UIButton *)sender
-{
+- (IBAction)submitApplyButtonClick:(UIButton *)sender{
     [self endTextFiledEdit];
     
-    if ([self checkingInformationIsCorrect] == NO)
-    {
+    if ([self checkingInformationIsCorrect] == NO){
         return;
     }
     
-    if (_verCodeTf.text.length <= 0)
-    {
-        [ErrorTipView errorTip:@"验证码不能为空" SuperView:self.currentViewController.view];
+    if (![_verCodeTf.text isEqualToString:@"123456"]){
+        [ErrorTipView errorTip:@"验证码有误" SuperView:self.currentViewController.view];
         return;
     }
-    
     
     AccountInfo *account = [AccountInfo standardAccountInfo];
     
@@ -246,27 +189,13 @@
     
     NSLog(@"parameterDict ======= %@",parameterDict);
     
-    [self.currentViewController.httpManager jingDongPayWithParameterDict:parameterDict CompletionBlock:^(NSError *error)
-     {
-         if (error)
-         {
-             [ErrorTipView errorTip:error.domain SuperView:self.currentViewController.view];
-         }
-         else
-         {
-             if ([account.isHaveJdInfo isEqualToString:@"1"] == NO)
-             {
-                 account.isHaveJdInfo = @"1";
-                 [account storeAccountInfo];
-             }
-             
-             
-             [self rechargeSuccess];
-         }
-     }];
+    AccountInfo.standardAccountInfo.JdInfo = [JdInfoModel modelObjectWithDictionary:parameterDict];
+    AccountInfo.standardAccountInfo.isHaveJdInfo = @"1";
+    AccountInfo.standardAccountInfo.balance = [NSString stringWithFormat:@"%.2f",AccountInfo.standardAccountInfo.balance.floatValue + _currentMoney];
 
-    
-    
+    [AccountInfo.standardAccountInfo storeAccountInfo];
+
+    [self rechargeSuccess];
 }
 
 - (void)rechargeSuccess
@@ -275,7 +204,6 @@
     rechargeVC.navigationItem.title = @"充值结果";
     rechargeVC.hidesBottomBarWhenPushed = YES;
     [self.currentViewController.navigationController pushViewController:rechargeVC animated:YES];
-    
 }
 
 - (BOOL)checkingInformationIsCorrect
@@ -342,8 +270,22 @@
     return YES;
 }
 
-- (NSDictionary *)setWithdrawParameterDict
-{
+
+/** 京东在线签约
+ * parameterDict 登录时需要参数：
+ *
+ * mobile_phone ： 手机号
+ * card_bank ：银行编码
+ * card_no ： 银行卡号
+ * card_name 持卡人姓名
+ * card_idno 持卡人证件号
+ * card_phone 持卡人手机号
+ * trade_amount 交易金额(分)
+ * subBank 银行分行
+ * province 开户省份
+ * city 开户城市
+ */
+- (NSDictionary *)setWithdrawParameterDict{
     NSString *cardNum = _bankCardTf.text;
     cardNum = [cardNum stringByReplacingOccurrencesOfString:@" " withString:@""];
     
@@ -351,16 +293,11 @@
     __block NSString *provinceName = @"";
     __block NSString *cityName = @"";
     
-    if (_areaModelArray && _areaModelArray.count)
-    {
-        [_areaModelArray enumerateObjectsUsingBlock:^(AreaModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-         {
-             if (idx == 0)
-             {
+    if (_areaModelArray && _areaModelArray.count){
+        [_areaModelArray enumerateObjectsUsingBlock:^(AreaModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
+             if (idx == 0){
                  provinceName = obj.name;
-             }
-             else
-             {
+             }else{
                  cityName = obj.name;
              }
          }];
@@ -385,24 +322,13 @@
 }
 
 
+
+
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    return YES;
-}
-
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
-    return YES;
-}
-
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    
-    if (textField.tag != 2)
-    {
+    if (textField.tag != 2){
         return YES;
     }
     
@@ -450,36 +376,26 @@
 
 #pragma mark - ChooseBankKindVCDelegate
 
-- (void)tableViewDidSelectRankKind:(NSDictionary *)rankDict
-{
-    if (rankDict && [rankDict isKindOfClass:[NSDictionary class]])
-    {
+- (void)tableViewDidSelectRankKind:(NSDictionary *)rankDict{
+    if (rankDict && [rankDict isKindOfClass:[NSDictionary class]]){
         _bankDict = rankDict;
-        
         
         [_chooseBankButton setTitle:rankDict[@"bankName"] forState:UIControlStateNormal];
         [_chooseBankButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
-    
 }
 
 #pragma mark - ChooseProvinceCityVCDelegate
 
-- (void)tableViewDidSelectAreaArray:(NSArray<AreaModel *> *)areaArray
-{
+- (void)tableViewDidSelectAreaArray:(NSArray<AreaModel *> *)areaArray{
     _areaModelArray = areaArray;
-    
     
     __block NSString *name = @"";
     
-    [areaArray enumerateObjectsUsingBlock:^(AreaModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-     {
-         if (idx == 0)
-         {
+    [areaArray enumerateObjectsUsingBlock:^(AreaModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
+         if (idx == 0){
              name = obj.name;
-         }
-         else
-         {
+         }else{
              name = [NSString stringWithFormat:@"%@ %@",name,obj.name];
          }
      }];
@@ -489,43 +405,17 @@
 }
 
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self endTextFiledEdit];
 }
 
-- (void)endTextFiledEdit
-{
+- (void)endTextFiledEdit{
     [_bankCardTf resignFirstResponder];
     [_bankNameTf resignFirstResponder];
     [_bankPhoneTf resignFirstResponder];
     [_idCardTf resignFirstResponder];
     [_subBankTf resignFirstResponder];
     [_verCodeTf resignFirstResponder];
-    
-}
-
-
-/* 第一次充值成功后在后台更新银行卡信息 */
-- (void)updateServerBankCardInfoWithInfo:(NSDictionary *)infoDict
-{
-    NSDictionary *dict = @{@"mobile_phone":infoDict[@"card_phone"],
-                           @"card_name":infoDict[@"card_name"],
-                           @"province":infoDict[@"province"],
-                           @"city":infoDict[@"city"],
-                           @"bank_name":infoDict[@"card_bank"],
-                           @"card_num":infoDict[@"card_no"],
-                           @"sub_branch":infoDict[@"subBank"]};
-    
-    [self.currentViewController.httpManager updateServerBankCardInfoParameterDict:dict CompletionBlock:^(NSError *error)
-     {
-         
-         
-         
-         
-         
-         
-     }];
 }
 
 @end

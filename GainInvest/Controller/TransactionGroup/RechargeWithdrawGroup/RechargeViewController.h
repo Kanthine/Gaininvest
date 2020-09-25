@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// channel ： 1 银联 4翼支付 12中信微信app支付 34联动支付 40通联支付
 @interface RechargeViewController : UIViewController
 
 /*

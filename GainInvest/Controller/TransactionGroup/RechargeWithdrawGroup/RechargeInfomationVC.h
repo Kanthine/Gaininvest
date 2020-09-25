@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TransactionHttpManager.h"
 
 @interface RechargeInfomationVC : UIViewController
 
 @property (nonatomic ,assign) NSInteger currentMoney;
-@property (nonatomic ,strong) TransactionHttpManager *httpManager;
 
 @end

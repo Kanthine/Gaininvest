@@ -139,13 +139,12 @@
         if ([AuthorizationManager isEffectiveToken]){
             //提现
             WithdrawViewController *withdrawVC = [[WithdrawViewController alloc]init];
-            withdrawVC.accountMoney = self.tableHeaderView.balanceLable.text;
+            withdrawVC.accountMoney = AccountInfo.standardAccountInfo.balance;
             withdrawVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:withdrawVC animated:YES];
         }else{
             [AuthorizationManager getEffectiveTokenWithViewController:self IsNeedCancelClick:YES];
         }
-
     }else{
         [AuthorizationManager getAuthorizationWithViewController:self];
     }
@@ -220,8 +219,6 @@
         });
     });
 }
-
-
 
 - (NSString *)getCurrentTime{
     NSString *timeString = @"";
@@ -348,6 +345,5 @@
     }
     return _tableView;
 }
-
 
 @end

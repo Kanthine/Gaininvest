@@ -7,8 +7,6 @@
 //
 
 #define CellIdentifer @"ProfitRollTableCell"
-#define BottomHeight 49.0
-
 
 #import "ProfitRollViewController.h"
 #import "ProfitRollTableHeaderView.h"
@@ -29,14 +27,6 @@
 
 #pragma mark - life cycle
 
-- (instancetype)init{
-    self = [super init];
-    if (self){
-        [self requestNetworkGetData];
-    }
-    return self;
-}
-
 - (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -51,11 +41,19 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self requestNetworkGetData];
+
     if ([AuthorizationManager isLoginState]){
         AccountInfo *account = [AccountInfo standardAccountInfo];
         UIImageView *portraitImageView = [self.footerView viewWithTag:1];
         [portraitImageView sd_setImageWithURL:[NSURL URLWithString:account.head] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
     }
+}
+
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    self.tableView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - getTabBarHeight());
+    self.footerView.frame = CGRectMake(0, CGRectGetMaxY(self.tableView.frame), CGRectGetWidth(self.view.bounds), getTabBarHeight());
 }
 
 #pragma mark - response click
@@ -151,18 +149,20 @@
 
 - (UIView *)footerView{
     if (_footerView == nil){
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, ScreenHeight - 64 - BottomHeight, ScreenWidth, BottomHeight)];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), getTabBarHeight())];
         view.backgroundColor = [UIColor whiteColor];
+        
+        CGFloat contentHeight = 49.0;
         
         UIImageView *portraitImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"owner_Header"]];
         portraitImageView.tag = 1;
-        portraitImageView.frame = CGRectMake(10, (CGRectGetHeight(view.bounds) - 30) / 2.0, 30, 30);
+        portraitImageView.frame = CGRectMake(10, (contentHeight - 30) / 2.0, 30, 30);
         portraitImageView.layer.cornerRadius = 15;
         portraitImageView.clipsToBounds = YES;
         portraitImageView.contentMode = UIViewContentModeScaleAspectFit;
         [view addSubview:portraitImageView];
         
-        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(portraitImageView.frame) + 8,  (CGRectGetHeight(view.bounds) - 16) / 2.0, 160, 16)];
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(portraitImageView.frame) + 8,  (contentHeight - 16) / 2.0, 160, 16)];
         lable.text = @"立即晒单，占据榜首";
         lable.textColor = TextColorGray;
         lable.font = [UIFont systemFontOfSize:15];
@@ -181,10 +181,10 @@
         [view addSubview:orderLable];
         
         CALayer *orderBackLayer = [CALayer layer];
-        orderBackLayer.frame = CGRectMake(ScreenWidth - 10 - orderLableWidth,-8, orderLableWidth - 2, orderLableWidth - 2);
+        orderBackLayer.frame = CGRectMake(CGRectGetWidth(view.bounds) - 10 - orderLableWidth,-8, orderLableWidth - 2, orderLableWidth - 2);
         orderBackLayer.backgroundColor = [UIColor whiteColor].CGColor;
         orderBackLayer.cornerRadius = orderLableWidth / 2.0 - 1;
-        orderBackLayer.masksToBounds=NO;
+        orderBackLayer.masksToBounds = NO;
         orderBackLayer.shadowColor=[UIColor blackColor].CGColor;
         orderBackLayer.shadowOffset=CGSizeMake(1,4);
         orderBackLayer.shadowOpacity = .8f;
@@ -204,7 +204,7 @@
 
 - (UITableView *)tableView{
     if (_tableView == nil){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64 - BottomHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:UIScreen.mainScreen.bounds style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;

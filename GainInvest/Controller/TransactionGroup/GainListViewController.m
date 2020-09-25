@@ -23,15 +23,15 @@
 
 @implementation GainListViewController
 
-- (void)viewDidLoad
-{
+#pragma mark - life cycle
+
+- (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"今日盈利单";
     self.navigationItem.leftBarButtonItem = [[LeftBackItem alloc] initWithTarget:self Selector:@selector(leftNavBarButtonClick)];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = UIColor.whiteColor;
     [self.view addSubview:self.tableView];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated{

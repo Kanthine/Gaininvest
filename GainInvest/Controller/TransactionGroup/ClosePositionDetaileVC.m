@@ -42,16 +42,10 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    [self customNavBar];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@详情",_model.remark];
+    self.navigationItem.leftBarButtonItem = [[LeftBackItem alloc] initWithTarget:self Selector:@selector(leftNavBarButtonClick)];
 
     [self updatePositionsDetaileWithModel:_model];
-    
-    __weak __typeof__(self) weakSelf = self;
-    APPDELEGETE.libWeChatShareResult = ^(NSError *error){
-        [weakSelf handleWeChatShareResult:error];
-    };;
-
 }
 
 - (void)updatePositionsDetaileWithModel:(TradeModel *)model{
@@ -67,7 +61,7 @@
     }
     
     //白银种类
-    self.buyKindLable.text = [NSString stringWithFormat:@"%@%.1f%@%.0f手",model.proDesc,model.weight,model.spec,model.count];
+    self.buyKindLable.text = [NSString stringWithFormat:@"%@%.1f%@%ld手",model.proDesc,model.weight,model.spec,(long)model.count];
     self.openPositionLable.text = [NSString stringWithFormat:@"%.0f",model.buyPrice];
     self.latestPriceLable.text = [NSString stringWithFormat:@"%.0f",model.sellPrice];
     self.feeLable.text = [NSString stringWithFormat:@"0"];
@@ -78,25 +72,8 @@
     self.feeLable.text = [NSString stringWithFormat:@"%.1f",model.fee];
 }
 
-- (void)customNavBar{
-    self.navigationItem.title = [NSString stringWithFormat:@"%@详情",_model.remark];
-    LeftBackItem *leftBarItem = [[LeftBackItem alloc] initWithTarget:self Selector:@selector(leftNavBarButtonClick)];
-    self.navigationItem.leftBarButtonItem=leftBarItem;
-}
-
-
-- (void)leftNavBarButtonClick
-{
+- (void)leftNavBarButtonClick{
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)handleWeChatShareResult:(NSError *)err{
-    //微信分享失败
-    if (err.code != 0){
-        [self showShareResult:@"您分享失败了" Succees:NO];
-        return;
-    }
-    [self showShareResult:@"您已成功晒单" Succees:YES];
 }
 
 - (void)showShareResult:(NSString *)string Succees:(BOOL)isSucceed{

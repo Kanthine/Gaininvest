@@ -17,18 +17,6 @@
  */
 - (void)getAreaListWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSMutableArray<AreaModel *> *listArray,NSError *error))block;
 
-/** 更新服务器缓存的 银行卡信息
- * mobile_phone 手机号
- * card_name 账户名
- * province 开户省份
- * city 开户城市
- * bank_name 银行名称
- * card_num 银行卡号
- * sub_branch 开户支行
- */
-- (void)updateServerBankCardInfoParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSError *error))block;
-
-
 /** 提现接口
  * mobile_phone 手机号
  * tx_money 提现金额
@@ -69,42 +57,5 @@
  * type ：1 2 3 4
  */
 - (void)getTradeVerificationCodeWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^)(NSError *error))block;
-
-/*
- * 京东在线签约
- * parameterDict 登录时需要参数：
- * mobile_phone ： 手机号
- * card_bank ：银行编码
- * card_no ： 银行卡号
- * card_name 持卡人姓名
- * card_idno 持卡人证件号
- * card_phone 持卡人手机号
- * trade_amount 交易金额(分)
- * subBank 银行分行
- * province 开户省份
- * city 开户城市
- */
-- (void)jingDongSignatoryOnlineWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^)(NSDictionary *resultDict, NSError *error))block;
-
-
-/*
- * 京东支付
- * parameterDict 登录时需要参数：
- * mobile_phone ： 手机号
- * trade_amount ：交易金额 （单位：分）
- * ordernum ： 订单号
- * trade_code 交易验证码
- */
-- (void)jingDongPayWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^)(NSError *error))block;
-
-/*
- * 银联充值
- * parameterDict 登录时需要参数：
- * mobile_phone ： 手机号
- * trade_amount ：交易金额（单位：分）
- * card_no ： 充值的卡号
- * channel ： 1 银联 4翼支付 12中信微信app支付 34联动支付 40通联支付
- */
-- (void)UnionPayRechargeWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^)(NSString *tokenString, NSError *error))block;
 
 @end

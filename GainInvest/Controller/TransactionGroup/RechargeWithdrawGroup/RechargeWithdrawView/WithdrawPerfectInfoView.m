@@ -177,16 +177,16 @@
         [sender setTitleColor:RGBA(149, 149, 149, 1) forState:UIControlStateNormal];
         
         //获取验证码
-        NSString *phoneStr = [AccountInfo standardAccountInfo].username;
-        NSDictionary *parameterDict = @{@"mobile_phone":phoneStr,@"type":@"4"};
-        [self.currentViewController.httpManager getTradeVerificationCodeWithParameterDict:parameterDict CompletionBlock:^(NSError *error)
-         {
-             if (error)
-             {
-                 [ErrorTipView errorTip:error.domain SuperView:self.currentViewController.view];
-                 [self stopVerCodeTimer];
-             }
-         }];
+//        NSString *phoneStr = [AccountInfo standardAccountInfo].username;
+//        NSDictionary *parameterDict = @{@"mobile_phone":phoneStr,@"type":@"4"};
+//        [self.currentViewController.httpManager getTradeVerificationCodeWithParameterDict:parameterDict CompletionBlock:^(NSError *error)
+//         {
+//             if (error)
+//             {
+//                 [ErrorTipView errorTip:error.domain SuperView:self.currentViewController.view];
+//                 [self stopVerCodeTimer];
+//             }
+//         }];
         
         //不能连续点击
         sender.enabled = NO;
@@ -238,8 +238,7 @@
 {
     [self endTextFiledEdit];
     
-    if ([self checkingInformationIsCorrect] == NO)
-    {
+    if ([self checkingInformationIsCorrect] == NO){
         return;
     }
     
@@ -330,9 +329,13 @@
         return NO;
     }
     
-    if (_verCodeTf.text.length < 1)
-    {
+    if (_verCodeTf.text.length < 1){
         [ErrorTipView errorTip:@"请输入验证码" SuperView:self.currentViewController.view];
+        return NO;
+    }
+    
+    if (![_verCodeTf.text isEqualToString:@"123456"]) {
+        [ErrorTipView errorTip:@"验证码错误" SuperView:self.currentViewController.view];
         return NO;
     }
     

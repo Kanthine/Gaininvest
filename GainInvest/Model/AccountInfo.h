@@ -6,12 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JdInfoModel.h"
 
 @interface AccountInfo : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic, strong) NSString *balance;//余额
 @property (nonatomic, strong) NSString *head;//用户头像
-@property (nonatomic, strong) NSString *defaultHead;//用户头像为空时取默认头像
 @property (nonatomic, strong) NSString *userID;//用户ID
 @property (nonatomic, strong) NSString *username;//用户昵称
 @property (nonatomic, strong) NSString *password;///密码
@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSString *isRecharge;//是否为第一次充值
 //第一次京东充值或者提现之后，服务器缓存用户银行卡信息
 @property (nonatomic, strong) NSString *isHaveJdInfo;
+@property (nonatomic, strong) JdInfoModel *JdInfo;
 
 @property (nonatomic, strong) NSString *tradePWD;//交易密码
 @property (nonatomic, assign) BOOL isOpenAccount;//恒大交易所是否开户
