@@ -11,7 +11,6 @@
 
 
 #import "RechargeTipView.h"
-#import <Masonry.h>
 
 
 @interface RechargeTipView()

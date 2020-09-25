@@ -13,7 +13,6 @@
 #import "PositionsContentVC.h"
 #import "PositionsTableCell.h"
 
-#import "TransactionHttpManager.h"
 #import "MainTabBarController.h"
 
 @interface PositionsContentVC ()

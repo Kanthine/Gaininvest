@@ -52,9 +52,7 @@
              make.right.mas_equalTo(@0);
              make.bottom.mas_equalTo(@0);
              make.height.equalTo(weakSelf.phoneView.mas_height);
-         }];
-        
-        
+         }];        
     }
     
     return self;

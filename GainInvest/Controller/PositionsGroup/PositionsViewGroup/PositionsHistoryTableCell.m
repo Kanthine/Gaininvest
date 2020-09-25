@@ -20,48 +20,16 @@
 
 @implementation PositionsHistoryTableCell
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    // Initialization code        
-}
+- (void)updatePositionsHistoryTableCellWithModel:(TradeModel *)model{
+    self.buyUpOrDownLable.text = model.isBuyDrop ? @"买跌" : @"买涨";
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-- (void)updatePositionsHistoryTableCellWithModel:(TradeModel *)model
-{    
-    if (model.buyDirection == 1)
-    {
-        self.buyUpOrDownLable.text = @"买跌";
-    }
-    else
-    {
-        self.buyUpOrDownLable.text = @"买涨";
-    }
-    
-    if (model.couponFlag == 1)//是否使用优惠券
-    {
-        //使用
-        _couponImageView.hidden = NO;
-
-    }
-    else
-    {
-        //没使用
-        _couponImageView.hidden = YES;
-    }
+    //是否使用优惠券
+    _couponImageView.hidden = !model.isUseCoupon;
     
     
-    if (model.plAmount > 0)//浮动盈亏
-    {
+    if (model.plAmount > 0){//浮动盈亏
         self.plAmountLable.text = [NSString stringWithFormat:@"+%.2f",model.plAmount];
-    }
-    else
-    {
+    }else{
         self.plAmountLable.text = [NSString stringWithFormat:@"%.2f",model.plAmount];
     }
     
@@ -72,8 +40,7 @@
     
     
     NSString *sellPrice = @"";
-    if (model.sellPrice > 0)
-    {
+    if (model.sellPrice > 0){
        sellPrice = [NSString stringWithFormat:@"%.0f",model.sellPrice];
     }
     self.latestPriceLable.text = sellPrice;
@@ -90,14 +57,10 @@
     }
 
     
-    
     self.openPositionTimeLable.text = [NSString stringWithFormat:@"%@",model.addTime];
     self.closePositionTimeLable.text = [NSString stringWithFormat:@"%@",sellTime];
-    self.orderNumLable.text = [NSString stringWithFormat:@"%.0f",model.orderId];
+    self.orderNumLable.text = [NSString stringWithFormat:@"%ld",model.orderId];
     
     self.feeLable.text = [NSString stringWithFormat:@"%.1f",model.fee];
-    
 }
-
-
 @end

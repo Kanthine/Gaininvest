@@ -32,7 +32,7 @@ NSString *const kInorderModelMemberHeadimg = @"member_headimg";
 
 @implementation InorderModel
 
-@synthesize buyDirection = _buyDirection;
+@synthesize isBuyDrop = _isBuyDrop;
 @synthesize orderType = _orderType;
 @synthesize sellTime = _sellTime;
 @synthesize headImg = _headImg;
@@ -60,7 +60,7 @@ NSString *const kInorderModelMemberHeadimg = @"member_headimg";
     // This check serves to make sure that a non-NSDictionary object
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
-            self.buyDirection = [self objectOrNilForKey:kInorderModelBuyDirection fromDictionary:dict];
+            self.isBuyDrop = [[self objectOrNilForKey:kInorderModelBuyDirection fromDictionary:dict] boolValue];
             self.orderType = [self objectOrNilForKey:kInorderModelOrderType fromDictionary:dict];
             self.sellTime = [self objectOrNilForKey:kInorderModelSellTime fromDictionary:dict];
             self.headImg = [self objectOrNilForKey:kInorderModelHeadImg fromDictionary:dict];
@@ -95,7 +95,7 @@ NSString *const kInorderModelMemberHeadimg = @"member_headimg";
 - (NSDictionary *)dictionaryRepresentation
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
-    [mutableDict setValue:self.buyDirection forKey:kInorderModelBuyDirection];
+    [mutableDict setValue:@(self.isBuyDrop) forKey:kInorderModelBuyDirection];
     [mutableDict setValue:self.orderType forKey:kInorderModelOrderType];
     [mutableDict setValue:self.sellTime forKey:kInorderModelSellTime];
     [mutableDict setValue:self.headImg forKey:kInorderModelHeadImg];
@@ -132,7 +132,7 @@ NSString *const kInorderModelMemberHeadimg = @"member_headimg";
 {
     self = [super init];
 
-    self.buyDirection = [aDecoder decodeObjectForKey:kInorderModelBuyDirection];
+    self.isBuyDrop = [aDecoder decodeBoolForKey:kInorderModelBuyDirection];
     self.orderType = [aDecoder decodeObjectForKey:kInorderModelOrderType];
     self.sellTime = [aDecoder decodeObjectForKey:kInorderModelSellTime];
     self.headImg = [aDecoder decodeObjectForKey:kInorderModelHeadImg];
@@ -151,8 +151,7 @@ NSString *const kInorderModelMemberHeadimg = @"member_headimg";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-
-    [aCoder encodeObject:_buyDirection forKey:kInorderModelBuyDirection];
+    [aCoder encodeBool:_isBuyDrop forKey:kInorderModelBuyDirection];
     [aCoder encodeObject:_orderType forKey:kInorderModelOrderType];
     [aCoder encodeObject:_sellTime forKey:kInorderModelSellTime];
     [aCoder encodeObject:_headImg forKey:kInorderModelHeadImg];
@@ -173,8 +172,7 @@ NSString *const kInorderModelMemberHeadimg = @"member_headimg";
     InorderModel *copy = [[InorderModel alloc] init];
     
     if (copy) {
-
-        copy.buyDirection = [self.buyDirection copyWithZone:zone];
+        copy.isBuyDrop = self.isBuyDrop;
         copy.orderType = [self.orderType copyWithZone:zone];
         copy.sellTime = [self.sellTime copyWithZone:zone];
         copy.headImg = [self.headImg copyWithZone:zone];

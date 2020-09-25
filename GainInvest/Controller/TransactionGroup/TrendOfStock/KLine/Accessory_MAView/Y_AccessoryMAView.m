@@ -51,7 +51,6 @@
             make.left.equalTo(_accessoryDescLabel.mas_right);
             make.top.equalTo(self.mas_top);
             make.bottom.equalTo(self.mas_bottom);
-            
         }];
         
         [_DEALabel mas_makeConstraints:^(MASConstraintMaker *make) {

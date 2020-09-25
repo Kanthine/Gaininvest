@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A5B801D251DCCE8008D1595 /* YLGlobalTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B801C251DCCE8008D1595 /* YLGlobalTools.m */; };
+		1A5B8034251DE257008D1595 /* JdInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B8033251DE257008D1595 /* JdInfoModel.m */; };
 		1A8C6F4E251ADC530003FB39 /* YLPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C6F4D251ADC530003FB39 /* YLPasswordInputView.m */; };
 		1AE45F3025199B9200E32236 /* DemoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE45F2F25199B9200E32236 /* DemoData.m */; };
 		1AE45F562519AA7C00E32236 /* ConsultKindTitles.json in Resources */ = {isa = PBXBuildFile; fileRef = 1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */; };
@@ -33,7 +35,6 @@
 		220B00751E66706300180C33 /* WaveProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B00731E66706300180C33 /* WaveProgressView.m */; };
 		220B007B1E66719E00180C33 /* TimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B007A1E66719E00180C33 /* TimeStamp.m */; };
 		220B007E1E6677DB00180C33 /* QualityCertificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B007D1E6677DB00180C33 /* QualityCertificationView.m */; };
-		220B00831E667CA300180C33 /* RechargeMethodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B00821E667CA300180C33 /* RechargeMethodVC.m */; };
 		220B00871E66825C00180C33 /* RechargeMethodTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B00851E66825C00180C33 /* RechargeMethodTableCell.m */; };
 		220B00881E66825C00180C33 /* RechargeMethodTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 220B00861E66825C00180C33 /* RechargeMethodTableCell.xib */; };
 		220B008C1E668A4E00180C33 /* RechargeInfomationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 220B008A1E668A4E00180C33 /* RechargeInfomationVC.m */; };
@@ -220,6 +221,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A5B801B251DCCE8008D1595 /* YLGlobalTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLGlobalTools.h; sourceTree = "<group>"; };
+		1A5B801C251DCCE8008D1595 /* YLGlobalTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLGlobalTools.m; sourceTree = "<group>"; };
+		1A5B8032251DE257008D1595 /* JdInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JdInfoModel.h; sourceTree = "<group>"; };
+		1A5B8033251DE257008D1595 /* JdInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JdInfoModel.m; sourceTree = "<group>"; };
 		1A8C6F4C251ADC530003FB39 /* YLPasswordInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLPasswordInputView.h; sourceTree = "<group>"; };
 		1A8C6F4D251ADC530003FB39 /* YLPasswordInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLPasswordInputView.m; sourceTree = "<group>"; };
 		1AE45F2E25199B9200E32236 /* DemoData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoData.h; sourceTree = "<group>"; };
@@ -268,8 +273,6 @@
 		220B007A1E66719E00180C33 /* TimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeStamp.m; sourceTree = "<group>"; };
 		220B007C1E6677DB00180C33 /* QualityCertificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QualityCertificationView.h; sourceTree = "<group>"; };
 		220B007D1E6677DB00180C33 /* QualityCertificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QualityCertificationView.m; sourceTree = "<group>"; };
-		220B00811E667CA300180C33 /* RechargeMethodVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeMethodVC.h; sourceTree = "<group>"; };
-		220B00821E667CA300180C33 /* RechargeMethodVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeMethodVC.m; sourceTree = "<group>"; };
 		220B00841E66825C00180C33 /* RechargeMethodTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeMethodTableCell.h; sourceTree = "<group>"; };
 		220B00851E66825C00180C33 /* RechargeMethodTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeMethodTableCell.m; sourceTree = "<group>"; };
 		220B00861E66825C00180C33 /* RechargeMethodTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RechargeMethodTableCell.xib; sourceTree = "<group>"; };
@@ -681,6 +684,8 @@
 			isa = PBXGroup;
 			children = (
 				221562491E4C5A7400FB3375 /* DataModel.h */,
+				1A5B8032251DE257008D1595 /* JdInfoModel.h */,
+				1A5B8033251DE257008D1595 /* JdInfoModel.m */,
 				2221EEC01E4D8DF3006DA937 /* AccountInfo.h */,
 				2221EEC11E4D8DF3006DA937 /* AccountInfo.m */,
 				1AE45F2E25199B9200E32236 /* DemoData.h */,
@@ -737,8 +742,6 @@
 				220B00801E667B9E00180C33 /* RechargeWithdrawView */,
 				2223F2CB1E5FD89B006E8B8E /* RechargeViewController.h */,
 				2223F2CC1E5FD89B006E8B8E /* RechargeViewController.m */,
-				220B00811E667CA300180C33 /* RechargeMethodVC.h */,
-				220B00821E667CA300180C33 /* RechargeMethodVC.m */,
 				220B00891E668A4E00180C33 /* RechargeInfomationVC.h */,
 				220B008A1E668A4E00180C33 /* RechargeInfomationVC.m */,
 				220B00981E66B84E00180C33 /* RechargeResultVC.h */,
@@ -1350,6 +1353,8 @@
 				221A31C11E8FAD3D00104DD3 /* FirstLaunchPage.m */,
 				2274355F1E825E8F003907EE /* UserLocalData.h */,
 				227435601E825E8F003907EE /* UserLocalData.m */,
+				1A5B801B251DCCE8008D1595 /* YLGlobalTools.h */,
+				1A5B801C251DCCE8008D1595 /* YLGlobalTools.m */,
 				220B00791E66719E00180C33 /* TimeStamp.h */,
 				220B007A1E66719E00180C33 /* TimeStamp.m */,
 				221562401E4C574700FB3375 /* FilePathManager.h */,
@@ -1701,6 +1706,7 @@
 				22BEB9931E88D3A200235533 /* ThirdLoginModel.m in Sources */,
 				221BA5291E6FB96D00FB618D /* MA-EMA-MACD介绍.md in Sources */,
 				2215623F1E4C570E00FB3375 /* AFNetDiskCache.m in Sources */,
+				1A5B801D251DCCE8008D1595 /* YLGlobalTools.m in Sources */,
 				223FA0DC1E94B871007F23D9 /* RechargeTipView.m in Sources */,
 				221562371E4C4B5700FB3375 /* MessageListTableCell.m in Sources */,
 				22FF41641E764841000FB634 /* UpdateGainOrLossTipView.m in Sources */,
@@ -1714,6 +1720,7 @@
 				220052FE1E52F06E001EB8E0 /* ConsultKindTitleView.m in Sources */,
 				221A7D461E6D3D7C000D12DB /* StockTopSegmentView.m in Sources */,
 				2216B9BA1E63DAD7006994C3 /* ChooseProvinceCityVC.m in Sources */,
+				1A5B8034251DE257008D1595 /* JdInfoModel.m in Sources */,
 				2221EED21E4DA70C006DA937 /* ResetNickNameVC.m in Sources */,
 				2223F2E81E6035F8006E8B8E /* WithdrawViewController.m in Sources */,
 				221BA5301E6FB96D00FB618D /* Y_StockChartSegmentView.m in Sources */,
@@ -1761,7 +1768,6 @@
 				2216B9C61E640919006994C3 /* MyVoucherViewController.m in Sources */,
 				221BA52A1E6FB96D00FB618D /* Y_KLineGroupModel.m in Sources */,
 				221BA5211E6FB96D00FB618D /* Y_AccessoryMAView.m in Sources */,
-				220B00831E667CA300180C33 /* RechargeMethodVC.m in Sources */,
 				221562301E4C45CA00FB3375 /* ShareGetVoucherVC.m in Sources */,
 				22B7B3791E5EBAEA00FF5EB6 /* TransactionBuyUpOrDownView.m in Sources */,
 				2215623C1E4C56D700FB3375 /* AFNetAPIClient.m in Sources */,

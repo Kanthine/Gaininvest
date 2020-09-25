@@ -1254,21 +1254,17 @@
 /* 下单 */
 - (void)placeAnOrderButtonClick:(UIButton *)sender{
     UISlider *slide = [self.slideCountView viewWithTag:4];
-    if (slide.value < 1)
-    {
+    if (slide.value < 1){
         [ErrorTipView errorTip:@"请至少选择1手购买" SuperView:self];
         return;
     }
     UILabel *priceLable = [self.bottomView viewWithTag:1];
-    if ([priceLable.text floatValue] > [self.balanceOfAccountString floatValue] && _isUseCoupon == NO)
-    {
+    if ([priceLable.text floatValue] > [self.balanceOfAccountString floatValue] && _isUseCoupon == NO){
         [ErrorTipView errorTip:@"账户余额不足" SuperView:self];
         return;
     }
     
-    
-    if ([self.couponNumberString intValue] < (int)slide.value && _isUseCoupon == YES)
-    {
+    if ([self.couponNumberString intValue] < (int)slide.value && _isUseCoupon == YES){
         [ErrorTipView errorTip:@"可用代金券数量不足" SuperView:self];
         return;
     }
@@ -1290,16 +1286,14 @@
     NSString *contract = [NSString stringWithFormat:@"%@",productInfoDict[@"contract"]];
 
     NSString *buyUpStr = @"2";
-    if (self.isBuyUp == NO)
-    {
+    if (self.isBuyUp == NO){
         buyUpStr = @"1";
     }
     NSString *numStr = [NSString stringWithFormat:@"%d",(int)slide.value];
     NSString *topStr = [NSString stringWithFormat:@"%.2f",topLimit];
     NSString *bottomStr = [NSString stringWithFormat:@"%.2f",bottomLimit];
     NSString *isUseCoupon = @"0";
-    if (_isUseCoupon)
-    {
+    if (_isUseCoupon){
         isUseCoupon = @"1";
     }
     
@@ -1312,13 +1306,20 @@
                            @"is_juan":isUseCoupon,
                            @"top_limit":topStr,
                            @"bottom_limit":bottomStr};
-//    建仓
-    
+    /** 建仓
+     *
+     * mobile_phone：手机号
+     * product_id ：产品Id
+     * contract ：合同
+     * type ：方向 1涨2跌
+     * sl ：手数 最大10手
+     * is_juan ： 是否使用券 1使用0不使用
+     * top_limit ：止盈比例 默认是0
+     * bottom_limit ： 止损比例 默认是0
+     */
+
 //    [self dismissPickerViewWithNeedTip:YES Error:error];
 
-//    [self.currentViewController.httpManager openPositionWithParameterDict:dict CompletionBlock:^(NSDictionary *resultDict, NSError *error)
-//     {
-//    }];
 }
 
 - (void)updateBottomViewInfo

@@ -11,8 +11,6 @@
 
 #import "QualityCertificationView.h"
 
-#import <Masonry.h>
-
 
 @interface QualityCertificationView()
 

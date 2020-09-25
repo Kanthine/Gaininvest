@@ -41,6 +41,9 @@ NSString *const kPositionsModelOrderId = @"orderId";
 
 @interface PositionsModel ()
 
+@property (nonatomic, assign) double topPrice;
+@property (nonatomic, assign) double bottomPrice;
+
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
 @end
@@ -48,7 +51,7 @@ NSString *const kPositionsModelOrderId = @"orderId";
 @implementation PositionsModel
 
 @synthesize plRatio = _plRatio;
-@synthesize buyDirection = _buyDirection;
+@synthesize isBuyDrop = _isBuyDrop;
 @synthesize weight = _weight;
 @synthesize spec = _spec;
 @synthesize couponId = _couponId;
@@ -91,7 +94,7 @@ NSString *const kPositionsModelOrderId = @"orderId";
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
             self.plRatio = [[self objectOrNilForKey:kPositionsModelPlRatio fromDictionary:dict] doubleValue];
-            self.buyDirection = [[self objectOrNilForKey:kPositionsModelBuyDirection fromDictionary:dict] doubleValue];
+            self.isBuyDrop = [[self objectOrNilForKey:kPositionsModelBuyDirection fromDictionary:dict] boolValue];
             self.weight = [[self objectOrNilForKey:kPositionsModelWeight fromDictionary:dict] doubleValue];
             self.spec = [self objectOrNilForKey:kPositionsModelSpec fromDictionary:dict];
             self.couponId = [[self objectOrNilForKey:kPositionsModelCouponId fromDictionary:dict] doubleValue];
@@ -130,7 +133,7 @@ NSString *const kPositionsModelOrderId = @"orderId";
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     [mutableDict setValue:[NSNumber numberWithDouble:self.plRatio] forKey:kPositionsModelPlRatio];
-    [mutableDict setValue:[NSNumber numberWithDouble:self.buyDirection] forKey:kPositionsModelBuyDirection];
+    [mutableDict setValue:@(self.isBuyDrop) forKey:kPositionsModelBuyDirection];
     [mutableDict setValue:[NSNumber numberWithDouble:self.weight] forKey:kPositionsModelWeight];
     [mutableDict setValue:self.spec forKey:kPositionsModelSpec];
     [mutableDict setValue:[NSNumber numberWithDouble:self.couponId] forKey:kPositionsModelCouponId];
@@ -182,7 +185,7 @@ NSString *const kPositionsModelOrderId = @"orderId";
     self = [super init];
 
     self.plRatio = [aDecoder decodeDoubleForKey:kPositionsModelPlRatio];
-    self.buyDirection = [aDecoder decodeDoubleForKey:kPositionsModelBuyDirection];
+    self.isBuyDrop = [aDecoder decodeBoolForKey:kPositionsModelBuyDirection];
     self.weight = [aDecoder decodeDoubleForKey:kPositionsModelWeight];
     self.spec = [aDecoder decodeObjectForKey:kPositionsModelSpec];
     self.couponId = [aDecoder decodeDoubleForKey:kPositionsModelCouponId];
@@ -217,7 +220,7 @@ NSString *const kPositionsModelOrderId = @"orderId";
 {
 
     [aCoder encodeDouble:_plRatio forKey:kPositionsModelPlRatio];
-    [aCoder encodeDouble:_buyDirection forKey:kPositionsModelBuyDirection];
+    [aCoder encodeBool:_isBuyDrop forKey:kPositionsModelBuyDirection];
     [aCoder encodeDouble:_weight forKey:kPositionsModelWeight];
     [aCoder encodeObject:_spec forKey:kPositionsModelSpec];
     [aCoder encodeDouble:_couponId forKey:kPositionsModelCouponId];
@@ -254,7 +257,7 @@ NSString *const kPositionsModelOrderId = @"orderId";
     if (copy) {
 
         copy.plRatio = self.plRatio;
-        copy.buyDirection = self.buyDirection;
+        copy.isBuyDrop = self.isBuyDrop;
         copy.weight = self.weight;
         copy.spec = [self.spec copyWithZone:zone];
         copy.couponId = self.couponId;

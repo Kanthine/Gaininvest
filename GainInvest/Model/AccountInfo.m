@@ -52,10 +52,13 @@ NSString *const kAccountInfoQQ = @"qq_openid";
 NSString *const kAccountInfoIsOpenAccount = @"is_trad_rg";
 NSString *const kAccountInfoTradePWD = @"tradePWD";
 
+NSString *const kAccountInfoBalance = @"balance";
+
 
 @interface AccountInfo ()
 
 @property (nonatomic, strong) NSString *nickname;
+@property (nonatomic, strong) NSString *defaultHead;//用户头像为空时取默认头像
 
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
@@ -63,6 +66,7 @@ NSString *const kAccountInfoTradePWD = @"tradePWD";
 
 @implementation AccountInfo
 
+@synthesize balance = _balance;
 @synthesize head = _head;
 @synthesize defaultHead = _defaultHead;
 @synthesize deviceToken = _deviceToken;
@@ -111,6 +115,7 @@ NSString *const kAccountInfoTradePWD = @"tradePWD";
 - (instancetype)init{
     self = [super init];
     if (self) {
+        self.balance = @"0";
         self.username = DemoData.nickNameArray[arc4random() % k_DemoData_nickName_count];
         self.head = DemoData.headPathArray[arc4random() % k_DemoData_HeadPath_count];
     }
@@ -202,17 +207,15 @@ static dispatch_once_t rootOnceToken;
     return [AccountInfo standardAccountInfo];
 }
 
-+ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict
-{
++ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict{
     AccountInfo *model = [AccountInfo standardAccountInfo];
     [model parserDataWithDictionary:dict];
     return [AccountInfo standardAccountInfo];
 }
 
-- (void)parserDataWithDictionary:(NSDictionary *)dict
-{
-    if(self && [dict isKindOfClass:[NSDictionary class]])
-    {
+- (void)parserDataWithDictionary:(NSDictionary *)dict{
+    if(self && [dict isKindOfClass:[NSDictionary class]]){
+        self.balance = [self objectOrNilForKey:kAccountInfoBalance fromDictionary:dict];
         self.head = [self objectOrNilForKey:kAccountInfoHead fromDictionary:dict];
         self.defaultHead = [self objectOrNilForKey:kAccountInfoDefaultHead fromDictionary:dict];
         self.deviceToken = [self objectOrNilForKey:kAccountInfoDeviceToken fromDictionary:dict];
@@ -258,16 +261,11 @@ static dispatch_once_t rootOnceToken;
         self.qqUid = [self objectOrNilForKey:kAccountInfoQQ fromDictionary:dict];
         self.isOpenAccount = [[self objectOrNilForKey:kAccountInfoIsOpenAccount fromDictionary:dict] boolValue];
         self.tradePWD = [self objectOrNilForKey:kAccountInfoTradePWD fromDictionary:dict];
-
         
-        
-        if (self.head == nil || self.head.length < 2)
-        {
+        if (self.head == nil || self.head.length < 2){
             self.head = self.defaultHead;
         }
-
     }
-
 }
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict{
@@ -280,6 +278,7 @@ static dispatch_once_t rootOnceToken;
 
 - (NSDictionary *)dictionaryRepresentation{
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    [mutableDict setValue:self.balance forKey:kAccountInfoBalance];
     [mutableDict setValue:self.head forKey:kAccountInfoHead];
     [mutableDict setValue:self.deviceToken forKey:kAccountInfoDeviceToken];
     [mutableDict setValue:self.userID forKey:kAccountInfoId];
@@ -347,6 +346,7 @@ static dispatch_once_t rootOnceToken;
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
+    self.balance = [aDecoder decodeObjectForKey:kAccountInfoBalance];
     self.head = [aDecoder decodeObjectForKey:kAccountInfoHead];
     self.deviceToken = [aDecoder decodeObjectForKey:kAccountInfoDeviceToken];
     self.userID = [aDecoder decodeObjectForKey:kAccountInfoId];
@@ -395,9 +395,8 @@ static dispatch_once_t rootOnceToken;
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
-
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:_balance forKey:kAccountInfoBalance];
     [aCoder encodeObject:_head forKey:kAccountInfoHead];
     [aCoder encodeObject:_deviceToken forKey:kAccountInfoDeviceToken];
     [aCoder encodeObject:_userID forKey:kAccountInfoId];
@@ -450,7 +449,7 @@ static dispatch_once_t rootOnceToken;
     AccountInfo *copy = [[AccountInfo alloc] init];
     
     if (copy) {
-
+        copy.balance = [self.balance copyWithZone:zone];
         copy.head = [self.head copyWithZone:zone];
         copy.deviceToken = [self.deviceToken copyWithZone:zone];
         copy.userID = [self.userID copyWithZone:zone];
@@ -503,15 +502,17 @@ static dispatch_once_t rootOnceToken;
 
 #pragma mark - 
 
+- (NSString *)balance{
+    if (_balance == nil) {
+        _balance = @"0";
+    }
+    return _balance;
+}
 
-
-- (NSString *)uToken
-{
-    if (_uToken == nil)
-    {
+- (NSString *)uToken{
+    if (_uToken == nil){
         _uToken = @"";
     }
-    
     return _uToken;
 }
 

@@ -69,6 +69,24 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSMutableArray<PositionsModel *> *)accessOpenPosition;
 
+
+/** 查询交易流水
+ * type : top:查询止盈平仓流水，bot：查询止损平仓流水，de：查询爆仓平仓流水，cd：查询系统自动平仓流水，pn：查询建仓流水，cg：查询平仓流水，all：查询建仓和平仓流水",
+ * st ：查询开始时间 格式: yyyy-MM-dd
+ * et ：查询结束时间 格式: yyyy-MM-dd
+ */
++ (NSMutableArray<TradeModel *> *)accessTradeListWithParameterDict:(NSDictionary *)parameterDict;
+
+/** 查询收支明细
+ * type : top：查询止盈平仓流水，bot：查询止损平仓流水，de：查询爆仓平仓流水，cd：查询系统自动平仓流水，pn：查询建仓流水，cg：查询平仓流水，re:查询充值流水，wt：查询提现流水，"fd":" 查询提现失败流水" ，all：查询交易、充值和提现流水
+ * st ：查询开始时间 格式: yyyy-MM-dd
+ * et ：查询结束时间 格式: yyyy-MM-dd
+ */
++ (NSMutableArray<TradeModel *> *)accessIncomeDetaileListWithParameterDict:(NSDictionary *)parameterDict;
+
+///银行列表
++ (NSMutableArray<NSDictionary *> *)bankList;
+
 @end
 
 

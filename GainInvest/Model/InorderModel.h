@@ -10,20 +10,26 @@
 
 
 @interface InorderModel : NSObject <NSCoding, NSCopying>
-
-@property (nonatomic, strong) NSString *buyDirection;
+///YES 买跌 ， NO 买涨
+@property (nonatomic, assign) bool isBuyDrop;
+//订单类型
 @property (nonatomic, strong) NSString *orderType;
-@property (nonatomic, strong) NSString *sellTime;
 @property (nonatomic, strong) NSString *headImg;
 @property (nonatomic, strong) NSString *mobile;
-@property (nonatomic, strong) NSString *count;
 @property (nonatomic, strong) NSString *plAmount;
-@property (nonatomic, strong) NSString *sellPrice;
-@property (nonatomic, strong) NSString *price;
-@property (nonatomic, strong) NSString *plPercent;
-@property (nonatomic, strong) NSString *orderId;
+//买入
 @property (nonatomic, strong) NSString *addTime;
 @property (nonatomic, strong) NSString *buyPrice;
+//平仓
+@property (nonatomic, strong) NSString *sellPrice;
+@property (nonatomic, strong) NSString *sellTime;
+
+@property (nonatomic, strong) NSString *price;//白银价格
+@property (nonatomic, strong) NSString *count;//买入几手
+
+@property (nonatomic, strong) NSString *plPercent;
+@property (nonatomic, strong) NSString *orderId;
+
 @property (nonatomic, strong) NSString *memberHeadimg;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;

@@ -143,6 +143,16 @@
              @"兵家韬略之首",@"一部包含着丰富的智慧和谋略的杰作",];
 }
 
+@end
+
+
+
+
+
+
+
+
+@implementation DemoData (Service)
 
 + (NSMutableArray<ConsultKindTitleModel *> *)consultKindTitleArray{
     
@@ -156,7 +166,6 @@
     }];
     return resultArray;
 }
-
 
 + (NSMutableArray<ConsultListModel *> *)ConsultListArrayWithKindTitle:(ConsultKindTitleModel *)titleModel{
     NSMutableArray<ConsultListModel *> *resultArray = [NSMutableArray array];
@@ -173,22 +182,28 @@
     return resultArray;
 }
 
-@end
-
-
-
-
-
-
-
-
-@implementation DemoData (Service)
-
-
 + (NSMutableArray<InorderModel *> *)inorderModelArray{
     NSMutableArray<InorderModel *> *resultArray = [NSMutableArray array];
-    
-    
+    for (int i = 0; i < 20; i++) {
+        InorderModel *model = [[InorderModel alloc] init];
+        model.isBuyDrop = arc4random() % 2;
+        model.orderType = @"订单类型";
+        model.headImg = DemoData.headPathArray[arc4random() % k_DemoData_HeadPath_count];
+        model.memberHeadimg = DemoData.headPathArray[arc4random() % k_DemoData_HeadPath_count];
+        model.mobile = DemoData.phonesArray[arc4random() % k_DemoData_Phones_count];
+        model.plAmount = @"1234";
+        model.plPercent = @"1234";
+        model.addTime = @"";
+        model.buyPrice = @"721.3";//买入价
+        model.sellPrice = @"535.7";//平仓价
+        model.sellTime = @"";
+        model.price = @"10";//白银价格
+        model.count = @"5";//买入几手
+        model.orderId = [NSString stringWithFormat:@"%d",arc4random() % 50 + i];
+
+ 
+        [resultArray addObject:model];
+    }
     return resultArray;
 }
 
@@ -223,6 +238,7 @@
     return 30 + arc4random() % 50;
 }
 
+
 /** 查询用户所有的赢家券信息
  * coupon_type : 券类型 1：未使用 2：已使用 3：已过期
  */
@@ -254,13 +270,102 @@
     NSMutableArray<PositionsModel *> *resultArray = [NSMutableArray array];
     for (int i = 0; i < 20; i++) {
         PositionsModel *model = [[PositionsModel alloc] init];
-        model.buyDirection = arc4random() % 2;
+        model.isBuyDrop = arc4random() % 2;
         model.couponFlag = arc4random() % 2;
         model.topLimit = 721.3;
         model.bottomLimit = 535.7;
         model.orderId = arc4random() % 50 + i;
         [resultArray addObject:model];
     }
+    return resultArray;
+}
+
+/** 查询交易流水
+ * type : top:查询止盈平仓流水，bot：查询止损平仓流水，de：查询爆仓平仓流水，
+ *      cd：查询系统自动平仓流水，pn：查询建仓流水，cg：查询平仓流水，
+ *      all：查询建仓和平仓流水",
+ * st ：查询开始时间 格式: yyyy-MM-dd
+ * et ：查询结束时间 格式: yyyy-MM-dd
+ */
++ (NSMutableArray<TradeModel *> *)accessTradeListWithParameterDict:(NSDictionary *)parameterDict{
+    NSMutableArray<TradeModel *> *resultArray = [NSMutableArray array];
+    for (int i = 0; i < 20; i++) {
+        TradeModel *model = [[TradeModel alloc] init];
+        model.isBuyDrop = arc4random() % 2;
+        model.isUseCoupon = arc4random() % 2;
+        model.addTime = @"2017-03-23 05:12";
+        model.buyPrice = 721.3;//买入价
+        model.sellPrice = 535.7;//平仓价
+        model.sellTime = @"2017-03-23 20:31";
+        model.sellPrice = 10;//浮动盈亏
+        model.fee = 5;//手续费
+        if ([parameterDict[@"type"] isEqualToString:@"all"]) {
+            model.remark = arc4random() % 2 ? @"平仓" : @"建仓";
+        }else if ([parameterDict[@"type"] isEqualToString:@"cg"]){
+            model.remark = @"平仓";
+        }else if ([parameterDict[@"type"] isEqualToString:@"pn"]){
+            model.remark = @"建仓";
+        }
+        model.count = arc4random() % 5 + i;
+        model.proDesc = @"白银";
+        
+        model.orderId = arc4random() % 50 + i;
+        [resultArray addObject:model];
+    }
+    return resultArray;
+}
+
+/** 查询收支明细
+ * type : top：查询止盈平仓流水，bot：查询止损平仓流水，de：查询爆仓平仓流水，cd：查询系统自动平仓流水，pn：查询建仓流水，cg：查询平仓流水，re:查询充值流水，wt：查询提现流水，"fd":" 查询提现失败流水" ，all：查询交易、充值和提现流水
+ * st ：查询开始时间 格式: yyyy-MM-dd
+ * et ：查询结束时间 格式: yyyy-MM-dd
+ */
++ (NSMutableArray<TradeModel *> *)accessIncomeDetaileListWithParameterDict:(NSDictionary *)parameterDict{
+    NSMutableArray<TradeModel *> *resultArray = [NSMutableArray array];
+    for (int i = 0; i < 20; i++) {
+        TradeModel *model = [[TradeModel alloc] init];
+        model.isBuyDrop = arc4random() % 2;
+        model.isUseCoupon = arc4random() % 2;
+        model.addTime = @"2017-03-23 05:12";
+        model.buyPrice = 721.3;//买入价
+        model.sellPrice = 535.7;//平仓价
+        model.sellTime = @"2017-03-23 20:31";
+        model.sellPrice = 10;//浮动盈亏
+        model.fee = 5;//手续费
+        if ([parameterDict[@"type"] isEqualToString:@"all"]) {
+            model.remark = arc4random() % 2 ? @"平仓" : @"建仓";
+        }else if ([parameterDict[@"type"] isEqualToString:@"cg"]){
+            model.remark = @"平仓";
+        }else if ([parameterDict[@"type"] isEqualToString:@"pn"]){
+            model.remark = @"建仓";
+        }
+        model.count = arc4random() % 5 + i;
+        model.proDesc = @"白银";
+        model.orderId = arc4random() % 50 + i;
+        [resultArray addObject:model];
+    }
+    return resultArray;
+}
+
+/** 银行卡列表
+ * 银行卡信息
+ * mobile_phone 手机号
+ * card_name 账户名
+ * province 开户省份
+ * city 开户城市
+ * bank_name 银行名称
+ * card_num 银行卡号
+ * sub_branch 开户支行
+ */
++ (NSMutableArray<NSDictionary *> *)bankList{
+    
+    NSArray<NSString *> *nameArray = @[@"中国银行",@"摩根大通",@"联邦银行",@"花旗银行",@"建设银行",
+                           @"工商银行",@"农业银行",@"招商银行",@"交通银行",@"光大银行",
+                           @"民生银行",@"浦发银行",@"兴业银行",@"协和银行",@"首都银行"];
+    NSMutableArray<NSDictionary *> *resultArray = [NSMutableArray array];
+    [nameArray enumerateObjectsUsingBlock:^(NSString * _Nonnull bankName, NSUInteger idx, BOOL * _Nonnull stop) {
+        [resultArray addObject: @{@"bankName":bankName,@"card_bank":@""}];
+    }];
     return resultArray;
 }
 
