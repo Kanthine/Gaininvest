@@ -111,6 +111,7 @@ NSString *const kAccountInfoTradePWD = @"tradePWD";
 - (instancetype)init{
     self = [super init];
     if (self) {
+        self.balance = @"0";
         self.username = DemoData.nickNameArray[arc4random() % k_DemoData_nickName_count];
         self.head = DemoData.headPathArray[arc4random() % k_DemoData_HeadPath_count];
     }

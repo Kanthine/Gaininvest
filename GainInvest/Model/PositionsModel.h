@@ -12,16 +12,19 @@
 @interface PositionsModel : NSObject <NSCoding, NSCopying>
 
 ///YES 买跌 ， NO 买涨
-@property (nonatomic, assign) BOOL buyDirection;
+@property (nonatomic, assign) BOOL isBuyDrop;
 //是否使用优惠券
 @property (nonatomic, assign) BOOL couponFlag;
 
-//盈止损点
+//止盈比例
 @property (nonatomic, assign) double topLimit;
+//止损比例
 @property (nonatomic, assign) double bottomLimit;
 
 ///订单
 @property (nonatomic, assign) NSInteger orderId;
+//商品符号
+@property (nonatomic, strong) NSString *contract;
 
 @property (nonatomic, assign) double plRatio;
 @property (nonatomic, assign) double weight;
@@ -36,13 +39,10 @@
 @property (nonatomic, strong) NSString *orderNum;
 @property (nonatomic, assign) double productId;
 @property (nonatomic, assign) double buyPrice;
-@property (nonatomic, assign) double bottomPrice;
 @property (nonatomic, strong) NSString *couponName;
 @property (nonatomic, strong) NSString *addTime;
-@property (nonatomic, assign) double topPrice;
 @property (nonatomic, strong) NSString *proDesc;
 @property (nonatomic, strong) NSString *wid;
-@property (nonatomic, strong) NSString *contract;
 @property (nonatomic, assign) double fee;
 @property (nonatomic, assign) double plAmount;
 @property (nonatomic, assign) double price;

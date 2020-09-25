@@ -225,10 +225,8 @@
     }
 }
 
-- (UITableView *)tableview
-{
-    if (_tableview == nil)
-    {
+- (UITableView *)tableview{
+    if (_tableview == nil){
         _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 49) style:UITableViewStyleGrouped];
         _tableview.showsVerticalScrollIndicator = NO;
         _tableview.showsHorizontalScrollIndicator = NO;

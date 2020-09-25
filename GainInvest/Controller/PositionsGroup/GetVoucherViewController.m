@@ -17,7 +17,6 @@
 #import "TransactionHttpManager.h"
 #import "GetVoucherTableCell.h"
 #import "RechargeViewController.h"
-#import <MJRefresh.h>
 #import "MyVoucherViewController.h"
 #import "ProfitRollViewController.h"
 #import "AppDelegate.h"

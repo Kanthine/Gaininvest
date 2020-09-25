@@ -7,9 +7,7 @@
 //
 
 #import "LoadImageViewController.h"
-
 #import "MainTabBarController.h"
-
 
 @interface LoadImageViewController ()
 

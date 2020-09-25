@@ -11,8 +11,8 @@
 @interface RechargeMethodVerifyView : UIView
 
 @property (nonatomic ,strong) UILabel *timeLable;
-@property (nonatomic ,copy) void(^ rechargeMethodVerifyCode)(NSString *verCode);
-@property (nonatomic ,copy) void(^ rechargeMethodVerifyDismiss)();
+@property (nonatomic ,copy) void(^rechargeMethodVerifyCode)(NSString *verCode);
+@property (nonatomic ,copy) void(^rechargeMethodVerifyDismiss)();
 
 - (void)show;
 

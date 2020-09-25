@@ -39,7 +39,7 @@ NSString *const kTradeModelOrderId = @"orderId";
 
 @implementation TradeModel
 
-@synthesize buyDirection = _buyDirection;
+@synthesize isBuyDrop = _isBuyDrop;
 @synthesize sellTime = _sellTime;
 @synthesize money = _money;
 @synthesize weight = _weight;
@@ -53,7 +53,7 @@ NSString *const kTradeModelOrderId = @"orderId";
 @synthesize productId = _productId;
 @synthesize balance = _balance;
 @synthesize buyPrice = _buyPrice;
-@synthesize couponFlag = _couponFlag;
+@synthesize isUseCoupon = _isUseCoupon;
 @synthesize addTime = _addTime;
 @synthesize proDesc = _proDesc;
 @synthesize plAmount = _plAmount;
@@ -74,7 +74,7 @@ NSString *const kTradeModelOrderId = @"orderId";
     // This check serves to make sure that a non-NSDictionary object
     // passed into the model class doesn't break the parsing.
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
-            self.buyDirection = [[self objectOrNilForKey:kTradeModelBuyDirection fromDictionary:dict] doubleValue];
+            self.isBuyDrop = [[self objectOrNilForKey:kTradeModelBuyDirection fromDictionary:dict] boolValue];
             self.sellTime = [self objectOrNilForKey:kTradeModelSellTime fromDictionary:dict];
             self.money = [[self objectOrNilForKey:kTradeModelMoney fromDictionary:dict] doubleValue];
             self.weight = [[self objectOrNilForKey:kTradeModelWeight fromDictionary:dict] doubleValue];
@@ -88,7 +88,7 @@ NSString *const kTradeModelOrderId = @"orderId";
             self.productId = [[self objectOrNilForKey:kTradeModelProductId fromDictionary:dict] doubleValue];
             self.balance = [[self objectOrNilForKey:kTradeModelBalance fromDictionary:dict] doubleValue];
             self.buyPrice = [[self objectOrNilForKey:kTradeModelBuyPrice fromDictionary:dict] doubleValue];
-            self.couponFlag = [[self objectOrNilForKey:kTradeModelCouponFlag fromDictionary:dict] doubleValue];
+            self.isUseCoupon = [[self objectOrNilForKey:kTradeModelCouponFlag fromDictionary:dict] boolValue];
             self.addTime = [self objectOrNilForKey:kTradeModelAddTime fromDictionary:dict];
             self.proDesc = [self objectOrNilForKey:kTradeModelProDesc fromDictionary:dict];
             self.plAmount = [[self objectOrNilForKey:kTradeModelPlAmount fromDictionary:dict] doubleValue];
@@ -105,7 +105,7 @@ NSString *const kTradeModelOrderId = @"orderId";
 - (NSDictionary *)dictionaryRepresentation
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
-    [mutableDict setValue:[NSNumber numberWithDouble:self.buyDirection] forKey:kTradeModelBuyDirection];
+    [mutableDict setValue:@(self.isBuyDrop) forKey:kTradeModelBuyDirection];
     [mutableDict setValue:self.sellTime forKey:kTradeModelSellTime];
     [mutableDict setValue:[NSNumber numberWithDouble:self.money] forKey:kTradeModelMoney];
     [mutableDict setValue:[NSNumber numberWithDouble:self.weight] forKey:kTradeModelWeight];
@@ -119,7 +119,7 @@ NSString *const kTradeModelOrderId = @"orderId";
     [mutableDict setValue:[NSNumber numberWithDouble:self.productId] forKey:kTradeModelProductId];
     [mutableDict setValue:[NSNumber numberWithDouble:self.balance] forKey:kTradeModelBalance];
     [mutableDict setValue:[NSNumber numberWithDouble:self.buyPrice] forKey:kTradeModelBuyPrice];
-    [mutableDict setValue:[NSNumber numberWithDouble:self.couponFlag] forKey:kTradeModelCouponFlag];
+    [mutableDict setValue:@(self.isUseCoupon) forKey:kTradeModelCouponFlag];
     [mutableDict setValue:self.addTime forKey:kTradeModelAddTime];
     [mutableDict setValue:self.proDesc forKey:kTradeModelProDesc];
     [mutableDict setValue:[NSNumber numberWithDouble:self.plAmount] forKey:kTradeModelPlAmount];
@@ -148,8 +148,8 @@ NSString *const kTradeModelOrderId = @"orderId";
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super init];
-
-    self.buyDirection = [aDecoder decodeDoubleForKey:kTradeModelBuyDirection];
+    self.isUseCoupon = [aDecoder decodeBoolForKey:kTradeModelCouponFlag];
+    self.isBuyDrop = [aDecoder decodeBoolForKey:kTradeModelBuyDirection];
     self.sellTime = [aDecoder decodeObjectForKey:kTradeModelSellTime];
     self.money = [aDecoder decodeDoubleForKey:kTradeModelMoney];
     self.weight = [aDecoder decodeDoubleForKey:kTradeModelWeight];
@@ -163,7 +163,6 @@ NSString *const kTradeModelOrderId = @"orderId";
     self.productId = [aDecoder decodeDoubleForKey:kTradeModelProductId];
     self.balance = [aDecoder decodeDoubleForKey:kTradeModelBalance];
     self.buyPrice = [aDecoder decodeDoubleForKey:kTradeModelBuyPrice];
-    self.couponFlag = [aDecoder decodeDoubleForKey:kTradeModelCouponFlag];
     self.addTime = [aDecoder decodeObjectForKey:kTradeModelAddTime];
     self.proDesc = [aDecoder decodeObjectForKey:kTradeModelProDesc];
     self.plAmount = [aDecoder decodeDoubleForKey:kTradeModelPlAmount];
@@ -175,8 +174,8 @@ NSString *const kTradeModelOrderId = @"orderId";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-
-    [aCoder encodeDouble:_buyDirection forKey:kTradeModelBuyDirection];
+    [aCoder encodeBool:_isUseCoupon forKey:kTradeModelCouponFlag];
+    [aCoder encodeBool:_isBuyDrop forKey:kTradeModelBuyDirection];
     [aCoder encodeObject:_sellTime forKey:kTradeModelSellTime];
     [aCoder encodeDouble:_money forKey:kTradeModelMoney];
     [aCoder encodeDouble:_weight forKey:kTradeModelWeight];
@@ -190,7 +189,6 @@ NSString *const kTradeModelOrderId = @"orderId";
     [aCoder encodeDouble:_productId forKey:kTradeModelProductId];
     [aCoder encodeDouble:_balance forKey:kTradeModelBalance];
     [aCoder encodeDouble:_buyPrice forKey:kTradeModelBuyPrice];
-    [aCoder encodeDouble:_couponFlag forKey:kTradeModelCouponFlag];
     [aCoder encodeObject:_addTime forKey:kTradeModelAddTime];
     [aCoder encodeObject:_proDesc forKey:kTradeModelProDesc];
     [aCoder encodeDouble:_plAmount forKey:kTradeModelPlAmount];
@@ -205,7 +203,7 @@ NSString *const kTradeModelOrderId = @"orderId";
     
     if (copy) {
 
-        copy.buyDirection = self.buyDirection;
+        copy.isBuyDrop = self.isBuyDrop;
         copy.sellTime = [self.sellTime copyWithZone:zone];
         copy.money = self.money;
         copy.weight = self.weight;
@@ -219,7 +217,7 @@ NSString *const kTradeModelOrderId = @"orderId";
         copy.productId = self.productId;
         copy.balance = self.balance;
         copy.buyPrice = self.buyPrice;
-        copy.couponFlag = self.couponFlag;
+        copy.isUseCoupon = self.isUseCoupon;
         copy.addTime = [self.addTime copyWithZone:zone];
         copy.proDesc = [self.proDesc copyWithZone:zone];
         copy.plAmount = self.plAmount;

@@ -12,7 +12,6 @@
 #import "UIColor+Y_StockChart.h"
 
 #import "Y_StockChartConstant.h"
-#import <Masonry.h>
 
 
 @interface TimeLineModel : NSObject

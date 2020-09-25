@@ -12,8 +12,6 @@
 #import "ConsultHeaderTitileView.h"
 #import "ConsultCollectionCell.h"
 
-#import "TransactionHttpManager.h"
-
 #import "ConsultContentListVC.h"
 
 #import "FilePathManager.h"

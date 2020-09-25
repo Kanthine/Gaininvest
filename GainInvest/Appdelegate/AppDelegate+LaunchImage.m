@@ -10,17 +10,14 @@
 
 #import "FilePathManager.h"
 #import "LaunchProgressView.h"
-#import <Masonry.h>
 
 @implementation AppDelegate (LaunchImage)
 
 UIView *_launchView;
-//LaunchProgressView *_launchProgress;
 NSInteger _interval;
 NSTimer *_timer;
 
-- (void)launchApplication:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (void)launchApplication:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:@"isLaunch"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
@@ -30,24 +27,13 @@ NSTimer *_timer;
     [self.window addSubview:_launchView];
     
     UIImageView *defaultImageView = [_launchView viewWithTag:1];
-    [defaultImageView mas_updateConstraints:^(MASConstraintMaker *make)
-    {
-        make.left.mas_equalTo(@0);
-        make.right.mas_equalTo(@0);
-        make.bottom.mas_equalTo(@0);
-        make.height.mas_equalTo(@( CGRectGetHeight(_launchView.frame) * 0.126));
-    }];
-
+    defaultImageView.frame = CGRectMake(0, CGRectGetHeight(_launchView.frame) * (1 - 0.126), CGRectGetWidth(_launchView.bounds), CGRectGetHeight(_launchView.frame) * 0.126);
     
     UIImageView *imageView = [[UIImageView alloc]initWithImage:[self loadLaunchImage]];
     imageView.frame = CGRectMake(0, 0, CGRectGetWidth(_launchView.frame), CGRectGetHeight(_launchView.frame) * 0.874);
     [_launchView addSubview:imageView];
     
-        
-    
     _interval = 3;
-
-    
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.tag = 897;
@@ -109,18 +95,10 @@ NSTimer *_timer;
     [button setTitle:string forState:UIControlStateNormal];
 }
 
-- (UIImage *)loadLaunchImage
-{
+- (UIImage *)loadLaunchImage{
     NSString *imagePath = [FilePathManager getLanchImageDefaultPath];
-    
-//    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath] == NO)
-//    {
-//        imagePath = [NewTeachBundle pathForResource:@"launch" ofType:@"png"];
-//    }
     imagePath = [NewTeachBundle pathForResource:@"launch" ofType:@"png"];
-
     UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-    
     return image;
 }
 

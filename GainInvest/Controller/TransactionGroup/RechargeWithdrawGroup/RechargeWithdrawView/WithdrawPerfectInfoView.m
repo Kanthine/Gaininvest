@@ -551,6 +551,4 @@
     [_verCodeTf resignFirstResponder];
 }
 
-
-
 @end
