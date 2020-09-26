@@ -6,11 +6,12 @@
 //  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
-#define CellIdentifer @"ConsultCollectionCell"
+#define CellIdentifer @"ConsultTableCell"
+#define HeaderIdentifer @"UITableViewHeaderFooterView"
 
 #import "ConsultViewController.h"
 #import "ConsultHeaderTitileView.h"
-#import "ConsultCollectionCell.h"
+#import "ConsultCell.h"
 
 #import "ConsultContentListVC.h"
 
@@ -25,18 +26,19 @@
 #import "HomeRegisterTipView.h"
 
 @interface ConsultViewController ()
-<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate,ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
+<UITableViewDelegate,UITableViewDataSource,
+UICollectionViewDelegate,UICollectionViewDataSource,
+ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
 
 {
     NSIndexPath *_currentIndexPath;
 }
 
-@property (nonatomic ,strong) UIScrollView *scrollView;
+@property (nonatomic ,strong) UITableView *tableView;
 
 @property (nonatomic,strong) UIView *headerView;
 @property (nonatomic,strong) FlashView *flashView;
 @property (nonatomic ,strong) ConsultHeaderTitileView *headerTitleView;
-@property (nonatomic ,strong) UICollectionView *collectionView;
 
 @property (nonatomic ,strong) NSMutableArray<ConsultKindTitleModel *> *titleArray;
 @property (nonatomic,strong) UIView *registerTipView;
@@ -63,9 +65,10 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"首页";
-    [self.view addSubview:self.scrollView];
+    [self.view addSubview:self.tableView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -83,6 +86,13 @@
     if ([FirstLaunchPage isFirstLaunchHomePageRegisterTip]){
         [[[HomeRegisterTipView alloc]init] showInViewController:self];
     }
+}
+
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    self.tableView.frame = self.view.bounds;
+//    self.headerTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame), CGRectGetWidth(self.view.bounds), 44);
+//    self.collectionView.frame = CGRectMake(0, CGRectGetMaxY(self.headerTitleView.frame),CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44);
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -112,7 +122,6 @@
         [UserLocalData setCouponCount:count];
         buttonView.imageView.image = [UIImage imageNamed:@"Consult_CouponNews"];
     }
-
 }
 
 - (void)registerTipButtonClick{
@@ -155,7 +164,32 @@
 
 - (void)didUpdateTitleBarWithTitleArray:(NSMutableArray<ConsultKindTitleModel *> *)titleArray{
     self.titleArray = titleArray;
+    [self.tableView reloadData];
     [self.collectionView reloadData];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.headerTitleView.bounds);
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderIdentifer];
+    [headerView.contentView addSubview:self.headerTitleView];
+    return headerView;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ConsultTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer forIndexPath:indexPath];
+    cell.collectionView.dataSource = self;
+    cell.collectionView.delegate = self;
+    [cell.collectionView reloadData];
+    return cell;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -165,14 +199,14 @@
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    ConsultCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifer forIndexPath:indexPath];
+    ConsultCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(ConsultCollectionCell.class) forIndexPath:indexPath];
     
     cell.contentVC.delegate = self;
     [self addChildViewController:cell.contentVC];
     
     ConsultKindTitleModel *titleModel = self.titleArray[indexPath.row];
     [cell.contentVC updateTableListViewWith:titleModel];
-    
+    cell.contentVC.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44);
     _currentIndexPath = indexPath;
 
     return cell;
@@ -187,8 +221,8 @@
         if (scrollView.contentOffset.y >= CGRectGetMaxY(self.headerView.frame)){
             self.headerTitleView.frame = CGRectMake(0, scrollView.contentOffset.y, ScreenWidth, 44);
             scrollView.contentOffset = CGPointMake(0, CGRectGetMaxY(self.headerView.frame));
-            [self.scrollView bringSubviewToFront:self.headerTitleView];
-            
+//            [self.scrollView bringSubviewToFront:self.headerTitleView];
+
             ConsultCollectionCell *cell = (ConsultCollectionCell *)[self.collectionView cellForItemAtIndexPath:_currentIndexPath];
             cell.contentVC.tableView.scrollEnabled = YES;
 
@@ -218,23 +252,6 @@
     [_headerTitleView titleBarScrollToIndex:currentIndex];
 }
 
-#pragma mark -  ConsultContentListVCDelegate
-
-- (void)consultTableListViewDidScroll:(UITableView *)tableView{
-    UIPanGestureRecognizer *panGesture = tableView.panGestureRecognizer;
-    CGPoint panPoint = [panGesture translationInView:tableView];
-    
-    CGPoint point = _scrollView.contentOffset ;
-    if (panPoint.y >= 0){
-        NSLog(@"下滑");
-        point.y = point.y - tableView.contentOffset.y;
-    }else{
-        NSLog(@"上滑");
-        point.y = point.y + tableView.contentOffset.y;
-    }
-    _scrollView.contentOffset = point;
-}
-
 - (void)requestGetConsultKindData{
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -250,12 +267,21 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.headerTitleView.kindArray = array;
             [self.headerTitleView updateTitle:self.titleArray];
+            [self.tableView reloadData];
             [self.collectionView reloadData];
         });
     });
 }
 
 #pragma mark - setter and getters
+
+- (UICollectionView *)collectionView{
+    if ([self.tableView numberOfRowsInSection:0]) {
+        ConsultTableCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        return cell.collectionView;
+    }
+    return nil;
+}
 
 - (NSMutableArray<ConsultKindTitleModel *> *)titleArray{
     if (_titleArray == nil){
@@ -288,32 +314,13 @@
     return _registerTipView;
 }
 
-- (UIScrollView *)scrollView{
-    if (_scrollView == nil){
-        UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64 - 49)];
-        scrollView.tag = 1;
-        scrollView.backgroundColor = [UIColor whiteColor];
-        scrollView.delegate = self;
-        scrollView.showsVerticalScrollIndicator = NO;
-        scrollView.showsHorizontalScrollIndicator = NO;
-
-        [scrollView addSubview:self.headerView];
-        [scrollView addSubview:self.headerTitleView];
-        [scrollView addSubview:self.collectionView];
-        
-        scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetMaxY(self.collectionView.frame));
-        _scrollView = scrollView;
-    }
-    return _scrollView;
-}
-
 - (UIView *)headerView{
     if (_headerView == nil){
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 300)];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 300)];
         view.backgroundColor = [UIColor whiteColor];
         view.tag = 90;
         [view addSubview:self.flashView];
-
+        
         CGFloat width = ScreenWidth / 3.0;
         CGFloat height = ScreenWidth * 0.225;
         NSArray *imageArray = @[@"Consult_Gain",@"Consult_Coupon",@"Consult_Teach"];
@@ -330,8 +337,8 @@
         lineView1.backgroundColor = LineGrayColor;
         [view addSubview:lineView1];
         
-        view.frame = CGRectMake(0, 0, ScreenWidth, CGRectGetMaxY(self.flashView.frame) + height + 5);
-        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(view.frame) - 5, ScreenWidth, 5)];
+        view.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetMaxY(self.flashView.frame) + height + 5);
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(view.frame) - 5, CGRectGetWidth(UIScreen.mainScreen.bounds), 5)];
         lineView.backgroundColor = TableGrayColor;
         [view addSubview:lineView];
         
@@ -352,33 +359,31 @@
 
 - (ConsultHeaderTitileView *)headerTitleView{
     if (_headerTitleView == nil){
-        _headerTitleView = [[ConsultHeaderTitileView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.headerView.frame), ScreenWidth, 44)];
+        _headerTitleView = [[ConsultHeaderTitileView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 44)];
         _headerTitleView.delegate = self;
     }
     return _headerTitleView;
 }
 
-- (UICollectionView *)collectionView{
-    if (_collectionView == nil){
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.itemSize = CGSizeMake(ScreenWidth, ScreenHeight - 64 - 49 - 44);
-        layout.minimumLineSpacing = 0;
-        layout.minimumInteritemSpacing = 0;
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        layout.sectionInset = UIEdgeInsetsZero;
-
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.headerTitleView.frame),ScreenWidth, ScreenHeight - 64 - 49 - 44) collectionViewLayout:layout];
-        _collectionView.tag = 3;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.delegate = self;
-        _collectionView.dataSource = self;
-        _collectionView.pagingEnabled = YES;
-        _collectionView.backgroundColor = [UIColor whiteColor];
+- (UITableView *)tableView{
+    if (_tableView == nil){
+        _tableView = [[UITableView alloc]initWithFrame:UIScreen.mainScreen.bounds style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.rowHeight = 50;
+        _tableView.sectionHeaderHeight = CGRectGetHeight(self.headerTitleView.bounds);
+        _tableView.sectionFooterHeight = 0.01;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.showsHorizontalScrollIndicator = NO;
         
-        [_collectionView registerClass:[ConsultCollectionCell class] forCellWithReuseIdentifier:CellIdentifer];
+        [_tableView registerClass:ConsultTableCell.class forCellReuseIdentifier:CellIdentifer];
+        [_tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:HeaderIdentifer];
+        _tableView.tableHeaderView = self.headerView;
+        _tableView.tableFooterView = UIView.new;
     }
-    return _collectionView;
+    
+    return _tableView;
 }
+
 
 @end

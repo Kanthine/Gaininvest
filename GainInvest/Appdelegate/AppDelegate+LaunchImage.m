@@ -23,14 +23,11 @@ NSTimer *_timer;
     
     UIStoryboard *launchStoryBoard = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
     _launchView = launchStoryBoard.instantiateInitialViewController.view;
-    _launchView.frame = UIScreen.mainScreen.bounds;
+    _launchView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     [self.window addSubview:_launchView];
     
-    
-    ///375 ： 85
     UIImageView *defaultImageView = [_launchView viewWithTag:1];
-    CGFloat height = CGRectGetWidth(UIScreen.mainScreen.bounds) / 375.0 * 85.0;
-    
+    defaultImageView.frame = CGRectMake(0, CGRectGetHeight(_launchView.frame) * (1 - 0.126), CGRectGetWidth(_launchView.bounds), CGRectGetHeight(_launchView.frame) * 0.126);
     UIImageView *imageView = [[UIImageView alloc]initWithImage:[self loadLaunchImage]];
     imageView.frame = CGRectMake(0, 0, CGRectGetWidth(_launchView.frame), CGRectGetHeight(_launchView.frame) * 0.874);
     [_launchView addSubview:imageView];
@@ -75,25 +72,20 @@ NSTimer *_timer;
     }];
 }
 
--(void)removeLun
-{
+-(void)removeLun{
     _interval --;
-    
     UIButton *button = [_launchView viewWithTag:897];
-    
-
     NSString *string = @"";
-    if (_interval <= 0)
-    {
+    
+    NSLog(@"----- %@",[_launchView viewWithTag:1]);
+    
+    if (_interval <= 0){
         string = [NSString stringWithFormat:@"跳过 0S"];
 
         [self removeLaunchImageButtonClick];
-    }
-    else
-    {
+    }else{
         string = [NSString stringWithFormat:@"跳过 %ldS",_interval];
     }
-    
     [button setTitle:string forState:UIControlStateNormal];
 }
 

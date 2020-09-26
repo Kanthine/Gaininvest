@@ -66,6 +66,7 @@ static MainTabBarController *tabBarController = nil;
 
 - (UINavigationController *)navigationControllerWithRootVC:(UIViewController *)vc{
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:vc];
+    navigationController.navigationBar.translucent = NO;
     navigationController.navigationBar.tintColor = [UIColor whiteColor];
     navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     UIImage *blackImage = [MainTabBarController loadTabBarAndNavBarBackgroundImage];
