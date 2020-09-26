@@ -246,9 +246,11 @@
 
 /* 获取产品列表 */
 - (void)accessProductList{
-    NSArray *array = @[@{@"name":@"白银",@"weight":@"230",@"spec":@"规格",@"price":@"32",@"unit":@"￥"},
-                       @{@"name":@"黄金",@"weight":@"350",@"spec":@"规格",@"price":@"60",@"unit":@"￥"},
-                       @{@"name":@"钻石",@"weight":@"500",@"spec":@"规格",@"price":@"90",@"unit":@"$"}];
+    //price 从小到大排序
+//    @"%@%@元/千克"
+    NSArray *array = @[@{@"name":@"白银",@"weight":@"230",@"spec":@"斤",@"price":@"32.2",@"unit":@"￥",@"fee":@"1"},
+                       @{@"name":@"黄金",@"weight":@"350",@"spec":@"千克",@"price":@"60.4",@"unit":@"￥",@"fee":@"5"},
+                       @{@"name":@"钻石",@"weight":@"500",@"spec":@"克",@"price":@"90.8",@"unit":@"$",@"fee":@"10"}];
     [self.buyProductView updateBuyUpOrDownProductInfo:array];
 }
 

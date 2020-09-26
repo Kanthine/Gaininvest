@@ -21,7 +21,10 @@
 @interface MetalKindView : UIView
 @property (nonatomic ,strong) UILabel *nameLabel;
 @property (nonatomic ,strong) UILabel *countPriceLabel;
+@property (nonatomic ,strong) UILabel *bottomLable;
 @property (nonatomic ,strong) UIButton *button;
+@property (nonatomic ,assign) BOOL isSelected;
+- (void)updateInfo:(NSDictionary *)dict;
 @end
 
 @implementation MetalKindView
@@ -33,6 +36,7 @@
 - (instancetype)initWithFrame:(CGRect)frame name:(NSString *)name uPrice:(NSString *)uPrice{
     self = [super initWithFrame:frame];
     if (self){
+        _isSelected = NO;
         self.backgroundColor = RGBA(240, 242, 245, 1);
         self.layer.cornerRadius = 5;
         self.clipsToBounds = YES;
@@ -40,7 +44,7 @@
         self.layer.borderColor = RGBA(237, 238, 240, 1).CGColor;
         
         UILabel *topLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 10, CGRectGetWidth(frame), 16)];
-        topLable.text = [NSString stringWithFormat:@"%@%@元/千克",name,uPrice];
+        topLable.text = @"白银 300元/千克";
         topLable.textColor = TextColorGray;
         topLable.textAlignment = NSTextAlignmentCenter;
         topLable.font = [UIFont systemFontOfSize:14];
@@ -48,12 +52,13 @@
         _nameLabel = topLable;
         
         UILabel *bottomLable = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(frame) - 16 - 8,CGRectGetWidth(frame), 16)];
+        bottomLable.tag = 3;
         bottomLable.text = @"元/手";
         bottomLable.textColor = TextColorGray;
         bottomLable.textAlignment = NSTextAlignmentCenter;
         bottomLable.font = [UIFont systemFontOfSize:14];
         [self addSubview:bottomLable];
-        
+        _bottomLable = bottomLable;
         UILabel *middleLable = [[UILabel alloc]initWithFrame:CGRectMake(0, (CGRectGetHeight(frame) - 30) / 2.0, CGRectGetWidth(frame), 30)];
         middleLable.text = @"200";
         middleLable.textColor = TextColorGray;
@@ -70,6 +75,34 @@
     
     return self;
 }
+
+- (void)setIsSelected:(BOOL)isSelected{
+    _isSelected = isSelected;
+    
+    if (isSelected){
+        self.backgroundColor = RGBA(240, 242, 245, 1);
+        _nameLabel.textColor = [UIColor blackColor];
+        _countPriceLabel.textColor = [UIColor blackColor];
+        _bottomLable.textColor = [UIColor blackColor];
+    }else{
+        self.backgroundColor = [UIColor whiteColor];
+        _nameLabel.textColor = TextColorGray;
+        _countPriceLabel.textColor = TextColorGray;
+        _bottomLable.textColor = TextColorGray;
+    }
+}
+
+- (void)updateInfo:(NSDictionary *)dict{
+    NSString *name = dict[@"name"];
+    NSString *weight = dict[@"weight"];
+    NSString *spec = dict[@"spec"];
+    NSString *price = dict[@"price"];
+    NSString *unit = dict[@"unit"];
+    
+    _nameLabel.text = [NSString stringWithFormat:@"%@ %@%@/%@",name,weight,unit,spec];
+    _countPriceLabel.text = [NSString stringWithFormat:@"%@",price];
+}
+
 @end
 
 
@@ -154,7 +187,7 @@
 
 {
     BOOL _isUseCoupon;
-    NSInteger _currentProductIndex;
+    
     NSArray *_productListArray;
 }
 
@@ -251,79 +284,13 @@
 
 
 - (void)updateBuyUpOrDownProductInfo:(NSArray<NSDictionary *> *)array{
-    array = array.firstObject;
-    if ( ! (array && [array isKindOfClass:[NSArray class]] && array.count >= 2 ) ){
-        return;
-    }
-    
-    //从小到大排序
-    array = [array sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2){
-        if ([obj1[@"price"] floatValue] >= [obj2[@"price"] floatValue]){
-            return NSOrderedDescending;
-        }else{
-            return NSOrderedAscending;
-        }
-    }];
-    
-    
-    
     _productListArray = array;
     
-    {
-        UILabel *topLable = [self.kindLeftView viewWithTag:1];
-        UILabel *middleLable = [self.kindLeftView viewWithTag:2];
-        UILabel *bottomLable = [self.kindLeftView viewWithTag:3];
-        
-        NSDictionary *dict = array.firstObject;
-        NSString *name = dict[@"name"];
-        NSString *weight = dict[@"weight"];
-        NSString *spec = dict[@"spec"];
-        NSString *price = dict[@"price"];
-        NSString *unit = dict[@"unit"];
-
-        topLable.text = [NSString stringWithFormat:@"%@ %@%@",name,weight,spec];
-        middleLable.text = [NSString stringWithFormat:@"%@",price];
-        bottomLable.text = [NSString stringWithFormat:@"%@",unit];
-    }
-    
-    {
-        NSDictionary *dict = array[1];
-        UILabel *topLable = [self.kindMiddleView viewWithTag:1];
-        UILabel *middleLable = [self.kindMiddleView viewWithTag:2];
-        UILabel *bottomLable = [self.kindMiddleView viewWithTag:3];
-        
-        
-        NSString *name = dict[@"name"];
-        NSString *weight = dict[@"weight"];
-        NSString *spec = dict[@"spec"];
-        NSString *price = dict[@"price"];
-        NSString *unit = dict[@"unit"];
-        
-        topLable.text = [NSString stringWithFormat:@"%@ %@%@",name,weight,spec];
-        middleLable.text = [NSString stringWithFormat:@"%@",price];
-        bottomLable.text = [NSString stringWithFormat:@"%@",unit];
-    }
-
-    {
-        NSDictionary *dict = array[2];
-        UILabel *topLable = [self.kindRightView viewWithTag:1];
-        UILabel *middleLable = [self.kindRightView viewWithTag:2];
-        UILabel *bottomLable = [self.kindRightView viewWithTag:3];
-        
-        NSString *name = dict[@"name"];
-        NSString *weight = dict[@"weight"];
-        NSString *spec = dict[@"spec"];
-        NSString *price = dict[@"price"];
-        NSString *unit = dict[@"unit"];
-      
-        topLable.text = [NSString stringWithFormat:@"%@ %@%@",name,weight,spec];
-        middleLable.text = [NSString stringWithFormat:@"%@",price];
-        bottomLable.text = [NSString stringWithFormat:@"%@",unit];
-    }
-
+    [self.kindLeftView updateInfo:array.firstObject];
+    [self.kindMiddleView updateInfo:array[1]];
+    [self.kindRightView updateInfo:array[2]];
     //更新底部信息
     [self updateBottomViewInfo];
-
 }
 
 // 出现
@@ -371,39 +338,6 @@
 
 
 #pragma mark - UpDate UI Stste
-
-- (void)setKindViewSelectState:(BOOL)isSelected SuperView:(UIView *)superView Index:(NSInteger)index
-{
-    if (isSelected)
-    {
-        _currentProductIndex = index;
-        
-
-        [self updateBottomViewInfo];
-    }
-    
-    
-    
-    UILabel *topLable = [superView viewWithTag:1];
-    UILabel *middleLable = [superView viewWithTag:2];
-    UILabel *bottomLable = [superView viewWithTag:3];
-    
-    
-    if (isSelected)
-    {
-        superView.backgroundColor = RGBA(240, 242, 245, 1);
-        topLable.textColor = [UIColor blackColor];
-        middleLable.textColor = [UIColor blackColor];
-        bottomLable.textColor = [UIColor blackColor];
-    }
-    else
-    {
-        superView.backgroundColor = [UIColor whiteColor];
-        topLable.textColor = TextColorGray;
-        middleLable.textColor = TextColorGray;
-        bottomLable.textColor = TextColorGray;
-    }
-}
 
 - (void)setBuyUPButtonSelectStateButton:(UIButton *)sender
 {
@@ -473,39 +407,25 @@
     [self.currentViewController.navigationController pushViewController:rechargeVC animated:YES];
 }
 
-//
 - (void)kindViewButtonClick:(UIButton *)sender{
-    NSInteger index = sender.tag - 100;
-        
-    [self setKindViewSelectState:YES SuperView:sender.superview Index:index - 1];
-    
-    if ([sender.superview isEqual:self.kindLeftView]) {
-        [self setKindViewSelectState:NO SuperView:self.kindMiddleView Index:1];
-        [self setKindViewSelectState:NO SuperView:self.kindRightView Index:2];
-    }else if ([sender.superview isEqual:self.kindMiddleView]) {
-        [self setKindViewSelectState:NO SuperView:self.kindLeftView Index:0];
-        [self setKindViewSelectState:NO SuperView:self.kindRightView Index:2];
-    }else if ([sender.superview isEqual:self.kindRightView]) {
-        [self setKindViewSelectState:NO SuperView:self.kindLeftView Index:0];
-        [self setKindViewSelectState:NO SuperView:self.kindMiddleView Index:1];
-    }
+    self.kindLeftView.isSelected = NO;
+    self.kindMiddleView.isSelected = NO;
+    self.kindRightView.isSelected = NO;
+    ((MetalKindView *)sender.superview).isSelected = YES;
+    [self updateBottomViewInfo];
 }
 
-- (void)chooseBuyUpOrDownButtonClick:(UIButton *)sender
-{
+- (void)chooseBuyUpOrDownButtonClick:(UIButton *)sender{
     NSInteger index = sender.tag;
     sender.selected = YES;
     [self setBuyUPButtonSelectStateButton:sender];
     
-    if (index == 20)
-    {
+    if (index == 20){
         //买涨
         UIButton *button = [_contentView viewWithTag:30];
         button.selected = NO;
         [self setBuyUPButtonSelectStateButton:button];
-    }
-    else if (index == 30)
-    {
+    }else if (index == 30){
         //买跌
 
         UIButton *button = [_contentView viewWithTag:20];
@@ -528,7 +448,7 @@
         self.slideCountView.currentValueLabel.text = [NSString stringWithFormat:@"买%d手",value];
         {
             if (_isUseCoupon == NO){
-                NSDictionary *dict =  _productListArray[_currentProductIndex];
+                NSDictionary *dict =  _productListArray[self.currentProductIndex];
                 NSString *feeString = dict[@"fee"];
                 float price = [dict[@"price"] floatValue];
                 
@@ -615,7 +535,7 @@
 
     
     AccountInfo *account = [AccountInfo standardAccountInfo];
-    NSDictionary *productInfoDict = _productListArray[_currentProductIndex];
+    NSDictionary *productInfoDict = _productListArray[self.currentProductIndex];
     
     
     NSLog(@"productInfoDict ===== %@",productInfoDict);
@@ -668,10 +588,9 @@
         int value = ceil(slide.value);//多少手
         
         if (_isUseCoupon == NO){
-            NSDictionary *dict =  _productListArray[_currentProductIndex];
+            NSDictionary *dict =  _productListArray[self.currentProductIndex];
             NSString *feeString = dict[@"fee"];
             float price = [dict[@"price"] floatValue];
-                        
             unitLable.text = @"元";
             price = price * value;
             price = price + [feeString floatValue];
@@ -679,7 +598,7 @@
                 price = 0;
             }
             
-            [self setTotalPrice:[NSString stringWithFormat:@"%.1f",price] fee:feeString];
+            [self setTotalPrice:[NSString stringWithFormat:@"%.1f",price] fee:feeString ?: @""];
         }else{
             [self setTotalPrice:[NSString stringWithFormat:@"%d",value] fee:@"0"];
             
@@ -703,6 +622,16 @@
     return CGSizeMake((CGRectGetWidth(UIScreen.mainScreen.bounds) - 40) / 3.0, (CGRectGetWidth(UIScreen.mainScreen.bounds) - 50) / 3.0);
 }
 
+- (NSInteger)currentProductIndex{
+    if (self.kindLeftView.isSelected) {
+        return 0;
+    }else if (self.kindMiddleView.isSelected) {
+        return 1;
+    }else {
+        return 2;
+    }
+}
+
 - (UIButton *)coverButton{
     if (_coverButton == nil){
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -720,7 +649,7 @@
     if (_kindLeftView == nil){
         _kindLeftView = [[MetalKindView alloc]initWithFrame:CGRectMake(0, 0, self.kindViewSize.width, self.kindViewSize.height) name:@"白银" uPrice:@"23.5"];
         [_kindLeftView.button addTarget:self action:@selector(kindViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self setKindViewSelectState:YES SuperView:_kindLeftView Index:0];
+        _kindLeftView.isSelected = YES;
     }
     return _kindLeftView;
 }
@@ -729,7 +658,6 @@
     if (_kindMiddleView == nil){
         _kindMiddleView = [[MetalKindView alloc]initWithFrame:CGRectMake(0, 0, self.kindViewSize.width, self.kindViewSize.height) name:@"黄金" uPrice:@"55.7"];
         [_kindMiddleView.button addTarget:self action:@selector(kindViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self setKindViewSelectState:NO SuperView:_kindMiddleView Index:1];
     }
     return _kindMiddleView;
 }
@@ -738,7 +666,6 @@
     if (_kindRightView == nil){
         _kindRightView = [[MetalKindView alloc]initWithFrame:CGRectMake(0, 0, self.kindViewSize.width, self.kindViewSize.height) name:@"钻石" uPrice:@"93.7"];
         [_kindRightView.button addTarget:self action:@selector(kindViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self setKindViewSelectState:NO SuperView:_kindRightView Index:2];
     }
     return _kindRightView;
 }
