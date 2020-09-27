@@ -160,3 +160,15 @@ CGFloat getPageSafeAreaHeight(BOOL isShowNavBar){
         return screenHeight - 64.0f;
     }
 }
+
+///时间戳转日期
+NSString *getTimeWithTimestamp(NSString *timestamp){
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp.floatValue];
+    NSDateFormatter *formatter =[[NSDateFormatter alloc] init] ;
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"YYYY.MM.dd HH:mm"];
+    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    [formatter setTimeZone:timeZone];
+    return [formatter stringFromDate:date];
+}

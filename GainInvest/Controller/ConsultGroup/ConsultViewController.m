@@ -13,33 +13,29 @@
 #import "ConsultHeaderTitileView.h"
 #import "ConsultCell.h"
 
-#import "ConsultContentListVC.h"
-
 #import "FilePathManager.h"
-#import "FlashView.h"
 #import "ConsultHeaderButtonView.h"
 
 #import "ProfitRollViewController.h"
 #import "LoadImageViewController.h"
 #import "GetVoucherViewController.h"
+#import "ConsultDetaileViewController.h"
 
 #import "HomeRegisterTipView.h"
 
 @interface ConsultViewController ()
-<UITableViewDelegate,UITableViewDataSource,
-UICollectionViewDelegate,UICollectionViewDataSource,
-ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
+<UICollectionViewDelegate,UICollectionViewDataSource,
+ConsultHeaderTitileViewDelegate,ConsultContentListDelegate>
 
 {
     NSIndexPath *_currentIndexPath;
 }
 
-@property (nonatomic ,strong) UITableView *tableView;
+@property (nonatomic ,strong) ConsultTableHeaderView *headerView;
 
-@property (nonatomic,strong) UIView *headerView;
-@property (nonatomic,strong) FlashView *flashView;
+@property (nonatomic ,strong) ConsultScrollView *scrollView;
+@property (nonatomic ,strong) UICollectionView *collectionView;
 @property (nonatomic ,strong) ConsultHeaderTitileView *headerTitleView;
-
 @property (nonatomic ,strong) NSMutableArray<ConsultKindTitleModel *> *titleArray;
 @property (nonatomic,strong) UIView *registerTipView;
 
@@ -50,7 +46,7 @@ ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
 #pragma mark - life cycle
 
 - (void)dealloc{
-    _flashView = nil;
+
 }
 
 - (instancetype)init{
@@ -68,7 +64,7 @@ ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"首页";
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.scrollView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -82,7 +78,7 @@ ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
         _registerTipView = nil;
     }
     [self requestGetCouponCount];
-    [self.flashView startScrollImage];
+    [self.headerView.flashView startScrollImage];
     if ([FirstLaunchPage isFirstLaunchHomePageRegisterTip]){
         [[[HomeRegisterTipView alloc]init] showInViewController:self];
     }
@@ -90,14 +86,17 @@ ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.tableView.frame = self.view.bounds;
-//    self.headerTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerView.frame), CGRectGetWidth(self.view.bounds), 44);
-//    self.collectionView.frame = CGRectMake(0, CGRectGetMaxY(self.headerTitleView.frame),CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44);
+    self.collectionView.frame = CGRectMake(0, CGRectGetMaxY(self.headerTitleView.frame),CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44);
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    layout.itemSize = self.collectionView.bounds.size;
+    
+    self.scrollView.frame = self.view.bounds;
+    self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetMaxY(self.collectionView.frame));
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.flashView stopScrollImage];
+    [self.headerView.flashView stopScrollImage];
 }
 
 #pragma mark - private method
@@ -164,32 +163,66 @@ ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
 
 - (void)didUpdateTitleBarWithTitleArray:(NSMutableArray<ConsultKindTitleModel *> *)titleArray{
     self.titleArray = titleArray;
-    [self.tableView reloadData];
     [self.collectionView reloadData];
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark - ConsultContentListDelegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+- (void)consultTableListViewDidScroll:(UITableView *)tableView{
+    CGFloat topHeight = CGRectGetMaxY(self.headerView.frame);
+    NSLog(@"contentOffset : %f ==== topHeight : %f",self.scrollView.contentOffset.y,topHeight);
+    if (self.scrollView.contentOffset.y < topHeight - 1){
+        //backTableView的header还没有消失，让listScrollView一直为0
+        tableView.contentOffset = CGPointZero;
+        tableView.showsVerticalScrollIndicator = NO;
+        self.scrollView.showsVerticalScrollIndicator = YES;
+    }else{
+        //backTableView的header刚好消失，固定backTableView的位置，显示listScrollView的滚动条
+        self.scrollView.contentOffset = CGPointMake(0, topHeight);
+        tableView.showsVerticalScrollIndicator = YES;
+        self.scrollView.showsVerticalScrollIndicator = NO;
+    }
+
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.headerTitleView.bounds);
+- (void)consultTableDidSelectModel:(ConsultListModel *)consultModel{
+    ConsultDetaileViewController *detaileVC = [[ConsultDetaileViewController alloc]initWithURL:consultModel.webURL];
+    detaileVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:detaileVC animated:YES];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderIdentifer];
-    [headerView.contentView addSubview:self.headerTitleView];
-    return headerView;
-}
+#pragma mark - UIScrollViewDelegate
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    ConsultTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer forIndexPath:indexPath];
-    cell.collectionView.dataSource = self;
-    cell.collectionView.delegate = self;
-    [cell.collectionView reloadData];
-    return cell;
+ - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+     if ([scrollView isEqual:self.scrollView]){
+         CGFloat topHeight = CGRectGetMaxY(self.headerView.frame);
+         NSLog(@"contentOffset : %f ---- topHeight : %f",self.scrollView.contentOffset.y,topHeight);
+
+         ConsultCollectionCell *cell = (ConsultCollectionCell *)[self.collectionView cellForItemAtIndexPath:_currentIndexPath];
+         if (cell.contentListView.tableView.contentOffset.y > 0){
+             //backTableView的header已经滚动不见，开始滚动infoView，那么固定backTableView的contentOffset，让其不动
+             self.scrollView.contentOffset = CGPointMake(0, topHeight);
+         }
+         if (self.scrollView.contentOffset.y < topHeight - 1){
+             //backTableView已经显示了header，listView的contentOffset需要重置
+             cell.contentListView.tableView.contentOffset = CGPointZero;
+         }
+    }else if ([scrollView isEqual:self.collectionView]){
+        //滚动 CollectionView 带动标题栏滑动
+        CGFloat value = scrollView.contentOffset.x / ScreenWidth;
+        if (value < 0){
+            // 防止在最左侧的时候，再滑，下划线位置会偏移，颜色渐变会混乱。
+            return;
+        }
+        
+        NSUInteger currentIndex = (int)value;
+        NSUInteger rightIndex = currentIndex + 1;
+        if (rightIndex >= self.titleArray.count){
+            // 防止滑到最右，再滑，数组越界，从而崩溃
+            rightIndex = self.titleArray.count - 1;
+        }
+        [_headerTitleView titleBarScrollToIndex:currentIndex];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -201,55 +234,13 @@ ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ConsultCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(ConsultCollectionCell.class) forIndexPath:indexPath];
     
-    cell.contentVC.delegate = self;
-    [self addChildViewController:cell.contentVC];
+    cell.contentListView.delegate = self;
     
     ConsultKindTitleModel *titleModel = self.titleArray[indexPath.row];
-    [cell.contentVC updateTableListViewWith:titleModel];
-    cell.contentVC.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44);
+    [cell.contentListView updateTableListViewWith:titleModel];
     _currentIndexPath = indexPath;
 
     return cell;
-}
-
-#pragma mark - UIScrollViewDelegate
-
-/** 滚动结束 标题栏改变
-*/
- - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView.tag == 1){
-        if (scrollView.contentOffset.y >= CGRectGetMaxY(self.headerView.frame)){
-            self.headerTitleView.frame = CGRectMake(0, scrollView.contentOffset.y, ScreenWidth, 44);
-            scrollView.contentOffset = CGPointMake(0, CGRectGetMaxY(self.headerView.frame));
-//            [self.scrollView bringSubviewToFront:self.headerTitleView];
-
-            ConsultCollectionCell *cell = (ConsultCollectionCell *)[self.collectionView cellForItemAtIndexPath:_currentIndexPath];
-            cell.contentVC.tableView.scrollEnabled = YES;
-
-        }else{
-            self.headerTitleView.frame = CGRectMake(0,CGRectGetMaxY(self.headerView.frame), ScreenWidth, 44);
-        }
-    }else if (scrollView.tag == 3){
-        //滚动CollectionView 带动标题栏滑动
-        [self scrollCollectionViewDidScroll:scrollView];
-    }
-}
-
-- (void)scrollCollectionViewDidScroll:(UIScrollView *)scrollView{
-    CGFloat value = scrollView.contentOffset.x / ScreenWidth;
-    if (value < 0){
-        // 防止在最左侧的时候，再滑，下划线位置会偏移，颜色渐变会混乱。
-        return;
-    }
-    
-    NSUInteger currentIndex = (int)value;
-    NSUInteger rightIndex = currentIndex + 1;
-    if (rightIndex >= self.titleArray.count){
-        // 防止滑到最右，再滑，数组越界，从而崩溃
-        rightIndex = self.titleArray.count - 1;
-    }
-    
-    [_headerTitleView titleBarScrollToIndex:currentIndex];
 }
 
 - (void)requestGetConsultKindData{
@@ -267,7 +258,6 @@ ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
         dispatch_async(dispatch_get_main_queue(), ^{
             self.headerTitleView.kindArray = array;
             [self.headerTitleView updateTitle:self.titleArray];
-            [self.tableView reloadData];
             [self.collectionView reloadData];
         });
     });
@@ -275,30 +265,15 @@ ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
 
 #pragma mark - setter and getters
 
-- (UICollectionView *)collectionView{
-    if ([self.tableView numberOfRowsInSection:0]) {
-        ConsultTableCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        return cell.collectionView;
-    }
-    return nil;
-}
-
-- (NSMutableArray<ConsultKindTitleModel *> *)titleArray{
-    if (_titleArray == nil){
-        _titleArray = [NSMutableArray array];
-    }
-    return _titleArray;
-}
-
 - (UIView *)registerTipView{
     if (_registerTipView == nil){
-        CGFloat height = ScreenWidth / 1440.0 * 280.0 ;
+        CGFloat height = CGRectGetWidth(UIScreen.mainScreen.bounds) / 1440.0 * 280.0 ;
         
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, ScreenHeight  - 64 - 49 - height, ScreenWidth,height )];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(UIScreen.mainScreen.bounds)  - 64 - 49 - height, CGRectGetWidth(UIScreen.mainScreen.bounds),height)];
         view.backgroundColor = [UIColor clearColor];
         
         NSString *imagePath = [NewTeachBundle pathForResource:@"RegisterTip" ofType:@"png"];
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, height)];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), height)];
         imageView.backgroundColor = [UIColor clearColor];
         imageView.image = [UIImage imageWithContentsOfFile:imagePath];
         [view addSubview:imageView];
@@ -314,76 +289,58 @@ ConsultHeaderTitileViewDelegate,ConsultContentListVCDelegate>
     return _registerTipView;
 }
 
-- (UIView *)headerView{
+- (ConsultTableHeaderView *)headerView{
     if (_headerView == nil){
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 300)];
-        view.backgroundColor = [UIColor whiteColor];
-        view.tag = 90;
-        [view addSubview:self.flashView];
-        
-        CGFloat width = ScreenWidth / 3.0;
-        CGFloat height = ScreenWidth * 0.225;
-        NSArray *imageArray = @[@"Consult_Gain",@"Consult_Coupon",@"Consult_Teach"];
-        NSArray *titleArray = @[@"盈利榜",@"代金券",@"新手指引"];
-        [imageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
-             ConsultHeaderButtonView *buttonView = [[ConsultHeaderButtonView alloc]initWithFrame:CGRectMake(width * idx, CGRectGetHeight(self.flashView.frame), width,  height) Title:titleArray[idx] Image:obj];
-             buttonView.tag = 10 + idx;
-             buttonView.button.tag = idx + 10;
-             [buttonView.button addTarget:self action:@selector(headerViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-             [view addSubview:buttonView];
-        }];
-        
-        UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.flashView.frame) + height - 1, ScreenWidth, 1)];
-        lineView1.backgroundColor = LineGrayColor;
-        [view addSubview:lineView1];
-        
-        view.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetMaxY(self.flashView.frame) + height + 5);
-        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(view.frame) - 5, CGRectGetWidth(UIScreen.mainScreen.bounds), 5)];
-        lineView.backgroundColor = TableGrayColor;
-        [view addSubview:lineView];
-        
-        _headerView = view;
+        _headerView = [[ConsultTableHeaderView alloc] init];
+        _headerView.flashView.viewController = self;
+        __weak typeof(self) weakSelf = self;
+        _headerView.buttonHandler = ^(UIButton * _Nonnull sender) {
+            [weakSelf headerViewButtonClick:sender];
+        };
     }
     return _headerView;
 }
 
-- (FlashView *)flashView{
-    if (_flashView == nil){
-        // 72 ：28
-        _flashView = [[FlashView alloc]initWithFrame:CGRectMake(0,0, ScreenWidth, 28 / 72.0 * ScreenWidth)];
-        _flashView.viewController = self;
-        [_flashView updateFalshImageWithImage:@[[NewTeachBundle pathForResource:@"HomeBanner1" ofType:@"png"],[NewTeachBundle pathForResource:@"HomeBanner2" ofType:@"png"]]];
-    }
-    return _flashView;
-}
-
 - (ConsultHeaderTitileView *)headerTitleView{
     if (_headerTitleView == nil){
-        _headerTitleView = [[ConsultHeaderTitileView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 44)];
+        _headerTitleView = [[ConsultHeaderTitileView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.headerView.frame), CGRectGetWidth(UIScreen.mainScreen.bounds), 44)];
         _headerTitleView.delegate = self;
     }
     return _headerTitleView;
 }
 
-- (UITableView *)tableView{
-    if (_tableView == nil){
-        _tableView = [[UITableView alloc]initWithFrame:UIScreen.mainScreen.bounds style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.rowHeight = 50;
-        _tableView.sectionHeaderHeight = CGRectGetHeight(self.headerTitleView.bounds);
-        _tableView.sectionFooterHeight = 0.01;
-        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.showsHorizontalScrollIndicator = NO;
-        
-        [_tableView registerClass:ConsultTableCell.class forCellReuseIdentifier:CellIdentifer];
-        [_tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:HeaderIdentifer];
-        _tableView.tableHeaderView = self.headerView;
-        _tableView.tableFooterView = UIView.new;
+- (UICollectionView *)collectionView{
+    if (_collectionView == nil){
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.itemSize = UIScreen.mainScreen.bounds.size;
+        layout.minimumLineSpacing = 0;
+        layout.minimumInteritemSpacing = 0;
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.sectionInset = UIEdgeInsetsZero;
+
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        _collectionView.pagingEnabled = YES;
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        [_collectionView registerClass:[ConsultCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass(ConsultCollectionCell.class)];
     }
-    
-    return _tableView;
+    return _collectionView;
 }
 
+- (ConsultScrollView *)scrollView{
+    if (_scrollView == nil) {
+        ConsultScrollView *scrollView = [[ConsultScrollView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+        scrollView.delegate = self;
+        scrollView.bounces = NO;
+        [scrollView addSubview:self.headerView];
+        [scrollView addSubview:self.headerTitleView];
+        [scrollView addSubview:self.collectionView];
+        _scrollView = scrollView;
+    }
+    return _scrollView;
+}
 
 @end

@@ -7,9 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MessageModel.h"
 @interface MessageListViewController : UIViewController
-
-- (void)insertNewMessage:(MessageModel *)model;
 
 @end

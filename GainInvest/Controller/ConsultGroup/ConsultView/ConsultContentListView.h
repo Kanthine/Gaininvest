@@ -1,5 +1,5 @@
 //
-//  ConsultContentListVC.h
+//  ConsultContentListView.h
 //  GainInvest
 //
 //  Created by 苏沫离 on 17/2/13.
@@ -8,20 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ConsultContentListVCDelegate <NSObject>
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol ConsultContentListDelegate <NSObject>
 
 @required
 
 - (void)consultTableListViewDidScroll:(UITableView *)tableView;
 
+- (void)consultTableDidSelectModel:(ConsultListModel *)consultModel;
+
 @end
 
-@interface ConsultContentListVC : UIViewController
+@interface ConsultContentListView : UIView
 
-@property (nonatomic ,weak) id <ConsultContentListVCDelegate> delegate;
+@property (nonatomic ,weak) id <ConsultContentListDelegate> delegate;
 
 @property (nonatomic ,strong) UITableView *tableView;
 
 - (void)updateTableListViewWith:(ConsultKindTitleModel *)kindModel;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -39,3 +39,4 @@
 - (NSDictionary *)dictionaryRepresentation;
 
 @end
+

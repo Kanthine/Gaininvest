@@ -369,4 +369,21 @@
     return resultArray;
 }
 
++ (NSMutableArray<MessageModel *> *)messageModelList{
+    NSMutableArray<MessageModel *> *resultArray = [NSMutableArray array];
+    for (int i = 0; i < arc4random() % 20; i ++) {
+        MessageModel *model = [[MessageModel alloc] init];
+        model.messageId = arc4random() % 50 + i;
+        model.isRead = arc4random() % 2;
+//        model.sendDate = DemoData.timeStamps[arc4random() % k_DemoData_timeStamps_count];
+        model.sendTime = getTimeWithTimestamp(DemoData.timeStamps[arc4random() % k_DemoData_timeStamps_count]);
+        model.title = @"title";
+        model.subtitle = @"subtitle";
+        model.body = @"body";
+        model.category = @"category";
+        [resultArray addObject:model];
+    }
+    return resultArray;
+}
+
 @end

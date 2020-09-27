@@ -48,7 +48,7 @@
             
             self.category = [self objectOrNilForKey:@"category" fromDictionary:apsDict];
             self.sendDate = [NSDate date];
-            self.sendTime = [self getTimeWithDate:self.sendDate];
+//            self.sendTime = [self getTimeWithDate:self.sendDate];
             self.isRead = NO;            
         }
       
@@ -82,28 +82,5 @@
  }
  
  */
-
-#pragma mark - Helper Method
-
-- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict
-{
-    id object = [dict objectForKey:aKey];
-    return [object isEqual:[NSNull null]] ? nil : object;
-}
-
-- (NSString*)getTimeWithDate:(NSDate *)date
-{
-    NSDateFormatter *formatter =[[NSDateFormatter alloc] init] ;
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@"YYYY.MM.dd HH:mm"];
-    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
-    [formatter setTimeZone:timeZone];
-    
-    
-    return [formatter stringFromDate:date];
-
-}
-
 
 @end

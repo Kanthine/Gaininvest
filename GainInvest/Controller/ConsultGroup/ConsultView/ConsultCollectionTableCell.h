@@ -10,6 +10,8 @@
 
 @interface ConsultCollectionTableCell : UITableViewCell
 
++ (CGFloat)cellHeight;
+
 - (void)updateCellWithModel:(ConsultListModel *)model;
 
 @end

@@ -16,3 +16,9 @@ FOUNDATION_EXPORT BOOL isSmallScreen(void);//是否是4寸屏
 FOUNDATION_EXPORT CGFloat getNavigationBarHeight(void);
 FOUNDATION_EXPORT CGFloat getTabBarHeight(void);
 FOUNDATION_EXPORT CGFloat getPageSafeAreaHeight(BOOL isShowNavBar);
+
+
+
+
+///时间戳转日期
+NSString *getTimeWithTimestamp(NSString *timestamp);

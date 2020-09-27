@@ -10,6 +10,7 @@
 		1A5B801D251DCCE8008D1595 /* YLGlobalTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B801C251DCCE8008D1595 /* YLGlobalTools.m */; };
 		1A5B8034251DE257008D1595 /* JdInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B8033251DE257008D1595 /* JdInfoModel.m */; };
 		1A8C6F4E251ADC530003FB39 /* YLPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C6F4D251ADC530003FB39 /* YLPasswordInputView.m */; };
+		1A9DB16525202D3F003E8EA0 /* ConsultContentListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DB16425202D3F003E8EA0 /* ConsultContentListView.m */; };
 		1AE45F3025199B9200E32236 /* DemoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE45F2F25199B9200E32236 /* DemoData.m */; };
 		1AE45F562519AA7C00E32236 /* ConsultKindTitles.json in Resources */ = {isa = PBXBuildFile; fileRef = 1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */; };
 		220052B91E52B119001EB8E0 /* ConsultKindTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 220052B81E52B119001EB8E0 /* ConsultKindTitleModel.m */; };
@@ -153,7 +154,6 @@
 		22AEF9171E712F0E0076813C /* PositionsHistoryTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF9161E712F0E0076813C /* PositionsHistoryTableHeaderView.m */; };
 		22AEF9191E712F1C0076813C /* PositionsHistoryTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22AEF9181E712F1C0076813C /* PositionsHistoryTableHeaderView.xib */; };
 		22B083D41E51B92B00843DBD /* ConsultListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B083D31E51B92B00843DBD /* ConsultListModel.m */; };
-		22B083D71E51BCB500843DBD /* ConsultContentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B083D61E51BCB500843DBD /* ConsultContentListVC.m */; };
 		22B7B3281E5E8AD700FF5EB6 /* SetTransactionPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7B3271E5E8AD700FF5EB6 /* SetTransactionPasswordVC.m */; };
 		22B7B32B1E5E951300FF5EB6 /* ProfitRollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7B32A1E5E951300FF5EB6 /* ProfitRollViewController.m */; };
 		22B7B32E1E5E98B100FF5EB6 /* ProfitRollTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7B32D1E5E98B100FF5EB6 /* ProfitRollTableHeaderView.m */; };
@@ -225,6 +225,8 @@
 		1A5B8033251DE257008D1595 /* JdInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JdInfoModel.m; sourceTree = "<group>"; };
 		1A8C6F4C251ADC530003FB39 /* YLPasswordInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLPasswordInputView.h; sourceTree = "<group>"; };
 		1A8C6F4D251ADC530003FB39 /* YLPasswordInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLPasswordInputView.m; sourceTree = "<group>"; };
+		1A9DB16325202D3F003E8EA0 /* ConsultContentListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsultContentListView.h; sourceTree = "<group>"; };
+		1A9DB16425202D3F003E8EA0 /* ConsultContentListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConsultContentListView.m; sourceTree = "<group>"; };
 		1AE45F2E25199B9200E32236 /* DemoData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoData.h; sourceTree = "<group>"; };
 		1AE45F2F25199B9200E32236 /* DemoData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoData.m; sourceTree = "<group>"; };
 		1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ConsultKindTitles.json; sourceTree = "<group>"; };
@@ -476,8 +478,6 @@
 		22AEF9181E712F1C0076813C /* PositionsHistoryTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PositionsHistoryTableHeaderView.xib; sourceTree = "<group>"; };
 		22B083D21E51B92B00843DBD /* ConsultListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultListModel.h; sourceTree = "<group>"; };
 		22B083D31E51B92B00843DBD /* ConsultListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultListModel.m; sourceTree = "<group>"; };
-		22B083D51E51BCB500843DBD /* ConsultContentListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultContentListVC.h; sourceTree = "<group>"; };
-		22B083D61E51BCB500843DBD /* ConsultContentListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultContentListVC.m; sourceTree = "<group>"; };
 		22B7B3261E5E8AD700FF5EB6 /* SetTransactionPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTransactionPasswordVC.h; sourceTree = "<group>"; };
 		22B7B3271E5E8AD700FF5EB6 /* SetTransactionPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTransactionPasswordVC.m; sourceTree = "<group>"; };
 		22B7B3291E5E951300FF5EB6 /* ProfitRollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfitRollViewController.h; sourceTree = "<group>"; };
@@ -1093,6 +1093,8 @@
 				22AC148F1E5193A5006F69DF /* ConsultHeaderTitileView.m */,
 				2228F172251EDB6F003A8931 /* ConsultCell.h */,
 				2228F173251EDB6F003A8931 /* ConsultCell.m */,
+				1A9DB16325202D3F003E8EA0 /* ConsultContentListView.h */,
+				1A9DB16425202D3F003E8EA0 /* ConsultContentListView.m */,
 				22AC14941E51AA09006F69DF /* ConsultCollectionTableCell.h */,
 				22AC14951E51AA09006F69DF /* ConsultCollectionTableCell.m */,
 				221BA5351E6FEEAF00FB618D /* ConsultCollectionViewFlowLayout.h */,
@@ -1268,8 +1270,6 @@
 				22AC148D1E51935B006F69DF /* ConsultView */,
 				22FF6F811E49B1D800F81929 /* ConsultViewController.h */,
 				22FF6F821E49B1D800F81929 /* ConsultViewController.m */,
-				22B083D51E51BCB500843DBD /* ConsultContentListVC.h */,
-				22B083D61E51BCB500843DBD /* ConsultContentListVC.m */,
 				22A9A1C51E555D8C006A51D1 /* ConsultDetaileViewController.h */,
 				22A9A1C61E555D8C006A51D1 /* ConsultDetaileViewController.m */,
 			);
@@ -1638,7 +1638,6 @@
 				221BA5261E6FB96D00FB618D /* Y_MALine.m in Sources */,
 				2202C7D91E4AC6C1000D14DE /* OnwerTableHeaderView.m in Sources */,
 				22FAC33C1E5D3BB5005F7969 /* TranscationTableSectionHeaderView.m in Sources */,
-				22B083D71E51BCB500843DBD /* ConsultContentListVC.m in Sources */,
 				1AE45F3025199B9200E32236 /* DemoData.m in Sources */,
 				2202C7FF1E4B272C000D14DE /* NewHandTeachViewController.m in Sources */,
 				22FF416D1E768A84000FB634 /* ActivateTradePwdView.m in Sources */,
@@ -1658,6 +1657,7 @@
 				221BA5331E6FB96D00FB618D /* Y_KLineVolumeView.m in Sources */,
 				22FF6F8A1E49B24900F81929 /* MainTabBarController.m in Sources */,
 				22D177FC1E7C361300E99911 /* MessageTableDAO.m in Sources */,
+				1A9DB16525202D3F003E8EA0 /* ConsultContentListView.m in Sources */,
 				220B02DD1E66D7E800180C33 /* KCPinyinHelper.m in Sources */,
 				2221EEC51E4D8F96006DA937 /* AuthorizationManager.m in Sources */,
 				220B007B1E66719E00180C33 /* TimeStamp.m in Sources */,

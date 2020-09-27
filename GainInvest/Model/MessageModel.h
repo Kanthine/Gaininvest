@@ -11,7 +11,7 @@
 
 @interface MessageModel : NSObject
 
-@property (nonatomic, assign)int messageId;
+@property (nonatomic, assign) int messageId;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *subtitle;
 @property (nonatomic, strong) NSString *body;
@@ -20,9 +20,7 @@
 @property (nonatomic, strong) NSDate *sendDate;
 @property (nonatomic, assign) BOOL isRead;
 
-
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
-
 
 @end

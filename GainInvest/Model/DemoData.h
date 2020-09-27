@@ -13,6 +13,7 @@
 #import "InorderModel.h"
 #import "CouponModel.h"
 #import "PositionsModel.h"
+#import "MessageModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -86,6 +87,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///银行列表
 + (NSMutableArray<NSDictionary *> *)bankList;
+
+
+///消息列表
++ (NSMutableArray<MessageModel *> *)messageModelList;
 
 @end
 

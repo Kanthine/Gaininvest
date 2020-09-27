@@ -8,132 +8,63 @@
 
 #import "ConsultCollectionTableCell.h"
 
-#import <Masonry.h>
-
-
 @interface ConsultCollectionTableCell()
 
 @property (nonatomic ,strong) UIImageView *headerImageView;
-//@property (nonatomic ,strong) UIImageView *detaileImageView;
 @property (nonatomic ,strong) UILabel *mainLable;
-@property (nonatomic ,strong) UIButton *titleButton;
-
-@property (nonatomic ,strong) UILabel *authorLable;
 @property (nonatomic ,strong) UILabel *timeLable;
 
 @end
 
 @implementation ConsultCollectionTableCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
++ (CGFloat)cellHeight{
+    CGFloat width = CGRectGetWidth(UIScreen.mainScreen.bounds) * 95.0 / 320.0;
+    return 5 + 10 + width / 782.0 * 411 + 10;
+}
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    
-    if (self)
-    {
-        
-        
-        UIView *lineView = [[UIView alloc]init];
+    if (self){
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 5)];
         lineView.backgroundColor = TableGrayColor;
         [self.contentView addSubview:lineView];
-        [lineView mas_makeConstraints:^(MASConstraintMaker *make)
-         {
-             make.top.mas_equalTo(@0);
-             make.left.mas_equalTo(@0);
-             make.right.mas_equalTo(@0);
-             make.height.mas_equalTo(@5);
-         }];
         
         [self.contentView addSubview:self.headerImageView];//确定cell高度
-//        [self.contentView addSubview:self.detaileImageView];
+        CGFloat width = CGRectGetWidth(UIScreen.mainScreen.bounds) * 95.0 / 320.0;
+        self.headerImageView.frame = CGRectMake(10, CGRectGetMaxY(lineView.frame) + 10, width, width / 782.0 * 411);
+        
         [self.contentView addSubview:self.mainLable];
-        [self.contentView addSubview:self.authorLable];
         [self.contentView addSubview:self.timeLable];
-
-        
-        CGFloat width = ScreenWidth * 95.0 / 320.0;
-        [self.headerImageView mas_makeConstraints:^(MASConstraintMaker *make)
-        {
-            make.top.equalTo(lineView.mas_bottom).with.offset(10);
-            make.left.mas_equalTo(@10);
-            make.width.mas_equalTo(@(width));
-            make.bottom.mas_equalTo(@-10);
-            make.height.mas_equalTo(_headerImageView.mas_width).multipliedBy(411 / 782.0);
-        }];
-        
-        
-        [self.mainLable mas_makeConstraints:^(MASConstraintMaker *make)
-         {
-             make.top.equalTo(lineView.mas_bottom).with.offset(10);
-             make.left.equalTo(_headerImageView.mas_right).with.offset(10);
-             make.right.mas_equalTo(@-10);
-         }];
-
-        
-//        [self.detaileImageView mas_makeConstraints:^(MASConstraintMaker *make)
-//         {
-////             make.top.equalTo(_mainLable.mas_bottom).with.offset(10);
-//             make.left.equalTo(_headerImageView.mas_right).with.offset(10);
-//             make.height.mas_equalTo(@15);
-//             make.width.mas_equalTo(@15);
-//             make.bottom.mas_equalTo(@-10);
-//         }];
-
-        
-        [self.timeLable mas_makeConstraints:^(MASConstraintMaker *make)
-         {
-             make.left.equalTo(_headerImageView.mas_right).with.offset(10);
-             make.bottom.mas_equalTo(@-10);
-         }];
-        
-        [self.authorLable mas_makeConstraints:^(MASConstraintMaker *make)
-         {
-             make.left.equalTo(_timeLable.mas_right).with.offset(10);
-             make.bottom.mas_equalTo(@-10);
-//             make.right.mas_equalTo(@-10);
-         }];
-        
-        
-
+        self.timeLable.frame = CGRectMake(CGRectGetMaxX(self.headerImageView.frame) + 10, CGRectGetMaxY(self.headerImageView.frame) - 14, 300, 14);
     }
     
     return self;
 }
 
-- (UIImageView *)headerImageView
-{
-    if (_headerImageView == nil)
-    {
+- (void)updateCellWithModel:(ConsultListModel *)model{
+    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage: [UIImage imageNamed:@"placeholderImage"]];
+    self.mainLable.text = model.articleTitle;
+    self.timeLable.text = [NSString stringWithFormat:@"%@      %@", model.articleDate, model.analystName];
+    
+    CGSize textSize = [self.mainLable.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - self.mainLable.frame.origin.x - 20, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.mainLable.font} context:nil].size;
+    self.mainLable.frame = CGRectMake(CGRectGetMaxX(self.headerImageView.frame) + 10, self.headerImageView.frame.origin.y, textSize.width, textSize.height);
+}
+
+#pragma mark - setter and getters
+
+- (UIImageView *)headerImageView{
+    if (_headerImageView == nil){
         UIImageView *imageView = [[UIImageView alloc]init];
-//        imageView.contentMode = UIViewContentModeScaleAspectFit;        
-        [imageView setContentScaleFactor:[[UIScreen mainScreen] scale]];
-        imageView.contentMode =  UIViewContentModeScaleAspectFill;
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        imageView.clipsToBounds  = YES;
-        
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
         _headerImageView = imageView;
     }
-    
     return _headerImageView;
 }
 
-//- (UIImageView *)detaileImageView
-//{
-//    if (_detaileImageView == nil)
-//    {
-//        _detaileImageView = [[UIImageView alloc]init];
-//        _detaileImageView.contentMode = UIViewContentModeScaleAspectFill;
-//    }
-//    
-//    return _detaileImageView;
-//}
-//
-
-
-- (UILabel *)mainLable
-{
-    if (_mainLable == nil)
-    {
+- (UILabel *)mainLable{
+    if (_mainLable == nil){
         _mainLable = [[UILabel alloc]init];
         _mainLable.backgroundColor = [UIColor clearColor];
         _mainLable.textColor = UIColorFromRGB(0x222222, 1);
@@ -145,25 +76,8 @@
     return _mainLable;
 }
 
-
-- (UILabel *)authorLable
-{
-    if (_authorLable == nil)
-    {
-        _authorLable = [[UILabel alloc]init];
-        _authorLable.backgroundColor = [UIColor clearColor];
-        _authorLable.textColor = TextColorGray;
-        _authorLable.font = [UIFont systemFontOfSize:12];
-        _authorLable.textAlignment = NSTextAlignmentLeft;
-    }
-    return _authorLable;
-    
-}
-
-- (UILabel *)timeLable
-{
-    if (_timeLable == nil)
-    {
+- (UILabel *)timeLable{
+    if (_timeLable == nil){
         _timeLable = [[UILabel alloc]init];
         _timeLable.backgroundColor = [UIColor clearColor];
         _timeLable.textColor = TextColorGray;
@@ -171,30 +85,6 @@
         _timeLable.textAlignment = NSTextAlignmentLeft;
     }
     return _timeLable;
-    
 }
-
-- (void)updateCellWithModel:(ConsultListModel *)model
-{
-    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage: [UIImage imageNamed:@"placeholderImage"]];
-    self.mainLable.text = model.articleTitle;
-    self.authorLable.text = model.analystName;
-    self.timeLable.text = model.articleDate;
-}
-
-- (NSString *)getTypeNameWithTypeID:(NSString *)typeId
-{
-    NSString *typeName = @"";
-    // 1 主题 2品种 3分析师*
-    if ([typeId isEqualToString:@"1"]){
-        typeName = @"主题";
-    }else if ([typeId isEqualToString:@"2"]){
-        typeName = @"品种";
-    }else if ([typeId isEqualToString:@"3"]){
-        typeName = @"分析师";
-    }
-    return typeName;
-}
-
 
 @end

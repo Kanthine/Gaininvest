@@ -7,9 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ConsultContentListVC.h"
+#import "ConsultContentListView.h"
+#import "FlashView.h"
+#import "ConsultHeaderButtonView.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@interface ConsultScrollView : UIScrollView
+@end
+
+@interface ConsultTableView : UITableView
+@end
+
+@interface ConsultTableHeaderView : UIView
+@property (nonatomic ,strong) void(^buttonHandler)(UIButton *sender);
+@property (nonatomic ,strong) FlashView *flashView;
+@end
+
 
 @interface ConsultTableCell : UITableViewCell
 @property (nonatomic ,strong) UICollectionView *collectionView;
@@ -17,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface ConsultCollectionCell : UICollectionViewCell
-@property (nonatomic ,strong) ConsultContentListVC *contentVC;
+@property (nonatomic ,strong) ConsultContentListView *contentListView;
 @end
 
 
