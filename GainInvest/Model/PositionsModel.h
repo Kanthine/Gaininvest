@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 //持仓数据
 @interface PositionsModel : NSObject <NSCoding, NSCopying>
 

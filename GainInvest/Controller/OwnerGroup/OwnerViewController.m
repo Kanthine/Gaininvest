@@ -22,7 +22,6 @@
 #import "AboutOurViewController.h"//关于我们
 
 #import "UIButton+WebCache.h"
-#import "MessageTableDAO.h"
 #import "AccountManagerVC.h"
 
 #import <Masonry.h>
@@ -63,7 +62,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.delegate = self;
-    [MessageTableDAO getUnReadMessageCountCompletionBlock:^(NSUInteger count){
+         
+    [MessageModel getUnReadMessageCountCompletionBlock:^(NSUInteger count){
         _count = count;
         [self.tableview reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
     }];

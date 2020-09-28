@@ -11,6 +11,9 @@
 
 
 #import "YLGlobalTools.h"
+#import "FMDBHelper.h"
+
+
 
 #define LocalURLSCHEME @"GainInvestIOS"
 

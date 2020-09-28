@@ -15,7 +15,6 @@
 #import "RechargeMethodVerifyView.h"
 #import "RechargeQualityItemView.h"
 #import "RechargeInfomationVC.h"
-#import "TransactionHttpManager.h"
 #import "RechargeResultVC.h"
 
 
@@ -39,7 +38,6 @@
 @property (nonatomic ,strong) UITableView *tableView;
 
 @property (nonatomic ,strong) NSTimer *timer;
-@property (nonatomic ,strong) TransactionHttpManager *httpManager;
 
 @end
 
@@ -49,7 +47,6 @@
 
 - (void)dealloc{
     _timer = nil;
-    _httpManager = nil;
 }
 
 - (instancetype)init{

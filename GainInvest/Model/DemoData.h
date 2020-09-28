@@ -89,9 +89,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray<NSDictionary *> *)bankList;
 
 
-///消息列表
-+ (NSMutableArray<MessageModel *> *)messageModelList;
-
 @end
 
 

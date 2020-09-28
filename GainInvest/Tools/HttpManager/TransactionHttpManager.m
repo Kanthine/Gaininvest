@@ -10,11 +10,6 @@
 
 @implementation TransactionHttpManager
 
-
-/** 获取地域列表
- */
-- (void)getAreaListWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSMutableArray<AreaModel *> *listArray,NSError *error))block{}
-
 /*
  * 提现接口
  * mobile_phone 手机号

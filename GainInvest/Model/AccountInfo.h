@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSString *qqUid;//QQ登录
 
 
+@property (nonatomic, assign) BOOL isThirdLogin;//是否是第三方登录
 @property (nonatomic, strong) NSString *isRecharge;//是否为第一次充值
 //第一次京东充值或者提现之后，服务器缓存用户银行卡信息
 @property (nonatomic, strong) NSString *isHaveJdInfo;
@@ -68,8 +69,6 @@
 - (BOOL)storeAccountInfo;//存储用户信息
 - (BOOL)logoutAccount;//销毁
 
-
-+ (instancetype)modelObjectWithThirdModel:(ThirdLoginModel *)model;//第三方登录，信息残缺
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;

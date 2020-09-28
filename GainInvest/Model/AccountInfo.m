@@ -53,6 +53,7 @@ NSString *const kAccountInfoIsOpenAccount = @"is_trad_rg";
 NSString *const kAccountInfoTradePWD = @"tradePWD";
 
 NSString *const kAccountInfoBalance = @"balance";
+NSString *const kAccountInfoIsThirdLogin = @"isThirdLogin";
 
 
 @interface AccountInfo ()
@@ -66,6 +67,7 @@ NSString *const kAccountInfoBalance = @"balance";
 
 @implementation AccountInfo
 
+@synthesize isThirdLogin = _isThirdLogin;
 @synthesize balance = _balance;
 @synthesize head = _head;
 @synthesize defaultHead = _defaultHead;
@@ -116,6 +118,7 @@ NSString *const kAccountInfoBalance = @"balance";
     self = [super init];
     if (self) {
         self.balance = @"0";
+        self.isThirdLogin = NO;
         self.username = DemoData.nickNameArray[arc4random() % k_DemoData_nickName_count];
         self.head = DemoData.headPathArray[arc4random() % k_DemoData_HeadPath_count];
     }
@@ -180,31 +183,13 @@ static dispatch_once_t rootOnceToken;
     
     [UserLocalData clearAllUserLocalData];
     
-    if ([ThirdLoginModel isExitThirdAccountInfo])
-    {
-        [ThirdLoginModel logoutThirdAccount];
-    }
-        
-    
-    
-    if (isSucceed)
-    {
+    if (isSucceed){
         //释放单利
         user = nil;
         rootOnceToken = 0l;
         //清除本地 收货地址
     }
     return isSucceed;
-}
-
-+ (instancetype)modelObjectWithThirdModel:(ThirdLoginModel *)model//第三方登录，信息残缺
-{
-    AccountInfo *account = [AccountInfo standardAccountInfo];
-    account.head = model.iconurl;
-    account.nickname = model.nickname;
-    [model storeThirdAccountInfo];
-    
-    return [AccountInfo standardAccountInfo];
 }
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict{
@@ -261,7 +246,8 @@ static dispatch_once_t rootOnceToken;
         self.qqUid = [self objectOrNilForKey:kAccountInfoQQ fromDictionary:dict];
         self.isOpenAccount = [[self objectOrNilForKey:kAccountInfoIsOpenAccount fromDictionary:dict] boolValue];
         self.tradePWD = [self objectOrNilForKey:kAccountInfoTradePWD fromDictionary:dict];
-        
+        self.isThirdLogin = [[self objectOrNilForKey:kAccountInfoIsThirdLogin fromDictionary:dict] boolValue];
+
         if (self.head == nil || self.head.length < 2){
             self.head = self.defaultHead;
         }
@@ -323,7 +309,7 @@ static dispatch_once_t rootOnceToken;
     [mutableDict setValue:@(self.isOpenAccount) forKey:kAccountInfoIsOpenAccount];
     [mutableDict setValue:self.defaultHead forKey:kAccountInfoDefaultHead];
     [mutableDict setValue:self.tradePWD forKey:kAccountInfoTradePWD];
-
+    [mutableDict setValue:@(self.isThirdLogin) forKey:kAccountInfoIsThirdLogin];
     return [NSDictionary dictionaryWithDictionary:mutableDict];
 }
 
@@ -391,7 +377,7 @@ static dispatch_once_t rootOnceToken;
     self.isOpenAccount = [aDecoder decodeBoolForKey:kAccountInfoIsOpenAccount];
     self.defaultHead = [aDecoder decodeObjectForKey:kAccountInfoDefaultHead];
     self.tradePWD = [aDecoder decodeObjectForKey:kAccountInfoTradePWD];
-
+    self.isThirdLogin = [aDecoder decodeBoolForKey:kAccountInfoIsThirdLogin];
     return self;
 }
 
@@ -441,6 +427,7 @@ static dispatch_once_t rootOnceToken;
     [aCoder encodeBool:_isOpenAccount forKey:kAccountInfoIsOpenAccount];
     [aCoder encodeObject:_defaultHead forKey:kAccountInfoDefaultHead];
     [aCoder encodeObject:_tradePWD forKey:kAccountInfoTradePWD];
+    [aCoder encodeBool:_isThirdLogin forKey:kAccountInfoIsThirdLogin];
 
 }
 
@@ -494,7 +481,7 @@ static dispatch_once_t rootOnceToken;
         copy.isOpenAccount = self.isOpenAccount;
         copy.defaultHead = [self.defaultHead copyWithZone:zone];
         copy.tradePWD = [self.tradePWD copyWithZone:zone];
-
+        copy.isThirdLogin = self.isThirdLogin;
     }
     return copy;
 }

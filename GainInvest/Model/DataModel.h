@@ -9,10 +9,8 @@
 #ifndef DataModel_h
 #define DataModel_h
 
-#import "ThirdLoginModel.h"
-
 #import "AccountInfo.h"
-#import "AreaModel.h"
+#import "CityListModel.h"
 
 
 #import "ConsultListModel.h"

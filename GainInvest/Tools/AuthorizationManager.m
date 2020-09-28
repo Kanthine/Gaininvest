@@ -51,12 +51,11 @@
  */
 + (BOOL)isLoginState{
     // 第三方登录为假登录，等级较弱，优先判断是否为第三方登录
-    
-    if ([ThirdLoginModel isExitThirdAccountInfo]){
+    AccountInfo *user = [AccountInfo standardAccountInfo];
+    if (user.isThirdLogin){
         return YES;//第三方登录
     }
     
-    AccountInfo *user = [AccountInfo standardAccountInfo];
     
     NSString *token = user.uToken;
     NSString *userID = user.userID;

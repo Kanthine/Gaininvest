@@ -207,3 +207,16 @@
 }
 
 @end
+
+
+
+
+@implementation FilePathManager (FMDB)
+
+/** sqlite 数据库路径
+ */
++ (NSString *)sqliteFile{
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/fmdb_Data.sqlite"];
+}
+
+@end

@@ -14,7 +14,6 @@
 #import "GetVoucherViewController.h"
 
 
-#import "TransactionHttpManager.h"
 #import "GetVoucherTableCell.h"
 #import "RechargeViewController.h"
 #import "MyVoucherViewController.h"
@@ -28,8 +27,6 @@
 {
     UIButton *_rightItem;
 }
-
-@property (nonatomic ,strong) TransactionHttpManager *httpManager;
 
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,strong) NSMutableArray<NSString *> *imagePathArray;
@@ -296,17 +293,6 @@
         
     }
     return _imagePathArray;
-}
-
-
-- (TransactionHttpManager *)httpManager
-{
-    if (_httpManager == nil)
-    {
-        _httpManager = [[TransactionHttpManager alloc]init];
-    }
-    
-    return _httpManager;
 }
 
 - (void)updateTableList{

@@ -10,12 +10,6 @@
 
 @interface TransactionHttpManager : NSObject
 
-/** 获取地域列表
- * cur_page 页数
- * cur_size 数量
- * parent_id 父级id
- */
-- (void)getAreaListWithParameterDict:(NSDictionary *)parameterDict CompletionBlock:(void (^) (NSMutableArray<AreaModel *> *listArray,NSError *error))block;
 
 /** 提现接口
  * mobile_phone 手机号

@@ -50,7 +50,7 @@
     
     NSInteger _interval;
     
-    NSArray<AreaModel *> *_areaModelArray;
+    NSArray<CityListModel *> *_areaModelArray;
 }
 
 @property (nonatomic ,strong) NSTimer *timer;
@@ -151,14 +151,11 @@
 {
     [self endTextFiledEdit];
     
-    AreaModel *areaModel = nil;
-    if (_areaModelArray && _areaModelArray.count > 0 )
-    {
+    CityListModel *areaModel = nil;
+    if (_areaModelArray && _areaModelArray.count > 0 ){
         areaModel = _areaModelArray.firstObject;
     }
-    
-    
-    ChooseProvinceCityVC *provinceCityVC = [[ChooseProvinceCityVC alloc]initWithSuperModel:areaModel AreaRank:1];
+    ChooseProvinceCityVC *provinceCityVC = [[ChooseProvinceCityVC alloc]initWithSuperModel:areaModel];
     provinceCityVC.delegate = self;
     provinceCityVC.hidesBottomBarWhenPushed = YES;
     [self.currentViewController.navigationController pushViewController:provinceCityVC animated:YES];
@@ -358,15 +355,15 @@
     
     if (_areaModelArray && _areaModelArray.count)
     {
-        [_areaModelArray enumerateObjectsUsingBlock:^(AreaModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
+        [_areaModelArray enumerateObjectsUsingBlock:^(CityListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
          {
              if (idx == 0)
              {
-                 provinceName = obj.name;
+                 provinceName = obj.regionName;
              }
              else
              {
-                 cityName = obj.name;
+                 cityName = obj.regionName;
              }
          }];
     }
@@ -516,22 +513,22 @@
 
 #pragma mark - ChooseProvinceCityVCDelegate
 
-- (void)tableViewDidSelectAreaArray:(NSArray<AreaModel *> *)areaArray
+- (void)tableViewDidSelectAreaArray:(NSArray<CityListModel *> *)areaArray
 {
     _areaModelArray = areaArray;
     
     
     __block NSString *name = @"";
     
-    [areaArray enumerateObjectsUsingBlock:^(AreaModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
+    [areaArray enumerateObjectsUsingBlock:^(CityListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
      {
          if (idx == 0)
          {
-             name = obj.name;
+             name = obj.regionName;
          }
          else
          {
-             name = [NSString stringWithFormat:@"%@ %@",name,obj.name];
+             name = [NSString stringWithFormat:@"%@ %@",name,obj.regionName];
          }
      }];
     

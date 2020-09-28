@@ -358,7 +358,6 @@
  * sub_branch 开户支行
  */
 + (NSMutableArray<NSDictionary *> *)bankList{
-    
     NSArray<NSString *> *nameArray = @[@"中国银行",@"摩根大通",@"联邦银行",@"花旗银行",@"建设银行",
                            @"工商银行",@"农业银行",@"招商银行",@"交通银行",@"光大银行",
                            @"民生银行",@"浦发银行",@"兴业银行",@"协和银行",@"首都银行"];
@@ -366,23 +365,6 @@
     [nameArray enumerateObjectsUsingBlock:^(NSString * _Nonnull bankName, NSUInteger idx, BOOL * _Nonnull stop) {
         [resultArray addObject: @{@"bankName":bankName,@"card_bank":@""}];
     }];
-    return resultArray;
-}
-
-+ (NSMutableArray<MessageModel *> *)messageModelList{
-    NSMutableArray<MessageModel *> *resultArray = [NSMutableArray array];
-    for (int i = 0; i < arc4random() % 20; i ++) {
-        MessageModel *model = [[MessageModel alloc] init];
-        model.messageId = arc4random() % 50 + i;
-        model.isRead = arc4random() % 2;
-//        model.sendDate = DemoData.timeStamps[arc4random() % k_DemoData_timeStamps_count];
-        model.sendTime = getTimeWithTimestamp(DemoData.timeStamps[arc4random() % k_DemoData_timeStamps_count]);
-        model.title = @"title";
-        model.subtitle = @"subtitle";
-        model.body = @"body";
-        model.category = @"category";
-        [resultArray addObject:model];
-    }
     return resultArray;
 }
 

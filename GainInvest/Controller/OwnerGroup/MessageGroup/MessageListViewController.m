@@ -11,9 +11,6 @@
 #import "MessageListTableCell.h"
 #import "MessageModel.h"
 
-#import "UITableView+FDTemplateLayoutCell.h"
-
-
 @interface MessageListViewController ()
 <UITableViewDataSource,UITableViewDelegate>
 
@@ -54,17 +51,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [tableView fd_heightForCellWithIdentifier:CellIdentifer cacheByIndexPath:indexPath configuration:^(MessageListTableCell *cell){
-            MessageModel *model = self.listArray[indexPath.row];
-            [cell updateMessageListTableCellWithModel:model];
-        }];
+    MessageModel *model = self.listArray[indexPath.row];
+    return model.cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MessageListTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer forIndexPath:indexPath];
     MessageModel *model = self.listArray[indexPath.row];
     model.isRead = YES;
-    [MessageTableDAO updateContact:model];
+    [MessageModel updateModel:model];
     [cell updateMessageListTableCellWithModel:model];
     return cell;
 }
@@ -79,45 +74,35 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     MessageModel *model = self.listArray[indexPath.row];
+    [MessageModel deleteModel:model];
+    [self.listArray removeObject:model];
+    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     
-    if ([MessageTableDAO deleteMessageModel:model]){
-        [self.listArray removeObject:model];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        
-        if (self.listArray.count == 0){
-            [self.view addSubview:self.noDataTipView];
-            self.tableview.hidden = YES;
-        }
+    if (self.listArray.count == 0){
+        [self.view addSubview:self.noDataTipView];
+        self.tableview.hidden = YES;
     }
 }
 
 - (void)queryMessageList{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        _listArray = DemoData.messageModelList;
-        dispatch_async(dispatch_get_main_queue(), ^{
-           if (_listArray.count > 0){
-               if (_noDataTipView){
-                   [_noDataTipView removeFromSuperview];
-                   _noDataTipView = nil;
-               }
-               self.tableview.hidden = NO;
-               [self.tableview reloadData];
-           }else{
-               [self.view addSubview:self.noDataTipView];
-               self.tableview.hidden = YES;
-           }
-        });
-    });
+    
+    [MessageModel getAllMessageModel:^(NSMutableArray<MessageModel *> *modelsArray) {
+        _listArray = modelsArray;
+        if (_listArray.count > 0){
+            if (_noDataTipView){
+                [_noDataTipView removeFromSuperview];
+                _noDataTipView = nil;
+            }
+            self.tableview.hidden = NO;
+            [self.tableview reloadData];
+        }else{
+            [self.view addSubview:self.noDataTipView];
+            self.tableview.hidden = YES;
+        }
+    }];
 }
 
 #pragma mark - setters and getters
-
-- (NSMutableArray<MessageModel *> *)listArray{
-    if (_listArray == nil){
-        _listArray = [NSMutableArray array];
-    }
-    return _listArray;
-}
 
 - (UIView *)noDataTipView{
     if (_noDataTipView == nil){

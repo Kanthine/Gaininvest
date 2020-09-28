@@ -20,5 +20,6 @@ FOUNDATION_EXPORT CGFloat getPageSafeAreaHeight(BOOL isShowNavBar);
 
 
 
+NSString *getTimeWithDate(NSDate *date);
 ///时间戳转日期
 NSString *getTimeWithTimestamp(NSString *timestamp);

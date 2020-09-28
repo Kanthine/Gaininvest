@@ -13,8 +13,6 @@
 #import "IntroPageViewController.h"
 #import "AppDelegate+LaunchImage.h"
 
-#import "MessageTableDAO.h"
-
 @interface AppDelegate ()
 
 @end
@@ -33,17 +31,11 @@
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
     [[UINavigationBar appearance] setBackgroundImage:[MainTabBarController loadTabBarAndNavBarBackgroundImage] forBarMetrics:UIBarMetricsDefault];
 
-
-    
-    if ([FirstLaunchPage isFirstLaunchApp] )
-    {
+    if ([FirstLaunchPage isFirstLaunchApp] ){
         IntroPageViewController *introPage = [[IntroPageViewController alloc]init];
         self.window.rootViewController = introPage;
-    }
-    else
-    {
+    }else{
         MainTabBarController *mainController = [MainTabBarController shareMainController];
-        
         self.window.rootViewController = mainController;
     }
     

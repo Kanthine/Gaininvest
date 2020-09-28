@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		1A5B801D251DCCE8008D1595 /* YLGlobalTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B801C251DCCE8008D1595 /* YLGlobalTools.m */; };
 		1A5B8034251DE257008D1595 /* JdInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B8033251DE257008D1595 /* JdInfoModel.m */; };
+		1A66803A2521C62B00614BAE /* CityModelList.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A6680392521C62B00614BAE /* CityModelList.json */; };
+		1A6680402521C6D100614BAE /* CityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A66803F2521C6D100614BAE /* CityListModel.m */; };
 		1A8C6F4E251ADC530003FB39 /* YLPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C6F4D251ADC530003FB39 /* YLPasswordInputView.m */; };
 		1A9DB16525202D3F003E8EA0 /* ConsultContentListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DB16425202D3F003E8EA0 /* ConsultContentListView.m */; };
+		1A9DB17B25206CAD003E8EA0 /* FMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DB17A25206CAD003E8EA0 /* FMDBHelper.m */; };
 		1AE45F3025199B9200E32236 /* DemoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE45F2F25199B9200E32236 /* DemoData.m */; };
 		1AE45F562519AA7C00E32236 /* ConsultKindTitles.json in Resources */ = {isa = PBXBuildFile; fileRef = 1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */; };
 		220052B91E52B119001EB8E0 /* ConsultKindTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 220052B81E52B119001EB8E0 /* ConsultKindTitleModel.m */; };
@@ -66,7 +69,6 @@
 		2216B9BA1E63DAD7006994C3 /* ChooseProvinceCityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2216B9B91E63DAD7006994C3 /* ChooseProvinceCityVC.m */; };
 		2216B9BD1E63DC6D006994C3 /* TransactionHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2216B9BC1E63DC6D006994C3 /* TransactionHttpManager.m */; };
 		2216B9C01E63DDC5006994C3 /* ChooseBankKindVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2216B9BF1E63DDC5006994C3 /* ChooseBankKindVC.m */; };
-		2216B9C31E63F2D4006994C3 /* AreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2216B9C21E63F2D4006994C3 /* AreaModel.m */; };
 		2216B9C61E640919006994C3 /* MyVoucherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2216B9C51E640919006994C3 /* MyVoucherViewController.m */; };
 		2216B9C91E641019006994C3 /* GetVoucherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2216B9C81E641019006994C3 /* GetVoucherViewController.m */; };
 		2216B9CD1E6410E8006994C3 /* VoucherListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2216B9CB1E6410E8006994C3 /* VoucherListTableCell.m */; };
@@ -160,9 +162,7 @@
 		22B7B3791E5EBAEA00FF5EB6 /* TransactionBuyUpOrDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7B3781E5EBAEA00FF5EB6 /* TransactionBuyUpOrDownView.m */; };
 		22B7B37D1E5ED91600FF5EB6 /* ProfitRollTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7B37B1E5ED91600FF5EB6 /* ProfitRollTableCell.m */; };
 		22B7B37E1E5ED91600FF5EB6 /* ProfitRollTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22B7B37C1E5ED91600FF5EB6 /* ProfitRollTableCell.xib */; };
-		22BEB9931E88D3A200235533 /* ThirdLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BEB9921E88D3A200235533 /* ThirdLoginModel.m */; };
 		22D177F91E7C2E9700E99911 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D177F81E7C2E9700E99911 /* MessageModel.m */; };
-		22D177FC1E7C361300E99911 /* MessageTableDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D177FB1E7C361300E99911 /* MessageTableDAO.m */; };
 		22E0CCA51E681E38002F8648 /* RechargeMethodVerifyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E0CCA41E681E38002F8648 /* RechargeMethodVerifyView.m */; };
 		22E9675A1E84E70600EA1CD9 /* BindThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E967591E84E70600EA1CD9 /* BindThirdViewController.m */; };
 		22EC6A021E7A2E33004B9473 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EC6A011E7A2E33004B9473 /* UserNotifications.framework */; };
@@ -223,10 +223,15 @@
 		1A5B801C251DCCE8008D1595 /* YLGlobalTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLGlobalTools.m; sourceTree = "<group>"; };
 		1A5B8032251DE257008D1595 /* JdInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JdInfoModel.h; sourceTree = "<group>"; };
 		1A5B8033251DE257008D1595 /* JdInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JdInfoModel.m; sourceTree = "<group>"; };
+		1A6680392521C62B00614BAE /* CityModelList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CityModelList.json; sourceTree = "<group>"; };
+		1A66803E2521C6D100614BAE /* CityListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityListModel.h; sourceTree = "<group>"; };
+		1A66803F2521C6D100614BAE /* CityListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityListModel.m; sourceTree = "<group>"; };
 		1A8C6F4C251ADC530003FB39 /* YLPasswordInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLPasswordInputView.h; sourceTree = "<group>"; };
 		1A8C6F4D251ADC530003FB39 /* YLPasswordInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLPasswordInputView.m; sourceTree = "<group>"; };
 		1A9DB16325202D3F003E8EA0 /* ConsultContentListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsultContentListView.h; sourceTree = "<group>"; };
 		1A9DB16425202D3F003E8EA0 /* ConsultContentListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConsultContentListView.m; sourceTree = "<group>"; };
+		1A9DB17925206CAD003E8EA0 /* FMDBHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBHelper.h; sourceTree = "<group>"; };
+		1A9DB17A25206CAD003E8EA0 /* FMDBHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBHelper.m; sourceTree = "<group>"; };
 		1AE45F2E25199B9200E32236 /* DemoData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoData.h; sourceTree = "<group>"; };
 		1AE45F2F25199B9200E32236 /* DemoData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoData.m; sourceTree = "<group>"; };
 		1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ConsultKindTitles.json; sourceTree = "<group>"; };
@@ -323,8 +328,6 @@
 		2216B9BC1E63DC6D006994C3 /* TransactionHttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionHttpManager.m; sourceTree = "<group>"; };
 		2216B9BE1E63DDC5006994C3 /* ChooseBankKindVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseBankKindVC.h; sourceTree = "<group>"; };
 		2216B9BF1E63DDC5006994C3 /* ChooseBankKindVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseBankKindVC.m; sourceTree = "<group>"; };
-		2216B9C11E63F2D4006994C3 /* AreaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaModel.h; sourceTree = "<group>"; };
-		2216B9C21E63F2D4006994C3 /* AreaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaModel.m; sourceTree = "<group>"; };
 		2216B9C41E640919006994C3 /* MyVoucherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyVoucherViewController.h; sourceTree = "<group>"; };
 		2216B9C51E640919006994C3 /* MyVoucherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVoucherViewController.m; sourceTree = "<group>"; };
 		2216B9C71E641019006994C3 /* GetVoucherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetVoucherViewController.h; sourceTree = "<group>"; };
@@ -489,12 +492,8 @@
 		22B7B37A1E5ED91600FF5EB6 /* ProfitRollTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfitRollTableCell.h; sourceTree = "<group>"; };
 		22B7B37B1E5ED91600FF5EB6 /* ProfitRollTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfitRollTableCell.m; sourceTree = "<group>"; };
 		22B7B37C1E5ED91600FF5EB6 /* ProfitRollTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfitRollTableCell.xib; sourceTree = "<group>"; };
-		22BEB9911E88D3A200235533 /* ThirdLoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdLoginModel.h; sourceTree = "<group>"; };
-		22BEB9921E88D3A200235533 /* ThirdLoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdLoginModel.m; sourceTree = "<group>"; };
 		22D177F71E7C2E9700E99911 /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageModel.h; sourceTree = "<group>"; };
 		22D177F81E7C2E9700E99911 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
-		22D177FA1E7C361300E99911 /* MessageTableDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableDAO.h; sourceTree = "<group>"; };
-		22D177FB1E7C361300E99911 /* MessageTableDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableDAO.m; sourceTree = "<group>"; };
 		22E0CCA31E681E38002F8648 /* RechargeMethodVerifyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeMethodVerifyView.h; sourceTree = "<group>"; };
 		22E0CCA41E681E38002F8648 /* RechargeMethodVerifyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeMethodVerifyView.m; sourceTree = "<group>"; };
 		22E967581E84E70600EA1CD9 /* BindThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindThirdViewController.h; sourceTree = "<group>"; };
@@ -618,6 +617,7 @@
 			isa = PBXGroup;
 			children = (
 				1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */,
+				1A6680392521C62B00614BAE /* CityModelList.json */,
 			);
 			path = JsonDemoData;
 			sourceTree = "<group>";
@@ -683,10 +683,8 @@
 				2221EEC11E4D8DF3006DA937 /* AccountInfo.m */,
 				1AE45F2E25199B9200E32236 /* DemoData.h */,
 				1AE45F2F25199B9200E32236 /* DemoData.m */,
-				22BEB9911E88D3A200235533 /* ThirdLoginModel.h */,
-				22BEB9921E88D3A200235533 /* ThirdLoginModel.m */,
-				2216B9C11E63F2D4006994C3 /* AreaModel.h */,
-				2216B9C21E63F2D4006994C3 /* AreaModel.m */,
+				1A66803E2521C6D100614BAE /* CityListModel.h */,
+				1A66803F2521C6D100614BAE /* CityListModel.m */,
 				22B083D21E51B92B00843DBD /* ConsultListModel.h */,
 				22B083D31E51B92B00843DBD /* ConsultListModel.m */,
 				220052B71E52B119001EB8E0 /* ConsultKindTitleModel.h */,
@@ -699,8 +697,6 @@
 				22FF41771E76A999000FB634 /* TradeModel.m */,
 				22D177F71E7C2E9700E99911 /* MessageModel.h */,
 				22D177F81E7C2E9700E99911 /* MessageModel.m */,
-				22D177FA1E7C361300E99911 /* MessageTableDAO.h */,
-				22D177FB1E7C361300E99911 /* MessageTableDAO.m */,
 				220651071E81401D004FA34F /* InorderModel.h */,
 				220651081E81401D004FA34F /* InorderModel.m */,
 			);
@@ -1339,6 +1335,8 @@
 				2202C7ED1E4AFF67000D14DE /* ValidateClass.m */,
 				221A31C01E8FAD3D00104DD3 /* FirstLaunchPage.h */,
 				221A31C11E8FAD3D00104DD3 /* FirstLaunchPage.m */,
+				1A9DB17925206CAD003E8EA0 /* FMDBHelper.h */,
+				1A9DB17A25206CAD003E8EA0 /* FMDBHelper.m */,
 				2274355F1E825E8F003907EE /* UserLocalData.h */,
 				227435601E825E8F003907EE /* UserLocalData.m */,
 				1A5B801B251DCCE8008D1595 /* YLGlobalTools.h */,
@@ -1536,6 +1534,7 @@
 				220B00881E66825C00180C33 /* RechargeMethodTableCell.xib in Resources */,
 				22A9A1D51E557E66006A51D1 /* PositionsHistoryTableCell.xib in Resources */,
 				22A50EDC1E7927F3004578B3 /* WithdrawBankCardInfoView.xib in Resources */,
+				1A66803A2521C62B00614BAE /* CityModelList.json in Resources */,
 				1AE45F562519AA7C00E32236 /* ConsultKindTitles.json in Resources */,
 				2221F92A1E7D1A9F004B41F9 /* AboutOurIntroVC.xib in Resources */,
 				2202C7F61E4B11E4000D14DE /* RegisterViewController.xib in Resources */,
@@ -1641,7 +1640,6 @@
 				1AE45F3025199B9200E32236 /* DemoData.m in Sources */,
 				2202C7FF1E4B272C000D14DE /* NewHandTeachViewController.m in Sources */,
 				22FF416D1E768A84000FB634 /* ActivateTradePwdView.m in Sources */,
-				2216B9C31E63F2D4006994C3 /* AreaModel.m in Sources */,
 				2221EEC91E4D9554006DA937 /* AccountManagerVC.m in Sources */,
 				22E0CCA51E681E38002F8648 /* RechargeMethodVerifyView.m in Sources */,
 				22EC6A0E1E7A6675004B9473 /* GainListTableCell.m in Sources */,
@@ -1656,12 +1654,10 @@
 				2223F2D61E60122A006E8B8E /* PositionsTableCell.m in Sources */,
 				221BA5331E6FB96D00FB618D /* Y_KLineVolumeView.m in Sources */,
 				22FF6F8A1E49B24900F81929 /* MainTabBarController.m in Sources */,
-				22D177FC1E7C361300E99911 /* MessageTableDAO.m in Sources */,
 				1A9DB16525202D3F003E8EA0 /* ConsultContentListView.m in Sources */,
 				220B02DD1E66D7E800180C33 /* KCPinyinHelper.m in Sources */,
 				2221EEC51E4D8F96006DA937 /* AuthorizationManager.m in Sources */,
 				220B007B1E66719E00180C33 /* TimeStamp.m in Sources */,
-				22BEB9931E88D3A200235533 /* ThirdLoginModel.m in Sources */,
 				221BA5291E6FB96D00FB618D /* MA-EMA-MACD介绍.md in Sources */,
 				1A5B801D251DCCE8008D1595 /* YLGlobalTools.m in Sources */,
 				223FA0DC1E94B871007F23D9 /* RechargeTipView.m in Sources */,
@@ -1688,6 +1684,7 @@
 				2210BFC71E6E90D00097C6C4 /* YYTimeLineMaskView.m in Sources */,
 				221BA5271E6FB96D00FB618D /* Y_KLineMainView.m in Sources */,
 				22A9A1CF1E557806006A51D1 /* PositionsHistoryVC.m in Sources */,
+				1A6680402521C6D100614BAE /* CityListModel.m in Sources */,
 				221BA5221E6FB96D00FB618D /* Y_KLineAccessory.m in Sources */,
 				22B083D41E51B92B00843DBD /* ConsultListModel.m in Sources */,
 				221BA51F1E6FB96D00FB618D /* Y_StockChartGlobalVariable.m in Sources */,
@@ -1733,6 +1730,7 @@
 				2202C7E81E4AE467000D14DE /* LoginPhoneView.m in Sources */,
 				221562341E4C4A1F00FB3375 /* MessageListViewController.m in Sources */,
 				221BA52B1E6FB96D00FB618D /* Y_KLineModel.m in Sources */,
+				1A9DB17B25206CAD003E8EA0 /* FMDBHelper.m in Sources */,
 				2215622C1E4C36AF00FB3375 /* FeedbackProblemVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1893,7 +1891,6 @@
 					"-l\"MBProgressHUD\"",
 					"-l\"Masonry\"",
 					"-l\"SDWebImage\"",
-					"-l\"UITableView+FDTemplateLayoutCell\"",
 					"-l\"resolv\"",
 					"-l\"sqlite3\"",
 					"-l\"xml2\"",
@@ -1945,7 +1942,6 @@
 					"-l\"MBProgressHUD\"",
 					"-l\"Masonry\"",
 					"-l\"SDWebImage\"",
-					"-l\"UITableView+FDTemplateLayoutCell\"",
 					"-l\"resolv\"",
 					"-l\"sqlite3\"",
 					"-l\"xml2\"",

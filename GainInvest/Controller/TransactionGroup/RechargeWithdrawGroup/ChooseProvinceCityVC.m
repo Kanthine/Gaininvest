@@ -7,40 +7,27 @@
 //
 #define CellIdentifer @"UITableViewCell"
 
-
 #import "ChooseProvinceCityVC.h"
-#import "TransactionHttpManager.h"
 
 @interface ChooseProvinceCityVC ()
 <UITableViewDelegate,UITableViewDataSource>
 
 {
-    AreaModel *_superModel;
-    AreaModel *_currentModel;
-    
-    NSInteger _areaRank;
-    
-    NSString *_parentIdString;
+    CityListModel *_currentModel;
 }
 
-@property (nonatomic ,strong) TransactionHttpManager *httpManager;
 @property (nonatomic ,strong) UITableView *tableView;
-@property (nonatomic ,strong) NSMutableArray<AreaModel *> *areaListArray;
+@property (nonatomic ,strong) NSMutableArray<CityListModel *> *areaListArray;
 
 @end
 
 @implementation ChooseProvinceCityVC
 
-- (instancetype)initWithSuperModel:(AreaModel *)model AreaRank:(NSInteger)areaRank{
+- (instancetype)initWithSuperModel:(CityListModel *)model{
     self = [super init];
     if (self){
-        if (areaRank == 1){
-            _currentModel = model;
-        }else if (areaRank == 2){
-            _superModel = model;
-        }
-        _areaRank = areaRank;
-        [self requestNetworkGetData];
+        _currentModel = model;
+        _areaListArray = [NSMutableArray arrayWithArray:model.childArray];
     }
     return self;
 }
@@ -49,12 +36,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"选择地区";
     self.navigationItem.leftBarButtonItem = [[LeftBackItem alloc] initWithTarget:self Selector:@selector(leftNavBarButtonClick)];
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    
     [self.view addSubview:self.tableView];
+    
+    if (_currentModel) {
+        self.navigationItem.title = _currentModel.regionName;
+    }else{
+        self.navigationItem.title = @"选择地区";
+        [self requestNetworkGetData];
+    }
 }
 
 - (void)viewWillLayoutSubviews{
@@ -75,39 +66,32 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer forIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    AreaModel *areaModel = _areaListArray[indexPath.row];
-    
-    if (_areaRank == 1){
-        if ([areaModel.internalBaseClassIdentifier isEqualToString:_currentModel.internalBaseClassIdentifier] || [areaModel.name isEqualToString:_currentModel.name]){
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
+    CityListModel *areaModel = _areaListArray[indexPath.row];
+    if ([areaModel.regionId isEqualToString:_currentModel.regionId] || [areaModel.regionName isEqualToString:_currentModel.regionName]){
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     
     cell.textLabel.textColor = TextColorBlack;
     cell.textLabel.font = [UIFont systemFontOfSize:15];
-    cell.textLabel.text = areaModel.name;
+    cell.textLabel.text = areaModel.regionName;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    AreaModel *areaModel = _areaListArray[indexPath.row];
-
-    if (_areaRank == 1){
-        _currentModel = areaModel;
-        ChooseProvinceCityVC *provinceCityVC  = [[ChooseProvinceCityVC alloc]initWithSuperModel:areaModel AreaRank:2];
-        provinceCityVC.delegate = self.delegate;
-        provinceCityVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:provinceCityVC animated:YES];
-    }else if (_areaRank == 2){
+    CityListModel *areaModel = _areaListArray[indexPath.row];
+    if (areaModel.childArray.count) {
+        ChooseProvinceCityVC *cityVC  = [[ChooseProvinceCityVC alloc]initWithSuperModel:areaModel];
+        cityVC.delegate = self.delegate;
+        cityVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:cityVC animated:YES];
+    }else{
         [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
             if ([obj isKindOfClass:NSClassFromString(@"WithdrawViewController")] ||
                 [obj isKindOfClass:NSClassFromString(@"RechargeInfomationVC")]){
                 if (self.delegate && [self.delegate respondsToSelector:@selector(tableViewDidSelectAreaArray:)]){
-                    [self.delegate tableViewDidSelectAreaArray:@[_superModel,areaModel]];
+                    [self.delegate tableViewDidSelectAreaArray:@[areaModel.parentModel.parentModel,areaModel.parentModel,areaModel]];
                 }
-                
                 [self.navigationController popToViewController:obj animated:YES];
                 * stop = YES;
             }
@@ -118,30 +102,14 @@
 #pragma mark - RequestData
 
 - (void)requestNetworkGetData{
-    NSString *areaId = @"0";
-    if (_superModel){
-        areaId = _superModel.internalBaseClassIdentifier;
-    }
-    NSDictionary *parametersDict = @{@"cur_page":@"1",@"cur_size":@"200",@"parent_id":areaId};
-    [self.httpManager getAreaListWithParameterDict:parametersDict CompletionBlock:^(NSMutableArray<AreaModel *> *listArray, NSError *error){
-        if (!error){
-            if (listArray.count){
-                [self.areaListArray removeAllObjects];
-                [_areaListArray addObjectsFromArray:listArray];
-            }
-            [self.tableView reloadData];
-        }
+    [CityListModel asyncGetCityListModel:^(NSMutableArray<CityListModel *> * _Nonnull modelArray) {
+
+        self.areaListArray = modelArray;
+        [self.tableView reloadData];
     }];
 }
 
 #pragma mark - setter and getters
-
-- (NSMutableArray<AreaModel *> *)areaListArray{
-    if (_areaListArray == nil){
-        _areaListArray = [NSMutableArray array];
-    }
-    return _areaListArray;
-}
 
 - (UITableView *)tableView{
     if (_tableView == nil){

@@ -42,3 +42,13 @@
 
 
 @end
+
+
+
+@interface FilePathManager (FMDB)
+
+/** sqlite 数据库路径
+ */
++ (NSString *)sqliteFile;
+
+@end

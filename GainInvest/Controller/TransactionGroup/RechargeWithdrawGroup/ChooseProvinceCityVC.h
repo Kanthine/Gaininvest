@@ -21,6 +21,6 @@
 
 @property (nonatomic ,weak) id <ChooseProvinceCityVCDelegate> delegate;
 
-- (instancetype)initWithSuperModel:(AreaModel *)model AreaRank:(NSInteger)areaRank;
+- (instancetype)initWithSuperModel:(CityListModel *)model;
 
 @end

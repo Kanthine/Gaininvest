@@ -1,8 +1,7 @@
-platform :ios, '8.0'
+platform :ios, '9.0'
 target 'GainInvest' do
-pod 'SDWebImage', '~> 4.0.0-beta2'
-pod 'MBProgressHUD', '~> 1.0.0'
-pod 'Masonry', '~> 1.0.2'
-pod 'UITableView+FDTemplateLayoutCell', '~> 1.5.beta'
-pod 'FMDB', '~> 2.6.2'
+pod 'SDWebImage'
+pod 'MBProgressHUD'
+pod 'Masonry'
+pod 'FMDB'
 end

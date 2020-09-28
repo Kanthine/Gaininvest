@@ -164,6 +164,10 @@ CGFloat getPageSafeAreaHeight(BOOL isShowNavBar){
 ///时间戳转日期
 NSString *getTimeWithTimestamp(NSString *timestamp){
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp.floatValue];
+    return getTimeWithDate(date);
+}
+
+NSString *getTimeWithDate(NSDate *date){
     NSDateFormatter *formatter =[[NSDateFormatter alloc] init] ;
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
@@ -172,3 +176,4 @@ NSString *getTimeWithTimestamp(NSString *timestamp){
     [formatter setTimeZone:timeZone];
     return [formatter stringFromDate:date];
 }
+

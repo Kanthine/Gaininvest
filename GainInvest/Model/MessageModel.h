@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MessageTableDAO.h"
 
 @interface MessageModel : NSObject
 
@@ -22,5 +21,29 @@
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
+
+@end
+
+
+@interface MessageModel (CellUI)
+
+- (CGFloat)cellHeight;
+
+@end
+
+
+
+
+@interface MessageModel (FMDB)
+
++ (void)getAllMessageModel:(void(^)(NSMutableArray<MessageModel *> *modelsArray))block;
+
++ (void)insertModel:(MessageModel *)message;
+
++ (void)deleteModel:(MessageModel *)message;
+
++ (void)updateModel:(MessageModel *)message;
+
++ (void)getUnReadMessageCountCompletionBlock:(void (^) (NSUInteger count))block;
 
 @end

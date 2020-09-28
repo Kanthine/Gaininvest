@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class TransactionHttpManager;
 @interface PositionsContentVC : UIViewController
 
-@property (nonatomic ,strong) TransactionHttpManager *httpManager;
 
 @end
