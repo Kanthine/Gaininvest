@@ -24,7 +24,7 @@
 @property (nonatomic ,strong) UILabel *bottomLable;
 @property (nonatomic ,strong) UIButton *button;
 @property (nonatomic ,assign) BOOL isSelected;
-- (void)updateInfo:(NSDictionary *)dict;
+- (void)updateInfo:(CommodityInfoModel *)info;
 @end
 
 @implementation MetalKindView
@@ -92,15 +92,9 @@
     }
 }
 
-- (void)updateInfo:(NSDictionary *)dict{
-    NSString *name = dict[@"name"];
-    NSString *weight = dict[@"weight"];
-    NSString *spec = dict[@"spec"];
-    NSString *price = dict[@"price"];
-    NSString *unit = dict[@"unit"];
-    
-    _nameLabel.text = [NSString stringWithFormat:@"%@ %@%@/%@",name,weight,unit,spec];
-    _countPriceLabel.text = [NSString stringWithFormat:@"%@",price];
+- (void)updateInfo:(CommodityInfoModel *)info{
+    _nameLabel.text = [NSString stringWithFormat:@"%@ %@%@/%@",info.name,info.weight,info.unit,info.spec];
+    _countPriceLabel.text = [NSString stringWithFormat:@"%@",info.price];
 }
 
 @end
@@ -188,7 +182,7 @@
 {
     BOOL _isUseCoupon;
     
-    NSArray *_productListArray;
+    NSArray<CommodityInfoModel *> *_productListArray;
 }
 
 /** 遮盖 */
@@ -277,13 +271,10 @@
     {
         couponButton.enabled = YES;
     }
-    
-    
-    
 }
 
 
-- (void)updateBuyUpOrDownProductInfo:(NSArray<NSDictionary *> *)array{
+- (void)updateBuyUpOrDownProductInfo:(NSArray<CommodityInfoModel *> *)array{
     _productListArray = array;
     
     [self.kindLeftView updateInfo:array.firstObject];
@@ -294,48 +285,35 @@
 }
 
 // 出现
-- (void)show
-{
+- (void)show{
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
     
     NSLog(@"keyWindow == %@",[UIApplication sharedApplication].keyWindow.subviews);
     
     
-    [UIView animateWithDuration:AnimationDuration animations:^
-     {
+    [UIView animateWithDuration:AnimationDuration animations:^{
          self.contentView.transform = CGAffineTransformMakeTranslation(0, - CGRectGetMaxY(self.bottomView.frame));
          self.coverButton.alpha = 0.3;
      }];
-    
 }
 
-- (void)dismissPickerView
-{
+- (void)dismissPickerView{
     [self dismissPickerViewWithNeedTip:NO Error:nil];
 }
 
 // 消失
-- (void)dismissPickerViewWithNeedTip:(BOOL)isNeed Error:(NSError *)error
-{
-    [UIView animateWithDuration:AnimationDuration animations:^
-     {
+- (void)dismissPickerViewWithNeedTip:(BOOL)isNeed Error:(NSError *)error{
+    [UIView animateWithDuration:AnimationDuration animations:^{
          self.contentView.transform = CGAffineTransformMakeTranslation(0, CGRectGetMaxY(self.bottomView.frame));
          self.coverButton.alpha = 0.0;
-     } completion:^(BOOL finished)
-     {
-         
+     } completion:^(BOOL finished) {
          [self removeFromSuperview];
-
-         if (isNeed)
-         {
+         if (isNeed){
              self.transactionResultTip(error);
          }
-         
      }];
 }
-
-
 
 #pragma mark - UpDate UI Stste
 
@@ -427,7 +405,6 @@
         [self setBuyUPButtonSelectStateButton:button];
     }else if (index == 30){
         //买跌
-
         UIButton *button = [_contentView viewWithTag:20];
         button.selected = NO;
         [self setBuyUPButtonSelectStateButton:button];
@@ -446,27 +423,10 @@
             return;
         }
         self.slideCountView.currentValueLabel.text = [NSString stringWithFormat:@"买%d手",value];
-        {
-            if (_isUseCoupon == NO){
-                NSDictionary *dict =  _productListArray[self.currentProductIndex];
-                NSString *feeString = dict[@"fee"];
-                float price = [dict[@"price"] floatValue];
-                
-                price = price * value;
-                price = price + [feeString floatValue];
-                if (value == 0){
-                    price = 0;
-                }
-                [self setTotalPrice:[NSString stringWithFormat:@"%.1f",price] fee:@""];
-            }else{
-                [self setTotalPrice:[NSString stringWithFormat:@"%d",value] fee:@""];
-            }
-        }
     }else if ([slide.superview isEqual:self.slideGainView]){
         value = value * 10;
         if (value == 0){
             self.slideGainView.currentValueLabel.text = @"止盈：不限";
-            [self updateBottomViewInfo];
         }else{
             self.slideGainView.currentValueLabel.text = [NSString stringWithFormat:@"止盈：%d点",value];
         }
@@ -474,11 +434,12 @@
         value = value * 10;
         if (value == 0){
             self.slideLossView.currentValueLabel.text = @"止损：不限";
-            [self updateBottomViewInfo];
         }else{
             self.slideLossView.currentValueLabel.text = [NSString stringWithFormat:@"止损：%d点",value];
         }
     }
+    
+    [self updateBottomViewInfo];
 }
 
 - (void)changeSlideValueButtonClick:(UIButton *)sender{
@@ -512,8 +473,7 @@
 
 /* 下单 */
 - (void)placeAnOrderButtonClick:(UIButton *)sender{
-    UISlider *slide = [self.slideCountView viewWithTag:4];
-    if (slide.value < 1){
+    if (self.slideCountView.slide.value < 1){
         [ErrorTipView errorTip:@"请至少选择1手购买" SuperView:self];
         return;
     }
@@ -522,83 +482,44 @@
         [ErrorTipView errorTip:@"账户余额不足" SuperView:self];
         return;
     }
-    if ([self.couponNumberString intValue] < (int)slide.value && _isUseCoupon == YES){
+    if ([self.couponNumberString intValue] < (int)self.slideCountView.slide.value && _isUseCoupon == YES){
         [ErrorTipView errorTip:@"可用代金券数量不足" SuperView:self];
         return;
     }
     
-    
-    UISlider *topSlide = [self.slideLossView viewWithTag:4];
-    UISlider *bottomSlide = [self.slideGainView viewWithTag:4];
-    float topLimit = ((int)topSlide.value ) / 10.0;
-    float bottomLimit = ((int)bottomSlide.value ) / 10.0;
 
     
-    AccountInfo *account = [AccountInfo standardAccountInfo];
-    NSDictionary *productInfoDict = _productListArray[self.currentProductIndex];
+    CommodityInfoModel *productInfo = _productListArray[self.currentProductIndex];
     
+    /// 建仓
+    PositionsModel *order = [[PositionsModel alloc] init];
+    order.isBuyDrop = !self.isBuyUp;
+    order.isUseCoupon = _isUseCoupon;
+    order.productInfo = [productInfo copy];
+    order.count = self.slideCountView.slide.value;
+    order.topLimit = ((int)self.slideLossView.slide.value ) / 10.0;
+    order.bottomLimit = ((int)self.slideGainView.slide.value ) / 10.0;
     
-    NSLog(@"productInfoDict ===== %@",productInfoDict);
-    
-    NSString *couponId = [NSString stringWithFormat:@"%@",productInfoDict[@"productId"]];
-    NSString *contract = [NSString stringWithFormat:@"%@",productInfoDict[@"contract"]];
-
-    NSString *buyUpStr = @"2";
-    if (self.isBuyUp == NO){
-        buyUpStr = @"1";
-    }
-    NSString *numStr = [NSString stringWithFormat:@"%d",(int)slide.value];
-    NSString *topStr = [NSString stringWithFormat:@"%.2f",topLimit];
-    NSString *bottomStr = [NSString stringWithFormat:@"%.2f",bottomLimit];
-    NSString *isUseCoupon = @"0";
-    if (_isUseCoupon){
-        isUseCoupon = @"1";
-    }
-    
-    
-    NSDictionary *dict = @{@"mobile_phone":account.phone,
-                           @"product_id":couponId,
-                           @"contract":contract,
-                           @"type":buyUpStr,
-                           @"sl":numStr,
-                           @"is_juan":isUseCoupon,
-                           @"top_limit":topStr,
-                           @"bottom_limit":bottomStr};
-    /** 建仓
-     *
-     * mobile_phone：手机号
-     * product_id ：产品Id
-     * contract ：合同
-     * type ：方向 1涨2跌
-     * sl ：手数 最大10手
-     * is_juan ： 是否使用券 1使用0不使用
-     * top_limit ：止盈比例 默认是0
-     * bottom_limit ： 止损比例 默认是0
-     */
-
 //    [self dismissPickerViewWithNeedTip:YES Error:error];
-
 }
 
 - (void)updateBottomViewInfo{
     if (_productListArray){
         UILabel *unitLable = [self.bottomView viewWithTag:3];
         
-        UISlider *slide = [self.slideCountView viewWithTag:4];
-        int value = ceil(slide.value);//多少手
+        int value = ceil(self.slideCountView.slide.value);//多少手
         
         if (_isUseCoupon == NO){
-            NSDictionary *dict =  _productListArray[self.currentProductIndex];
-            NSString *feeString = dict[@"fee"];
-            float price = [dict[@"price"] floatValue];
+            CommodityInfoModel *info = _productListArray[self.currentProductIndex];
+            float price = [info.price floatValue];
             unitLable.text = @"元";
             price = price * value;
-            price = price + [feeString floatValue];
+            price = price + [info.fee floatValue];
             if (value == 0){
                 price = 0;
             }
             
-            [self setTotalPrice:[NSString stringWithFormat:@"%.1f",price] fee:feeString ?: @""];
+            [self setTotalPrice:[NSString stringWithFormat:@"%.1f",price] fee:info.fee ?: @""];
         }else{
             [self setTotalPrice:[NSString stringWithFormat:@"%d",value] fee:@"0"];
             

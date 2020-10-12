@@ -182,7 +182,6 @@ ConsultHeaderTitileViewDelegate,ConsultContentListDelegate>
         tableView.showsVerticalScrollIndicator = YES;
         self.scrollView.showsVerticalScrollIndicator = NO;
     }
-
 }
 
 - (void)consultTableDidSelectModel:(ConsultListModel *)consultModel{

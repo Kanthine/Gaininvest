@@ -31,7 +31,7 @@
         self.buyUpOrDownLable.text = @"买涨";
     }
     
-    if (model.couponFlag){//是否使用优惠券
+    if (model.isUseCoupon){//是否使用优惠券
         self.couponImageView.hidden = NO;
     }else{
         self.couponImageView.hidden = YES;
@@ -48,7 +48,7 @@
         self.plAmountLable.text = [NSString stringWithFormat:@"%.1f",money];
     }
     
-    self.buyKindLable.text = [NSString stringWithFormat:@"%@%.1f%@%.0f手",model.productName,model.weight,model.spec,model.count];
+    self.buyKindLable.text = [NSString stringWithFormat:@"%@%.1f%@%.0f手",model.productInfo.name,model.productInfo.weight,model.productInfo.spec,model.count];
     self.openPositionLable.text = [NSString stringWithFormat:@"%.0f",model.buyPrice];
     self.latestPriceLable.text = [NSString stringWithFormat:@"%.0f",model.sellPrice];
     self.feeLable.text = [NSString stringWithFormat:@"0"];
@@ -95,7 +95,7 @@
         AccountInfo *account = [AccountInfo standardAccountInfo];
         NSDictionary *dict = @{@"mobile_phone":account.username,
                                @"order_id":orderId,
-                               @"contract":_model.contract};
+                               @"contract":_model.productInfo.contract};
 
         
         NSLog(@"dict ==== %@",dict);

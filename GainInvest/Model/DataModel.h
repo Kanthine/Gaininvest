@@ -18,7 +18,6 @@
 
 #import "CouponModel.h"
 #import "PositionsModel.h"
-#import "TradeModel.h"
 #import "InorderModel.h"
 
 

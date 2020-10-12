@@ -20,7 +20,7 @@
 
 @implementation PositionsHistoryTableCell
 
-- (void)updatePositionsHistoryTableCellWithModel:(TradeModel *)model{
+- (void)updatePositionsHistoryTableCellWithModel:(PositionsModel *)model{
     self.buyUpOrDownLable.text = model.isBuyDrop ? @"买跌" : @"买涨";
 
     //是否使用优惠券
@@ -34,7 +34,7 @@
     }
     
     
-    self.buyKindLable.text = [NSString stringWithFormat:@"%@%.1f%@%.0f手",model.proDesc,model.weight,model.spec,model.count];
+    self.buyKindLable.text = [NSString stringWithFormat:@"%@%.1f%@%.0f手",model.proDesc,model.productInfo.weight,model.productInfo.spec,model.count];
     self.openPositionLable.text = [NSString stringWithFormat:@"%.0f",model.buyPrice];
     
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A1A4DAE2534027000FC470C /* CommodityInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4DAC2534027000FC470C /* CommodityInfoModel.m */; };
 		1A5B801D251DCCE8008D1595 /* YLGlobalTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B801C251DCCE8008D1595 /* YLGlobalTools.m */; };
 		1A5B8034251DE257008D1595 /* JdInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B8033251DE257008D1595 /* JdInfoModel.m */; };
 		1A66803A2521C62B00614BAE /* CityModelList.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A6680392521C62B00614BAE /* CityModelList.json */; };
@@ -183,7 +184,6 @@
 		22FF41711E7697AF000FB634 /* PositionsIncomeDetaileTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF416F1E7697AF000FB634 /* PositionsIncomeDetaileTableCell.m */; };
 		22FF41721E7697AF000FB634 /* PositionsIncomeDetaileTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22FF41701E7697AF000FB634 /* PositionsIncomeDetaileTableCell.xib */; };
 		22FF41751E769C67000FB634 /* PositionsHistoryTableSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF41741E769C67000FB634 /* PositionsHistoryTableSectionHeaderView.m */; };
-		22FF41781E76A999000FB634 /* TradeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF41771E76A999000FB634 /* TradeModel.m */; };
 		22FF417B1E76ABF5000FB634 /* PositionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF417A1E76ABF5000FB634 /* PositionsModel.m */; };
 		22FF6F411E49ACDA00F81929 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF6F401E49ACDA00F81929 /* main.m */; };
 		22FF6F441E49ACDA00F81929 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF6F431E49ACDA00F81929 /* AppDelegate.m */; };
@@ -219,6 +219,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A1A4DAC2534027000FC470C /* CommodityInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityInfoModel.m; sourceTree = "<group>"; };
+		1A1A4DAD2534027000FC470C /* CommodityInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityInfoModel.h; sourceTree = "<group>"; };
 		1A5B801B251DCCE8008D1595 /* YLGlobalTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLGlobalTools.h; sourceTree = "<group>"; };
 		1A5B801C251DCCE8008D1595 /* YLGlobalTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLGlobalTools.m; sourceTree = "<group>"; };
 		1A5B8032251DE257008D1595 /* JdInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JdInfoModel.h; sourceTree = "<group>"; };
@@ -529,8 +531,6 @@
 		22FF41701E7697AF000FB634 /* PositionsIncomeDetaileTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PositionsIncomeDetaileTableCell.xib; sourceTree = "<group>"; };
 		22FF41731E769C67000FB634 /* PositionsHistoryTableSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionsHistoryTableSectionHeaderView.h; sourceTree = "<group>"; };
 		22FF41741E769C67000FB634 /* PositionsHistoryTableSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionsHistoryTableSectionHeaderView.m; sourceTree = "<group>"; };
-		22FF41761E76A999000FB634 /* TradeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeModel.h; sourceTree = "<group>"; };
-		22FF41771E76A999000FB634 /* TradeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeModel.m; sourceTree = "<group>"; };
 		22FF41791E76ABF5000FB634 /* PositionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionsModel.h; sourceTree = "<group>"; };
 		22FF417A1E76ABF5000FB634 /* PositionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionsModel.m; sourceTree = "<group>"; };
 		22FF6F3C1E49ACDA00F81929 /* GainInvest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GainInvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -689,12 +689,12 @@
 				22B083D31E51B92B00843DBD /* ConsultListModel.m */,
 				220052B71E52B119001EB8E0 /* ConsultKindTitleModel.h */,
 				220052B81E52B119001EB8E0 /* ConsultKindTitleModel.m */,
+				1A1A4DAD2534027000FC470C /* CommodityInfoModel.h */,
+				1A1A4DAC2534027000FC470C /* CommodityInfoModel.m */,
 				229EEF231E73E64200B078A4 /* CouponModel.h */,
 				229EEF241E73E64200B078A4 /* CouponModel.m */,
 				22FF41791E76ABF5000FB634 /* PositionsModel.h */,
 				22FF417A1E76ABF5000FB634 /* PositionsModel.m */,
-				22FF41761E76A999000FB634 /* TradeModel.h */,
-				22FF41771E76A999000FB634 /* TradeModel.m */,
 				22D177F71E7C2E9700E99911 /* MessageModel.h */,
 				22D177F81E7C2E9700E99911 /* MessageModel.m */,
 				220651071E81401D004FA34F /* InorderModel.h */,
@@ -1704,8 +1704,8 @@
 				22B7B3281E5E8AD700FF5EB6 /* SetTransactionPasswordVC.m in Sources */,
 				2223F2CA1E5FD65C006E8B8E /* IntroPageViewController.m in Sources */,
 				22A50EDA1E7927C6004578B3 /* WithdrawBankCardInfoView.m in Sources */,
+				1A1A4DAE2534027000FC470C /* CommodityInfoModel.m in Sources */,
 				22FD90331E8B9FD100F78CE0 /* RechargePerfectInfomation.m in Sources */,
-				22FF41781E76A999000FB634 /* TradeModel.m in Sources */,
 				2221EED71E4DA96C006DA937 /* ResetLoginPasswordVC.m in Sources */,
 				2202C7DE1E4AD0BA000D14DE /* LoginViewController.m in Sources */,
 				22AEF9171E712F0E0076813C /* PositionsHistoryTableHeaderView.m in Sources */,

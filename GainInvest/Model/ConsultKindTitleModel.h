@@ -2,8 +2,8 @@
 //  ConsultKindTitleModel.h
 //  GainInvest
 //
-//  Created by 苏沫离 on 17/2/14.
-//  Copyright © 2017年 苏沫离. All rights reserved.
+//  Created by   on 17/2/13
+//  Copyright (c) 2017 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

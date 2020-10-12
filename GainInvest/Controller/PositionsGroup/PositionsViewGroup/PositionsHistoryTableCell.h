@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *orderNumLable;//订单号
 @property (weak, nonatomic) IBOutlet UILabel *feeLable;//手续费
 
-- (void)updatePositionsHistoryTableCellWithModel:(TradeModel *)model;
+- (void)updatePositionsHistoryTableCellWithModel:(PositionsModel *)model;
 
 
 @end

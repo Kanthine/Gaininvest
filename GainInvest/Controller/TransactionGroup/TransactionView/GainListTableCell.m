@@ -22,7 +22,7 @@
     // Configure the view for the selected state
 }
 
-- (void)updateGainListTableCellWithModel:(TradeModel *)model
+- (void)updateGainListTableCellWithModel:(PositionsModel *)model
 {
     NSString *nameStr = [NSString stringWithFormat:@"%@(%.1f元)",model.proDesc,model.buyMoney];
     NSString *priceStr = @"";

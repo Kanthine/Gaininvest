@@ -13,7 +13,7 @@
 @interface ClosePositionDetaileVC ()
 
 {
-    TradeModel *_model;
+    PositionsModel *_model;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *buyUpOrDownLable;//买涨买跌
@@ -31,7 +31,7 @@
 
 @implementation ClosePositionDetaileVC
 
-- (instancetype)initWithModel:(TradeModel *)model{
+- (instancetype)initWithModel:(PositionsModel *)model{
     self = [super initWithNibName:@"ClosePositionDetaileVC" bundle:nil];
     if (self){
         _model = model;
@@ -48,7 +48,7 @@
     [self updatePositionsDetaileWithModel:_model];
 }
 
-- (void)updatePositionsDetaileWithModel:(TradeModel *)model{
+- (void)updatePositionsDetaileWithModel:(PositionsModel *)model{
     
     self.buyUpOrDownLable.text = model.isBuyDrop ? @"买跌" : @"买涨";
     //是否使用优惠券
@@ -61,7 +61,7 @@
     }
     
     //白银种类
-    self.buyKindLable.text = [NSString stringWithFormat:@"%@%.1f%@%ld手",model.proDesc,model.weight,model.spec,(long)model.count];
+    self.buyKindLable.text = [NSString stringWithFormat:@"%@%.1f%@%ld手",model.proDesc,model.productInfo.weight,model.productInfo.spec,(long)model.count];
     self.openPositionLable.text = [NSString stringWithFormat:@"%.0f",model.buyPrice];
     self.latestPriceLable.text = [NSString stringWithFormat:@"%.0f",model.sellPrice];
     self.feeLable.text = [NSString stringWithFormat:@"0"];

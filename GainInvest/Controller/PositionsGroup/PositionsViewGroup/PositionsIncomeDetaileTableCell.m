@@ -22,9 +22,9 @@
 
 @implementation PositionsIncomeDetaileTableCell
 
-- (void)updatePositionsHistoryTableCellWithModel:(TradeModel *)model{
+- (void)updatePositionsHistoryTableCellWithModel:(PositionsModel *)model{
     self.nameLable.text = model.remark;
-    self.priceLable.text = [NSString stringWithFormat:@"%.2f元",model.money];
+//    self.priceLable.text = [NSString stringWithFormat:@"%.2f元",model.money];
     self.resultLable.text = [model.remark stringByAppendingString:@"成功"];
     self.resultLable.text = @"";
     

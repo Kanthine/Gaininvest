@@ -10,6 +10,6 @@
 
 @interface ClosePositionDetaileVC : UIViewController
 
-- (instancetype)initWithModel:(TradeModel *)model;
+- (instancetype)initWithModel:(PositionsModel *)model;
 
 @end

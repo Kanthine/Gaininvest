@@ -263,6 +263,20 @@
     return resultArray;
 }
 
+/** 获取贵金属信息
+ */
++ (NSMutableArray<CommodityInfoModel *> *)accessCommodityInfos{
+    NSMutableArray<CommodityInfoModel *> *resultArray = [NSMutableArray array];
+    NSArray<NSDictionary *> *array = @[@{@"name":@"白银",@"weight":@"230",@"spec":@"斤",@"price":@"32.2",@"unit":@"￥",@"commodityId":@"10.2",@"contract":@"@#$%^&^&%^$%",@"fee":@"1"},
+                       @{@"name":@"黄金",@"weight":@"350",@"spec":@"千克",@"price":@"60.4",@"unit":@"￥",@"commodityId":@"20",@"contract":@"*%#^#$^%$#",@"fee":@"5"},
+                       @{@"name":@"钻石",@"weight":@"500",@"spec":@"克",@"price":@"90.8",@"unit":@"$",@"commodityId":@"30",@"contract":@"#!@%*^$%^($%%&",@"fee":@"10"}];
+    for (NSDictionary *dict in array) {
+        CommodityInfoModel *model = [CommodityInfoModel modelObjectWithDictionary:dict];
+        [resultArray addObject:model];
+    }
+    return resultArray;
+}
+
 
 /** 获取用户的持仓信息列表
  */
@@ -271,7 +285,7 @@
     for (int i = 0; i < 20; i++) {
         PositionsModel *model = [[PositionsModel alloc] init];
         model.isBuyDrop = arc4random() % 2;
-        model.couponFlag = arc4random() % 2;
+        model.isUseCoupon = arc4random() % 2;
         model.topLimit = 721.3;
         model.bottomLimit = 535.7;
         model.orderId = arc4random() % 50 + i;
@@ -287,10 +301,10 @@
  * st ：查询开始时间 格式: yyyy-MM-dd
  * et ：查询结束时间 格式: yyyy-MM-dd
  */
-+ (NSMutableArray<TradeModel *> *)accessTradeListWithParameterDict:(NSDictionary *)parameterDict{
-    NSMutableArray<TradeModel *> *resultArray = [NSMutableArray array];
++ (NSMutableArray<PositionsModel *> *)accessTradeListWithParameterDict:(NSDictionary *)parameterDict{
+    NSMutableArray<PositionsModel *> *resultArray = [NSMutableArray array];
     for (int i = 0; i < 20; i++) {
-        TradeModel *model = [[TradeModel alloc] init];
+        PositionsModel *model = [[PositionsModel alloc] init];
         model.isBuyDrop = arc4random() % 2;
         model.isUseCoupon = arc4random() % 2;
         model.addTime = @"2017-03-23 05:12";
@@ -320,10 +334,10 @@
  * st ：查询开始时间 格式: yyyy-MM-dd
  * et ：查询结束时间 格式: yyyy-MM-dd
  */
-+ (NSMutableArray<TradeModel *> *)accessIncomeDetaileListWithParameterDict:(NSDictionary *)parameterDict{
-    NSMutableArray<TradeModel *> *resultArray = [NSMutableArray array];
++ (NSMutableArray<PositionsModel *> *)accessIncomeDetaileListWithParameterDict:(NSDictionary *)parameterDict{
+    NSMutableArray<PositionsModel *> *resultArray = [NSMutableArray array];
     for (int i = 0; i < 20; i++) {
-        TradeModel *model = [[TradeModel alloc] init];
+        PositionsModel *model = [[PositionsModel alloc] init];
         model.isBuyDrop = arc4random() % 2;
         model.isUseCoupon = arc4random() % 2;
         model.addTime = @"2017-03-23 05:12";

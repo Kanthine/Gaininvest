@@ -7,8 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-
-
 @interface InorderModel : NSObject <NSCoding, NSCopying>
 ///YES 买跌 ， NO 买涨
 @property (nonatomic, assign) bool isBuyDrop;
