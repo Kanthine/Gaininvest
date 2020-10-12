@@ -413,7 +413,7 @@
     
     
     
-    CGFloat keyBoardHeight = ScreenHeight - 64 - CGRectGetMaxY(textField.frame);
+    CGFloat keyBoardHeight = CGRectGetHeight(UIScreen.mainScreen.bounds) - 64 - CGRectGetMaxY(textField.frame);
     if (keyBoardHeight < 280)
     {
         //        UIScrollView *scrollView = (UIScrollView *)self.superview;

@@ -10,7 +10,7 @@
 #define CellIdentifer @"UITableViewCell"
 #define HeaderIdentifer @"HeaderIdentifer"
 #define FooterIdentifer @"FooterIdentifer"
-#define TableHeaderHeight (ScreenWidth *  0.656)
+#define TableHeaderHeight (CGRectGetWidth(UIScreen.mainScreen.bounds) *  0.656)
 
 #import "OwnerViewController.h"
 
@@ -129,7 +129,7 @@
 {
     if (_tableHeaderView == nil)
     {
-        UIView *tableHeaderView= [[UIView alloc]initWithFrame:CGRectMake(0, - TableHeaderHeight, ScreenWidth,  TableHeaderHeight)];
+        UIView *tableHeaderView= [[UIView alloc]initWithFrame:CGRectMake(0, - TableHeaderHeight, CGRectGetWidth(UIScreen.mainScreen.bounds),  TableHeaderHeight)];
         
         
         UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"ourBack"]];
@@ -227,7 +227,7 @@
 
 - (UITableView *)tableview{
     if (_tableview == nil){
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 49) style:UITableViewStyleGrouped];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 49) style:UITableViewStyleGrouped];
         _tableview.showsVerticalScrollIndicator = NO;
         _tableview.showsHorizontalScrollIndicator = NO;
         _tableview.delegate = self;
@@ -426,7 +426,7 @@
         rect.origin.y = yOffset;
         rect.size.height =  -yOffset ;
         rect.origin.x = xOffset;
-        rect.size.width = ScreenWidth + fabs(xOffset)*2;
+        rect.size.width = CGRectGetWidth(UIScreen.mainScreen.bounds) + fabs(xOffset)*2;
         _tableHeaderView.frame = rect;
     }
     

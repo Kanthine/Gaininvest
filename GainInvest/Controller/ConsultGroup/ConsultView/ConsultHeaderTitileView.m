@@ -8,7 +8,7 @@
 
 #define CellIdentifer @"ConsultHeaderTitileCell"
 
-#define ContentConsultViewHeight (ScreenHeight - 64 - 49)
+#define ContentConsultViewHeight (CGRectGetHeight(UIScreen.mainScreen.bounds) - 64 - 49)
 
 #import "ConsultHeaderTitileView.h"
 #import <Masonry.h>
@@ -121,7 +121,7 @@
 
 - (ConsultKindTitleView *)kindTitleView{
     if (_kindTitleView == nil){
-        _kindTitleView = [[ConsultKindTitleView alloc]initWithFrame:CGRectMake(0, - ContentConsultViewHeight, ScreenWidth, ContentConsultViewHeight)];
+        _kindTitleView = [[ConsultKindTitleView alloc]initWithFrame:CGRectMake(0, - ContentConsultViewHeight, CGRectGetWidth(UIScreen.mainScreen.bounds), ContentConsultViewHeight)];
         _kindTitleView.isEditing = NO;
     }
     
@@ -132,7 +132,7 @@
 {
     if (_chooseTitleButtonView == nil)
     {
-        _chooseTitleButtonView = [[UIView alloc]initWithFrame:CGRectMake(ScreenWidth - 44, 0, 44, 44)];
+        _chooseTitleButtonView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - 44, 0, 44, 44)];
         _chooseTitleButtonView.clipsToBounds = YES;
         _chooseTitleButtonView.backgroundColor = [UIColor clearColor];
         
@@ -168,7 +168,7 @@
 {
     if (_scrollView == nil)
     {
-        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 44)];
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.delegate = self;
@@ -176,7 +176,7 @@
         _scrollView.backgroundColor = [UIColor clearColor];
 
         
-//        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(-ScreenWidth, 43.5, ScreenWidth * 10, 0.5)];
+//        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(-CGRectGetWidth(UIScreen.mainScreen.bounds), 43.5, CGRectGetWidth(UIScreen.mainScreen.bounds) * 10, 0.5)];
 //        lineView.backgroundColor = LineGrayColor;
 //        [_scrollView addSubview:lineView];
         
@@ -278,7 +278,7 @@
 {
     UIButton *currentButton = [self.scrollView viewWithTag:index + 20];
 
-    CGFloat space = ( ScreenWidth - CGRectGetWidth(currentButton.frame) ) / 2.0;
+    CGFloat space = ( CGRectGetWidth(UIScreen.mainScreen.bounds) - CGRectGetWidth(currentButton.frame) ) / 2.0;
     CGFloat xOffset = currentButton.frame.origin.x - space;
   
 

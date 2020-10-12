@@ -33,7 +33,7 @@
     if (self)
     {
         self.image = [UIImage imageNamed:imageName];
-        self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        self.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds));
         
         [self addSubview:self.coverButton];
         [self addSubview:self.contentView];
@@ -50,7 +50,7 @@
         button.backgroundColor = [UIColor blackColor];
         button.alpha = 0.0;
         [button addTarget:self action:@selector(dismissPickerView) forControlEvents:UIControlEventTouchUpInside];
-        button.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        button.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds));
         
         _coverButton = button;
     }
@@ -66,7 +66,7 @@
         view.backgroundColor = [UIColor clearColor];
         view.userInteractionEnabled = NO;
         //560 : 641
-        CGFloat width = ScreenWidth - 60;
+        CGFloat width = CGRectGetWidth(UIScreen.mainScreen.bounds) - 60;
         CGFloat height = width * 641 / 560.0;
         
         
@@ -98,7 +98,7 @@
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
     
-    CGFloat y =  CGRectGetHeight(self.contentView.frame) + ScreenHeight / 4.0;
+    CGFloat y =  CGRectGetHeight(self.contentView.frame) + CGRectGetHeight(UIScreen.mainScreen.bounds) / 4.0;
     
     [UIView animateWithDuration:AnimationDuration animations:^
      {

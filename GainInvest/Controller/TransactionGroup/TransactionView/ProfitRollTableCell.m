@@ -16,7 +16,7 @@
     [super awakeFromNib];
     // Initialization code
 
-    if (ScreenWidth < 330)
+    if (CGRectGetWidth(UIScreen.mainScreen.bounds) < 330)
     {
         [self.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
         {

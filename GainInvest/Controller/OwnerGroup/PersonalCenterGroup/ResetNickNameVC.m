@@ -47,7 +47,7 @@
     UIButton *rightNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     rightNavBarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [rightNavBarButton addTarget:self action:@selector(rightNavBarButtonClcik) forControlEvents:UIControlEventTouchUpInside];
-    rightNavBarButton.frame = CGRectMake(ScreenWidth - 40, 7, 60, 44);
+    rightNavBarButton.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - 40, 7, 60, 44);
     [rightNavBarButton setTitle:@"保存" forState:UIControlStateNormal];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightNavBarButton];
     self.navigationItem.rightBarButtonItem = rightItem;

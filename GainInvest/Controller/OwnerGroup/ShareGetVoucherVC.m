@@ -67,26 +67,26 @@
 {
     if (_scrollView == nil)
     {
-        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)];
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.backgroundColor = RGBA(248, 181, 76, 1);
         
         UIImage *image = [UIImage imageNamed:@"owner_ShareGetVoucher"];
         
-        CGFloat imageHeight = image.size.height / image.size.width * ScreenWidth;
+        CGFloat imageHeight = image.size.height / image.size.width * CGRectGetWidth(UIScreen.mainScreen.bounds);
         
         self.imageView.image = image;
-        self.imageView.frame = CGRectMake(0, 0, ScreenWidth, imageHeight);
+        self.imageView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), imageHeight);
         
         [_scrollView addSubview:self.imageView];
         
-        _scrollView.contentSize = CGSizeMake(ScreenWidth, imageHeight);
+        _scrollView.contentSize = CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds), imageHeight);
         
         
-        CGFloat buttonHeight = 340 / 375.0 * ScreenWidth;
+        CGFloat buttonHeight = 340 / 375.0 * CGRectGetWidth(UIScreen.mainScreen.bounds);
 
-        self.shareButton.frame = CGRectMake(50, buttonHeight, ScreenWidth - 100, 80);
+        self.shareButton.frame = CGRectMake(50, buttonHeight, CGRectGetWidth(UIScreen.mainScreen.bounds) - 100, 80);
         [_scrollView addSubview:self.shareButton];
 
         

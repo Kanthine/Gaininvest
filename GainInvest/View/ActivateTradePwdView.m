@@ -33,7 +33,7 @@
     if (self){
         _viewState = viewState;
         
-        _contentWeight = ScreenWidth - 60;
+        _contentWeight = CGRectGetWidth(UIScreen.mainScreen.bounds) - 60;
         self.frame = UIScreen.mainScreen.bounds;
         [self addSubview:self.coverButton];
         [self addSubview:self.contentView];
@@ -98,7 +98,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.backgroundColor = [UIColor blackColor];
         button.alpha = 0.0;
-        button.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        button.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds));
         _coverButton = button;
     }
     return _coverButton;
@@ -183,7 +183,7 @@
             [button setTitle:@"去开户" forState:UIControlStateNormal];
         }
         
-        view.frame = CGRectMake(30, 0, ScreenWidth - 60 ,  height);
+        view.frame = CGRectMake(30, 0, CGRectGetWidth(UIScreen.mainScreen.bounds) - 60 ,  height);
         view.center = self.center;
         view.alpha = 0;
         view.transform = CGAffineTransformMakeScale( OriginalScale,  OriginalScale);

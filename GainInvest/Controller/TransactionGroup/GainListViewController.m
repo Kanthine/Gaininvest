@@ -157,15 +157,15 @@
 
 - (UIView *)noDataTipView{
     if (_noDataTipView == nil){
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64)];
         view.backgroundColor = RGBA(250, 250, 255, 1);
         
         //377 ： 263
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((ScreenWidth - 150) / 2.0, 100, 150, 105)];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((CGRectGetWidth(UIScreen.mainScreen.bounds) - 150) / 2.0, 100, 150, 105)];
         imageView.image = [UIImage imageNamed:@"noData"];
         [view addSubview:imageView];
         
-        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame) + 20, ScreenWidth, 20)];
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame) + 20, CGRectGetWidth(UIScreen.mainScreen.bounds), 20)];
         lable.textAlignment = NSTextAlignmentCenter;
         lable.textColor = TextColorGray;
         lable.font = [UIFont systemFontOfSize:15];

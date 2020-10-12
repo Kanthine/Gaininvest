@@ -14,7 +14,7 @@
 {
     UIImage *oldImage = [UIImage imageNamed:@"navBar"];
     
-//    UIImage *newImage = [oldImage scaleToSize:CGSizeMake(ScreenWidth, 64)];
+//    UIImage *newImage = [oldImage scaleToSize:CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds), 64)];
     
     return oldImage;
 }

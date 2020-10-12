@@ -61,7 +61,7 @@ static Y_StockChartTargetLineStatus Y_StockChartKLineIsEMALine = Y_StockChartTar
  */
 +(CGFloat)kLineGap
 {
-    return (ScreenWidth - [Y_StockChartGlobalVariable kLineWidth] * 30) / 31.0;
+    return (CGRectGetWidth(UIScreen.mainScreen.bounds) - [Y_StockChartGlobalVariable kLineWidth] * 30) / 31.0;
     
     return Y_StockChartKLineGap;
 }

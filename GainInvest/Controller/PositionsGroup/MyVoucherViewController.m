@@ -114,15 +114,15 @@
 
 - (UIView *)noDataTipView{
     if (_noDataTipView == nil){
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64)];
         view.backgroundColor = RGBA(250, 250, 255, 1);
         
         //377 ： 263
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((ScreenWidth - 150) / 2.0, 100, 150, 105)];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((CGRectGetWidth(UIScreen.mainScreen.bounds) - 150) / 2.0, 100, 150, 105)];
         imageView.image = [UIImage imageNamed:@"noData"];
         [view addSubview:imageView];
         
-        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame) + 20, ScreenWidth, 20)];
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame) + 20, CGRectGetWidth(UIScreen.mainScreen.bounds), 20)];
         lable.textAlignment = NSTextAlignmentCenter;
         lable.textColor = TextColorGray;
         lable.font = [UIFont systemFontOfSize:15];
@@ -135,7 +135,7 @@
 
 - (UITableView *)tableView{
     if (_tableView == nil){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -144,7 +144,7 @@
         // 664 ： 196
         _tableView.showsVerticalScrollIndicator =NO;
         _tableView.showsHorizontalScrollIndicator = NO;
-        CGFloat cellHeight =  ( ScreenWidth - 20 ) * 196 / 664.0 + 20.0;
+        CGFloat cellHeight =  ( CGRectGetWidth(UIScreen.mainScreen.bounds) - 20 ) * 196 / 664.0 + 20.0;
         _tableView.rowHeight = cellHeight;
         [_tableView registerNib:[UINib nibWithNibName:@"VoucherListTableCell" bundle:nil] forCellReuseIdentifier:CellIdentifer];
     }

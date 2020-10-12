@@ -72,15 +72,15 @@
 {
     if (_tableHeaderView == nil)
     {
-        _tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenWidth *  0.467)];
+        _tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetWidth(UIScreen.mainScreen.bounds) *  0.467)];
         _tableHeaderView.backgroundColor = RGBA(250, 250, 255, 1);
         
         
         UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"owner_AppLogo"]];
-        imageView.frame = CGRectMake((ScreenWidth - 80) / 2.0, 30, 80, 80);
+        imageView.frame = CGRectMake((CGRectGetWidth(UIScreen.mainScreen.bounds) - 80) / 2.0, 30, 80, 80);
         [_tableHeaderView addSubview:imageView];
         
-        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame) + 15, ScreenWidth, 20)];
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame) + 15, CGRectGetWidth(UIScreen.mainScreen.bounds), 20)];
         lable.text = @"盈投资";
         lable.textAlignment = NSTextAlignmentCenter;
         lable.textColor = TextColorBlack;
@@ -88,14 +88,14 @@
         [_tableHeaderView addSubview:lable];
         
         
-        UILabel *lableAppVersion = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(lable.frame) + 15, ScreenWidth, 20)];
+        UILabel *lableAppVersion = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(lable.frame) + 15, CGRectGetWidth(UIScreen.mainScreen.bounds), 20)];
         lableAppVersion.text = [NSString stringWithFormat:@"V %@",[self getAppVersion]];
         lableAppVersion.textAlignment = NSTextAlignmentCenter;
         lableAppVersion.textColor = TextColorBlack;
         lableAppVersion.font = [UIFont systemFontOfSize:14];
         [_tableHeaderView addSubview:lableAppVersion];
         
-        _tableHeaderView.frame = CGRectMake(0, 0, ScreenWidth,CGRectGetMaxY(lableAppVersion.frame) + 30);
+        _tableHeaderView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds),CGRectGetMaxY(lableAppVersion.frame) + 30);
 
     }
     
@@ -107,7 +107,7 @@
 {
     if (_tableview == nil)
     {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64) style:UITableViewStylePlain];
         _tableview.backgroundColor = [UIColor whiteColor];
         _tableview.delegate = self;
         _tableview.dataSource = self;

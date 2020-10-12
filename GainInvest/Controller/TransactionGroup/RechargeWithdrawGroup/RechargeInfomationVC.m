@@ -41,12 +41,12 @@
 
 - (UIScrollView *)scrollView{
     if (_scrollView == nil){
-        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)];
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.backgroundColor = TableGrayColor;
         [_scrollView addSubview:self.rechargeView];
-        _scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetHeight(self.rechargeView.frame) + 200);
+        _scrollView.contentSize = CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(self.rechargeView.frame) + 200);
     }
     return _scrollView;
 }
@@ -57,11 +57,11 @@
         _rechargeView.currentMoney = self.currentMoney;
         _rechargeView.currentViewController = self;
         
-        CGFloat height = ScreenHeight - 64;
+        CGFloat height = CGRectGetHeight(UIScreen.mainScreen.bounds) - 64;
         if (height < 470){
             height = 470;
         }
-        _rechargeView.frame = CGRectMake(0, 0, ScreenWidth, height);
+        _rechargeView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), height);
     }
     return _rechargeView;
 }

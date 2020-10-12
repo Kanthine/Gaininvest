@@ -34,7 +34,7 @@
         
         self.backgroundColor = NavBarBackColor;
         
-        UILabel *topLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 10, ScreenWidth, 20)];
+        UILabel *topLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 10, CGRectGetWidth(UIScreen.mainScreen.bounds), 20)];
         topLable.tag = 66;
         topLable.textColor = RGBA(123, 128, 144, 1);
         topLable.textAlignment = NSTextAlignmentCenter;
@@ -44,7 +44,7 @@
 
         CGFloat x_backImageView = 20.0;
         UIImageView *backImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"ProfitRoll_Back"]];
-        backImageView.frame = CGRectMake(x_backImageView, CGRectGetMaxY(topLable.frame) + 15, ScreenWidth - x_backImageView * 2, (ScreenWidth - x_backImageView * 2) / 50.0 * 19.0);
+        backImageView.frame = CGRectMake(x_backImageView, CGRectGetMaxY(topLable.frame) + 15, CGRectGetWidth(UIScreen.mainScreen.bounds) - x_backImageView * 2, (CGRectGetWidth(UIScreen.mainScreen.bounds) - x_backImageView * 2) / 50.0 * 19.0);
         backImageView.backgroundColor = [UIColor clearColor];
         backImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:backImageView];
@@ -257,7 +257,7 @@
         
         
         
-        self.frame = CGRectMake(0, 0, ScreenWidth, CGRectGetMaxY(backImageView.frame) + 75);
+        self.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetMaxY(backImageView.frame) + 75);
         
         [self setDefaultText];
         

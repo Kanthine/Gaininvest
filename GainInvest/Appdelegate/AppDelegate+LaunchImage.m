@@ -36,7 +36,7 @@ NSTimer *_timer;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.tag = 897;
-    button.frame = CGRectMake(ScreenWidth - 84, CGRectGetMaxY(imageView.frame) - 44, 74, 34);
+    button.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - 84, CGRectGetMaxY(imageView.frame) - 44, 74, 34);
     button.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.18];
     [button addTarget:self action:@selector(removeLaunchImageButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [_launchView addSubview:button];

@@ -28,11 +28,11 @@
     {
         _titieString = titieString;
         CGFloat itemSpace = 30;
-        if (ScreenWidth > 330 && ScreenWidth < 400)
+        if (CGRectGetWidth(UIScreen.mainScreen.bounds) > 330 && CGRectGetWidth(UIScreen.mainScreen.bounds) < 400)
         {
             itemSpace = 40;
         }
-        else if (ScreenWidth > 400)
+        else if (CGRectGetWidth(UIScreen.mainScreen.bounds) > 400)
         {
             itemSpace = 45;
         }

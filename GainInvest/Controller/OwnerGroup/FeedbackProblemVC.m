@@ -74,7 +74,7 @@
     UIButton *rightNavBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     rightNavBarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [rightNavBarButton addTarget:self action:@selector(submitProblemItemClick) forControlEvents:UIControlEventTouchUpInside];
-    rightNavBarButton.frame = CGRectMake(ScreenWidth - 40, 7, 60, 44);
+    rightNavBarButton.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - 40, 7, 60, 44);
     [rightNavBarButton setTitle:@"提交" forState:UIControlStateNormal];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightNavBarButton];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -88,7 +88,7 @@
 - (void)updateImageContentView
 {
     
-    CGFloat itemWidth = (ScreenWidth - 30 - 2 * 10) / 3.0;
+    CGFloat itemWidth = (CGRectGetWidth(UIScreen.mainScreen.bounds) - 30 - 2 * 10) / 3.0;
 
     [_imageContentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
      {

@@ -39,9 +39,9 @@
     
     if (self)
     {
-        self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        self.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds));
         _error = error;
-        _contentWeight = ScreenWidth - 80;
+        _contentWeight = CGRectGetWidth(UIScreen.mainScreen.bounds) - 80;
 
         [self addSubview:self.coverButton];
         [self addSubview:self.contentView];
@@ -57,7 +57,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.backgroundColor = [UIColor blackColor];
         button.alpha = 0.0;
-        button.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        button.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds));
         
         _coverButton = button;
     }
@@ -139,7 +139,7 @@
         
         
         
-        view.frame = CGRectMake( (ScreenWidth - _contentWeight) / 2.0, 0, _contentWeight,  height);
+        view.frame = CGRectMake( (CGRectGetWidth(UIScreen.mainScreen.bounds) - _contentWeight) / 2.0, 0, _contentWeight,  height);
         view.center = self.center;
         view.alpha = 0;
         view.transform = CGAffineTransformMakeScale( OriginalScale,  OriginalScale);

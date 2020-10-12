@@ -209,7 +209,7 @@ ConsultHeaderTitileViewDelegate,ConsultContentListDelegate>
          }
     }else if ([scrollView isEqual:self.collectionView]){
         //滚动 CollectionView 带动标题栏滑动
-        CGFloat value = scrollView.contentOffset.x / ScreenWidth;
+        CGFloat value = scrollView.contentOffset.x / CGRectGetWidth(UIScreen.mainScreen.bounds);
         if (value < 0){
             // 防止在最左侧的时候，再滑，下划线位置会偏移，颜色渐变会混乱。
             return;

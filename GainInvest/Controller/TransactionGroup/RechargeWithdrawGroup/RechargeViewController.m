@@ -325,7 +325,7 @@
         [view addSubview:rightLable];
         
         NSArray *priceTitleArray = @[@"10",@"100",@"500",@"1000",@"2500",@"5000"];
-        CGFloat buttonWidth = ( ScreenWidth - 15 * 2 - 10 * 2 ) / 3.0;
+        CGFloat buttonWidth = ( CGRectGetWidth(UIScreen.mainScreen.bounds) - 15 * 2 - 10 * 2 ) / 3.0;
         CGFloat buttonHeight = 35;
         if (CGRectGetWidth(UIScreen.mainScreen.bounds) > 330){
             buttonHeight = 44;

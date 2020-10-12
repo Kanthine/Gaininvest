@@ -54,7 +54,7 @@
 {
     if (_scrollView == nil)
     {
-        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds))];
         _scrollView.backgroundColor = [UIColor whiteColor];
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
@@ -71,7 +71,7 @@
 {
     if (_pageControl == nil)
     {
-        _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, ScreenHeight - 60, ScreenWidth, 60)];
+        _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(UIScreen.mainScreen.bounds) - 60, CGRectGetWidth(UIScreen.mainScreen.bounds), 60)];
         _pageControl.backgroundColor = [UIColor clearColor];
         _pageControl.hidesForSinglePage = YES;
         _pageControl.userInteractionEnabled = NO;
@@ -114,7 +114,7 @@
     [self.imageArray enumerateObjectsUsingBlock:^(UIImage * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
      {
          UIImageView *imageView = [[UIImageView alloc]initWithImage:obj];
-         imageView.frame = CGRectMake(ScreenWidth * idx, 0, ScreenWidth, ScreenHeight);
+         imageView.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) * idx, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds));
          [_scrollView addSubview:imageView];
          
      }];
@@ -122,7 +122,7 @@
     
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(ScreenWidth * (self.imageArray.count - 1) + (ScreenWidth - 170) / 2.0, ScreenHeight * 2050 / 2668.0, 170 , 60);
+    button.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) * (self.imageArray.count - 1) + (CGRectGetWidth(UIScreen.mainScreen.bounds) - 170) / 2.0, CGRectGetHeight(UIScreen.mainScreen.bounds) * 2050 / 2668.0, 170 , 60);
     [button addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
 //    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //    [button setTitle:@"SURE TIME!" forState:UIControlStateNormal];
@@ -134,14 +134,14 @@
     
     [_scrollView addSubview:button];
     
-    _scrollView.contentSize = CGSizeMake(ScreenWidth * self.imageArray.count, ScreenHeight);
+    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds) * self.imageArray.count, CGRectGetHeight(UIScreen.mainScreen.bounds));
     
     self.pageControl.numberOfPages = self.imageArray.count;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSInteger index = scrollView.contentOffset.x / ScreenWidth;
+    NSInteger index = scrollView.contentOffset.x / CGRectGetWidth(UIScreen.mainScreen.bounds);
     
     _pageControl.currentPage = index;
     
@@ -158,7 +158,7 @@
 
 - (void)pageControlClick:(UIPageControl *)pageControl
 {
-    CGFloat x = pageControl.currentPage * ScreenWidth;
+    CGFloat x = pageControl.currentPage * CGRectGetWidth(UIScreen.mainScreen.bounds);
     [self.scrollView setContentOffset:CGPointMake(x, 0) animated:YES];
     
 //    if (pageControl.currentPage == self.imageArray.count - 1)

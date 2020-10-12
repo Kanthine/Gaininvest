@@ -55,6 +55,12 @@
     _timer = nil;
 }
 
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    CGFloat height = MAX(CGRectGetHeight(self.view.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 89 - 88 - 44);
+    self.tableView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), height);
+}
+
 - (void)realTimeUpdate{
     [self requestNetworkGetData];
 }
@@ -113,7 +119,7 @@
 
 - (UITableView *)tableView{
     if (_tableView == nil){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64 - 49 - 44) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64 - 49 - 44) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;

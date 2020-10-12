@@ -64,7 +64,7 @@
 {
     if (_scrollView == nil)
     {
-        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 30)];
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 30)];
         _scrollView.backgroundColor = [UIColor clearColor];
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
@@ -123,7 +123,7 @@
 
 - (void)segmentButtonClick:(UIButton *)sender
 {
-    CGFloat space = ( ScreenWidth - _itemWidth) / 2.0;
+    CGFloat space = ( CGRectGetWidth(UIScreen.mainScreen.bounds) - _itemWidth) / 2.0;
     CGFloat xOffset = sender.frame.origin.x - space;
     
     if (xOffset < 0)

@@ -40,7 +40,7 @@
     if (self)
     {
         
-        self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64 - 49);
+        self.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64 - 49);
         
         [self addSubview:self.coverButton];
         [self addSubview:self.contentView];
@@ -73,7 +73,7 @@
         view.backgroundColor = [UIColor clearColor];
         view.userInteractionEnabled = YES;
         // 621 : 833
-        CGFloat width = ScreenWidth - 60;
+        CGFloat width = CGRectGetWidth(UIScreen.mainScreen.bounds) - 60;
         CGFloat height = width * 833 / 621.0;
         
         
@@ -117,7 +117,7 @@
     self.viewController = viewController;
     [viewController.view addSubview:self];
     
-    CGFloat y =  CGRectGetHeight(self.contentView.frame) + (ScreenHeight - 64 - 49 - CGRectGetHeight(self.contentView.frame)) / 2.0;
+    CGFloat y =  CGRectGetHeight(self.contentView.frame) + (CGRectGetHeight(UIScreen.mainScreen.bounds) - 64 - 49 - CGRectGetHeight(self.contentView.frame)) / 2.0;
     
     [UIView animateWithDuration:AnimationDuration animations:^
      {

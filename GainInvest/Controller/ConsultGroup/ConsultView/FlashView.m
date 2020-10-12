@@ -109,10 +109,10 @@
      {
          UIButton *button = [self getSpecifiedButtonWithImagePath:obj];
          button.tag = 20 + idx;
-         button.frame = CGRectMake(ScreenWidth * idx, 0, ScreenWidth, CGRectGetHeight(self.frame));
+         button.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) * idx, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(self.frame));
          [self.scrollView addSubview:button];
      }];
-    _scrollView.contentSize = CGSizeMake(imagePathArray.count * ScreenWidth,CGRectGetHeight(self.frame));
+    _scrollView.contentSize = CGSizeMake(imagePathArray.count * CGRectGetWidth(UIScreen.mainScreen.bounds),CGRectGetHeight(self.frame));
     _pageControl.numberOfPages = imagePathArray.count;
     
     
@@ -159,7 +159,7 @@
 {
     int page = (int)_pageControl.currentPage;
     page++;
-    page = page >= (self.scrollView.contentSize.width / ScreenWidth) ? 0 : page ;
+    page = page >= (self.scrollView.contentSize.width / CGRectGetWidth(UIScreen.mainScreen.bounds)) ? 0 : page ;
     _pageControl.currentPage = page;
     [self turnPage];
 }
@@ -167,19 +167,19 @@
 - (void)turnPage
 {
     int page = (int)_pageControl.currentPage;
-    [_scrollView scrollRectToVisible:CGRectMake(ScreenWidth*(page),0,ScreenWidth,_scrollView.frame.size.height) animated:NO];
+    [_scrollView scrollRectToVisible:CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds)*(page),0,CGRectGetWidth(UIScreen.mainScreen.bounds),_scrollView.frame.size.height) animated:NO];
     
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSInteger index = scrollView.contentOffset.x / ScreenWidth;
+    NSInteger index = scrollView.contentOffset.x / CGRectGetWidth(UIScreen.mainScreen.bounds);
     _pageControl.currentPage = index;
 }
 
 - (void)pageControlClick:(UIPageControl *)pageControl
 {
-    CGFloat x = pageControl.currentPage * ScreenWidth;
+    CGFloat x = pageControl.currentPage * CGRectGetWidth(UIScreen.mainScreen.bounds);
     [self.scrollView setContentOffset:CGPointMake(x, 0) animated:YES];
 }
 

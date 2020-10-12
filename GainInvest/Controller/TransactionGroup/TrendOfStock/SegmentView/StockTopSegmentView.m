@@ -20,7 +20,7 @@
         self.backgroundColor = RGBA(44, 47, 70, 1);
         
         NSArray *array = @[@"分时",@"5分",@"15分",@"30分",@"60分"];
-        CGFloat itemWidth = ScreenWidth / array.count * 1.0;
+        CGFloat itemWidth = CGRectGetWidth(UIScreen.mainScreen.bounds) / array.count * 1.0;
         
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
          {

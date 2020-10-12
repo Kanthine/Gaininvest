@@ -6,7 +6,7 @@
 //  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
-#define GetVoucherTableCellHeight  ( (ScreenWidth - 20) * 280 / 660.0 + 10.0 )
+#define GetVoucherTableCellHeight  ( (CGRectGetWidth(UIScreen.mainScreen.bounds) - 20) * 280 / 660.0 + 10.0 )
 
 
 #import <UIKit/UIKit.h>

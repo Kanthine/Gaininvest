@@ -343,7 +343,7 @@
         UIView *view = [[UIView alloc]init];
         view.backgroundColor = NavBarBackColor;
         NSArray *array = @[@"MA",@"SMA"];
-        CGFloat itemWidth = ScreenWidth / array.count * 1.0;
+        CGFloat itemWidth = CGRectGetWidth(UIScreen.mainScreen.bounds) / array.count * 1.0;
         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.tag = idx + 103;

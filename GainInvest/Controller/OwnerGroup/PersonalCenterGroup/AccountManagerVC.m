@@ -110,12 +110,12 @@
         
         
         CGFloat y = 80 + 50 * 2 + 10;
-        CGFloat height = ScreenHeight - 64 - y;
+        CGFloat height = CGRectGetHeight(UIScreen.mainScreen.bounds) - 64 - y;
         if (height < 80)
         {
             height = 80;
         }
-        self.footerView.frame = CGRectMake(0, 0, ScreenWidth, height);
+        self.footerView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), height);
 
     }
     else
@@ -142,12 +142,12 @@
         }
         
         CGFloat y = 80 + 50 * 5 + 10 * 3;
-        CGFloat height = ScreenHeight - 64 - y;
+        CGFloat height = CGRectGetHeight(UIScreen.mainScreen.bounds) - 64 - y;
         if (height < 80)
         {
             height = 80;
         }
-        self.footerView.frame = CGRectMake(0, 0, ScreenWidth, height);
+        self.footerView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), height);
     }
     
     
@@ -158,7 +158,7 @@
 {
     if (_footerView == nil)
     {
-        UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 80)];
+        UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 80)];
         footerView.backgroundColor = [UIColor clearColor];
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -188,7 +188,7 @@
 {
     if (_tableview == nil)
     {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStyleGrouped];
+        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64) style:UITableViewStyleGrouped];
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.showsVerticalScrollIndicator = NO;
@@ -253,7 +253,7 @@
     {
         if (imageView == nil)
         {
-            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(ScreenWidth - 94, 10, 60, 60)];
+            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - 94, 10, 60, 60)];
             imageView.contentMode = UIViewContentModeScaleAspectFit;
             imageView.tag = 20;
             [cell addSubview:imageView];
@@ -459,7 +459,7 @@
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
 
-    __block WaveProgressView *waveProgress  = [[WaveProgressView alloc] initWithFrame:CGRectMake(ScreenWidth / 2.0 - 40, 200, 80, 80)];
+    __block WaveProgressView *waveProgress  = [[WaveProgressView alloc] initWithFrame:CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0 - 40, 200, 80, 80)];
     waveProgress.isShowWave = YES;
     [self.view addSubview:waveProgress];
 

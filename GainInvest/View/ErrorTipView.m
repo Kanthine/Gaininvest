@@ -22,7 +22,7 @@
 {
     if ([errorString isEqualToString:@"不显示"] == NO)
     {
-        ErrorTipView *tipView = [[ErrorTipView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) ErrorTip:errorString];
+        ErrorTipView *tipView = [[ErrorTipView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds)) ErrorTip:errorString];
         
         if (superView)
         {
@@ -50,7 +50,7 @@
         self.tipLable.text = errorString;
         
         
-        CGSize tipTextSize = [self.tipLable.text boundingRectWithSize:CGSizeMake(ScreenWidth - 30, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.tipLable.font} context:nil].size;
+        CGSize tipTextSize = [self.tipLable.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - 30, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.tipLable.font} context:nil].size;
         self.tipLable.frame = CGRectMake(0, 0, tipTextSize.width + 20, tipTextSize.height + 20);
         self.tipLable.center = self.center;
         [self addSubview:self.backButton];
@@ -82,7 +82,7 @@
     if (_backButton == nil)
     {
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _backButton.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        _backButton.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds));
         _backButton.backgroundColor = [UIColor clearColor];
         [_backButton addTarget:self action:@selector(removeMySelfFromSuperview) forControlEvents:UIControlEventTouchUpInside];
     }

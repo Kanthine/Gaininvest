@@ -67,6 +67,14 @@
     [AuthorizationManager isHaveFourLevelWithViewController:self IsNeedCancelClick:YES];
 }
 
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    self.segmentView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 44);
+    self.pageViewController.view.frame = CGRectMake(0, 44, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(self.view.bounds) - 44);
+    self.positionsVC.view.frame = self.pageViewController.view.bounds;
+    self.historyVC.view.frame = self.pageViewController.view.bounds;
+}
+
 #pragma mark - response click
 
 - (void)segmentButtonClick:(UIButton *)button{
@@ -150,7 +158,7 @@
 
 - (UIView *)segmentView{
     if (_segmentView == nil){
-        _segmentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
+        _segmentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 44)];
         _segmentView.backgroundColor = NavBarBackColor;
         
         UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -160,7 +168,7 @@
         [leftButton setTitle:@"持仓" forState:UIControlStateNormal];
         [leftButton setTitleColor:RGBA(149, 149, 149, 1)forState:UIControlStateNormal];
         [leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        leftButton.frame = CGRectMake(0, 0, ScreenWidth / 2.0, 44);
+        leftButton.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0, 44);
         [leftButton addTarget:self action:@selector(segmentButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_segmentView addSubview:leftButton];
 
@@ -170,11 +178,11 @@
         [rightButton setTitle:@"资金" forState:UIControlStateNormal];
         [rightButton setTitleColor:RGBA(149, 149, 149, 1) forState:UIControlStateNormal];
         [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        rightButton.frame = CGRectMake(CGRectGetMaxX(leftButton.frame), 0, ScreenWidth / 2.0, 44);
+        rightButton.frame = CGRectMake(CGRectGetMaxX(leftButton.frame), 0, CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0, 44);
         [rightButton addTarget:self action:@selector(segmentButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_segmentView addSubview:rightButton];
         
-        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 40, ScreenWidth / 2.0, 4)];
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 40, CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0, 4)];
         lineView.tag = 4;
         lineView.backgroundColor = TextColorBlue;
         [_segmentView addSubview:lineView];
@@ -202,10 +210,9 @@
         
         _pageViewController = [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
         _pageViewController.navigationController.navigationBarHidden = YES;
-        _pageViewController.view.frame = CGRectMake(0, 44, ScreenWidth, ScreenHeight);
+        _pageViewController.view.frame = CGRectMake(0, 44, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds));
         _pageViewController.view.backgroundColor = RGBA(250, 250, 255, 1);
-        [_pageViewController setViewControllers:@[self.controllerArray[0]] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finished)
-         {}];
+        [_pageViewController setViewControllers:@[self.controllerArray[0]] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finished){}];
         _pageViewController.delegate = self;
         _pageViewController.dataSource = self;
     }

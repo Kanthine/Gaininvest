@@ -45,7 +45,7 @@
     _tipLable.layer.borderColor = [UIColor redColor].CGColor;
     
     
-    if (ScreenHeight < 600)
+    if (CGRectGetHeight(UIScreen.mainScreen.bounds) < 600)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
     }

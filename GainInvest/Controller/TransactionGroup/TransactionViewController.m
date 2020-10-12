@@ -300,7 +300,7 @@
 
 - (TransactionBuyUpOrDownView *)buyProductView{
     if (_buyProductView == nil){
-        _buyProductView = [[TransactionBuyUpOrDownView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+        _buyProductView = [[TransactionBuyUpOrDownView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds))];
         _buyProductView.currentViewController = self;
         _buyProductView.isBuyUp = YES;
         

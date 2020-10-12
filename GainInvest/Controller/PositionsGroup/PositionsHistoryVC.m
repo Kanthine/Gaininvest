@@ -63,7 +63,7 @@
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.tableView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44);
+    self.tableView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
 }
 
 #pragma mark - UITableViewDelegate
@@ -298,7 +298,7 @@
 - (PositionsHistoryTableHeaderView *)tableHeaderView{
     if (_tableHeaderView == nil){
         _tableHeaderView = [[NSBundle mainBundle] loadNibNamed:@"PositionsHistoryTableHeaderView" owner:nil options:nil].firstObject;
-        _tableHeaderView.frame = CGRectMake(0, 0, ScreenWidth, 140);
+        _tableHeaderView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 140);
         [_tableHeaderView.lookMyCouponButton addTarget:self action:@selector(lookVoucherButtonClick) forControlEvents:UIControlEventTouchUpInside];
         [_tableHeaderView.rechargeButton addTarget:self action:@selector(rechargeButtonClick) forControlEvents:UIControlEventTouchUpInside];
         [_tableHeaderView.withdrawButton addTarget:self action:@selector(withdrawButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -308,15 +308,15 @@
 
 - (UIView *)noDataTipView{
     if (_noDataTipView == nil){
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64 - 49 - CGRectGetHeight(self.tableHeaderView.frame))];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64 - 49 - CGRectGetHeight(self.tableHeaderView.frame))];
         view.backgroundColor = RGBA(250, 250, 255, 1);
         
         //377 ： 263
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((ScreenWidth - 150) / 2.0, 50, 150, 105)];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((CGRectGetWidth(UIScreen.mainScreen.bounds) - 150) / 2.0, 50, 150, 105)];
         imageView.image = [UIImage imageNamed:@"noData"];
         [view addSubview:imageView];
         
-        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame) + 20, ScreenWidth, 20)];
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame) + 20, CGRectGetWidth(UIScreen.mainScreen.bounds), 20)];
         lable.textAlignment = NSTextAlignmentCenter;
         lable.textColor = TextColorGray;
         lable.font = [UIFont systemFontOfSize:15];

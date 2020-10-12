@@ -100,14 +100,14 @@
 {
     if (_scrollView == nil)
     {
-        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)];
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.backgroundColor = RGBA(250, 250, 255, 1);
         
         [_scrollView addSubview:self.imageView];
         
-        _scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetHeight(self.imageView.frame));
+        _scrollView.contentSize = CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(self.imageView.frame));
     }
     
     return _scrollView;
@@ -118,9 +118,9 @@
     if (_imageView == nil)
     {
         UIImage *image = [UIImage imageWithContentsOfFile:_imagePath];
-        CGFloat imageHeight = image.size.height / image.size.width * ScreenWidth;
+        CGFloat imageHeight = image.size.height / image.size.width * CGRectGetWidth(UIScreen.mainScreen.bounds);
         _imageView = [[UIImageView alloc]initWithImage:image];
-        _imageView.frame = CGRectMake(0, 0, ScreenWidth, imageHeight);
+        _imageView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), imageHeight);
     }
     
     return _imageView;
@@ -142,7 +142,7 @@
         [button setImage:[UIImage imageNamed:@"owner_Transaction"] forState:UIControlStateSelected];
         button.backgroundColor = [UIColor clearColor];
         // 301 : 108
-        button.frame = CGRectMake( ScreenWidth / 2.0 - 100,yButton, 200, 72);
+        button.frame = CGRectMake( CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0 - 100,yButton, 200, 72);
         
         _handEnlightenmentButton = button;
     }

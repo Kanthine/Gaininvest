@@ -8,7 +8,7 @@
 
 #define CellIdentifer @"NewHandTeachTableCell"
 
-#define CellHeight (377 / 720.0 * ScreenWidth)
+#define CellHeight (377 / 720.0 * CGRectGetWidth(UIScreen.mainScreen.bounds))
 
 #import "NewHandTeachViewController.h"
 

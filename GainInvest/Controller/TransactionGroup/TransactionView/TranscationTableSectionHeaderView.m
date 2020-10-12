@@ -29,7 +29,7 @@
         [self.contentView addSubview:self.leftContentView];
         [self.contentView addSubview:self.rightContentView];
         
-        CGFloat width = ScreenWidth / 2.0 - 0.5;
+        CGFloat width = CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0 - 0.5;
         
         [self.leftContentView mas_makeConstraints:^(MASConstraintMaker *make)
          {

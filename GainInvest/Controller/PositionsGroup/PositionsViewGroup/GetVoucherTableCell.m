@@ -29,7 +29,7 @@
     [super layoutSubviews];
 
     //660 ： 280
-    self.imageView.frame =CGRectMake(10,10,ScreenWidth - 20, GetVoucherTableCellHeight - 10);
+    self.imageView.frame =CGRectMake(10,10,CGRectGetWidth(UIScreen.mainScreen.bounds) - 20, GetVoucherTableCellHeight - 10);
     self.imageView.contentMode =UIViewContentModeScaleAspectFit;
 }
 

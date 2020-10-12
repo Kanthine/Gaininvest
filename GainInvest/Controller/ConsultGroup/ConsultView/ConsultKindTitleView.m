@@ -7,11 +7,11 @@
 //
 
 
-#define ItemWeight  (ScreenWidth - 10 * 5 )/ 4.0
+#define ItemWeight  (CGRectGetWidth(UIScreen.mainScreen.bounds) - 10 * 5 )/ 4.0
 #define ItemHeight  30.0
 #define ItemIdentifer @"ConsultKindTitleCollectionCell"
 #define HeaderIdentifer @"ConsultKindTitleCollectionHeader"
-#define ContentConsultViewHeight (ScreenHeight - 64 - 49)
+#define ContentConsultViewHeight (CGRectGetHeight(UIScreen.mainScreen.bounds) - 64 - 49)
 
 
 #import "ConsultKindTitleView.h"
@@ -234,7 +234,7 @@
 {
     if (_chooseTitleView == nil)
     {
-        _chooseTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
+        _chooseTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 44)];
         _chooseTitleView.backgroundColor = [UIColor whiteColor];
         
         UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 100, 44)];
@@ -244,7 +244,7 @@
         [_chooseTitleView addSubview:lable];
         
         UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        editButton.frame = CGRectMake(ScreenWidth - 50 - 80, 10, 80, 24);
+        editButton.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - 50 - 80, 10, 80, 24);
         editButton.titleLabel.font = [UIFont systemFontOfSize:14];
         editButton.layer.borderColor = [UIColor redColor].CGColor;
         editButton.layer.cornerRadius = CGRectGetHeight(editButton.frame) / 2.0;
@@ -261,7 +261,7 @@
         UIButton *chooseTitleButton = [UIButton buttonWithType:UIButtonTypeCustom];
         chooseTitleButton.layer.cornerRadius = 8;
         chooseTitleButton.clipsToBounds = YES;
-        chooseTitleButton.frame = CGRectMake(ScreenWidth - 44, 0, 44, 44);
+        chooseTitleButton.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - 44, 0, 44, 44);
         [chooseTitleButton setImage:[UIImage imageNamed:@"ConsultKindTitleADd"] forState:UIControlStateNormal];
         chooseTitleButton.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
         chooseTitleButton.backgroundColor = [UIColor whiteColor];
@@ -367,7 +367,7 @@
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    return CGSizeMake(ScreenWidth, ItemHeight);
+    return CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds), ItemHeight);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
@@ -581,7 +581,7 @@
 {
     [UIView animateWithDuration:0.2 animations:^
      {
-         self.frame = CGRectMake(0, 0, ScreenWidth,ContentConsultViewHeight);
+         self.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds),ContentConsultViewHeight);
      }];
 }
 
@@ -590,7 +590,7 @@
     self.consultKindTitleViewConfirmClick();
     [UIView animateWithDuration:0.2 animations:^
      {
-         self.frame = CGRectMake(0, - ContentConsultViewHeight, ScreenWidth, ContentConsultViewHeight);
+         self.frame = CGRectMake(0, - ContentConsultViewHeight, CGRectGetWidth(UIScreen.mainScreen.bounds), ContentConsultViewHeight);
      } completion:^(BOOL finished)
      {
      }];

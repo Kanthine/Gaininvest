@@ -60,7 +60,7 @@
     
     
     [self.scrollView addSubview:self.firstWithdrawView];
-    self.scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetHeight(self.firstWithdrawView.frame) + 200);
+    self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(self.firstWithdrawView.frame) + 200);
 }
 
 - (void)didReceiveMemoryWarning
@@ -87,7 +87,7 @@
 {
     if (_scrollView == nil)
     {
-        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)];
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds) - 64)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.backgroundColor = TableGrayColor;
@@ -104,13 +104,13 @@
         _firstWithdrawView.accountMoney = self.accountMoney;
         _firstWithdrawView.currentViewController = self;
         
-        CGFloat height = ScreenHeight - 64;
+        CGFloat height = CGRectGetHeight(UIScreen.mainScreen.bounds) - 64;
         if (height < 520)
         {
             height = 520;
         }
         
-        _firstWithdrawView.frame = CGRectMake(0, 0, ScreenWidth, height);
+        _firstWithdrawView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), height);
 
     }
     
@@ -124,7 +124,7 @@
         _withdrawInfoView = [[NSBundle mainBundle] loadNibNamed:@"WithdrawBankCardInfoView" owner:nil options:nil].firstObject;
         _withdrawInfoView.accountMoney = self.accountMoney;
         _withdrawInfoView.currentViewController = self;
-        _withdrawInfoView.frame = CGRectMake(0, 0, ScreenWidth, 340);
+        _withdrawInfoView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 340);
         [_withdrawInfoView.updateBankCardInfoButton addTarget:self action:@selector(updateBankCardInfoButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     
@@ -143,7 +143,7 @@
     
     
     [self.scrollView insertSubview:self.firstWithdrawView aboveSubview:self.withdrawInfoView];
-    self.scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetHeight(self.firstWithdrawView.frame) + 200);
+    self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(self.firstWithdrawView.frame) + 200);
 
 }
 
@@ -199,7 +199,7 @@
             [ErrorTipView errorTip:error.domain SuperView:weakSelf.view];
 
             [weakSelf.scrollView addSubview:weakSelf.firstWithdrawView];
-            weakSelf.scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetHeight(weakSelf.firstWithdrawView.frame) + 200);
+            weakSelf.scrollView.contentSize = CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(weakSelf.firstWithdrawView.frame) + 200);
         }
         else if (parameterDict)
         {
@@ -207,13 +207,13 @@
             _bandCardInfo = parameterDict;
             [weakSelf.scrollView addSubview:weakSelf.withdrawInfoView];
             weakSelf.withdrawInfoView.infoDict = parameterDict;
-            weakSelf.scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetHeight(weakSelf.withdrawInfoView.frame));
+            weakSelf.scrollView.contentSize = CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(weakSelf.withdrawInfoView.frame));
         }
         else
         {
             //返回正常，但是缺少用户卡信息，需要去完善
             [weakSelf.scrollView addSubview:weakSelf.firstWithdrawView];
-            weakSelf.scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetHeight(weakSelf.firstWithdrawView.frame) + 200);
+            weakSelf.scrollView.contentSize = CGSizeMake(CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(weakSelf.firstWithdrawView.frame) + 200);
         }
     }];
 }

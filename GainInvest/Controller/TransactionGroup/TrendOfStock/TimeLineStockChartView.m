@@ -6,7 +6,7 @@
 //  Copyright © 2017年 苏沫离. All rights reserved.
 //
 
-#define Space (ScreenWidth / 29.0)
+#define Space (CGRectGetWidth(UIScreen.mainScreen.bounds) / 29.0)
 
 #import "TimeLineStockChartView.h"
 #import "UIColor+Y_StockChart.h"
@@ -91,7 +91,7 @@
     {
         if (idx % 6 == 0)
         {
-            CGFloat xSpace = (ScreenWidth - 32 * 6) / 5.0;
+            CGFloat xSpace = (CGRectGetWidth(UIScreen.mainScreen.bounds) - 32 * 6) / 5.0;
             CGFloat xPoint = (xSpace + 32) * idx / 6;
             CGPoint point = CGPointMake(xPoint, CGRectGetHeight(self.frame) - 12);
             // 文字宽度 32
@@ -205,7 +205,7 @@
         model.modelIndex = idx;
         model.timeString = [NSString stringWithFormat:@"%@",dateArray[idx]];
         
-        CGFloat pointX = ScreenWidth / 30.0 * idx;
+        CGFloat pointX = CGRectGetWidth(UIScreen.mainScreen.bounds) / 30.0 * idx;
         CGFloat pointY = CGRectGetMinY(_chartRect) + (_maxValue - [obj floatValue] ) / (_maxValue - [_yCoordinateArray.lastObject floatValue]) * CGRectGetHeight(_chartRect);
         
         model.modelPoint = CGPointMake(pointX, pointY);
@@ -266,7 +266,7 @@
     
     //绘制横线
     CGContextMoveToPoint(ctx, 0, yPoint);
-    CGContextAddLineToPoint(ctx,ScreenWidth, yPoint);
+    CGContextAddLineToPoint(ctx,CGRectGetWidth(UIScreen.mainScreen.bounds), yPoint);
     
     //绘制竖线
     CGContextMoveToPoint(ctx, _longPressPointX, CGRectGetMinY(_chartRect));
@@ -303,9 +303,9 @@
     NSString *text2 = [NSString stringWithFormat:@"%.2f",[self get_Y_ValueWithYCoordinate:yPoint]];
     CGSize textSize2 = [self rectOfNSString:text2 attribute:attribute].size;
     CGFloat x = 5;
-    if (_longPressPointX < ScreenWidth / 2.0)
+    if (_longPressPointX < CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0)
     {
-        x = ScreenWidth - textSize2.width - 4 - 5;
+        x = CGRectGetWidth(UIScreen.mainScreen.bounds) - textSize2.width - 4 - 5;
     }
     CGRect rect2 = CGRectMake(x, yPoint - (textSize2.height + 4 ) / 2.0, textSize2.width + 4, textSize2.height + 4);
     

@@ -34,9 +34,9 @@
     
     if (self)
     {
-        _contentWeight = ScreenWidth - 60;
+        _contentWeight = CGRectGetWidth(UIScreen.mainScreen.bounds) - 60;
         
-        self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        self.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds));
         
         [self addSubview:self.coverButton];
         [self addSubview:self.contentView];
@@ -53,7 +53,7 @@
         button.backgroundColor = [UIColor blackColor];
         button.alpha = 0.0;
         [button addTarget:self action:@selector(dismissPickerView) forControlEvents:UIControlEventTouchUpInside];
-        button.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        button.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), CGRectGetHeight(UIScreen.mainScreen.bounds));
         
         _coverButton = button;
     }
@@ -149,7 +149,7 @@
 //        [view addSubview:lable5];
 //        
         
-        view.frame = CGRectMake(30, 0, ScreenWidth - 60 ,  height);
+        view.frame = CGRectMake(30, 0, CGRectGetWidth(UIScreen.mainScreen.bounds) - 60 ,  height);
         view.center = self.center;
         view.alpha = 0;
         view.transform = CGAffineTransformMakeScale( OriginalScale,  OriginalScale);

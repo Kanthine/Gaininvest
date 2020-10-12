@@ -11,7 +11,6 @@
 @interface MainTabBarController ()
 <UITabBarControllerDelegate>
 @property (nonatomic ,strong) NSMutableArray *tabBarArray;
-
 @end
 
 @implementation MainTabBarController
@@ -44,20 +43,24 @@ static MainTabBarController *tabBarController = nil;
     
     NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
     textAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:10];
-    textAttrs[NSForegroundColorAttributeName] = [UIColor colorWithRed:89 / 255.0 green:91 / 255.0 blue:104 / 255.0 alpha:1];
-    textAttrs[NSForegroundColorAttributeName] = UIColor.grayColor;
-
+    textAttrs[NSForegroundColorAttributeName] = [UIColor colorWithRed:174 / 255.0 green:174 / 255.0 blue:174 / 255.0 alpha:1];
+    //textAttrs[NSForegroundColorAttributeName] = UIColor.redColor;
+    
     // 选中时字体颜色和选中图片颜色一致
     NSMutableDictionary *selectedTextAttrs = [NSMutableDictionary dictionary];
     selectedTextAttrs[NSFontAttributeName] = textAttrs[NSFontAttributeName];
     selectedTextAttrs[NSForegroundColorAttributeName] = [UIColor whiteColor];
     
-    
     // 通过appearance统一设置所有UITabBarItem的文字属性样式
     UITabBarItem *item = [UITabBarItem appearance];
     [item setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
     [item setTitleTextAttributes:selectedTextAttrs forState:UIControlStateSelected];
-
+    
+    // 适配iOS 13 tabbar 标题字体不显示以及返回变蓝色的为问题
+    if (@available(iOS 13.0, *)) {
+        [UITabBar.appearance setUnselectedItemTintColor:[UIColor colorWithRed:174 / 255.0 green:174 / 255.0 blue:174 / 255.0 alpha:1]];
+    }
+    
     UIImage *blackImage = [MainTabBarController loadTabBarAndNavBarBackgroundImage];
     self.tabBar.backgroundImage = blackImage;//背景色
 }
@@ -103,7 +106,7 @@ static MainTabBarController *tabBarController = nil;
     if (_transactionVC == nil) {
         TransactionViewController *transactionVC = [[TransactionViewController alloc]init];
         transactionVC.tabBarItem.title = @"交易";
-        transactionVC.tabBarItem.image  = [[UIImage imageNamed:@"tabBar_transaction"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        transactionVC.tabBarItem.image = [[UIImage imageNamed:@"tabBar_transaction"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         transactionVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"tabBar_transaction_Select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         _transactionVC = transactionVC;
     }
@@ -114,7 +117,7 @@ static MainTabBarController *tabBarController = nil;
     if (_positionsVC == nil) {
         PositionsViewController *positionsVC = [[PositionsViewController alloc]init];
         positionsVC.tabBarItem.title = @"持仓";
-        positionsVC.tabBarItem.image  = [[UIImage imageNamed:@"tabBar_Positions"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        positionsVC.tabBarItem.image = [[UIImage imageNamed:@"tabBar_Positions"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         positionsVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"tabBar_Positions_Select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         _positionsVC = positionsVC;
     }
@@ -125,7 +128,7 @@ static MainTabBarController *tabBarController = nil;
     if (_consultVC == nil) {
         ConsultViewController *consultVC = [[ConsultViewController alloc]init];
         consultVC.tabBarItem.title = @"首页";
-        consultVC.tabBarItem.image  = [[UIImage imageNamed:@"tabBar_Consult"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        consultVC.tabBarItem.image = [[UIImage imageNamed:@"tabBar_Consult"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         consultVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"tabBar_Consult_Select"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         _consultVC = consultVC;
     }
@@ -136,7 +139,7 @@ static MainTabBarController *tabBarController = nil;
     if (_ownerVC == nil) {
         OwnerViewController *myVC = [[OwnerViewController alloc]init];
         myVC.tabBarItem.title = @"我的";
-        myVC.tabBarItem.image  = [[UIImage imageNamed:@"tabBar_Owner"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        myVC.tabBarItem.image = [[UIImage imageNamed:@"tabBar_Owner"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         myVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"tabBar_Owner_Select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         _ownerVC = myVC;
     }
