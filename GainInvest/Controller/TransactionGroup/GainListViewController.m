@@ -18,7 +18,7 @@
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,strong) UIView *noDataTipView;
 
-@property (nonatomic ,strong) NSMutableArray<PositionsModel *> *listArray;
+@property (nonatomic ,strong) NSMutableArray<OrderInfoModel *> *listArray;
 @end
 
 @implementation GainListViewController
@@ -56,7 +56,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     GainListTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer forIndexPath:indexPath];
-    PositionsModel *model = self.listArray[indexPath.row];
+    OrderInfoModel *model = self.listArray[indexPath.row];
     [cell updateGainListTableCellWithModel:model];
     return cell;
 }
@@ -64,7 +64,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    PositionsModel *model = self.listArray[indexPath.row];
+    OrderInfoModel *model = self.listArray[indexPath.row];
     ClosePositionDetaileVC *detaileVC = [[ClosePositionDetaileVC alloc]initWithModel:model];
     [self.navigationController pushViewController:detaileVC animated:YES];
 }
@@ -75,9 +75,9 @@
 - (void)requestNetworkGetTradeListData{
     NSDictionary *dict = @{@"type":@"cg",@"st":[self getStartTime],@"et":[self getCurrentTime]};
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray<PositionsModel *> *listArray = [DemoData accessTradeListWithParameterDict:dict];
+        NSMutableArray<OrderInfoModel *> *listArray = [DemoData accessTradeListWithParameterDict:dict];
         [self.listArray removeAllObjects];
-        [listArray enumerateObjectsUsingBlock:^(PositionsModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
+        [listArray enumerateObjectsUsingBlock:^(OrderInfoModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
              if (obj.plAmount > 0){
                  [self.listArray addObject:obj];
              }
@@ -119,7 +119,7 @@
     __weak __typeof__(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
        //从小到大排序
-       [weakSelf.listArray sortUsingComparator:^NSComparisonResult(PositionsModel *obj1,PositionsModel * obj2){
+       [weakSelf.listArray sortUsingComparator:^NSComparisonResult(OrderInfoModel *obj1,OrderInfoModel * obj2){
             NSTimeInterval timeBetween = [[weakSelf getDateWithString:obj1.addTime] timeIntervalSinceDate:[weakSelf getDateWithString:obj2.addTime]];
             if (timeBetween < 0){
                 return NSOrderedDescending;
@@ -148,7 +148,7 @@
 
 #pragma mark - setter and getters
 
-- (NSMutableArray<PositionsModel *> *)listArray{
+- (NSMutableArray<OrderInfoModel *> *)listArray{
     if (_listArray == nil){
         _listArray = [NSMutableArray array];
     }

@@ -31,7 +31,7 @@
 @property (nonatomic ,strong) PositionsHistoryTableHeaderView *tableHeaderView;
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,strong) UIView *noDataTipView;
-@property (nonatomic ,strong) NSMutableArray<PositionsModel *> *listArray;
+@property (nonatomic ,strong) NSMutableArray<OrderInfoModel *> *listArray;
 
 @end
 
@@ -100,7 +100,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    PositionsModel *model = self.listArray[indexPath.row];
+    OrderInfoModel *model = self.listArray[indexPath.row];
     if (_isTradeList){
         PositionsHistoryTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer forIndexPath:indexPath];
         [cell updatePositionsHistoryTableCellWithModel:model];
@@ -250,7 +250,7 @@
     //从小到大排序
     __weak __typeof__(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [weakSelf.listArray sortUsingComparator:^NSComparisonResult(PositionsModel *obj1,PositionsModel * obj2){
+        [weakSelf.listArray sortUsingComparator:^NSComparisonResult(OrderInfoModel *obj1,OrderInfoModel * obj2){
              NSTimeInterval timeBetween = [[weakSelf getDateWithString:obj1.addTime] timeIntervalSinceDate:[weakSelf getDateWithString:obj2.addTime]];
              
              // 平仓时 使用的是出价时间
@@ -288,7 +288,7 @@
 
 #pragma mark - setter and getters
 
-- (NSMutableArray<PositionsModel *> *)listArray{
+- (NSMutableArray<OrderInfoModel *> *)listArray{
     if (_listArray == nil){
         _listArray = [NSMutableArray array];
     }

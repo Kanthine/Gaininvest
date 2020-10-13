@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A1A4DAE2534027000FC470C /* CommodityInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4DAC2534027000FC470C /* CommodityInfoModel.m */; };
+		1A5B55A02535409F00DCBA86 /* ProductInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A5B559F2535409F00DCBA86 /* ProductInfo.json */; };
+		1A5B55A6253541FA00DCBA86 /* ProductInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B55A5253541FA00DCBA86 /* ProductInfoModel.m */; };
+		1A5B55AF25354EB500DCBA86 /* OrderInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B55AE25354EB500DCBA86 /* OrderInfoModel.m */; };
 		1A5B801D251DCCE8008D1595 /* YLGlobalTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B801C251DCCE8008D1595 /* YLGlobalTools.m */; };
 		1A5B8034251DE257008D1595 /* JdInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B8033251DE257008D1595 /* JdInfoModel.m */; };
 		1A66803A2521C62B00614BAE /* CityModelList.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A6680392521C62B00614BAE /* CityModelList.json */; };
@@ -184,7 +186,6 @@
 		22FF41711E7697AF000FB634 /* PositionsIncomeDetaileTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF416F1E7697AF000FB634 /* PositionsIncomeDetaileTableCell.m */; };
 		22FF41721E7697AF000FB634 /* PositionsIncomeDetaileTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22FF41701E7697AF000FB634 /* PositionsIncomeDetaileTableCell.xib */; };
 		22FF41751E769C67000FB634 /* PositionsHistoryTableSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF41741E769C67000FB634 /* PositionsHistoryTableSectionHeaderView.m */; };
-		22FF417B1E76ABF5000FB634 /* PositionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF417A1E76ABF5000FB634 /* PositionsModel.m */; };
 		22FF6F411E49ACDA00F81929 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF6F401E49ACDA00F81929 /* main.m */; };
 		22FF6F441E49ACDA00F81929 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FF6F431E49ACDA00F81929 /* AppDelegate.m */; };
 		22FF6F4F1E49ACDA00F81929 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22FF6F4E1E49ACDA00F81929 /* Assets.xcassets */; };
@@ -219,8 +220,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A1A4DAC2534027000FC470C /* CommodityInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityInfoModel.m; sourceTree = "<group>"; };
-		1A1A4DAD2534027000FC470C /* CommodityInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityInfoModel.h; sourceTree = "<group>"; };
+		1A5B559F2535409F00DCBA86 /* ProductInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProductInfo.json; sourceTree = "<group>"; };
+		1A5B55A4253541FA00DCBA86 /* ProductInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductInfoModel.h; sourceTree = "<group>"; };
+		1A5B55A5253541FA00DCBA86 /* ProductInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductInfoModel.m; sourceTree = "<group>"; };
+		1A5B55AD25354EB500DCBA86 /* OrderInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderInfoModel.h; sourceTree = "<group>"; };
+		1A5B55AE25354EB500DCBA86 /* OrderInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderInfoModel.m; sourceTree = "<group>"; };
 		1A5B801B251DCCE8008D1595 /* YLGlobalTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLGlobalTools.h; sourceTree = "<group>"; };
 		1A5B801C251DCCE8008D1595 /* YLGlobalTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLGlobalTools.m; sourceTree = "<group>"; };
 		1A5B8032251DE257008D1595 /* JdInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JdInfoModel.h; sourceTree = "<group>"; };
@@ -531,8 +535,6 @@
 		22FF41701E7697AF000FB634 /* PositionsIncomeDetaileTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PositionsIncomeDetaileTableCell.xib; sourceTree = "<group>"; };
 		22FF41731E769C67000FB634 /* PositionsHistoryTableSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionsHistoryTableSectionHeaderView.h; sourceTree = "<group>"; };
 		22FF41741E769C67000FB634 /* PositionsHistoryTableSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionsHistoryTableSectionHeaderView.m; sourceTree = "<group>"; };
-		22FF41791E76ABF5000FB634 /* PositionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionsModel.h; sourceTree = "<group>"; };
-		22FF417A1E76ABF5000FB634 /* PositionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionsModel.m; sourceTree = "<group>"; };
 		22FF6F3C1E49ACDA00F81929 /* GainInvest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GainInvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22FF6F401E49ACDA00F81929 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22FF6F421E49ACDA00F81929 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -616,6 +618,7 @@
 		1AE45F4525199F5C00E32236 /* JsonDemoData */ = {
 			isa = PBXGroup;
 			children = (
+				1A5B559F2535409F00DCBA86 /* ProductInfo.json */,
 				1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */,
 				1A6680392521C62B00614BAE /* CityModelList.json */,
 			);
@@ -689,12 +692,12 @@
 				22B083D31E51B92B00843DBD /* ConsultListModel.m */,
 				220052B71E52B119001EB8E0 /* ConsultKindTitleModel.h */,
 				220052B81E52B119001EB8E0 /* ConsultKindTitleModel.m */,
-				1A1A4DAD2534027000FC470C /* CommodityInfoModel.h */,
-				1A1A4DAC2534027000FC470C /* CommodityInfoModel.m */,
+				1A5B55A4253541FA00DCBA86 /* ProductInfoModel.h */,
+				1A5B55A5253541FA00DCBA86 /* ProductInfoModel.m */,
+				1A5B55AD25354EB500DCBA86 /* OrderInfoModel.h */,
+				1A5B55AE25354EB500DCBA86 /* OrderInfoModel.m */,
 				229EEF231E73E64200B078A4 /* CouponModel.h */,
 				229EEF241E73E64200B078A4 /* CouponModel.m */,
-				22FF41791E76ABF5000FB634 /* PositionsModel.h */,
-				22FF417A1E76ABF5000FB634 /* PositionsModel.m */,
 				22D177F71E7C2E9700E99911 /* MessageModel.h */,
 				22D177F81E7C2E9700E99911 /* MessageModel.m */,
 				220651071E81401D004FA34F /* InorderModel.h */,
@@ -1516,6 +1519,7 @@
 				22AEF9191E712F1C0076813C /* PositionsHistoryTableHeaderView.xib in Resources */,
 				22FD90301E8B899C00F78CE0 /* WithdrawPerfectInfoView.xib in Resources */,
 				22FF41721E7697AF000FB634 /* PositionsIncomeDetaileTableCell.xib in Resources */,
+				1A5B55A02535409F00DCBA86 /* ProductInfo.json in Resources */,
 				220B009C1E66B84E00180C33 /* RechargeResultVC.xib in Resources */,
 				22FF6F521E49ACDA00F81929 /* LaunchScreen.storyboard in Resources */,
 				22EC6A141E7A712E004B9473 /* ClosePositionDetaileVC.xib in Resources */,
@@ -1646,13 +1650,13 @@
 				2216B9BD1E63DC6D006994C3 /* TransactionHttpManager.m in Sources */,
 				221BA5201E6FB96D00FB618D /* UIColor+Y_StockChart.m in Sources */,
 				22FF41751E769C67000FB634 /* PositionsHistoryTableSectionHeaderView.m in Sources */,
-				22FF417B1E76ABF5000FB634 /* PositionsModel.m in Sources */,
 				220B00871E66825C00180C33 /* RechargeMethodTableCell.m in Sources */,
 				2206510C1E814E05004FA34F /* AppDelegate+LaunchImage.m in Sources */,
 				220B007E1E6677DB00180C33 /* QualityCertificationView.m in Sources */,
 				221BA52C1E6FB96D00FB618D /* Y_KLinePositionModel.m in Sources */,
 				2223F2D61E60122A006E8B8E /* PositionsTableCell.m in Sources */,
 				221BA5331E6FB96D00FB618D /* Y_KLineVolumeView.m in Sources */,
+				1A5B55AF25354EB500DCBA86 /* OrderInfoModel.m in Sources */,
 				22FF6F8A1E49B24900F81929 /* MainTabBarController.m in Sources */,
 				1A9DB16525202D3F003E8EA0 /* ConsultContentListView.m in Sources */,
 				220B02DD1E66D7E800180C33 /* KCPinyinHelper.m in Sources */,
@@ -1700,11 +1704,11 @@
 				22B7B32E1E5E98B100FF5EB6 /* ProfitRollTableHeaderView.m in Sources */,
 				22FF6F7D1E49B1A800F81929 /* TransactionViewController.m in Sources */,
 				2212FEA31E8CB096009B1220 /* HomeRegisterTipView.m in Sources */,
+				1A5B55A6253541FA00DCBA86 /* ProductInfoModel.m in Sources */,
 				22E9675A1E84E70600EA1CD9 /* BindThirdViewController.m in Sources */,
 				22B7B3281E5E8AD700FF5EB6 /* SetTransactionPasswordVC.m in Sources */,
 				2223F2CA1E5FD65C006E8B8E /* IntroPageViewController.m in Sources */,
 				22A50EDA1E7927C6004578B3 /* WithdrawBankCardInfoView.m in Sources */,
-				1A1A4DAE2534027000FC470C /* CommodityInfoModel.m in Sources */,
 				22FD90331E8B9FD100F78CE0 /* RechargePerfectInfomation.m in Sources */,
 				2221EED71E4DA96C006DA937 /* ResetLoginPasswordVC.m in Sources */,
 				2202C7DE1E4AD0BA000D14DE /* LoginViewController.m in Sources */,

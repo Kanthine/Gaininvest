@@ -10,6 +10,6 @@
 
 @interface ClosePositionDetaileVC : UIViewController
 
-- (instancetype)initWithModel:(PositionsModel *)model;
+- (instancetype)initWithModel:(OrderInfoModel *)model;
 
 @end

@@ -1,0 +1,32 @@
+[
+    {
+        "name":"白银",
+        "weight":"230",
+        "spec":"斤",
+        "price":"32.2",
+        "unit":"￥",
+        "commodityId":"10",
+        "contract":"#$%^&^&%^$%",
+        "fee":"1",
+    },
+    {
+        "name":"黄金",
+        "weight":"350",
+        "spec":"千克",
+        "price":"60.4",
+        "unit":"￥",
+        "commodityId":"20",
+        "contract":"*%#^#$^%$#",
+        "fee":"5",
+    },
+    {
+        "name":"钻石",
+        "weight":"500",
+        "spec":"克",
+        "price":"90.8",
+        "unit":"$",
+        "commodityId":"30",
+        "contract":"#!%*^$%^($%%&",
+        "fee":"10",
+    }
+]

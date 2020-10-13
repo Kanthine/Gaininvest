@@ -20,7 +20,7 @@
 
 @property (nonatomic ,strong) NSTimer *timer;
 @property (nonatomic ,strong) UITableView *tableView;
-@property (nonatomic ,strong) NSMutableArray<PositionsModel *> *listArray;
+@property (nonatomic ,strong) NSMutableArray<OrderInfoModel *> *listArray;
 
 @end
 
@@ -81,7 +81,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PositionsTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer forIndexPath:indexPath];
     cell.currentViewController = self;
-    PositionsModel *model = self.listArray[indexPath.row];
+    OrderInfoModel *model = self.listArray[indexPath.row];
     [cell updatePositionsTableCellWithModel:model];
     return cell;
 }
@@ -110,7 +110,7 @@
     return _timer;
 }
 
-- (NSMutableArray<PositionsModel *> *)listArray{
+- (NSMutableArray<OrderInfoModel *> *)listArray{
     if (_listArray == nil){
         _listArray = [NSMutableArray array];
     }

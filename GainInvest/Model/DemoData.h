@@ -12,10 +12,9 @@
 #import "ConsultListModel.h"
 #import "InorderModel.h"
 #import "CouponModel.h"
-#import "PositionsModel.h"
+#import "OrderInfoModel.h"
 #import "MessageModel.h"
-#import "CommodityInfoModel.h"
-
+#import "ProductInfoModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DemoData : NSObject
@@ -67,13 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSMutableArray<CouponModel *> *)couponArrayWithType:(NSString *)type;
 
-/** 获取贵金属信息
- */
-+ (NSMutableArray<CommodityInfoModel *> *)accessCommodityInfos;
-
 /** 获取用户的持仓信息列表
  */
-+ (NSMutableArray<PositionsModel *> *)accessOpenPosition;
++ (NSMutableArray<OrderInfoModel *> *)accessOpenPosition;
 
 
 /** 查询交易流水
@@ -81,14 +76,14 @@ NS_ASSUME_NONNULL_BEGIN
  * st ：查询开始时间 格式: yyyy-MM-dd
  * et ：查询结束时间 格式: yyyy-MM-dd
  */
-+ (NSMutableArray<PositionsModel *> *)accessTradeListWithParameterDict:(NSDictionary *)parameterDict;
++ (NSMutableArray<OrderInfoModel *> *)accessTradeListWithParameterDict:(NSDictionary *)parameterDict;
 
 /** 查询收支明细
  * type : top：查询止盈平仓流水，bot：查询止损平仓流水，de：查询爆仓平仓流水，cd：查询系统自动平仓流水，pn：查询建仓流水，cg：查询平仓流水，re:查询充值流水，wt：查询提现流水，"fd":" 查询提现失败流水" ，all：查询交易、充值和提现流水
  * st ：查询开始时间 格式: yyyy-MM-dd
  * et ：查询结束时间 格式: yyyy-MM-dd
  */
-+ (NSMutableArray<PositionsModel *> *)accessIncomeDetaileListWithParameterDict:(NSDictionary *)parameterDict;
++ (NSMutableArray<OrderInfoModel *> *)accessIncomeDetaileListWithParameterDict:(NSDictionary *)parameterDict;
 
 ///银行列表
 + (NSMutableArray<NSDictionary *> *)bankList;

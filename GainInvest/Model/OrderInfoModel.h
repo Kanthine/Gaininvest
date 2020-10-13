@@ -1,5 +1,6 @@
 //
-//  PositionsModel.h
+//  OrderInfoModel.h
+//  GainInvest
 //
 //  Created by   on 17/3/13
 //  Copyright (c) 2017 __MyCompanyName__. All rights reserved.
@@ -7,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 //持仓数据
-@class CommodityInfoModel;
-@interface PositionsModel : NSObject <NSCoding, NSCopying>
+@class ProductInfoModel;
+@interface OrderInfoModel : NSObject <NSCoding, NSCopying>
 
 ///YES 买跌 ， NO 买涨
 @property (nonatomic, assign) BOOL isBuyDrop;
@@ -26,22 +29,16 @@
 
 ///订单
 @property (nonatomic, assign) NSInteger orderId;
-@property (nonatomic, strong) NSString *orderNum;
-@property (nonatomic, assign) float fee;
-
-///商品信息
-@property (nonatomic, strong) CommodityInfoModel *productInfo;
-
-//商品描述：白银、黄金、钻石
-@property (nonatomic, strong) NSString *proDesc;
-
 ///买了几手
 @property (nonatomic, assign) NSInteger count;
 
+///商品信息
+@property (nonatomic, strong) ProductInfoModel *productInfo;
+
 //买入
-@property (nonatomic, assign) double buyMoney;
 @property (nonatomic, assign) double buyPrice;
 @property (nonatomic, strong) NSString *addTime;
+@property (nonatomic, assign) float fee;///手续费
 
 //平仓
 @property (nonatomic, assign) double sellPrice;
@@ -53,16 +50,8 @@
 //建仓\平仓
 @property (nonatomic, strong) NSString *remark;
 
-
-@property (nonatomic, assign) double deficitPrice;
-
-
 @property (nonatomic, assign) double plRatio;
-@property (nonatomic, assign) double orderType;
-@property (nonatomic, assign) double flag;
-@property (nonatomic, strong) NSString *wid;
-@property (nonatomic, assign) double balance;
-
+@property (nonatomic, strong) NSString *orderType;
 
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
@@ -70,3 +59,26 @@
 - (NSDictionary *)dictionaryRepresentation;
 
 @end
+
+
+@interface OrderInfoModel (Order)
+
+///创建一个订单
++ (void)creatOrder:(OrderInfoModel *)order handler:(void(^)(BOOL isSuccess))block;
+
+@end
+
+
+@interface OrderInfoModel (FMDB)
+
++ (void)insertModel:(OrderInfoModel *)model;
+
++ (void)updateModel:(OrderInfoModel *)model;
+
++ (void)getAllModels:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block;
+
++ (void)getModelByOrderID:(NSInteger)orderId handler:(void(^)(OrderInfoModel *model))block;
+
+@end
+
+NS_ASSUME_NONNULL_END

@@ -246,7 +246,7 @@
 
 /* 获取产品列表 */
 - (void)accessProductList{
-    [self.buyProductView updateBuyUpOrDownProductInfo:DemoData.accessCommodityInfos];
+    [self.buyProductView updateBuyUpOrDownProductInfo:ProductInfoModel.shareProducts];
 }
 
 /* 获取买张买跌比例 */

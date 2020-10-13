@@ -32,7 +32,7 @@
 
 @property (weak ,nonatomic) PositionsContentVC *currentViewController;
 
-- (void)updatePositionsTableCellWithModel:(PositionsModel *)model;
+- (void)updatePositionsTableCellWithModel:(OrderInfoModel *)model;
 
 
 @end

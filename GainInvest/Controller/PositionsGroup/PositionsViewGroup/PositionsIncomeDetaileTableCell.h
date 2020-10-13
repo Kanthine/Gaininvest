@@ -15,6 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLable;
 @property (weak, nonatomic) IBOutlet UILabel *resultLable;
 
-- (void)updatePositionsHistoryTableCellWithModel:(PositionsModel *)model;
+- (void)updatePositionsHistoryTableCellWithModel:(OrderInfoModel *)model;
 
 @end

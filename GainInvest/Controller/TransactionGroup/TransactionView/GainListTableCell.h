@@ -15,7 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *priceLable;
 
-- (void)updateGainListTableCellWithModel:(PositionsModel *)model;
+- (void)updateGainListTableCellWithModel:(OrderInfoModel *)model;
 
 
 @end

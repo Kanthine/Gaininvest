@@ -16,14 +16,14 @@
 @interface PositionsTableCell()
 
 {
-    PositionsModel *_model;
+    OrderInfoModel *_model;
 }
 
 @end
 
 @implementation PositionsTableCell
 
-- (void)updatePositionsTableCellWithModel:(PositionsModel *)model{
+- (void)updatePositionsTableCellWithModel:(OrderInfoModel *)model{
     _model = model;
     if (model.isBuyDrop){
         self.buyUpOrDownLable.text = @"买跌";

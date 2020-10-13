@@ -22,17 +22,17 @@
     // Configure the view for the selected state
 }
 
-- (void)updateGainListTableCellWithModel:(PositionsModel *)model
+- (void)updateGainListTableCellWithModel:(OrderInfoModel *)model
 {
-    NSString *nameStr = [NSString stringWithFormat:@"%@(%.1f元)",model.proDesc,model.buyMoney];
+    NSString *nameStr = [NSString stringWithFormat:@"%@(%.1f元)",model.productInfo.name,model.buyPrice];
     NSString *priceStr = @"";
     if (model.plAmount > 0)
     {
-        priceStr = [NSString stringWithFormat:@"+%.1f元(%.1f%%)",model.plAmount,model.plAmount / model.buyMoney * 100.0];
+        priceStr = [NSString stringWithFormat:@"+%.1f元(%.1f%%)",model.plAmount,model.plAmount / model.buyPrice * 100.0];
     }
     else
     {
-        priceStr = [NSString stringWithFormat:@"%.1f元(%.1f%%)",model.plAmount,model.plAmount / model.buyMoney * 100.0];
+        priceStr = [NSString stringWithFormat:@"%.1f元(%.1f%%)",model.plAmount,model.plAmount / model.buyPrice * 100.0];
     }
     
     

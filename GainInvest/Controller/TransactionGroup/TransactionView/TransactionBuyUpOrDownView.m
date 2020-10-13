@@ -24,7 +24,7 @@
 @property (nonatomic ,strong) UILabel *bottomLable;
 @property (nonatomic ,strong) UIButton *button;
 @property (nonatomic ,assign) BOOL isSelected;
-- (void)updateInfo:(CommodityInfoModel *)info;
+- (void)updateInfo:(ProductInfoModel *)info;
 @end
 
 @implementation MetalKindView
@@ -92,7 +92,7 @@
     }
 }
 
-- (void)updateInfo:(CommodityInfoModel *)info{
+- (void)updateInfo:(ProductInfoModel *)info{
     _nameLabel.text = [NSString stringWithFormat:@"%@ %@%@/%@",info.name,info.weight,info.unit,info.spec];
     _countPriceLabel.text = [NSString stringWithFormat:@"%@",info.price];
 }
@@ -182,7 +182,7 @@
 {
     BOOL _isUseCoupon;
     
-    NSArray<CommodityInfoModel *> *_productListArray;
+    NSArray<ProductInfoModel *> *_productListArray;
 }
 
 /** 遮盖 */
@@ -274,7 +274,7 @@
 }
 
 
-- (void)updateBuyUpOrDownProductInfo:(NSArray<CommodityInfoModel *> *)array{
+- (void)updateBuyUpOrDownProductInfo:(NSArray<ProductInfoModel *> *)array{
     _productListArray = array;
     
     [self.kindLeftView updateInfo:array.firstObject];
@@ -489,10 +489,10 @@
     
 
     
-    CommodityInfoModel *productInfo = _productListArray[self.currentProductIndex];
+    ProductInfoModel *productInfo = _productListArray[self.currentProductIndex];
     
     /// 建仓
-    PositionsModel *order = [[PositionsModel alloc] init];
+    OrderInfoModel *order = [[OrderInfoModel alloc] init];
     order.isBuyDrop = !self.isBuyUp;
     order.isUseCoupon = _isUseCoupon;
     order.productInfo = [productInfo copy];
@@ -500,7 +500,9 @@
     order.topLimit = ((int)self.slideLossView.slide.value ) / 10.0;
     order.bottomLimit = ((int)self.slideGainView.slide.value ) / 10.0;
     
-//    [self dismissPickerViewWithNeedTip:YES Error:error];
+    [OrderInfoModel creatOrder:order handler:^(BOOL isSuccess) {
+        [self dismissPickerViewWithNeedTip:YES Error:nil];
+    }];
 }
 
 - (void)updateBottomViewInfo{
@@ -510,7 +512,7 @@
         int value = ceil(self.slideCountView.slide.value);//多少手
         
         if (_isUseCoupon == NO){
-            CommodityInfoModel *info = _productListArray[self.currentProductIndex];
+            ProductInfoModel *info = _productListArray[self.currentProductIndex];
             float price = [info.price floatValue];
             unitLable.text = @"元";
             price = price * value;
