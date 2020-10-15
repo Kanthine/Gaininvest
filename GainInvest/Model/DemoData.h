@@ -15,6 +15,8 @@
 #import "OrderInfoModel.h"
 #import "MessageModel.h"
 #import "ProductInfoModel.h"
+#import "StockCurrentData.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DemoData : NSObject
@@ -42,20 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray<ConsultListModel *> *)ConsultListArrayWithKindTitle:(ConsultKindTitleModel *)titleModel;
 
 + (NSMutableArray<InorderModel *> *)inorderModelArray;
-
-/** 时分图假数据
- * type : K线数据类型
- *      1：1分时图
- *      2：5分钟K线图;
- *      3：15分钟K线图;
- *      4：30分钟K线图;
- *      5：1小时K线图"
- */
-+ (NSMutableArray<NSString *> *)timeLineChartDatasWithType:(NSString *)type;
-+ (NSMutableArray<NSString *> *)timeDatesWithType:(NSString *)type;
-
-
-
 
 /** 查询用户可用的赢家券信息数量
  */

@@ -37,7 +37,7 @@
         self.couponImageView.hidden = YES;
     }
     
-    CGFloat money = ( model.sellPrice - model.buyPrice ) * model.plRatio;
+    CGFloat money = (StockCurrentData.currentStock.quote.floatValue - model.buyPrice ) * model.plRatio;
     if (model.isBuyDrop){
         money = - money;
     }
@@ -48,10 +48,11 @@
         self.plAmountLable.text = [NSString stringWithFormat:@"%.1f",money];
     }
     
-    self.buyKindLable.text = [NSString stringWithFormat:@"%@%.1f%@%.0f手",model.productInfo.name,model.productInfo.weight,model.productInfo.spec,model.count];
-    self.openPositionLable.text = [NSString stringWithFormat:@"%.0f",model.buyPrice];
-    self.latestPriceLable.text = [NSString stringWithFormat:@"%.0f",model.sellPrice];
-    self.feeLable.text = [NSString stringWithFormat:@"0"];
+    self.buyKindLable.text = [NSString stringWithFormat:@"%@%@%@%ld手",model.productInfo.name,model.productInfo.weight,model.productInfo.spec,(long)model.count];
+    self.openPositionLable.text = [NSString stringWithFormat:@"%.0f 元",model.buyPrice];
+    
+    self.latestPriceLable.text = [NSString stringWithFormat:@"%.1f 元",StockCurrentData.currentStock.quote.floatValue * model.count];
+//    self.latestPriceLable.text = [NSString stringWithFormat:@"%.0f 元",model.sellPrice];
     
     self.lossesLable.text = [NSString stringWithFormat:@"%.0f",model.bottomLimit * 100];
     self.gainTipLable.text = [NSString stringWithFormat:@"%.0f",model.topLimit * 100];

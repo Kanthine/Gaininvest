@@ -10,9 +10,7 @@
 #import "Y_KLineModel.h"
 @implementation Y_KLineGroupModel
 
-+ (instancetype)objectWithDataArray:(NSArray *)arr DateArray:(NSArray *)dateArray
-{
-    
++ (instancetype)objectWithDataArray:(NSArray *)arr DateArray:(NSArray *)dateArray{
     NSAssert([arr isKindOfClass:[NSArray class]], @"arr不是一个数组");
     
     Y_KLineGroupModel *groupModel = [Y_KLineGroupModel new];
@@ -20,30 +18,22 @@
     __block Y_KLineModel *preModel = [[Y_KLineModel alloc]init];
     
     //设置数据
-    [arr enumerateObjectsUsingBlock:^(id valueArr, NSUInteger idx, BOOL * _Nonnull stop)
-    {
+    [arr enumerateObjectsUsingBlock:^(id valueArr, NSUInteger idx, BOOL * _Nonnull stop){
         Y_KLineModel *model = [Y_KLineModel new];
         model.PreviousKlineModel = preModel;
         
-        if (valueArr && [valueArr isKindOfClass:[NSArray class]])
-        {
+        if (valueArr && [valueArr isKindOfClass:[NSArray class]]){
             //k - 线图
             [model initWithArray:valueArr];
-        }
-        else if (valueArr && [valueArr isKindOfClass:[NSString class]])
-        {
+        }else if (valueArr && [valueArr isKindOfClass:[NSString class]]){
             //分时图
             [model initWithValue:valueArr];
         }
         
         model.Date = dateArray[idx];
-        
         model.ParentGroupModel = groupModel;
-        
         [mutableArr addObject:model];
-        
         preModel = model;
-
     }];
 
     

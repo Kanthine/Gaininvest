@@ -1,8 +1,8 @@
 //
 //  JdInfoModel.m
 //
-//  Created by 沫离 苏 on 2020/9/25
-//  Copyright (c) 2020 __MyCompanyName__. All rights reserved.
+//  Created by   on 17/2/10
+//  Copyright (c) 2017 __MyCompanyName__. All rights reserved.
 //
 
 #import "JdInfoModel.h"

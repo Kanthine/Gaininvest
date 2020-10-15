@@ -17,6 +17,7 @@
 		1A8C6F4E251ADC530003FB39 /* YLPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C6F4D251ADC530003FB39 /* YLPasswordInputView.m */; };
 		1A9DB16525202D3F003E8EA0 /* ConsultContentListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DB16425202D3F003E8EA0 /* ConsultContentListView.m */; };
 		1A9DB17B25206CAD003E8EA0 /* FMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9DB17A25206CAD003E8EA0 /* FMDBHelper.m */; };
+		1AA8DABB2537E8F5009293B7 /* StockCurrentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8DAB92537E8F4009293B7 /* StockCurrentData.m */; };
 		1AE45F3025199B9200E32236 /* DemoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE45F2F25199B9200E32236 /* DemoData.m */; };
 		1AE45F562519AA7C00E32236 /* ConsultKindTitles.json in Resources */ = {isa = PBXBuildFile; fileRef = 1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */; };
 		220052B91E52B119001EB8E0 /* ConsultKindTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 220052B81E52B119001EB8E0 /* ConsultKindTitleModel.m */; };
@@ -238,6 +239,8 @@
 		1A9DB16425202D3F003E8EA0 /* ConsultContentListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConsultContentListView.m; sourceTree = "<group>"; };
 		1A9DB17925206CAD003E8EA0 /* FMDBHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBHelper.h; sourceTree = "<group>"; };
 		1A9DB17A25206CAD003E8EA0 /* FMDBHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBHelper.m; sourceTree = "<group>"; };
+		1AA8DAB92537E8F4009293B7 /* StockCurrentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCurrentData.m; sourceTree = "<group>"; };
+		1AA8DABA2537E8F4009293B7 /* StockCurrentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCurrentData.h; sourceTree = "<group>"; };
 		1AE45F2E25199B9200E32236 /* DemoData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoData.h; sourceTree = "<group>"; };
 		1AE45F2F25199B9200E32236 /* DemoData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoData.m; sourceTree = "<group>"; };
 		1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ConsultKindTitles.json; sourceTree = "<group>"; };
@@ -682,6 +685,8 @@
 				221562491E4C5A7400FB3375 /* DataModel.h */,
 				1A5B8032251DE257008D1595 /* JdInfoModel.h */,
 				1A5B8033251DE257008D1595 /* JdInfoModel.m */,
+				1AA8DABA2537E8F4009293B7 /* StockCurrentData.h */,
+				1AA8DAB92537E8F4009293B7 /* StockCurrentData.m */,
 				2221EEC01E4D8DF3006DA937 /* AccountInfo.h */,
 				2221EEC11E4D8DF3006DA937 /* AccountInfo.m */,
 				1AE45F2E25199B9200E32236 /* DemoData.h */,
@@ -1465,7 +1470,7 @@
 				TargetAttributes = {
 					22FF6F3B1E49ACDA00F81929 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 489463D7AG;
+						DevelopmentTeam = QNDCLQW767;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1691,6 +1696,7 @@
 				1A6680402521C6D100614BAE /* CityListModel.m in Sources */,
 				221BA5221E6FB96D00FB618D /* Y_KLineAccessory.m in Sources */,
 				22B083D41E51B92B00843DBD /* ConsultListModel.m in Sources */,
+				1AA8DABB2537E8F5009293B7 /* StockCurrentData.m in Sources */,
 				221BA51F1E6FB96D00FB618D /* Y_StockChartGlobalVariable.m in Sources */,
 				2221EEBF1E4D8D30006DA937 /* ConsoleOutPutChinese.m in Sources */,
 				2218E8B31E7F6F0D0018C520 /* TransactionClosedTipView.m in Sources */,
@@ -1876,7 +1882,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GainInvest/GainInvest.entitlements;
-				DEVELOPMENT_TEAM = 489463D7AG;
+				DEVELOPMENT_TEAM = QNDCLQW767;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1916,7 +1922,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.suiYuan.GainInvest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.GainInvest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1927,7 +1933,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GainInvest/GainInvest.entitlements;
-				DEVELOPMENT_TEAM = 489463D7AG;
+				DEVELOPMENT_TEAM = QNDCLQW767;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1967,7 +1973,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.suiYuan.GainInvest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.GainInvest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

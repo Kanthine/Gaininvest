@@ -86,11 +86,15 @@ ConsultHeaderTitileViewDelegate,ConsultContentListDelegate>
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.collectionView.frame = CGRectMake(0, CGRectGetMaxY(self.headerTitleView.frame),CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44);
+    CGFloat height = CGRectGetHeight(_registerTipView.bounds);
+    _registerTipView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - height, CGRectGetWidth(UIScreen.mainScreen.bounds), height);
+    
+    self.scrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - height);
+    
+    self.collectionView.frame = CGRectMake(0, CGRectGetMaxY(self.headerTitleView.frame),CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.scrollView.bounds) - 44);
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     layout.itemSize = self.collectionView.bounds.size;
     
-    self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetMaxY(self.collectionView.frame));
 }
 

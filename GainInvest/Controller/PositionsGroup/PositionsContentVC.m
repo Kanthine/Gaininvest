@@ -62,6 +62,7 @@
 }
 
 - (void)realTimeUpdate{
+    [self.tableView reloadData];
     [self requestNetworkGetData];
 }
 
@@ -92,19 +93,18 @@
     if ([AuthorizationManager isBindingMobile]== NO){
         return;
     }
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.listArray = DemoData.accessOpenPosition;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    });
+    
+    [OrderInfoModel getAllPositions:^(NSMutableArray<OrderInfoModel *> * _Nonnull modelsArray) {
+        self.listArray = modelsArray;
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - setter and getters
 
 - (NSTimer *)timer{
     if (_timer == nil){
-        _timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(realTimeUpdate) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(realTimeUpdate) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
     }
     return _timer;

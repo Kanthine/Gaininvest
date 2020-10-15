@@ -310,24 +310,23 @@
 }
 
 /// 行情报价
-- (void)updateTradeDetaileView:(NSDictionary *)marketQuotationDict{
-    if (marketQuotationDict && [marketQuotationDict isKindOfClass:[NSDictionary class]]){
+- (void)updateTradeDetaileView:(StockCurrentData *)stockData{
+    if (stockData){
 
         UILabel *topLableLeft = [self.leftContentView viewWithTag:1];
         UILabel *middleLeftLable = [self.leftContentView viewWithTag:2];
         UILabel *middleRightLable = [self.leftContentView viewWithTag:3];
         UILabel *bottomLableLeft = [self.leftContentView viewWithTag:4];
         
-        bottomLableLeft.text = marketQuotationDict[@"createDate"];
+        bottomLableLeft.text = stockData.createDate;
                 
         UILabel *middleLeftContentLable = [self.rightContentView viewWithTag:4];
         UILabel *middleRightContentLable = [self.rightContentView viewWithTag:5];
         UILabel *bottomLeftContentLable = [self.rightContentView viewWithTag:6];
         UILabel *bottomRightContentLable = [self.rightContentView viewWithTag:7];
         
-        
-        int  addedValue = [marketQuotationDict[@"quote"] intValue] - [marketQuotationDict[@"preClose"] intValue];
-        float uprate = addedValue / [marketQuotationDict[@"preClose"] floatValue] * 100.0;
+        int  addedValue = stockData.quote.intValue - stockData.preClose.intValue;
+        float uprate = addedValue / stockData.preClose.floatValue * 100.0;
         NSString *addedValueString = @"";
         NSString *uprateString = @"";
         if (addedValue > 0){
@@ -346,18 +345,17 @@
             topLableLeft.textColor = [UIColor increaseColor];
             middleLeftLable.textColor = [UIColor increaseColor];
             middleRightLable.textColor = [UIColor increaseColor];
-            
             NSLog(@"跌的颜色啊");
         }
         
-        topLableLeft.text = marketQuotationDict[@"quote"];
+        topLableLeft.text = stockData.quote;
         middleLeftLable.text = addedValueString;
         middleRightLable.text = [uprateString stringByAppendingString:@"%"];
         
-        middleLeftContentLable.text = marketQuotationDict[@"open"];
-        middleRightContentLable.text = marketQuotationDict[@"high"];
-        bottomLeftContentLable.text = marketQuotationDict[@"preClose"];
-        bottomRightContentLable.text = marketQuotationDict[@"low"];
+        middleLeftContentLable.text = stockData.open;
+        middleRightContentLable.text = stockData.high;
+        bottomLeftContentLable.text = stockData.preClose;
+        bottomRightContentLable.text = stockData.low;
     }
 }
 

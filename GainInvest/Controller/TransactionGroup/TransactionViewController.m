@@ -33,6 +33,9 @@
 
 @property (nonatomic ,strong) NSTimer *timer;
 
+
+@property (nonatomic ,strong) NSOperationQueue *operationQueue;
+
 @property (nonatomic ,strong) TradeDetaileView *tradeView;
 @property (nonatomic ,strong) StockTopSegmentView *topSegmentView;
 @property (nonatomic, strong) StockChartView *stockChartView;//k-线图
@@ -172,7 +175,6 @@
     [self.navigationController pushViewController:newTeach animated:YES];
 }
 
-
 #pragma mark - Http Request
 
 - (void)realTimeUpdate{
@@ -190,19 +192,22 @@
         _isClosed = YES;
         [self accessFalseToMarketQuotation];
     }else{
-        [self.tradeView updateTradeDetaileView:@{@"createDate":@"9月23号",@"quote":@"700",@"preClose":@"520",@"open":@"550",@"high":@"760",@"low":@"500"}];
+        
+        [self.tradeView updateTradeDetaileView:StockCurrentData.currentStock];
     }
 }
 
 /* 休市时获取行情报价的假数据 */
 - (void)accessFalseToMarketQuotation{
     __weak __typeof__(self) weakSelf = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *dataList = [DemoData timeLineChartDatasWithType:@"2"];
+    
+    [self.operationQueue addOperationWithBlock:^{
+        NSArray *dataList = [StockCurrentData timeLineChartDatasWithType:@"2"];
         dispatch_async(dispatch_get_main_queue(), ^{
+            StockCurrentData.currentStock.quote = dataList.lastObject;
             [weakSelf.tradeView updateFalseTradeDetaileView:dataList LastPrice:dataList.lastObject];
         });
-    });
+    }];
 }
 
 /* 获取账户余额 */
@@ -222,10 +227,12 @@
 - (void)accessK_TimeLineChart{
     __weak __typeof__(self) weakSelf = self;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *dataArray = [DemoData timeLineChartDatasWithType:_type];
-        NSArray *dateArray = [DemoData timeDatesWithType:_type];
+    [self.operationQueue addOperationWithBlock:^{
+        NSArray *dataArray = [StockCurrentData timeLineChartDatasWithType:_type];
+        NSArray *dateArray = [StockCurrentData timeDatesWithType:_type];
         dispatch_async(dispatch_get_main_queue(), ^{
+            StockCurrentData.currentStock.quote = dataArray.lastObject;
+
             if ([_type isEqualToString:@"1"]){
                 weakSelf.timeLineChartView.hidden = NO;
                 weakSelf.stockChartView.hidden = YES;
@@ -241,7 +248,7 @@
                 [weakSelf.stockChartView updateStockChartViewWithType:_type];
             }
         });
-    });
+    }];
 }
 
 /* 获取产品列表 */
@@ -257,14 +264,21 @@
 
 #pragma mark - setter and getters
 
+- (NSOperationQueue *)operationQueue{
+    if (_operationQueue == nil) {
+        _operationQueue = [[NSOperationQueue alloc] init];
+        _operationQueue.maxConcurrentOperationCount = 1;
+    }
+    return _operationQueue;
+}
+
 - (NSTimer *)timer{
     if (_timer == nil){
-        _timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(realTimeUpdate) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(realTimeUpdate) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
     }
     return _timer;
 }
-
 
 - (TradeDetaileView *)tradeView{
     if (_tradeView == nil){
@@ -333,3 +347,7 @@
 }
 
 @end
+
+
+
+

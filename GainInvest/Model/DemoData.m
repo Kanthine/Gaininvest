@@ -208,27 +208,7 @@
 }
 
 
-///时分图假数据
-+ (NSMutableArray<NSString *> *)timeLineChartDatasWithType:(NSString *)type{
-    NSMutableArray<NSString *> *resultArray = [NSMutableArray array];
-    float baseData = 512.56;
-    for (int i = 0; i < 1000; i++) {
-        float value = baseData + (arc4random() % 20000) / 99.9;
-        [resultArray addObject:[NSString stringWithFormat:@"%f",value]];
-    }
-    return resultArray;
-}
 
-///时分图假数据
-+ (NSMutableArray<NSString *> *)timeDatesWithType:(NSString *)type{
-    NSMutableArray<NSString *> *resultArray = [NSMutableArray array];
-    int baseData = arc4random()  % 10;
-    for (int i = 0; i < 1000; i++) {
-        int value = baseData + i;
-        [resultArray addObject:[NSString stringWithFormat:@"%d",value]];
-    }
-    return resultArray;
-}
 
 
 + (NSInteger)queryCouponCount{
@@ -263,14 +243,11 @@
     return resultArray;
 }
 
-
-
-
 /** 获取用户的持仓信息列表
  */
 + (NSMutableArray<OrderInfoModel *> *)accessOpenPosition{
     NSMutableArray<OrderInfoModel *> *resultArray = [NSMutableArray array];
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 5; i++) {
         OrderInfoModel *model = [[OrderInfoModel alloc] init];
         model.isBuyDrop = arc4random() % 2;
         model.isUseCoupon = arc4random() % 2;
@@ -291,7 +268,7 @@
  */
 + (NSMutableArray<OrderInfoModel *> *)accessTradeListWithParameterDict:(NSDictionary *)parameterDict{
     NSMutableArray<OrderInfoModel *> *resultArray = [NSMutableArray array];
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 5; i++) {
         OrderInfoModel *model = [[OrderInfoModel alloc] init];
         model.isBuyDrop = arc4random() % 2;
         model.isUseCoupon = arc4random() % 2;
@@ -323,7 +300,7 @@
  */
 + (NSMutableArray<OrderInfoModel *> *)accessIncomeDetaileListWithParameterDict:(NSDictionary *)parameterDict{
     NSMutableArray<OrderInfoModel *> *resultArray = [NSMutableArray array];
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 5; i++) {
         OrderInfoModel *model = [[OrderInfoModel alloc] init];
         model.isBuyDrop = arc4random() % 2;
         model.isUseCoupon = arc4random() % 2;

@@ -263,6 +263,13 @@ NSString *const kOrderInfoModelOrderId = @"orderId";
     return _remark;
 }
 
+- (double)buyPrice{
+    if (_buyPrice < 1.0) {
+        _buyPrice = self.productInfo.weight.floatValue * self.count;
+    }
+    return _buyPrice;
+}
+
 @end
 
 
@@ -343,6 +350,23 @@ NSString *const kOrderInfoModelOrderId = @"orderId";
 
 + (void)getAllModels:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block{
     
+    [FMDBHelper databaseChildThreadInTransaction:^(FMDatabase * _Nonnull database, BOOL * _Nonnull rollback) {
+        // 查询会返回一个结果集
+        FMResultSet *resultSet = [database executeQuery:@"SELECT * FROM OrderTable"];
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        while ([resultSet next]){
+            OrderInfoModel *model = [OrderInfoModel modelFromeResult:resultSet];
+            [array addObject:model];
+        }
+        [resultSet close];
+        dispatch_async(dispatch_get_main_queue(), ^{
+             block(array);
+         });
+    }];
+}
+
+///获取所有持仓数据
++ (void)getAllPositions:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block{
     [FMDBHelper databaseChildThreadInTransaction:^(FMDatabase * _Nonnull database, BOOL * _Nonnull rollback) {
         // 查询会返回一个结果集
         FMResultSet *resultSet = [database executeQuery:@"SELECT * FROM OrderTable"];

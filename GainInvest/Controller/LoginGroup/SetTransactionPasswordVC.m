@@ -47,6 +47,11 @@
     [self.view addSubview:self.passwordView];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.passwordView becomeFirstResponder];
+}
+
 #pragma mark - response click
 
 - (void)leftNavBarButtonClick{

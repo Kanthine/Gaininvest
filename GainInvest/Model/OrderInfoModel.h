@@ -77,6 +77,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)getAllModels:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block;
 
+///获取所有持仓数据
++ (void)getAllPositions:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block;
+
 + (void)getModelByOrderID:(NSInteger)orderId handler:(void(^)(OrderInfoModel *model))block;
 
 @end

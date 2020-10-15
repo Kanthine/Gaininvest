@@ -10,7 +10,7 @@
 
 @interface TradeDetaileView : UIView
 
-- (void)updateTradeDetaileView:(NSDictionary *)marketQuotationDict;
+- (void)updateTradeDetaileView:(StockCurrentData *)stockData;
 
 - (void)updateFalseTradeDetaileView:(NSArray *)array LastPrice:(NSString *)lastPrice;
 
