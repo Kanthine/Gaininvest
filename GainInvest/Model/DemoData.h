@@ -43,8 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray<ConsultKindTitleModel *> *)consultKindTitleArray;
 + (NSMutableArray<ConsultListModel *> *)ConsultListArrayWithKindTitle:(ConsultKindTitleModel *)titleModel;
 
-+ (NSMutableArray<InorderModel *> *)inorderModelArray;
-
 /** 查询用户可用的赢家券信息数量
  */
 + (NSInteger)queryCouponCount;

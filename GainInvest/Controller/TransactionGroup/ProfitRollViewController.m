@@ -37,11 +37,11 @@
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.footerView];
+    [self requestNetworkGetData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestNetworkGetData];
 
     if ([AuthorizationManager isLoginState]){
         AccountInfo *account = [AccountInfo standardAccountInfo];
@@ -129,7 +129,7 @@
 
 - (void)requestNetworkGetData{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.listArray = DemoData.inorderModelArray;
+        self.listArray = InorderModel.inorderModelArray;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableHeaderView updateProfitRollTableHeaderView:self.listArray];
             [self.tableView reloadData];

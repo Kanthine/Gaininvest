@@ -193,3 +193,23 @@ NSString *const kInorderModelMemberHeadimg = @"member_headimg";
 
 
 @end
+
+
+
+
+
+@implementation InorderModel (DataSource)
+
++ (NSMutableArray<InorderModel *> *)inorderModelArray{
+    NSMutableArray<InorderModel *> *resultArray = [NSMutableArray array];
+    NSString *filePath = [NSBundle.mainBundle pathForResource:@"ProfitRollList" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    NSArray<NSDictionary *> *dictArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    for (NSDictionary *dict in dictArray) {
+        InorderModel *model = [InorderModel modelObjectWithDictionary:dict];
+        [resultArray addObject:model];
+    }
+    return resultArray;
+}
+
+@end

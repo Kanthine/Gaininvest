@@ -35,3 +35,12 @@
 - (NSDictionary *)dictionaryRepresentation;
 
 @end
+
+
+
+
+@interface InorderModel (DataSource)
+
++ (NSMutableArray<InorderModel *> *)inorderModelArray;
+
+@end

@@ -24,6 +24,7 @@
 @property (nonatomic ,strong) UILabel *bottomLable;
 @property (nonatomic ,strong) UIButton *button;
 @property (nonatomic ,assign) BOOL isSelected;
+@property (nonatomic ,strong) ProductInfoModel *info;
 - (void)updateInfo:(ProductInfoModel *)info;
 @end
 
@@ -93,6 +94,7 @@
 }
 
 - (void)updateInfo:(ProductInfoModel *)info{
+    _info = info;
     _nameLabel.text = [NSString stringWithFormat:@"%@ %@%@/%@",info.name,info.weight,info.unit,info.spec];
     _countPriceLabel.text = [NSString stringWithFormat:@"%@",info.price];
 }
@@ -390,6 +392,7 @@
     self.kindMiddleView.isSelected = NO;
     self.kindRightView.isSelected = NO;
     ((MetalKindView *)sender.superview).isSelected = YES;
+    self.currentViewController.navigationItem.title = ((MetalKindView *)sender.superview).info.name;
     [self updateBottomViewInfo];
 }
 
@@ -477,8 +480,18 @@
         [ErrorTipView errorTip:@"请至少选择1手购买" SuperView:self];
         return;
     }
-    UILabel *priceLable = [self.bottomView viewWithTag:1];
-    if ([priceLable.text floatValue] > [self.balanceOfAccountString floatValue] && _isUseCoupon == NO){
+    
+    /// 建仓
+    OrderInfoModel *order = [[OrderInfoModel alloc] init];
+    order.isBuyDrop = !self.isBuyUp;
+    order.isUseCoupon = _isUseCoupon;
+    ProductInfoModel *productInfo = _productListArray[self.currentProductIndex];
+    order.productInfo = [productInfo copy];
+    order.count = self.slideCountView.slide.value;
+    order.topLimit = ((int)self.slideLossView.slide.value ) / 10.0;
+    order.bottomLimit = ((int)self.slideGainView.slide.value ) / 10.0;
+    
+    if (order.buyPrice > [self.balanceOfAccountString floatValue] && _isUseCoupon == NO){
         [ErrorTipView errorTip:@"账户余额不足" SuperView:self];
         return;
     }
@@ -486,19 +499,9 @@
         [ErrorTipView errorTip:@"可用代金券数量不足" SuperView:self];
         return;
     }
+    
+    
 
-    
-    ProductInfoModel *productInfo = _productListArray[self.currentProductIndex];
-    
-    /// 建仓
-    OrderInfoModel *order = [[OrderInfoModel alloc] init];
-    order.isBuyDrop = !self.isBuyUp;
-    order.isUseCoupon = _isUseCoupon;
-    order.productInfo = [productInfo copy];
-    order.count = self.slideCountView.slide.value;
-    order.topLimit = ((int)self.slideLossView.slide.value ) / 10.0;
-    order.bottomLimit = ((int)self.slideGainView.slide.value ) / 10.0;
-    
     [OrderInfoModel creatOrder:order handler:^(BOOL isSuccess) {
         [self dismissPickerViewWithNeedTip:YES Error:nil];
     }];

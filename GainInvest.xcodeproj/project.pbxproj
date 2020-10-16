@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A2002172539BAFE00EC7629 /* ProfitRollList.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A2002162539BAFE00EC7629 /* ProfitRollList.json */; };
 		1A5B55A02535409F00DCBA86 /* ProductInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A5B559F2535409F00DCBA86 /* ProductInfo.json */; };
 		1A5B55A6253541FA00DCBA86 /* ProductInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B55A5253541FA00DCBA86 /* ProductInfoModel.m */; };
 		1A5B55AF25354EB500DCBA86 /* OrderInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B55AE25354EB500DCBA86 /* OrderInfoModel.m */; };
@@ -221,6 +222,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A2002162539BAFE00EC7629 /* ProfitRollList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProfitRollList.json; sourceTree = "<group>"; };
 		1A5B559F2535409F00DCBA86 /* ProductInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProductInfo.json; sourceTree = "<group>"; };
 		1A5B55A4253541FA00DCBA86 /* ProductInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductInfoModel.h; sourceTree = "<group>"; };
 		1A5B55A5253541FA00DCBA86 /* ProductInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductInfoModel.m; sourceTree = "<group>"; };
@@ -621,6 +623,7 @@
 		1AE45F4525199F5C00E32236 /* JsonDemoData */ = {
 			isa = PBXGroup;
 			children = (
+				1A2002162539BAFE00EC7629 /* ProfitRollList.json */,
 				1A5B559F2535409F00DCBA86 /* ProductInfo.json */,
 				1AE45F552519AA7C00E32236 /* ConsultKindTitles.json */,
 				1A6680392521C62B00614BAE /* CityModelList.json */,
@@ -1527,6 +1530,7 @@
 				1A5B55A02535409F00DCBA86 /* ProductInfo.json in Resources */,
 				220B009C1E66B84E00180C33 /* RechargeResultVC.xib in Resources */,
 				22FF6F521E49ACDA00F81929 /* LaunchScreen.storyboard in Resources */,
+				1A2002172539BAFE00EC7629 /* ProfitRollList.json in Resources */,
 				22EC6A141E7A712E004B9473 /* ClosePositionDetaileVC.xib in Resources */,
 				2221EED81E4DA96C006DA937 /* ResetLoginPasswordVC.xib in Resources */,
 				22FF6F4F1E49ACDA00F81929 /* Assets.xcassets in Resources */,

@@ -196,7 +196,7 @@ NSString *const kStockCurrentDataOpen = @"open";
         float baseData = 512.56;
         for (int i = 0; i < 1000; i++) {
            float value = baseData + (arc4random() % 20000) / 99.9;
-           [dataArray addObject:[NSString stringWithFormat:@"%f",value]];
+           [dataArray addObject:[NSString stringWithFormat:@"%.2f",value]];
         }
         
         NSMutableArray<NSString *> *timeArray = [NSMutableArray array];

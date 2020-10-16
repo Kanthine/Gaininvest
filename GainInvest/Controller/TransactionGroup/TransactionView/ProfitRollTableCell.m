@@ -38,12 +38,10 @@
     // Configure the view for the selected state
 }
 
-- (void)updateProfitRollTableCell:(InorderModel *)model
-{
+- (void)updateProfitRollTableCell:(InorderModel *)model{
     [self.headerImage sd_setImageWithURL:[NSURL URLWithString:model.headImg] placeholderImage:[UIImage imageNamed:@"placeholderHeader"]];
     self.nameLable.text = model.mobile;
     self.gainLable.text = [NSString stringWithFormat:@"%.1f%%",[model.plPercent floatValue] * 100];
-
 }
 
 @end

@@ -182,35 +182,6 @@
     return resultArray;
 }
 
-+ (NSMutableArray<InorderModel *> *)inorderModelArray{
-    NSMutableArray<InorderModel *> *resultArray = [NSMutableArray array];
-    for (int i = 0; i < 20; i++) {
-        InorderModel *model = [[InorderModel alloc] init];
-        model.isBuyDrop = arc4random() % 2;
-        model.orderType = @"订单类型";
-        model.headImg = DemoData.headPathArray[arc4random() % k_DemoData_HeadPath_count];
-        model.memberHeadimg = DemoData.headPathArray[arc4random() % k_DemoData_HeadPath_count];
-        model.mobile = DemoData.phonesArray[arc4random() % k_DemoData_Phones_count];
-        model.plAmount = @"1234";
-        model.plPercent = @"1234";
-        model.addTime = @"";
-        model.buyPrice = @"721.3";//买入价
-        model.sellPrice = @"535.7";//平仓价
-        model.sellTime = @"";
-        model.price = @"10";//白银价格
-        model.count = @"5";//买入几手
-        model.orderId = [NSString stringWithFormat:@"%d",arc4random() % 50 + i];
-
- 
-        [resultArray addObject:model];
-    }
-    return resultArray;
-}
-
-
-
-
-
 + (NSInteger)queryCouponCount{
     if ([AuthorizationManager isBindingMobile] == NO){
         return [UserLocalData getCouponCount];

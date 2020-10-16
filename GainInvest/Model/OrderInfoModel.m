@@ -309,7 +309,7 @@ NSString *const kOrderInfoModelOrderId = @"orderId";
     if (self.plAmount > 0){//浮动盈亏
         return [NSString stringWithFormat:@"+%.2f",self.plAmount];
     }else{
-        return [NSString stringWithFormat:@"-%.2f",self.plAmount];
+        return [NSString stringWithFormat:@"%.2f",self.plAmount];
     }
 }
 
@@ -317,6 +317,8 @@ NSString *const kOrderInfoModelOrderId = @"orderId";
 + (void)creatOrder:(OrderInfoModel *)order handler:(void(^)(BOOL isSuccess))block{
     [OrderInfoModel insertModel:order];
     
+    AccountInfo.standardAccountInfo.balance = [NSString stringWithFormat:@"%.1f",AccountInfo.standardAccountInfo.balance.floatValue - order.buyPrice];
+    [AccountInfo.standardAccountInfo storeAccountInfo];
     
     block(YES);
     
