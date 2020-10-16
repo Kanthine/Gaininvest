@@ -28,7 +28,6 @@
 
 {
     BOOL _isClosed;//休市
-    NSString *_type;
 }
 
 @property (nonatomic ,strong) NSTimer *timer;
@@ -57,7 +56,6 @@
     self = [super init];
     if (self){
         _isClosed = NO;
-        _type = @"1";
     }
     return self;
 }
@@ -88,7 +86,6 @@
     [self realTimeUpdate];
 
     if ([AuthorizationManager isEffectiveToken]){
-        [self accessBalanceOfAccount];
         [self accessCouponNumber];
     }
 }
@@ -178,88 +175,49 @@
 #pragma mark - Http Request
 
 - (void)realTimeUpdate{
-    [self accessToMarketQuotation];
-    [self accessK_TimeLineChart];
-    [self accessProductList];
-    [self accessBuyUpOrDown];
-}
-
-/* 获取行情报价 */
-- (void)accessToMarketQuotation{
-    _isClosed = NO;
-    if (arc4random() % 4 == 0) {
-        //休市
-        _isClosed = YES;
-        [self accessFalseToMarketQuotation];
-    }else{
-        
-        [self.tradeView updateTradeDetaileView:StockCurrentData.currentStock];
-    }
-}
-
-/* 休市时获取行情报价的假数据 */
-- (void)accessFalseToMarketQuotation{
     __weak __typeof__(self) weakSelf = self;
+    _isClosed = !arc4random() % 4;//休市
     
-    [self.operationQueue addOperationWithBlock:^{
-        NSArray *dataList = [StockCurrentData timeLineChartDatasWithType:@"2"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            StockCurrentData.currentStock.quote = dataList.lastObject;
-            [weakSelf.tradeView updateFalseTradeDetaileView:dataList LastPrice:dataList.lastObject];
-        });
+    /* 获取k-线图 */
+    [StockCurrentData timerUpdateStockData:^(StockCurrentData *stockData) {
+        if (_isClosed) {
+            [weakSelf.tradeView updateFalseTradeDetaileView:stockData.dataArray LastPrice:stockData.dataArray.lastObject];
+        }else{
+            [weakSelf.tradeView updateTradeDetaileView:StockCurrentData.currentStock];
+        }
+        
+        if ([stockData.type isEqualToString:@"1"]){
+            weakSelf.timeLineChartView.hidden = NO;
+            weakSelf.stockChartView.hidden = YES;
+            [weakSelf.stockChartView stockChartViewDisAppear];
+            [weakSelf.timeLineChartView updateStockChartViewWithDataArray:stockData.dataArray DateArray:stockData.dateArray];
+        }else{
+            weakSelf.timeLineChartView.hidden = YES;
+            [weakSelf.timeLineChartView timeLineStockChartViewDisAppear];
+            weakSelf.stockChartView.hidden = NO;
+            
+            Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithDataArray:stockData.dataArray DateArray:stockData.dateArray];
+            weakSelf.stockChartView.kLineModels = groupModel.models;
+            [weakSelf.stockChartView updateStockChartViewWithType:stockData.type];
+        }
     }];
-}
+    
+    /* 获取产品列表 */
+    [self.buyProductView updateBuyUpOrDownProductInfo:ProductInfoModel.shareProducts];
 
-/* 获取账户余额 */
-- (void)accessBalanceOfAccount{
-    if([AuthorizationManager isBindingMobile] == NO){
-        return;
+    /* 获取买张买跌比例 */
+    self.footerView.leftLable.text = @"35%% 用户买涨";
+    self.footerView.rightLable.text = @"65%% 用户买跌";
+    
+    /* 获取账户余额 */
+    if([AuthorizationManager isBindingMobile]){
+        self.buyProductView.balanceOfAccountString = AccountInfo.standardAccountInfo.balance;
     }
-    self.buyProductView.balanceOfAccountString = AccountInfo.standardAccountInfo.balance;
 }
 
 /* 获取代金券数量 */
 - (void)accessCouponNumber{
     self.buyProductView.couponNumberString = [NSString stringWithFormat:@"%d",arc4random() % 30 + 1];
-}
-
-/* 获取k-线图 */
-- (void)accessK_TimeLineChart{
-    __weak __typeof__(self) weakSelf = self;
-    
-    [self.operationQueue addOperationWithBlock:^{
-        NSArray *dataArray = [StockCurrentData timeLineChartDatasWithType:_type];
-        NSArray *dateArray = [StockCurrentData timeDatesWithType:_type];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            StockCurrentData.currentStock.quote = dataArray.lastObject;
-
-            if ([_type isEqualToString:@"1"]){
-                weakSelf.timeLineChartView.hidden = NO;
-                weakSelf.stockChartView.hidden = YES;
-                [weakSelf.stockChartView stockChartViewDisAppear];
-                [weakSelf.timeLineChartView updateStockChartViewWithDataArray:dataArray DateArray:dateArray];
-            }else{
-                weakSelf.timeLineChartView.hidden = YES;
-                [weakSelf.timeLineChartView timeLineStockChartViewDisAppear];
-                weakSelf.stockChartView.hidden = NO;
-                
-                Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithDataArray:dataArray DateArray:dateArray];
-                weakSelf.stockChartView.kLineModels = groupModel.models;
-                [weakSelf.stockChartView updateStockChartViewWithType:_type];
-            }
-        });
-    }];
-}
-
-/* 获取产品列表 */
-- (void)accessProductList{
-    [self.buyProductView updateBuyUpOrDownProductInfo:ProductInfoModel.shareProducts];
-}
-
-/* 获取买张买跌比例 */
-- (void)accessBuyUpOrDown{
-    self.footerView.leftLable.text = @"35%% 用户买涨";
-    self.footerView.rightLable.text = @"65%% 用户买跌";
 }
 
 #pragma mark - setter and getters
@@ -290,11 +248,10 @@
 - (StockTopSegmentView *)topSegmentView{
     if(_topSegmentView == nil){
         __weak __typeof__(self) weakSelf = self;
-
         _topSegmentView = [[StockTopSegmentView alloc]init];
         _topSegmentView.stockTopSegmentView = ^(NSString *type){
-            _type = type;
-            [weakSelf accessK_TimeLineChart];
+            StockCurrentData.currentStock.type = type;
+            [weakSelf realTimeUpdate];
         };
     }
     return _topSegmentView;

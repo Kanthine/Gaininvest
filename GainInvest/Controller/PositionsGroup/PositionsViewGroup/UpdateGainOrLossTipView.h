@@ -11,7 +11,7 @@
 @interface UpdateGainOrLossTipView : UIView
 
 @property (nonatomic ,strong) UILabel *timeLable;
-@property (nonatomic ,copy) void(^ updateGainOrLossTipView)(int topLimit,int bottomLimit);
+@property (nonatomic ,copy) void(^updateGainOrLossTipView)(int topLimit,int bottomLimit);
 
 - (instancetype)initWithTopLimit:(CGFloat)topLimit BottomLimit:(CGFloat)bottomLimit;
 

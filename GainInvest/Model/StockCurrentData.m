@@ -132,8 +132,32 @@ NSString *const kStockCurrentDataOpen = @"open";
 
 
 
-
+#import <objc/message.h>
 @implementation StockCurrentData (Serve)
+
+- (void)setType:(NSString *)type{
+    objc_setAssociatedObject(self, @selector(type),type, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSString *)type{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setDataArray:(NSMutableArray<NSString *> *)dataArray{
+    objc_setAssociatedObject(self, @selector(dataArray),dataArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSMutableArray<NSString *> *)dataArray{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setDateArray:(NSMutableArray<NSString *> *)dateArray{
+    objc_setAssociatedObject(self, @selector(dateArray),dateArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSMutableArray<NSString *> *)dateArray{
+    return objc_getAssociatedObject(self, _cmd);
+}
 
 + (instancetype)currentStock{
     static StockCurrentData *data = nil;
@@ -141,6 +165,7 @@ NSString *const kStockCurrentDataOpen = @"open";
     dispatch_once(&onceToken, ^{
         if (data == nil) {
             data = [[StockCurrentData alloc] init];
+            data.type = @"1";
             data.low = @"500";
             data.createDate = @"9月23号";
             data.high = @"760";
@@ -164,42 +189,32 @@ NSString *const kStockCurrentDataOpen = @"open";
 }
 
 ///时分图假数据
-+ (NSMutableArray<NSString *> *)timeLineChartDatasWithType:(NSString *)type{
-  NSMutableArray<NSString *> *resultArray = [NSMutableArray array];
-   float baseData = 512.56;
-   for (int i = 0; i < 1000; i++) {
-      float value = baseData + (arc4random() % 20000) / 99.9;
-      [resultArray addObject:[NSString stringWithFormat:@"%f",value]];
-   }
-  return resultArray;
++ (void)timerUpdateStockData:(void(^)(StockCurrentData *stockData))handler{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray<NSString *> *dataArray = [NSMutableArray array];
+        float baseData = 512.56;
+        for (int i = 0; i < 1000; i++) {
+           float value = baseData + (arc4random() % 20000) / 99.9;
+           [dataArray addObject:[NSString stringWithFormat:@"%f",value]];
+        }
+        
+        NSMutableArray<NSString *> *timeArray = [NSMutableArray array];
+        int baseTime = arc4random()  % 10;
+        for (int i = 0; i < 1000; i++) {
+            int value = baseTime + i;
+            [timeArray addObject:[NSString stringWithFormat:@"%d",value]];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            StockCurrentData.currentStock.quote = dataArray.lastObject;
+            StockCurrentData.currentStock.dataArray = dataArray;
+            StockCurrentData.currentStock.dateArray = timeArray;
+            if (handler) {
+                handler(StockCurrentData.currentStock);
+            }
+        });
+    });
 }
-
-///时分图假数据
-+ (NSMutableArray<NSString *> *)timeDatesWithType:(NSString *)type{
-  NSMutableArray<NSString *> *resultArray = [NSMutableArray array];
-  int baseData = arc4random()  % 10;
-  for (int i = 0; i < 1000; i++) {
-      int value = baseData + i;
-      [resultArray addObject:[NSString stringWithFormat:@"%d",value]];
-  }
-  return resultArray;
-}
-
-- (NSTimer *)timer{
-    if (_timer == nil){
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(realTimeUpdate) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
-    }
-    return _timer;
-}
-
-
-- (void)realTimeUpdate{
-//    [self accessToMarketQuotation];
-//    [self accessK_TimeLineChart];
-//    [self accessProductList];
-//    [self accessBuyUpOrDown];
-}
-
 
 @end

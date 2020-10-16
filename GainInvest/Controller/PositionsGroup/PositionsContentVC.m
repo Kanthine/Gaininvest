@@ -62,8 +62,9 @@
 }
 
 - (void)realTimeUpdate{
-    [self.tableView reloadData];
-    [self requestNetworkGetData];
+    [StockCurrentData timerUpdateStockData:^(StockCurrentData *stockData) {
+        [self requestNetworkGetData];
+    }];
 }
 
 #pragma mark - response click
@@ -94,7 +95,7 @@
         return;
     }
     
-    [OrderInfoModel getAllPositions:^(NSMutableArray<OrderInfoModel *> * _Nonnull modelsArray) {
+    [OrderInfoModel getModelsWithType:OrderTypePosition handler:^(NSMutableArray<OrderInfoModel *> * _Nonnull modelsArray) {
         self.listArray = modelsArray;
         [self.tableView reloadData];
     }];

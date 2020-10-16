@@ -196,15 +196,10 @@
     if ([AuthorizationManager isBindingMobile] == NO){
         return;
     }
-    NSDictionary *dict = @{@"type":@"cg",@"st":[self getStartTime],@"et":[self getCurrentTime]};
-    NSLog(@"dict ===== %@",dict);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.listArray = [DemoData accessTradeListWithParameterDict:dict];
-        [self sortArrayWithDate];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    });
+    [OrderInfoModel getModelsWithType:OrderTypeClosePosition handler:^(NSMutableArray<OrderInfoModel *> * _Nonnull modelsArray) {
+        self.listArray = modelsArray;
+        [self.tableView reloadData];
+    }];
 }
 
 /* 收支明细 ---- > 查询平仓流水 */

@@ -25,37 +25,24 @@
 
     //是否使用优惠券
     _couponImageView.hidden = !model.isUseCoupon;
-    
-    
-    if (model.plAmount > 0){//浮动盈亏
-        self.plAmountLable.text = [NSString stringWithFormat:@"+%.2f",model.plAmount];
-    }else{
-        self.plAmountLable.text = [NSString stringWithFormat:@"%.2f",model.plAmount];
-    }
-    
-    
-    self.buyKindLable.text = [NSString stringWithFormat:@"%@%.1f%@%.0f手",model.productInfo.name,model.productInfo.weight,model.productInfo.spec,model.count];
+    self.plAmountLable.text = model.plAmountText;//浮动盈亏
+
+    self.buyKindLable.text = [NSString stringWithFormat:@"%@%@%@%ld手",model.productInfo.name,model.productInfo.weight,model.productInfo.spec,(long)model.count];
     self.openPositionLable.text = [NSString stringWithFormat:@"%.0f",model.buyPrice];
     
     
     
     NSString *sellPrice = @"";
     if (model.sellPrice > 0){
-       sellPrice = [NSString stringWithFormat:@"%.0f",model.sellPrice];
+       sellPrice = [NSString stringWithFormat:@"%.1f",model.sellPrice];
     }
     self.latestPriceLable.text = sellPrice;
-
     
-    NSString *sellTime;
-    if (model.sellTime && model.sellTime.length > 0)
-    {
+    NSString *sellTime = @"";
+    if (model.sellTime && model.sellTime.length > 0){
         sellTime = model.sellTime;
     }
-    else
-    {
-        sellTime = @"";
-    }
-
+   
     
     self.openPositionTimeLable.text = [NSString stringWithFormat:@"%@",model.addTime];
     self.closePositionTimeLable.text = [NSString stringWithFormat:@"%@",sellTime];

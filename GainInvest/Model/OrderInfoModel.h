@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 //建仓\平仓
 @property (nonatomic, strong) NSString *remark;
 
+//市盈率
 @property (nonatomic, assign) double plRatio;
 @property (nonatomic, strong) NSString *orderType;
 
@@ -63,11 +64,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderInfoModel (Order)
 
+- (NSString *)plAmountText;
+
 ///创建一个订单
 + (void)creatOrder:(OrderInfoModel *)order handler:(void(^)(BOOL isSuccess))block;
 
+//平仓
+- (void)closePosition;
+
 @end
 
+
+typedef NS_ENUM(NSUInteger ,OrderType) {
+    OrderTypeAll = 0,
+    OrderTypePosition,
+    OrderTypeClosePosition,
+};
 
 @interface OrderInfoModel (FMDB)
 
@@ -75,10 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)updateModel:(OrderInfoModel *)model;
 
-+ (void)getAllModels:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block;
-
-///获取所有持仓数据
-+ (void)getAllPositions:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block;
+///获取所有订单数据
++ (void)getModelsWithType:(OrderType)type handler:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block;
 
 + (void)getModelByOrderID:(NSInteger)orderId handler:(void(^)(OrderInfoModel *model))block;
 

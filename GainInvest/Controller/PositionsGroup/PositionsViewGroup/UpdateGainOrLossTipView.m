@@ -39,8 +39,7 @@
 {
     self = [super init];
         
-    if (self)
-    {
+    if (self){
         _topLimit = topLimit * 10;
         _bottomLimit = bottomLimit * 10;
         _contentWeight = CGRectGetWidth(UIScreen.mainScreen.bounds) - 60;
@@ -49,7 +48,6 @@
         [self addSubview:self.coverButton];
         [self addSubview:self.contentView];
     }
-    
     return self;
 }
 
@@ -326,8 +324,14 @@
      }];
 }
 
-- (void)confirmButtonClick
-{
+- (void)confirmButtonClick{
+    if (_topLimit < 10) {
+        _topLimit = _topLimit * 10;
+    }
+    if (_bottomLimit < 10) {
+        _bottomLimit = _bottomLimit * 10;
+    }
+    
     self.updateGainOrLossTipView(_topLimit,_bottomLimit);
     [self dismissPickerView];
 }
@@ -373,34 +377,23 @@
     {
         _topLimit = value;
     }
-
 }
 
-
-
-- (void)slideValueChangeClick:(UISlider *)slide
-{
+- (void)slideValueChangeClick:(UISlider *)slide{
     UILabel *topLable = [slide.superview viewWithTag:1];
     
     NSString *string = [topLable.text componentsSeparatedByString:@"："].firstObject;
     int value = [[NSString stringWithFormat:@"%f",slide.value] intValue];
     value = value * 10;
-    if (value == 0)
-    {
+    if (value == 0){
         topLable.text = [NSString stringWithFormat:@"%@：不限",string];
-    }
-    else
-    {
+    }else{
         topLable.text = [NSString stringWithFormat:@"%@：%d点",string,value];
     }
     
-    
-    if (slide.superview.tag == 100)
-    {
+    if (slide.superview.tag == 100){
         _bottomLimit = value;
-    }
-    else
-    {
+    }else{
         _topLimit = value;
     }
 

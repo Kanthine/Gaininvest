@@ -486,7 +486,6 @@
         [ErrorTipView errorTip:@"可用代金券数量不足" SuperView:self];
         return;
     }
-    
 
     
     ProductInfoModel *productInfo = _productListArray[self.currentProductIndex];

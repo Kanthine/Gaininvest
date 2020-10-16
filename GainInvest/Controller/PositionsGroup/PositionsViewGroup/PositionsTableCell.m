@@ -25,34 +25,25 @@
 
 - (void)updatePositionsTableCellWithModel:(OrderInfoModel *)model{
     _model = model;
-    if (model.isBuyDrop){
-        self.buyUpOrDownLable.text = @"买跌";
-    }else{
-        self.buyUpOrDownLable.text = @"买涨";
-    }
-    
+
     if (model.isUseCoupon){//是否使用优惠券
         self.couponImageView.hidden = NO;
     }else{
         self.couponImageView.hidden = YES;
     }
     
-    CGFloat money = (StockCurrentData.currentStock.quote.floatValue - model.buyPrice ) * model.plRatio;
-    if (model.isBuyDrop){
-        money = - money;
-    }
+    self.buyUpOrDownLable.text = model.isBuyDrop ? @"买跌" : @"买涨";
     
-    if (money > 0){
-        self.plAmountLable.text = [NSString stringWithFormat:@"+%.1f",money];
+    if (model.plAmount > 0){
+        self.plAmountLable.text = [NSString stringWithFormat:@"+%.1f",model.plAmount];
     }else{
-        self.plAmountLable.text = [NSString stringWithFormat:@"%.1f",money];
+        self.plAmountLable.text = [NSString stringWithFormat:@"%.1f",model.plAmount];
     }
     
     self.buyKindLable.text = [NSString stringWithFormat:@"%@%@%@%ld手",model.productInfo.name,model.productInfo.weight,model.productInfo.spec,(long)model.count];
     self.openPositionLable.text = [NSString stringWithFormat:@"%.0f 元",model.buyPrice];
     
     self.latestPriceLable.text = [NSString stringWithFormat:@"%.1f 元",StockCurrentData.currentStock.quote.floatValue * model.count];
-//    self.latestPriceLable.text = [NSString stringWithFormat:@"%.0f 元",model.sellPrice];
     
     self.lossesLable.text = [NSString stringWithFormat:@"%.0f",model.bottomLimit * 100];
     self.gainTipLable.text = [NSString stringWithFormat:@"%.0f",model.topLimit * 100];
@@ -72,13 +63,12 @@
     [updateView show];
     
     updateView.updateGainOrLossTipView = ^(int topLimit,int bottomLimit){
-                
         _model.bottomLimit = bottomLimit / 100.0;
         _model.topLimit = topLimit / 100.0;
+        [OrderInfoModel updateModel:_model];
         self.lossesLable.text = [NSString stringWithFormat:@"%d",bottomLimit];;
         self.gainTipLable.text = [NSString stringWithFormat:@"%d",topLimit];;
     };
-    
 }
 
 /** 平仓
@@ -86,20 +76,11 @@
  * order_id ：订单号
  * contract ：商品符号
  */
-- (IBAction)closePositionButtonClick:(UIButton *)sender
-{
+- (IBAction)closePositionButtonClick:(UIButton *)sender{
     ConfirmClosePositionView *closePosition = [[ConfirmClosePositionView alloc]init];
     [closePosition show];
     closePosition.confirmClosePosition = ^(){
-        NSString *orderId = [NSString stringWithFormat:@"%ld",_model.orderId];
-
-        AccountInfo *account = [AccountInfo standardAccountInfo];
-        NSDictionary *dict = @{@"mobile_phone":account.username,
-                               @"order_id":orderId,
-                               @"contract":_model.productInfo.contract};
-
-        
-        NSLog(@"dict ==== %@",dict);
+        [_model closePosition];
         [ErrorTipView errorTip:@"平仓成功" SuperView:self.currentViewController.view];
     };
 }

@@ -263,11 +263,39 @@ NSString *const kOrderInfoModelOrderId = @"orderId";
     return _remark;
 }
 
+- (float)fee{
+    return _productInfo.fee.floatValue * self.count;
+}
+
 - (double)buyPrice{
     if (_buyPrice < 1.0) {
         _buyPrice = self.productInfo.weight.floatValue * self.count;
     }
     return _buyPrice;
+}
+
+/** 市盈率水平为：
+ * <0 ：指该公司盈利为负（因盈利为负，计算市盈率没有意义，所以一般软件显示为“—”）
+ * 0-13 ：即价值被低估
+ * 14-20：即正常水平
+ * 21-28：即价值被高估
+ * 28+ ：反映股市出现投机性泡沫
+ */
+- (double)plRatio{
+    return 0.15;
+}
+
+- (float)plAmount{    
+    float money = (StockCurrentData.currentStock.quote.floatValue * self.count - self.buyPrice) * self.plRatio;
+    if ([self.remark isEqualToString:@"建仓"]) {
+        money = (StockCurrentData.currentStock.quote.floatValue * self.count - self.buyPrice) * self.plRatio;
+    }else{
+        money = (self.sellPrice - self.buyPrice) * self.plRatio;
+    }
+    if (self.isBuyDrop){
+        money = - money;
+    }
+    return money;
 }
 
 @end
@@ -277,6 +305,14 @@ NSString *const kOrderInfoModelOrderId = @"orderId";
 
 @implementation OrderInfoModel (Order)
 
+- (NSString *)plAmountText{
+    if (self.plAmount > 0){//浮动盈亏
+        return [NSString stringWithFormat:@"+%.2f",self.plAmount];
+    }else{
+        return [NSString stringWithFormat:@"-%.2f",self.plAmount];
+    }
+}
+
 ///创建一个订单
 + (void)creatOrder:(OrderInfoModel *)order handler:(void(^)(BOOL isSuccess))block{
     [OrderInfoModel insertModel:order];
@@ -284,6 +320,14 @@ NSString *const kOrderInfoModelOrderId = @"orderId";
     
     block(YES);
     
+}
+
+//平仓
+- (void)closePosition{
+    _sellTime = getTimeWithDate(NSDate.date);
+    _sellPrice = StockCurrentData.currentStock.quote.floatValue * self.count;
+    _remark = @"平仓";
+    [OrderInfoModel updateModel:self];
 }
 
 @end
@@ -348,32 +392,29 @@ NSString *const kOrderInfoModelOrderId = @"orderId";
     return model;
 }
 
-+ (void)getAllModels:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block{
-    
-    [FMDBHelper databaseChildThreadInTransaction:^(FMDatabase * _Nonnull database, BOOL * _Nonnull rollback) {
-        // 查询会返回一个结果集
-        FMResultSet *resultSet = [database executeQuery:@"SELECT * FROM OrderTable"];
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        while ([resultSet next]){
-            OrderInfoModel *model = [OrderInfoModel modelFromeResult:resultSet];
-            [array addObject:model];
-        }
-        [resultSet close];
-        dispatch_async(dispatch_get_main_queue(), ^{
-             block(array);
-         });
-    }];
-}
-
 ///获取所有持仓数据
-+ (void)getAllPositions:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block{
++ (void)getModelsWithType:(OrderType)type handler:(void(^)(NSMutableArray<OrderInfoModel *> *modelsArray))block{
     [FMDBHelper databaseChildThreadInTransaction:^(FMDatabase * _Nonnull database, BOOL * _Nonnull rollback) {
         // 查询会返回一个结果集
         FMResultSet *resultSet = [database executeQuery:@"SELECT * FROM OrderTable"];
         NSMutableArray *array = [[NSMutableArray alloc] init];
         while ([resultSet next]){
             OrderInfoModel *model = [OrderInfoModel modelFromeResult:resultSet];
-            [array addObject:model];
+            
+            if (type == OrderTypeAll) {
+                [array addObject:model];
+            }else if (type == OrderTypePosition){
+                if (model.sellPrice > 0 &&
+                    model.sellTime.length > 1) {
+                }else{
+                    [array addObject:model];
+                }
+            }else if (type == OrderTypeClosePosition){
+                if (model.sellPrice > 0 &&
+                    model.sellTime.length > 1) {
+                    [array addObject:model];
+                }
+            }
         }
         [resultSet close];
         dispatch_async(dispatch_get_main_queue(), ^{
