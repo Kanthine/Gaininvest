@@ -73,10 +73,9 @@
     
     Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
     
-    if(self.MainViewType == Y_StockChartcenterViewTypeKline){
+    if(self.MainViewType == Y_StockChartcenterViewTypeKline){//K线
         Y_KLine *kLine = [[Y_KLine alloc]initWithContext:context];
         kLine.maxY = Y_StockChartKLineMainViewMaxY;
-
         [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull kLinePositionModel, NSUInteger idx, BOOL * _Nonnull stop) {
             kLine.kLinePositionModel = kLinePositionModel;
             kLine.kLineModel = self.needDrawKLineModels[idx];

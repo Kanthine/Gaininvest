@@ -108,14 +108,10 @@
     CGContextMoveToPoint(ctx, _firstPoint.x, _firstPoint.y);//开始画线, x，y 为开始点的坐标
     
     __block CGPoint lastPoint = CGPointZero;
-    [_dataArray enumerateObjectsUsingBlock:^(TimeLineModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-    {
-        if (idx > 0)
-        {
+    [_dataArray enumerateObjectsUsingBlock:^(TimeLineModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
+        if (idx > 0){
             CGContextAddCurveToPoint(ctx, (obj.modelPoint.x + lastPoint.x) / 2.0 , lastPoint.y, (obj.modelPoint.x + lastPoint.x) / 2.0, obj.modelPoint.y, obj.modelPoint.x, obj.modelPoint.y);
-        }
-        else
-        {
+        }else{
             CGContextAddLineToPoint(ctx, obj.modelPoint.x, obj.modelPoint.y);
         }
         
